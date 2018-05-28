@@ -9,7 +9,7 @@
                   maxEntriesLocalDisk="100000" />
 
     <cache name="CACHE_USER_ACCOUNT"
-           maxEntriesLocalHeap="10000"
+           maxEntriesLocalHeap="9999"
            overflowToDisk="false"
            eternal="false"
            diskPersistent="false"

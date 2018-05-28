@@ -10,14 +10,14 @@ import org.springframework.core.io.ClassPathResource;
 /**
  * Created by 2fx0one on 28/5/2018.
  */
-//@Configuration
-// 标注启动了缓存
+@Configuration
 @EnableCaching
 public class CacheConfig {
     /*
      * ehcache 主要的管理器
      */
     @Bean(name = "ehCacheCacheManager")
+//    @Bean
     public EhCacheCacheManager ehCacheCacheManager(EhCacheManagerFactoryBean bean){
         System.out.println("==============  Initializing EhCache CacheManager ==============");
         return new EhCacheCacheManager (bean.getObject ());

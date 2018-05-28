@@ -1,0 +1,11 @@
+package com.tfx0one.web.service;
+
+import com.tfx0one.common.util.BaseService;
+import com.tfx0one.web.model.UserAccount;
+
+/**
+ * Created by 2fx0one on 28/5/2018.
+ */
+public class UserAccountService extends BaseService<UserAccount> {
+
+}

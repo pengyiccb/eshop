@@ -4,7 +4,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "system_user")
-public class systemUser {
+public class SystemUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -2,42 +2,43 @@ package com.tfx0one.web.model;
 
 import javax.persistence.*;
 
-@Table(name = "system_category")
-public class systemCategory {
+@Table(name = "toggery_goods_kinds")
+public class ToggeryGoodsKinds {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short id;
+    private Integer id;
 
-    private Short type;
+    @Column(name = "kinds_id")
+    private Integer kindsId;
 
     private String name;
 
     /**
      * @return id
      */
-    public Short getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Short id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * @return type
+     * @return kinds_id
      */
-    public Short getType() {
-        return type;
+    public Integer getKindsId() {
+        return kindsId;
     }
 
     /**
-     * @param type
+     * @param kindsId
      */
-    public void setType(Short type) {
-        this.type = type;
+    public void setKindsId(Integer kindsId) {
+        this.kindsId = kindsId;
     }
 
     /**

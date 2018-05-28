@@ -3,7 +3,7 @@ package com.tfx0one.web.model;
 import javax.persistence.*;
 
 @Table(name = "user_account")
-public class userAccount {
+public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

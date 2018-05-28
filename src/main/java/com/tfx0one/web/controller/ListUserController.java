@@ -1,6 +1,5 @@
 package com.tfx0one.web.controller;
 
-import com.tfx0one.web.service.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tfx0one.web.mapper.toggeryGoodsKindsMapper">
-  <resultMap id="BaseResultMap" type="com.tfx0one.web.model.toggeryGoodsKinds">
+<mapper namespace="com.tfx0one.web.mapper.ToggeryGoodsKindsMapper">
+  <resultMap id="BaseResultMap" type="com.tfx0one.web.model.ToggeryGoodsKinds">
     <!--
       WARNING - @mbg.generated
     -->

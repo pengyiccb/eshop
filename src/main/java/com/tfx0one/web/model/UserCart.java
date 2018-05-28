@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import javax.persistence.*;
 
 @Table(name = "user_cart")
-public class userCart {
+public class UserCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

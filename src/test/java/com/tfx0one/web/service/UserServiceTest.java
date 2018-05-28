@@ -16,12 +16,12 @@ import java.util.List;
 public class UserServiceTest {
 
     @Autowired
-    private UserService userService;
+//    private UserService userService;
 
     @Test
     public void getUserList() {
-        List<User> list = userService.select(null);
-        System.out.println(list);
+//        List<User> list = userService.select(null);
+//        System.out.println(list);
     }
 
 }

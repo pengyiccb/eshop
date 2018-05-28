@@ -20,6 +20,8 @@ public class CacheUtils {
 //    @Autowired
 //    private static CacheManager cacheManager;
 //    private static CacheManager cacheManager = SpringContextHolder.getBean(CacheManager.class);
+
+    //必须用 CacheConfig.class 名字。否则  java.lang.ClassCastException: java.util.LinkedHashMap cannot be cast to org.springframework.cache.ehcache.EhCacheCacheManager
     private static EhCacheCacheManager ehCacheCacheManager = SpringContextHolder.getBean("ehCacheCacheManager");
 
     public static Ehcache getEhcache(String cacheName){
@@ -45,7 +47,7 @@ public class CacheUtils {
     }
 //
 //
-//    //=============spring的缓存管理对象======================
+//    //=============spring包装的缓存管理对象======================
 ////    //通过spring得到缓存管理对象
     public static Cache getCache(String cacheName) {
         return ehCacheCacheManager.getCache(cacheName);
@@ -56,20 +58,8 @@ public class CacheUtils {
             getCache(cacheName).put(key, value);
         }
     }
-//
-//
-//
-//    /**
-//     *
-//     * @Title: get
-//     * @Description: 得到缓存中的信息
-//     * @param @param cacheName
-//     * @param @param key
-//     * @param @return
-//     * @return T
-//     * @throws
-//     */
-//    @SuppressWarnings("unchecked")
+
+    @SuppressWarnings("unchecked")
     public static <T> T get(String cacheName, String key) {
         T value = null;
         if (!StringUtils.isEmpty(key)) {

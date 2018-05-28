@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tfx0one.web.mapper.userCartMapper">
+  <resultMap id="BaseResultMap" type="com.tfx0one.web.model.userCart">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="kinds_id" jdbcType="INTEGER" property="kindsId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="user_account" jdbcType="INTEGER" property="userAccount" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="discount_price" jdbcType="DECIMAL" property="discountPrice" />
+    <result column="goods_thumb" jdbcType="VARCHAR" property="goodsThumb" />
+    <result column="goods_color" jdbcType="VARCHAR" property="goodsColor" />
+    <result column="goods_size" jdbcType="DECIMAL" property="goodsSize" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="is_new" jdbcType="BIT" property="isNew" />
+    <result column="is_hot" jdbcType="BIT" property="isHot" />
+    <result column="good_id" jdbcType="INTEGER" property="goodId" />
+    <result column="system_type" jdbcType="INTEGER" property="systemType" />
+  </resultMap>
+</mapper>

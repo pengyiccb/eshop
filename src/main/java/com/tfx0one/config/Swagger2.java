@@ -33,7 +33,7 @@ public class Swagger2 {
                 .title("Spring Boot中使用Swagger2构建RESTful APIs")
                 .description("kelvin")
                 .termsOfServiceUrl("2fx0one")
-                .contact("2fx0one")
+//                .contact("2fx0one")
                 .version("1.0")
                 .build();
     }

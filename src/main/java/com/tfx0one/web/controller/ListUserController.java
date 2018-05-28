@@ -1,7 +1,5 @@
 package com.tfx0one.web.controller;
 
-import com.tfx0one.common.util.AjaxObject;
-import com.tfx0one.web.model.User;
 import com.tfx0one.web.service.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

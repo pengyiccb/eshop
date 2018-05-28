@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tfx0one.web.mapper.toggeryGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.tfx0one.web.model.toggeryGoods">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="system_user_id" jdbcType="INTEGER" property="systemUserId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="toggery_kinds_id" jdbcType="INTEGER" property="toggeryKindsId" />
+    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="discount_price" jdbcType="DECIMAL" property="discountPrice" />
+    <result column="freight" jdbcType="DECIMAL" property="freight" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="click_count" jdbcType="INTEGER" property="clickCount" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+    <result column="promote_start_date" jdbcType="INTEGER" property="promoteStartDate" />
+    <result column="promote_end_date" jdbcType="INTEGER" property="promoteEndDate" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="goods_brief" jdbcType="VARCHAR" property="goodsBrief" />
+    <result column="goods_sn" jdbcType="VARCHAR" property="goodsSn" />
+    <result column="is_new" jdbcType="BIT" property="isNew" />
+    <result column="is_hot" jdbcType="BIT" property="isHot" />
+    <result column="add_time" jdbcType="INTEGER" property="addTime" />
+    <result column="update_time" jdbcType="INTEGER" property="updateTime" />
+    <result column="can_use_coupon" jdbcType="BIT" property="canUseCoupon" />
+    <result column="goods_thumb" jdbcType="VARCHAR" property="goodsThumb" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="goods_desc" jdbcType="LONGVARCHAR" property="goodsDesc" />
+  </resultMap>
+</mapper>

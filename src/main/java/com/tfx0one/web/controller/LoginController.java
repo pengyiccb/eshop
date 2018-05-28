@@ -11,15 +11,15 @@ import java.util.Date;
 public class LoginController {
 
     @Autowired
-    private UserService userService;
+//    private UserService userService;
 
     @RequestMapping(value="/index", method = RequestMethod.GET)
     public String index() {
-        User user = new User();
-        user.setName("aaaa");
-        user.setPassword("bbbb");
-        user.setCreateTime(new Date());
-        userService.save(user);
+//        User user = new User();
+//        user.setName("aaaa");
+//        user.setPassword("bbbb");
+//        user.setCreateTime(new Date());
+//        userService.save(user);
         return "main";
     }
 

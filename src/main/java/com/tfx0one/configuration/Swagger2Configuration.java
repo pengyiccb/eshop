@@ -1,4 +1,4 @@
-package com.tfx0one.config;
+package com.tfx0one.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-public class Swagger2 {
+public class Swagger2Configuration {
 
 //   访问可以查看api http://localhost:8080/swagger-ui.html
     @Bean

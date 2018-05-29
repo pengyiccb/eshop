@@ -13,8 +13,8 @@ import org.springframework.util.StringUtils;
  * Created by 2fx0one on 28/5/2018.
  * TODE 需要重写缓存配置
  */
-//@Component
-public class CacheUtils {
+@Component
+public class EhCacheUtils {
 
 
 //    @Autowired
@@ -22,9 +22,10 @@ public class CacheUtils {
 //    private static CacheManager cacheManager = SpringContextHolder.getBean(CacheManager.class);
 
     //必须用 CacheConfig.class 名字。否则  java.lang.ClassCastException: java.util.LinkedHashMap cannot be cast to org.springframework.cache.ehcache.EhCacheCacheManager
-    private static EhCacheCacheManager ehCacheCacheManager = SpringContextHolder.getBean("ehCacheCacheManager");
+    @Autowired
+    private EhCacheCacheManager ehCacheCacheManager;// = SpringContextHolder.getBean("ehCacheCacheManager");
 
-    public static Ehcache getEhcache(String cacheName){
+    public Ehcache getEhcache(String cacheName){
         if (ehCacheCacheManager == null) {
             throw new NullPointerException("CacheManager == null");
         }
@@ -33,50 +34,61 @@ public class CacheUtils {
     }
 //
     //带时间 用ehcache
-    public static <T> void put(String cacheName, String key, T value, int timeToIdleSeconds){
-//        Ehcache cache = getEhcache(cacheName);
+    public <T> void put(String cacheName, String key, T value, int timeToIdleSeconds){
         Element element = new Element(key, value);
         element.setTimeToIdle(timeToIdleSeconds);
-        getEhcache(cacheName).put(element);
+        this.getEhcache(cacheName).put(element);
     }
 
+    public <T> void put(String cacheName, String key, T value){
+        this.getEhcache(cacheName).put(new Element(key, value));
+    }
 
-    public static boolean remove(String cacheName,String key){
-//        Ehcache cache = getEhcache(cacheName);
+    public <T> T get(String cacheName, String key) {
+        if (!StringUtils.isEmpty(key)) {
+            Element e = getEhcache(cacheName).get(key);
+            if (e != null) {
+                return (T)e.getObjectValue();
+            }
+        }
+        return null;
+    }
+
+    public boolean remove(String cacheName,String key){
         return getEhcache(cacheName).remove(key);
     }
 //
 //
 //    //=============spring包装的缓存管理对象======================
 ////    //通过spring得到缓存管理对象
-    public static Cache getCache(String cacheName) {
+    public Cache getCache(String cacheName) {
         return ehCacheCacheManager.getCache(cacheName);
     }
+//
+//    public <T> void put(String cacheName,String key,T value) {
+//        if (!StringUtils.isEmpty(key)) {
+//            getCache(cacheName).put(key, value);
+//        }
+//    }
 
-    public static <T> void put(String cacheName,String key,T value) {
-        if (!StringUtils.isEmpty(key)) {
-            getCache(cacheName).put(key, value);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> T get(String cacheName, String key) {
-        T value = null;
-        if (!StringUtils.isEmpty(key)) {
-            Cache.ValueWrapper val = getCache(cacheName).get(key);
-            if (val != null) {
-                value = (T) val.get();
-            }
-        }
-        return value;
-    }
+//    @SuppressWarnings("unchecked")
+//    public <T> T get(String cacheName, String key) {
+//        T value = null;
+//        if (!StringUtils.isEmpty(key)) {
+//            Cache.ValueWrapper val = getCache(cacheName).get(key);
+//            if (val != null) {
+//                value = (T) val.get();
+//            }
+//        }
+//        return value;
+//    }
 //
 //
 //    /**
 //     * 清空某一个缓存，全部清除
 //     * @param cacheName
 //     */
-    public static void clear(String cacheName){
+    public void clear(String cacheName){
         if (getCache(cacheName) != null) {
             getCache(cacheName).clear();
         }
@@ -86,12 +98,8 @@ public class CacheUtils {
 //    /**
 //     *
 //     * @Description: 删除缓存中的信息
-//     * @param @param cacheName
-//     * @param @param key
-//     * @return void
-//     * @throws
 //     */
-    public static void evict(String cacheName,String key) {
+    public void evict(String cacheName,String key) {
         if (!StringUtils.isEmpty(key)) {
             getCache(cacheName).evict(key);
         }

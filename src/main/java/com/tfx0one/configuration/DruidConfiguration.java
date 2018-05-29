@@ -1,4 +1,4 @@
-package com.tfx0one.config;
+package com.tfx0one.configuration;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.slf4j.Logger;
@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 
 @Configuration
-public class DruidConfig {
-    private Logger logger = LoggerFactory.getLogger(DruidConfig.class);
+public class DruidConfiguration {
+    private Logger logger = LoggerFactory.getLogger(DruidConfiguration.class);
 
     @Primary
     @Bean

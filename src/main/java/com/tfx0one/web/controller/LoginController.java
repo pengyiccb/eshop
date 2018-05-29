@@ -11,8 +11,6 @@ import java.util.Date;
 @Controller
 public class LoginController {
 
-    @Autowired
-    CacheManager cacheManager;
 
     @Autowired
 //    private UserService userService;

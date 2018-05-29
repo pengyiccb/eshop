@@ -8,6 +8,17 @@
                   timeToIdleSeconds="300" timeToLiveSeconds="600" overflowToDisk="true"
                   maxEntriesLocalDisk="100000" />
 
+
+    <cache name="CACHE_DEMO"
+           maxEntriesLocalHeap="9999"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+
+
     <cache name="CACHE_USER_ACCOUNT"
            maxEntriesLocalHeap="9999"
            overflowToDisk="false"

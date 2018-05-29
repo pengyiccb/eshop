@@ -1,18 +1,15 @@
 package com.tfx0one.web.service;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.common.constant.CacheConstant;
-import com.tfx0one.common.util.CacheUtils;
+import com.tfx0one.common.util.EhCacheUtils;
 import com.tfx0one.common.util.HttpUtils;
-import com.tfx0one.config.WechatConfig;
+import com.tfx0one.common.util.RedisUtils;
+import com.tfx0one.configuration.WechatConfiguration;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import sun.misc.Cache;
-
-import java.util.Map;
 
 /**
  * Created by 2fx0one on 28/5/2018.
@@ -21,15 +18,21 @@ import java.util.Map;
 public class WeChatService {
 
     @Autowired
-    private WechatConfig wechatConfig;
+    private WechatConfiguration wechatConfiguration;
+
+    @Autowired
+    private EhCacheUtils ehCacheUtils;
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     public JSONObject jscode2session(String code) {
         StringBuffer sb = new StringBuffer();
-        sb.append("appid=").append(wechatConfig.getAppId());
-        sb.append("&secret=").append(wechatConfig.getSecret());
+        sb.append("appid=").append(wechatConfiguration.getAppId());
+        sb.append("&secret=").append(wechatConfiguration.getSecret());
         sb.append("&js_code=").append(code);
-        sb.append("&grant_type=").append(wechatConfig.getGrantType());
-        String res = HttpUtils.get(wechatConfig.getJscode2session() + "?" + sb.toString());
+        sb.append("&grant_type=").append(wechatConfiguration.getGrantType());
+        String res = HttpUtils.get(wechatConfiguration.getJscode2session() + "?" + sb.toString());
         if (StringUtils.isEmpty(res)) {
             return null;
         }
@@ -54,8 +57,11 @@ public class WeChatService {
         StringBuffer sb = new StringBuffer();
         sb.append(wxSessionKey).append("#").append(wxOpenId);
 
-        CacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, thirdSessionKey, sb.toString(), expires);
-//        redisUtil.add(thirdSessionKey, expires, sb.toString());
+        ehCacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, thirdSessionKey, sb.toString(), expires);
+//        ValueOperations operations = stringRedisTemplate.opsForValue();
+//        operations.set(thirdSessionKey, sb.toString(), expires, TimeUnit.SECONDS);
+        redisUtils.set(thirdSessionKey, (long)expires, sb.toString());
+//        RedisUtils.add(thirdSessionKey, (long)expires, sb.toString());
         return thirdSessionKey;
     }
 }

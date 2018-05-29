@@ -1,10 +1,11 @@
-package com.tfx0one.config;
+package com.tfx0one.configuration;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 
 /**
@@ -12,11 +13,12 @@ import org.springframework.core.io.ClassPathResource;
  */
 @Configuration
 @EnableCaching
-public class CacheConfig {
+public class EhCacheConfiguration {
     /*
      * ehcache 主要的管理器
      */
     @Bean(name = "ehCacheCacheManager")
+    @Primary
     public EhCacheCacheManager ehCacheCacheManager(EhCacheManagerFactoryBean bean){
         System.out.println("==============  Initializing EhCache CacheManager ==============");
         return new EhCacheCacheManager (bean.getObject ());

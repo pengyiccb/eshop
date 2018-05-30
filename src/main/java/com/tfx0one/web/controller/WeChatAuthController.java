@@ -55,7 +55,7 @@ public class WeChatAuthController {
     }
 
     @RequestMapping(value = "/api/v1/wechat/checkSession", method = RequestMethod.GET)
-    public AjaxObject checkSession(@RequestParam String sessionKey) {
+    public AjaxObject checkSession(@RequestParam String serverSessionKey) {
 
         return AjaxObject.ok("checkOk");
 

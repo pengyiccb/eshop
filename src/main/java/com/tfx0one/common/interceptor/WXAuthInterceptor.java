@@ -7,6 +7,7 @@ package com.tfx0one.common.interceptor;
 import com.tfx0one.common.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
+@Component
 public class WXAuthInterceptor implements HandlerInterceptor {
 
     @Autowired
@@ -36,20 +38,20 @@ public class WXAuthInterceptor implements HandlerInterceptor {
         paramStr = paramStr.substring(0, paramStr.length() - 1);
 
 //        String ctx = request.getContextPath();
-        System.out.println(paramStr);
+        System.out.println("===WXAuthInterceptor===  " + paramStr);
 //        String user = (String)request.getSession().getAttribute("user");
 //        if (null == user) {
 //            response.sendRedirect( ctx+"/login");
 //            return false;
 //        }
-        String wxSessionKey = request.getParameter("sessionKey");
-        if (StringUtils.isEmpty(wxSessionKey)) {
+        String serverSessionKey = request.getParameter("serverSessionKey");
+        if (StringUtils.isEmpty(serverSessionKey)) {
             errorStrWriteToResponse(response, -1, "unauthorized required, No SessionKey!");
             return false;
         }
 
-        //不为空，检查是否过期
-        if( null == redisUtils.get(wxSessionKey)) {
+        //不为空，检查redis中是否过期
+        if( null == redisUtils.get(serverSessionKey)) {
             errorStrWriteToResponse(response, -1, "unauthorized required, SessionKey expired!");
             return false;
         }

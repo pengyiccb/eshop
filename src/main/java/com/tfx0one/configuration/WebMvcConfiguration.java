@@ -6,6 +6,7 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.tfx0one.common.interceptor.AuthInterceptor;
 import com.tfx0one.common.interceptor.WXAuthInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -20,6 +21,13 @@ import java.util.List;
 //TODO 先关了
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
+
+    //关键，将拦截器作为bean写入配置中
+    @Bean
+    public WXAuthInterceptor getWXAuthInterceptor(){
+        return new WXAuthInterceptor();
+    }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
@@ -27,9 +35,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new WXAuthInterceptor())
+        registry.addInterceptor(getWXAuthInterceptor())
                 .addPathPatterns("/api/v1/wechat/**")
-                .excludePathPatterns("/api/v1/wechat/createSession");
+                .excludePathPatterns(
+                        "/api/v1/wechat/createSession" //连接到服务器
+//                        "/api/v1/wechat/product" //商品和商品详情
+                );
 //        registry.addInterceptor(new AuthInterceptor())
 //                .addPathPatterns("/**")
 //                .excludePathPatterns(

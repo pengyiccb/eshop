@@ -17,7 +17,7 @@ public class AjaxObject extends HashMap<String, Object> {
     private static final long serialVersionUID = 1L;
 
     public AjaxObject() {
-        put("code", 0);
+        super.put("code", 0);
     }
 
     public static AjaxObject error() {

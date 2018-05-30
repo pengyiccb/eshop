@@ -12,6 +12,4 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserAccountService extends BaseService<UserAccount> {
 
-
-
 }

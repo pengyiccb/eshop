@@ -7,6 +7,8 @@ import com.tfx0one.common.util.HttpUtils;
 import com.tfx0one.common.util.RedisUtils;
 import com.tfx0one.configuration.WechatConfiguration;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -16,6 +18,8 @@ import org.springframework.util.StringUtils;
  */
 @Service
 public class WeChatService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private WechatConfiguration wechatConfiguration;
@@ -38,7 +42,8 @@ public class WeChatService {
         }
 
         JSONObject json = JSONObject.parseObject(res);
-        System.out.print(json);
+        logger.info(json.toString());
+//        System.out.println(json);
         return json;
 
 //        return JSONObject.parse(res);
@@ -52,16 +57,16 @@ public class WeChatService {
      * @param expires		会话有效期, 以秒为单位, 例如2592000代表会话有效期为30天
      * @return
      */
-    public String create3rdSession(String wxOpenId, String wxSessionKey, Integer expires){
-        String thirdSessionKey = RandomStringUtils.randomAlphanumeric(64);
+    public String create3rdSession(String wxOpenId, String wxSessionKey, int expires){
+        String serverSessionKey = RandomStringUtils.randomAlphanumeric(64);
         StringBuffer sb = new StringBuffer();
         sb.append(wxSessionKey).append("#").append(wxOpenId);
 
-        ehCacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, thirdSessionKey, sb.toString(), expires);
+        ehCacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, serverSessionKey, sb.toString(), expires);
 //        ValueOperations operations = stringRedisTemplate.opsForValue();
-//        operations.set(thirdSessionKey, sb.toString(), expires, TimeUnit.SECONDS);
-        redisUtils.set(thirdSessionKey, (long)expires, sb.toString());
-//        RedisUtils.add(thirdSessionKey, (long)expires, sb.toString());
-        return thirdSessionKey;
+//        operations.set(serverSessionKey, sb.toString(), expires, TimeUnit.SECONDS);
+        redisUtils.set(serverSessionKey, (long)expires, sb.toString());
+//        RedisUtils.add(serverSessionKey, (long)expires, sb.toString());
+        return serverSessionKey;
     }
 }

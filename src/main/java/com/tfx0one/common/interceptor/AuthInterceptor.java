@@ -10,18 +10,21 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
+import java.util.Map.*;
 
 public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //TODO session登录标记
-        String ctx = request.getContextPath();
-        String user = (String)request.getSession().getAttribute("user");
-        if (null == user) {
-            response.sendRedirect( ctx+"/login");
-            return false;
-        }
+//        String ctx = request.getContextPath();
+//        System.out.println(request.getRequestURL());
+//        String user = (String)request.getSession().getAttribute("user");
+//        if (null == user) {
+//            response.sendRedirect( ctx+"/login");
+//            return false;
+//        }
         return true;
     }
 

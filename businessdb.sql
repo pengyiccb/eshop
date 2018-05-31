@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.22, for osx10.13 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.22, for osx10.12 (x86_64)
 --
 -- Host: localhost    Database: businessdb
 -- ------------------------------------------------------
@@ -14,14 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Current Database: `businessdb`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `businessdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
-USE `businessdb`;
 
 --
 -- Table structure for table `demo`
@@ -61,7 +53,7 @@ CREATE TABLE `system_category` (
   `type` smallint(5) NOT NULL,
   `name` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,6 +62,7 @@ CREATE TABLE `system_category` (
 
 LOCK TABLES `system_category` WRITE;
 /*!40000 ALTER TABLE `system_category` DISABLE KEYS */;
+INSERT INTO `system_category` VALUES (1,1,'服装');
 /*!40000 ALTER TABLE `system_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,8 +86,10 @@ CREATE TABLE `system_user` (
   `card_id` varchar(20) NOT NULL,
   `business_registration_no` varchar(20) NOT NULL,
   `status` tinyint(1) NOT NULL,
+  `app_secret` varchar(200) NOT NULL,
+  `nick_name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,6 +98,7 @@ CREATE TABLE `system_user` (
 
 LOCK TABLES `system_user` WRITE;
 /*!40000 ALTER TABLE `system_user` DISABLE KEYS */;
+INSERT INTO `system_user` VALUES (1,1,'wxdda83d03c2d1521c','张三小店','2018-05-31 09:03:27','江西省南昌市万达广场3A写字楼','15579166875',NULL,NULL,'360124198900000000','130100600095237',0,'fad3978bb8d6aed7a341feb506b5f6e5','张三');
 /*!40000 ALTER TABLE `system_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +135,7 @@ CREATE TABLE `toggery_goods` (
   `goods_thumb` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,6 +144,7 @@ CREATE TABLE `toggery_goods` (
 
 LOCK TABLES `toggery_goods` WRITE;
 /*!40000 ALTER TABLE `toggery_goods` DISABLE KEYS */;
+INSERT INTO `toggery_goods` VALUES (1,1,'商品1',100,4,200.00,200.00,10.00,'最新商品1',0,0.010,-1,-1,'服装,商品1','商品1简介','商品1详情','商品1序列号',1,1,0,0,0,'http://p913k4x4g.bkt.clouddn.com/product1.jpg',0),(2,1,'商品2',990,4,3000.00,3000.00,10.00,'最新商品2',0,2.000,-1,-1,'服装,商品2','商品2简介','商品2详情','商品2序列号',1,1,0,0,0,'http://p913k4x4g.bkt.clouddn.com/product2.jpg',0),(3,1,'商品3',1000,4,10000.00,10000.00,10.00,'最新商品3',0,20.250,-1,-1,'服装,商品3','商品3简介','商品3详情','商品3序列号',1,1,0,0,0,'http://p913k4x4g.bkt.clouddn.com/product3.jpg',0),(4,1,'商品4',55,4,360.00,360.00,10.00,'最新商品4',0,25.250,-1,-1,'服装,商品4','商品4简介','商品4详情','商品4序列号',1,1,0,0,0,'http://p913k4x4g.bkt.clouddn.com/product4.jpg',0),(5,1,'商品5',18888,4,780.00,780.00,10.00,'最新商品5',0,33.000,-1,-1,'服装,商品5','商品5简介','商品5详情','商品5序列号',1,1,0,0,0,'http://p913k4x4g.bkt.clouddn.com/product5.jpg',0);
 /*!40000 ALTER TABLE `toggery_goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,8 +159,9 @@ CREATE TABLE `toggery_goods_kinds` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `kinds_id` mediumint(8) NOT NULL,
   `name` varchar(50) NOT NULL,
+  `category_type` smallint(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,6 +170,7 @@ CREATE TABLE `toggery_goods_kinds` (
 
 LOCK TABLES `toggery_goods_kinds` WRITE;
 /*!40000 ALTER TABLE `toggery_goods_kinds` DISABLE KEYS */;
+INSERT INTO `toggery_goods_kinds` VALUES (1,1,'上衣',1),(2,2,'裤子',1),(3,3,'鞋子',1),(4,4,'其他',1);
 /*!40000 ALTER TABLE `toggery_goods_kinds` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,4 +302,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-29 16:51:37
+-- Dump completed on 2018-05-31 17:52:29

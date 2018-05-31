@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.common.util.AjaxObject;
 import com.tfx0one.web.service.WeChatService;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +29,16 @@ public class WeChatAuthController {
      * @param code	小程序登录时获取的code
      * @return
      */
-    @ApiOperation(value = "获取sessionId", notes = "小用户允许登录后，使用code 换取 session_key api，将 code 换成 openid 和 session_key")
-    @ApiImplicitParam(name = "code", value = "用户登录回调内容会带上 ", required = true, dataType = "String")
+    @ApiOperation(value = "登录到服务器 获取 获取 sessionKey", notes = "用户登录后， 返回一个 session_key")
+//    @ApiImplicitParams( {
+//        @ApiImplicitParam(name = "code", value = "通过 wx.login 获取的code "),
+//        @ApiImplicitParam(name = "appId", value = "有效的小程序AppId ")
+//
+//    })
     @RequestMapping(value = "/api/v1/wechat/createSession", method = RequestMethod.GET)
-    public AjaxObject createSession(@RequestParam(value = "code")String code){
-        JSONObject wxSession = weChatService.jscode2session(code);
+    public AjaxObject createSession(@RequestParam String code, @RequestParam String appId){
+        System.out.println(" appId=" + appId + " " + code);
+        JSONObject wxSession = weChatService.jscode2session(appId, code);
 
         if (null == wxSession) {
             return AjaxObject.error(-1, "授权失败！wxSession为空");

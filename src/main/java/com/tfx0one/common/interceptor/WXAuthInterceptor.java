@@ -44,15 +44,11 @@ public class WXAuthInterceptor implements HandlerInterceptor {
 //            response.sendRedirect( ctx+"/login");
 //            return false;
 //        }
-        String serverSessionKey = request.getParameter("serverSessionKey");
-        if (StringUtils.isEmpty(serverSessionKey)) {
-            errorStrWriteToResponse(response, -1, "unauthorized required, No SessionKey!");
-            return false;
-        }
 
-        //不为空，检查redis中是否过期
-        if( null == redisUtils.get(serverSessionKey)) {
-            errorStrWriteToResponse(response, -1, "unauthorized required, SessionKey expired!");
+        //serverSessionKey为空 || 不为空，检查redis中是否过期
+        String serverSessionKey = request.getParameter("serverSessionKey");
+        if (StringUtils.isEmpty(serverSessionKey) || redisUtils.get(serverSessionKey)==null) {
+            errorStrWriteToResponse(response, 401, "unauthorized required, No SessionKey!");
             return false;
         }
 
@@ -60,7 +56,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
     }
 
     private void errorStrWriteToResponse(HttpServletResponse response, int code, String errorCode) throws Exception{
-        String errStr = "{\"code\":" + errorCode + ",\"msg\":\"" + errorCode + "\"}";
+        String errStr = "{\"code\":" + code + ",\"msg\":\"" + errorCode + "\"}";
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().println(errStr);

@@ -5,11 +5,9 @@ import com.tfx0one.web.model.DemoModel;
 import com.tfx0one.web.model.UserAccount;
 import com.tfx0one.web.service.DemoService;
 import com.tfx0one.web.service.UserAccountService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +20,7 @@ public class DemoController {
     @Autowired
     private DemoService demoService;
 
+    @ApiOperation(value = "测试用的", notes = "测试接口")
     @RequestMapping(value="/demo/list", method = RequestMethod.GET)
     public AjaxObject list() {
 
@@ -29,6 +28,12 @@ public class DemoController {
 
         return AjaxObject.ok().data(l);
     }
+
+    @RequestMapping(value="/demo/post", method = RequestMethod.POST)
+    public AjaxObject post(@RequestBody DemoModel demo) {
+        return AjaxObject.ok().data(demo);
+    }
+
 
 
 

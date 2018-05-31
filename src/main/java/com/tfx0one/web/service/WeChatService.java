@@ -30,9 +30,9 @@ public class WeChatService {
     @Autowired
     private RedisUtils redisUtils;
 
-    public JSONObject jscode2session(String code) {
+    public JSONObject jscode2session(String appId, String code) {
         StringBuffer sb = new StringBuffer();
-        sb.append("appid=").append(wechatConfiguration.getAppId());
+        sb.append("appid=").append(appId);
         sb.append("&secret=").append(wechatConfiguration.getSecret());
         sb.append("&js_code=").append(code);
         sb.append("&grant_type=").append(wechatConfiguration.getGrantType());

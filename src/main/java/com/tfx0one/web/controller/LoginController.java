@@ -12,28 +12,28 @@ import java.util.Date;
 public class LoginController {
 
 
-    @Autowired
+//    @Autowired
 //    private UserService userService;
 
-    @RequestMapping(value="/index", method = RequestMethod.GET)
-    public String index() {
-//        User user = new User();
-//        user.setName("aaaa");
-//        user.setPassword("bbbb");
-//        user.setCreateTime(new Date());
-//        userService.save(user);
-        return "main";
-    }
-
-    @RequestMapping(value="/login", method = RequestMethod.GET)
-    public String loginPage() {
-        System.out.println("loginPage()");
-        return "login";
-    }
-
-    @RequestMapping(value="/login", method = RequestMethod.POST)
-    public String login() {
-        System.out.println("login()");
-        return "main";
-    }
+//    @RequestMapping(value="/index", method = RequestMethod.GET)
+//    public String index() {
+////        User user = new User();
+////        user.setName("aaaa");
+////        user.setPassword("bbbb");
+////        user.setCreateTime(new Date());
+////        userService.save(user);
+//        return "main";
+//    }
+//
+//    @RequestMapping(value="/login", method = RequestMethod.GET)
+//    public String loginPage() {
+//        System.out.println("loginPage()");
+//        return "login";
+//    }
+//
+//    @RequestMapping(value="/login", method = RequestMethod.POST)
+//    public String login() {
+//        System.out.println("login()");
+//        return "main";
+//    }
 }

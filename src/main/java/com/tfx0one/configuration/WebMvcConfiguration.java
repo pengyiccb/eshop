@@ -18,7 +18,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO 先关了
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
@@ -38,8 +37,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(getWXAuthInterceptor())
                 .addPathPatterns("/api/v1/wechat/**")
                 .excludePathPatterns(
-                        "/api/v1/wechat/createSession" //连接到服务器
-//                        "/api/v1/wechat/product" //商品和商品详情
+                        "/api/v1/wechat/createSession", //连接到服务器
+                        "/api/v1/wechat/productList" //商品和商品详情
                 );
 //        registry.addInterceptor(new AuthInterceptor())
 //                .addPathPatterns("/**")

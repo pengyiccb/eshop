@@ -69,13 +69,12 @@ public class WeChatService {
      */
     public String create3rdSession(String wxOpenId, String wxSessionKey, int timeToIdleSeconds){
         String serverSessionKey = RandomStringUtils.randomAlphanumeric(64);
-        StringBuffer sb = new StringBuffer();
-        sb.append(wxSessionKey).append("#").append(wxOpenId);
 
-//        ehCacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, serverSessionKey, sb.toString(), expires);
-//        operations.set(serverSessionKey, sb.toString(), expires, TimeUnit.SECONDS);
-        redisUtils.set(serverSessionKey, sb.toString(), (long) timeToIdleSeconds);
-//        RedisUtils.add(serverSessionKey, (long)expires, sb.toString());
+        //先不使用redis缓存了
+//        StringBuffer sb = new StringBuffer();
+//        sb.append(wxSessionKey).append("#").append(wxOpenId);
+//        redisUtils.set(serverSessionKey, sb.toString(), (long) timeToIdleSeconds);
+
         return serverSessionKey;
     }
 

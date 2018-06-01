@@ -36,7 +36,8 @@ public class ProductController {
 
     @ApiOperation(value = "获取商品详情", notes = "传递商品的Id")
     @RequestMapping(value="/api/v1/wechat/productDetail", method = RequestMethod.GET)
-    public AjaxObject productDetail(@RequestParam String serverSessionKey, @RequestParam Integer productId){
-        return AjaxObject.ok().data(new ToggeryGoods());
+    public AjaxObject productDetail(@RequestParam Integer productId){
+        ToggeryGoods good = productService.selectByPrimaryKey(productId);
+        return AjaxObject.ok().data(good);
     }
 }

@@ -55,6 +55,16 @@ public class WXAuthInterceptor implements HandlerInterceptor {
 //            return false;
 //        }
 
+        //微信 wechatdevtools 开发工具使用的
+        if (true) {
+            String user_agent = request.getHeader("User-Agent");
+            System.out.println(user_agent);
+
+            String content_type = request.getHeader("content-type");
+            System.out.println(content_type);
+
+            return false;
+        }
         //这里检查的是Redis中的缓存。
         //serverSessionKey为空 || 不为空，检查redis中是否过期
         String serverSessionKey = request.getParameter("serverSessionKey");
@@ -63,7 +73,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
             return false;
         }
         if (redisUtils.get(serverSessionKey)==null) {
-            errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 请获取有效的 sessionKey");
+            errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 请使用有效的 sessionKey");
             return false;
         }
 

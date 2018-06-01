@@ -39,6 +39,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .excludePathPatterns(
                         "/api/v1/wechat/createSession", //连接到服务器
                         "/api/v1/wechat/productList", //商品和商品详情
+                        "/api/v1/wechat/productDetail", //商品和商品详情
                         "/api/v1/wechat/test" //商品和商品详情
                 );
         registry.addInterceptor(new AuthInterceptor())

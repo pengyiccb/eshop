@@ -2,8 +2,8 @@ package com.tfx0one.web.model;
 
 import javax.persistence.*;
 
-@Table(name = "system_category")
-public class SystemCategory {
+@Table(name = "vendor_category")
+public class VendorCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short id;

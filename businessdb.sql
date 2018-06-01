@@ -50,67 +50,6 @@ INSERT INTO `demo` VALUES (1,'aa',1,'2018-05-29 16:22:47'),(2,'bbbcc',2,'2018-05
 UNLOCK TABLES;
 
 --
--- Table structure for table `system_category`
---
-
-DROP TABLE IF EXISTS `system_category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `system_category` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `type` smallint(5) NOT NULL,
-  `name` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `system_category`
---
-
-LOCK TABLES `system_category` WRITE;
-/*!40000 ALTER TABLE `system_category` DISABLE KEYS */;
-INSERT INTO `system_category` VALUES (1,1,'服装');
-/*!40000 ALTER TABLE `system_category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `system_user`
---
-
-DROP TABLE IF EXISTS `system_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `system_user` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `category_type` smallint(5) NOT NULL,
-  `program_uid` varchar(200) NOT NULL,
-  `name` varchar(200) NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `address` varchar(500) NOT NULL,
-  `phone` varchar(21) NOT NULL,
-  `logo_url` varchar(200) DEFAULT NULL,
-  `custom_phone` varchar(21) DEFAULT NULL,
-  `card_id` varchar(20) NOT NULL,
-  `business_registration_no` varchar(20) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  `app_secret` varchar(200) NOT NULL,
-  `nick_name` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `system_user`
---
-
-LOCK TABLES `system_user` WRITE;
-/*!40000 ALTER TABLE `system_user` DISABLE KEYS */;
-INSERT INTO `system_user` VALUES (1,1,'wxdda83d03c2d1521c','张三小店','2018-05-31 09:03:27','江西省南昌市万达广场3A写字楼','15579166875',NULL,NULL,'360124198900000000','130100600095237',0,'fad3978bb8d6aed7a341feb506b5f6e5','张三');
-/*!40000 ALTER TABLE `system_user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `toggery_goods`
 --
 
@@ -302,6 +241,67 @@ LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `vendor_category`
+--
+
+DROP TABLE IF EXISTS `vendor_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vendor_category` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `type` smallint(5) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vendor_category`
+--
+
+LOCK TABLES `vendor_category` WRITE;
+/*!40000 ALTER TABLE `vendor_category` DISABLE KEYS */;
+INSERT INTO `vendor_category` VALUES (1,1,'服装');
+/*!40000 ALTER TABLE `vendor_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vendor_user`
+--
+
+DROP TABLE IF EXISTS `vendor_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vendor_user` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `category_type` smallint(5) NOT NULL,
+  `program_uid` varchar(200) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `address` varchar(500) NOT NULL,
+  `phone` varchar(21) NOT NULL,
+  `logo_url` varchar(200) DEFAULT NULL,
+  `custom_phone` varchar(21) DEFAULT NULL,
+  `card_id` varchar(20) NOT NULL,
+  `business_registration_no` varchar(20) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `app_secret` varchar(200) NOT NULL,
+  `nick_name` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vendor_user`
+--
+
+LOCK TABLES `vendor_user` WRITE;
+/*!40000 ALTER TABLE `vendor_user` DISABLE KEYS */;
+INSERT INTO `vendor_user` VALUES (1,1,'wxdda83d03c2d1521c','张三小店','2018-05-31 09:03:27','江西省南昌市万达广场3A写字楼','15579166875',NULL,NULL,'360124198900000000','130100600095237',0,'fad3978bb8d6aed7a341feb506b5f6e5','张三');
+/*!40000 ALTER TABLE `vendor_user` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -312,4 +312,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-01 16:44:44
+-- Dump completed on 2018-06-01 18:28:58

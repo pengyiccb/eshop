@@ -3,8 +3,8 @@ package com.tfx0one.web.model;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "system_user")
-public class SystemUser {
+@Table(name = "vendor_user")
+public class VendorUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

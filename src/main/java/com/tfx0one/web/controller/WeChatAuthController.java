@@ -100,8 +100,17 @@ public class WeChatAuthController {
 
     }
 
-    @RequestMapping(value = "/api/v1/wechat/test", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/v1/wechat/testPost", method = RequestMethod.POST)
     public AjaxObject testPOST(@RequestParam String userInfo) {
+
+        System.out.println("s = " + userInfo);
+
+        return AjaxObject.ok("checkOk");
+
+    }
+
+    @RequestMapping(value = "/api/v1/wechat/testGet", method = RequestMethod.GET)
+    public AjaxObject testGet(@RequestParam String userInfo) {
 
         System.out.println("s = " + userInfo);
 

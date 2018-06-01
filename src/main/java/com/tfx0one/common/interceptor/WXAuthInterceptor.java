@@ -71,7 +71,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
         //serverSessionKey为空 || 不为空，检查redis中是否过期
         if (null == wxUserAccountUtils.getCacheLoginUser()) {
             errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 需要有效的 serverSessionKey ");
-            return false;
+            return true;
         }
 
         //这里检查的是Redis中的缓存。 先不检查

@@ -20,4 +20,15 @@
     <result column="app_secret" jdbcType="VARCHAR" property="appSecret" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
   </resultMap>
+
+
+  <select id="selectByAppId" resultType="com.tfx0one.web.model.VendorUser">
+
+    SELECT
+      app_id, app_secret
+    FROM
+      vendor_user
+    WHERE
+      app_id = #{appId}
+  </select>
 </mapper>

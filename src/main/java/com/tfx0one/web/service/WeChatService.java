@@ -45,7 +45,7 @@ public class WeChatService {
     private RedisUtils redisUtils;
 
     public JSONObject jscode2session(String appId, String code) {
-        vendorService.select(new VendorUser().withAppId(appId));
+        VendorUser vendorUser = vendorService.selectByAppId(appId);
         StringBuffer sb = new StringBuffer();
         sb.append("appid=").append(appId);
         sb.append("&secret=").append(wechatConfiguration.getSecret());

@@ -1,2 +1,19 @@
-# springboot-learning
-SpringBoot learning
+开发手册-简洁教程
+==
+# 1. 后端开发步骤总览
+    
+    理论上来, 后端开发提供的是数据
+
+- 编写 HTML 网页，实现用户交互。 （视图层）
+- 编写 Controller，配置url路由接口。（控制层）
+- 编写 Service，实现业务逻辑。（业务层）
+- 编写 Mybatis 的 Mapper 映射器。（DAO持久层）
+
+
+
+## 1.1 Service 层编写规范。
+    Service封装了业务，也是最方便入手的一层。
+    用一个测试用例开始：
+        查询一个数据库对象，打印到控制台的测试用例开始说明。
+    
+    

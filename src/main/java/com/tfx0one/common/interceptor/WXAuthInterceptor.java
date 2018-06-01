@@ -68,17 +68,22 @@ public class WXAuthInterceptor implements HandlerInterceptor {
         String content_type2 = request.getHeader("Content-Type");
         System.out.println(content_type2);
 
-        //这里检查的是Redis中的缓存。
         //serverSessionKey为空 || 不为空，检查redis中是否过期
-        String serverSessionKey = request.getParameter("serverSessionKey");
-        if (StringUtils.isEmpty(serverSessionKey)) {
-            errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 需要 serverSessionKey ");
+        if (null == wxUserAccountUtils.getCacheLoginUser()) {
+            errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 需要有效的 serverSessionKey ");
             return false;
         }
-        if (redisUtils.get(serverSessionKey)==null) {
-            errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 请使用有效的 sessionKey");
-            return false;
-        }
+
+        //这里检查的是Redis中的缓存。 先不检查
+//        String serverSessionKey = request.getParameter("serverSessionKey");
+//        if (StringUtils.isEmpty(serverSessionKey)) {
+//            errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 需要 serverSessionKey ");
+//            return false;
+//        }
+//        if (redisUtils.get(serverSessionKey)==null) {
+//            errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 请使用有效的 sessionKey");
+//            return false;
+//        }
 
         return true;
     }

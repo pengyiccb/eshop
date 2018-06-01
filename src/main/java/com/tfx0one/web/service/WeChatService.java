@@ -45,9 +45,7 @@ public class WeChatService {
     private RedisUtils redisUtils;
 
     public JSONObject jscode2session(String appId, String code) {
-        VendorUser vendorUser = new VendorUser();
-        vendorUser.setAppId(appId);
-        vendorService.select(vendorUser);
+        vendorService.select(new VendorUser().withAppId(appId));
         StringBuffer sb = new StringBuffer();
         sb.append("appid=").append(appId);
         sb.append("&secret=").append(wechatConfiguration.getSecret());
@@ -89,9 +87,7 @@ public class WeChatService {
     //利用 微信发来的数据 https://developers.weixin.qq.com/miniprogram/dev/api/api-login.html#wxloginobject
     //创建一个账户，如果数据存，直接返回数据库的用户
     public String createUserAccount(WXUserInfo userInfo, String appId, String openId, String unionId, String sessionKey, int timeToIdleSeconds) {
-        UserAccount userAccount = new UserAccount();
-        userAccount.setOpenId(openId);
-        List<UserAccount> list = userAccountService.select(userAccount);
+        List<UserAccount> list = userAccountService.select(new UserAccount().withOpenId(openId));
 
         System.out.println(list);
         if (list.size() > 1) {

@@ -183,15 +183,16 @@ DROP TABLE IF EXISTS `user_account`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_account` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `program_uid` varchar(200) NOT NULL,
   `phone` varchar(21) DEFAULT NULL,
-  `status` tinyint(1) NOT NULL,
-  `user_uid` varchar(50) NOT NULL,
+  `status` tinyint(1) DEFAULT 0,
   `password` varchar(100) DEFAULT NULL,
-  `role_id` mediumint(8) NOT NULL,
+  `role_id` mediumint(8) DEFAULT NULL,
   `sex` tinyint(1) NOT NULL,
   `nick_name` varchar(1024) DEFAULT NULL,
   `head_url` varchar(200) NOT NULL,
+  `app_id` varchar(200) NOT NULL,
+  `open_id` varchar(200) NOT NULL,
+  `union_id` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

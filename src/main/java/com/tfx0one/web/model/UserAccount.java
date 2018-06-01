@@ -8,15 +8,9 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "program_uid")
-    private String programUid;
-
     private String phone;
 
     private Boolean status;
-
-    @Column(name = "user_uid")
-    private String userUid;
 
     private String password;
 
@@ -31,6 +25,15 @@ public class UserAccount {
     @Column(name = "head_url")
     private String headUrl;
 
+    @Column(name = "app_id")
+    private String appId;
+
+    @Column(name = "open_id")
+    private String openId;
+
+    @Column(name = "union_id")
+    private String unionId;
+
     /**
      * @return id
      */
@@ -43,20 +46,6 @@ public class UserAccount {
      */
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    /**
-     * @return program_uid
-     */
-    public String getProgramUid() {
-        return programUid;
-    }
-
-    /**
-     * @param programUid
-     */
-    public void setProgramUid(String programUid) {
-        this.programUid = programUid == null ? null : programUid.trim();
     }
 
     /**
@@ -85,20 +74,6 @@ public class UserAccount {
      */
     public void setStatus(Boolean status) {
         this.status = status;
-    }
-
-    /**
-     * @return user_uid
-     */
-    public String getUserUid() {
-        return userUid;
-    }
-
-    /**
-     * @param userUid
-     */
-    public void setUserUid(String userUid) {
-        this.userUid = userUid == null ? null : userUid.trim();
     }
 
     /**
@@ -169,5 +144,47 @@ public class UserAccount {
      */
     public void setHeadUrl(String headUrl) {
         this.headUrl = headUrl == null ? null : headUrl.trim();
+    }
+
+    /**
+     * @return app_id
+     */
+    public String getAppId() {
+        return appId;
+    }
+
+    /**
+     * @param appId
+     */
+    public void setAppId(String appId) {
+        this.appId = appId == null ? null : appId.trim();
+    }
+
+    /**
+     * @return open_id
+     */
+    public String getOpenId() {
+        return openId;
+    }
+
+    /**
+     * @param openId
+     */
+    public void setOpenId(String openId) {
+        this.openId = openId == null ? null : openId.trim();
+    }
+
+    /**
+     * @return union_id
+     */
+    public String getUnionId() {
+        return unionId;
+    }
+
+    /**
+     * @param unionId
+     */
+    public void setUnionId(String unionId) {
+        this.unionId = unionId == null ? null : unionId.trim();
     }
 }

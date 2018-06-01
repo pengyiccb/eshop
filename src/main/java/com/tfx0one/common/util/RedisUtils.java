@@ -8,13 +8,15 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+
 /**
  * Created by 2fx0one on 29/5/2018.
  */
 @Component
 public class RedisUtils {
 
-    @Autowired
+    @Resource
     private StringRedisTemplate stringRedisTemplate;
 
 
@@ -29,7 +31,7 @@ public class RedisUtils {
         return false;
     }
 
-    public boolean set(final String key, final Long expires, final String value) {
+    public boolean set(final String key, final String value, final Long expires) {
         stringRedisTemplate.execute((RedisCallback<Object>) connection -> {
             connection.setEx(
                     stringRedisTemplate.getStringSerializer().serialize(key),

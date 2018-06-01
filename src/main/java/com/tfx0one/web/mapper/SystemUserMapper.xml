@@ -17,5 +17,7 @@
     <result column="card_id" jdbcType="VARCHAR" property="cardId" />
     <result column="business_registration_no" jdbcType="VARCHAR" property="businessRegistrationNo" />
     <result column="status" jdbcType="BIT" property="status" />
+    <result column="app_secret" jdbcType="VARCHAR" property="appSecret" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
   </resultMap>
 </mapper>

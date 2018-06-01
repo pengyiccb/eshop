@@ -38,6 +38,12 @@ public class SystemUser {
 
     private Boolean status;
 
+    @Column(name = "app_secret")
+    private String appSecret;
+
+    @Column(name = "nick_name")
+    private String nickName;
+
     /**
      * @return id
      */
@@ -204,5 +210,33 @@ public class SystemUser {
      */
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    /**
+     * @return app_secret
+     */
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    /**
+     * @param appSecret
+     */
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret == null ? null : appSecret.trim();
+    }
+
+    /**
+     * @return nick_name
+     */
+    public String getNickName() {
+        return nickName;
+    }
+
+    /**
+     * @param nickName
+     */
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
     }
 }

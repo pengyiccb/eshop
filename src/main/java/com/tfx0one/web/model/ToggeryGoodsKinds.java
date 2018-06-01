@@ -13,6 +13,9 @@ public class ToggeryGoodsKinds {
 
     private String name;
 
+    @Column(name = "category_type")
+    private Short categoryType;
+
     /**
      * @return id
      */
@@ -53,5 +56,19 @@ public class ToggeryGoodsKinds {
      */
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    /**
+     * @return category_type
+     */
+    public Short getCategoryType() {
+        return categoryType;
+    }
+
+    /**
+     * @param categoryType
+     */
+    public void setCategoryType(Short categoryType) {
+        this.categoryType = categoryType;
     }
 }

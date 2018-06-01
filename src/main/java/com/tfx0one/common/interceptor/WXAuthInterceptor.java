@@ -5,22 +5,32 @@ package com.tfx0one.common.interceptor;
  */
 
 import com.tfx0one.common.util.RedisUtils;
+import com.tfx0one.common.util.WXUserAccountUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-@Component
+//@Component
 public class WXAuthInterceptor implements HandlerInterceptor {
 
-    @Autowired
+    public WXAuthInterceptor() {
+        System.out.println("=============== WXAuthInterceptor ===================");
+    }
+
+    @Resource
     private RedisUtils redisUtils;
+
+    @Resource
+    private WXUserAccountUtils wxUserAccountUtils;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -38,17 +48,22 @@ public class WXAuthInterceptor implements HandlerInterceptor {
         paramStr = paramStr.substring(0, paramStr.length() - 1);
 
 //        String ctx = request.getContextPath();
-        System.out.println("===WXAuthInterceptor===  " + paramStr);
+        System.out.println("===微信授权拦截器 WXAuthInterceptor===  " + paramStr);
 //        String user = (String)request.getSession().getAttribute("user");
 //        if (null == user) {
 //            response.sendRedirect( ctx+"/login");
 //            return false;
 //        }
 
+        //这里检查的是Redis中的缓存。
         //serverSessionKey为空 || 不为空，检查redis中是否过期
         String serverSessionKey = request.getParameter("serverSessionKey");
-        if (StringUtils.isEmpty(serverSessionKey) || redisUtils.get(serverSessionKey)==null) {
-            errorStrWriteToResponse(response, 401, "unauthorized required, No SessionKey!");
+        if (StringUtils.isEmpty(serverSessionKey)) {
+            errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 需要 serverSessionKey ");
+            return false;
+        }
+        if (redisUtils.get(serverSessionKey)==null) {
+            errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 请获取有效的 sessionKey");
             return false;
         }
 

@@ -8,5 +8,6 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="kinds_id" jdbcType="INTEGER" property="kindsId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="category_type" jdbcType="SMALLINT" property="categoryType" />
   </resultMap>
 </mapper>

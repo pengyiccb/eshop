@@ -58,7 +58,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
         //微信 wechatdevtools 开发工具使用的
         String user_agent = request.getHeader("User-Agent");
         System.out.println(user_agent);
-        if (user_agent.indexOf("wechatdevtools") == -1) { //不是微信发来的，不验证sessionKey。
+        if (user_agent.indexOf("wechat") == -1) { //不是微信发来的，不验证sessionKey。
             return true;
         }
 
@@ -79,7 +79,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
             errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 请使用有效的 sessionKey");
             return false;
         }
-        
+
         return true;
     }
 

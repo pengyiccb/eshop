@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.22, for osx10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.22, for osx10.13 (x86_64)
 --
 -- Host: localhost    Database: businessdb
 -- ------------------------------------------------------
@@ -14,6 +14,14 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `businessdb`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `businessdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `businessdb`;
 
 --
 -- Table structure for table `demo`
@@ -184,7 +192,7 @@ DROP TABLE IF EXISTS `user_account`;
 CREATE TABLE `user_account` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `phone` varchar(21) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT 0,
+  `status` tinyint(1) DEFAULT '0',
   `password` varchar(100) DEFAULT NULL,
   `role_id` mediumint(8) DEFAULT NULL,
   `sex` tinyint(1) NOT NULL,
@@ -194,7 +202,7 @@ CREATE TABLE `user_account` (
   `open_id` varchar(200) NOT NULL,
   `union_id` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,6 +211,7 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
+INSERT INTO `user_account` VALUES (1,NULL,1,NULL,NULL,1,'机车王小二','https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqxPKde5h68XULD7URQm4g2p9xlDTlMJhV4BNJeeboInKhqvqB475fiaJoYlsLF9y8M6jXddmKRG5g/132','wxdda83d03c2d1521c','oUeJY5KR0bECG54dDD0trBqgzkDo','oJ6K-1eZqk8pv1Lvae7zfd-MaVfw'),(2,NULL,1,NULL,NULL,1,'Yang','https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKcq5xY5euQmIBBzlGuwUJibxFHFNia83YXwianUprszUmDOoxZYEMq4IRNdicgDmpyUtkZpmkr86QkGA/132','wxdda83d03c2d1521c','oUeJY5P0SfCNrJnlLtYTJiKm57yM',NULL);
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,4 +312,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-31 17:52:29
+-- Dump completed on 2018-06-01 16:29:44

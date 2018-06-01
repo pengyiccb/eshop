@@ -9,6 +9,7 @@ import com.tfx0one.common.util.RedisUtils;
 import com.tfx0one.common.util.WXUserAccountUtils;
 import com.tfx0one.configuration.WechatConfiguration;
 import com.tfx0one.web.model.UserAccount;
+import com.tfx0one.web.model.VendorUser;
 import com.tfx0one.web.model.WXUserInfo;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
@@ -38,9 +39,15 @@ public class WeChatService {
     private WXUserAccountUtils wxUserAccountUtils;
 
     @Resource
+    private VendorService vendorService;
+
+    @Resource
     private RedisUtils redisUtils;
 
     public JSONObject jscode2session(String appId, String code) {
+        VendorUser vendorUser = new VendorUser();
+        vendorUser.setAppId(appId);
+        vendorService.select(vendorUser);
         StringBuffer sb = new StringBuffer();
         sb.append("appid=").append(appId);
         sb.append("&secret=").append(wechatConfiguration.getSecret());

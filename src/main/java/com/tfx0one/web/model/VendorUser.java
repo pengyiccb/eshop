@@ -12,8 +12,8 @@ public class VendorUser {
     @Column(name = "category_type")
     private Short categoryType;
 
-    @Column(name = "program_uid")
-    private String programUid;
+    @Column(name = "app_id")
+    private String appId;
 
     private String name;
 
@@ -51,6 +51,11 @@ public class VendorUser {
         return id;
     }
 
+    public VendorUser withId(Integer id) {
+        this.setId(id);
+        return this;
+    }
+
     /**
      * @param id
      */
@@ -65,6 +70,11 @@ public class VendorUser {
         return categoryType;
     }
 
+    public VendorUser withCategoryType(Short categoryType) {
+        this.setCategoryType(categoryType);
+        return this;
+    }
+
     /**
      * @param categoryType
      */
@@ -73,17 +83,22 @@ public class VendorUser {
     }
 
     /**
-     * @return program_uid
+     * @return app_id
      */
-    public String getProgramUid() {
-        return programUid;
+    public String getAppId() {
+        return appId;
+    }
+
+    public VendorUser withAppId(String appId) {
+        this.setAppId(appId);
+        return this;
     }
 
     /**
-     * @param programUid
+     * @param appId
      */
-    public void setProgramUid(String programUid) {
-        this.programUid = programUid == null ? null : programUid.trim();
+    public void setAppId(String appId) {
+        this.appId = appId == null ? null : appId.trim();
     }
 
     /**
@@ -91,6 +106,11 @@ public class VendorUser {
      */
     public String getName() {
         return name;
+    }
+
+    public VendorUser withName(String name) {
+        this.setName(name);
+        return this;
     }
 
     /**
@@ -107,6 +127,11 @@ public class VendorUser {
         return createDate;
     }
 
+    public VendorUser withCreateDate(Date createDate) {
+        this.setCreateDate(createDate);
+        return this;
+    }
+
     /**
      * @param createDate
      */
@@ -119,6 +144,11 @@ public class VendorUser {
      */
     public String getAddress() {
         return address;
+    }
+
+    public VendorUser withAddress(String address) {
+        this.setAddress(address);
+        return this;
     }
 
     /**
@@ -135,6 +165,11 @@ public class VendorUser {
         return phone;
     }
 
+    public VendorUser withPhone(String phone) {
+        this.setPhone(phone);
+        return this;
+    }
+
     /**
      * @param phone
      */
@@ -147,6 +182,11 @@ public class VendorUser {
      */
     public String getLogoUrl() {
         return logoUrl;
+    }
+
+    public VendorUser withLogoUrl(String logoUrl) {
+        this.setLogoUrl(logoUrl);
+        return this;
     }
 
     /**
@@ -163,6 +203,11 @@ public class VendorUser {
         return customPhone;
     }
 
+    public VendorUser withCustomPhone(String customPhone) {
+        this.setCustomPhone(customPhone);
+        return this;
+    }
+
     /**
      * @param customPhone
      */
@@ -175,6 +220,11 @@ public class VendorUser {
      */
     public String getCardId() {
         return cardId;
+    }
+
+    public VendorUser withCardId(String cardId) {
+        this.setCardId(cardId);
+        return this;
     }
 
     /**
@@ -191,6 +241,11 @@ public class VendorUser {
         return businessRegistrationNo;
     }
 
+    public VendorUser withBusinessRegistrationNo(String businessRegistrationNo) {
+        this.setBusinessRegistrationNo(businessRegistrationNo);
+        return this;
+    }
+
     /**
      * @param businessRegistrationNo
      */
@@ -203,6 +258,11 @@ public class VendorUser {
      */
     public Boolean getStatus() {
         return status;
+    }
+
+    public VendorUser withStatus(Boolean status) {
+        this.setStatus(status);
+        return this;
     }
 
     /**
@@ -219,6 +279,11 @@ public class VendorUser {
         return appSecret;
     }
 
+    public VendorUser withAppSecret(String appSecret) {
+        this.setAppSecret(appSecret);
+        return this;
+    }
+
     /**
      * @param appSecret
      */
@@ -231,6 +296,11 @@ public class VendorUser {
      */
     public String getNickName() {
         return nickName;
+    }
+
+    public VendorUser withNickName(String nickName) {
+        this.setNickName(nickName);
+        return this;
     }
 
     /**

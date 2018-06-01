@@ -20,6 +20,11 @@ public class UserRole {
         return id;
     }
 
+    public UserRole withId(Integer id) {
+        this.setId(id);
+        return this;
+    }
+
     /**
      * @param id
      */
@@ -34,6 +39,11 @@ public class UserRole {
         return roleId;
     }
 
+    public UserRole withRoleId(Integer roleId) {
+        this.setRoleId(roleId);
+        return this;
+    }
+
     /**
      * @param roleId
      */
@@ -46,6 +56,11 @@ public class UserRole {
      */
     public String getName() {
         return name;
+    }
+
+    public UserRole withName(String name) {
+        this.setName(name);
+        return this;
     }
 
     /**

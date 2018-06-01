@@ -23,6 +23,11 @@ public class ToggeryGoodsKinds {
         return id;
     }
 
+    public ToggeryGoodsKinds withId(Integer id) {
+        this.setId(id);
+        return this;
+    }
+
     /**
      * @param id
      */
@@ -35,6 +40,11 @@ public class ToggeryGoodsKinds {
      */
     public Integer getKindsId() {
         return kindsId;
+    }
+
+    public ToggeryGoodsKinds withKindsId(Integer kindsId) {
+        this.setKindsId(kindsId);
+        return this;
     }
 
     /**
@@ -51,6 +61,11 @@ public class ToggeryGoodsKinds {
         return name;
     }
 
+    public ToggeryGoodsKinds withName(String name) {
+        this.setName(name);
+        return this;
+    }
+
     /**
      * @param name
      */
@@ -63,6 +78,11 @@ public class ToggeryGoodsKinds {
      */
     public Short getCategoryType() {
         return categoryType;
+    }
+
+    public ToggeryGoodsKinds withCategoryType(Short categoryType) {
+        this.setCategoryType(categoryType);
+        return this;
     }
 
     /**

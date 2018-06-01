@@ -277,7 +277,7 @@ DROP TABLE IF EXISTS `vendor_user`;
 CREATE TABLE `vendor_user` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `category_type` smallint(5) NOT NULL,
-  `program_uid` varchar(200) NOT NULL,
+  `app_id` varchar(200) NOT NULL DEFAULT '',
   `name` varchar(200) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `address` varchar(500) NOT NULL,
@@ -312,4 +312,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-01 18:28:58
+-- Dump completed on 2018-06-01 20:41:13

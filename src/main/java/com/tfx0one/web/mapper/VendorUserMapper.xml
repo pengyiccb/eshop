@@ -7,7 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="category_type" jdbcType="SMALLINT" property="categoryType" />
-    <result column="program_uid" jdbcType="VARCHAR" property="programUid" />
+    <result column="app_id" jdbcType="VARCHAR" property="appId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="address" jdbcType="VARCHAR" property="address" />

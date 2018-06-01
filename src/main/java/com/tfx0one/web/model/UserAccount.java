@@ -41,6 +41,11 @@ public class UserAccount {
         return id;
     }
 
+    public UserAccount withId(Integer id) {
+        this.setId(id);
+        return this;
+    }
+
     /**
      * @param id
      */
@@ -53,6 +58,11 @@ public class UserAccount {
      */
     public String getPhone() {
         return phone;
+    }
+
+    public UserAccount withPhone(String phone) {
+        this.setPhone(phone);
+        return this;
     }
 
     /**
@@ -69,6 +79,11 @@ public class UserAccount {
         return status;
     }
 
+    public UserAccount withStatus(Boolean status) {
+        this.setStatus(status);
+        return this;
+    }
+
     /**
      * @param status
      */
@@ -81,6 +96,11 @@ public class UserAccount {
      */
     public String getPassword() {
         return password;
+    }
+
+    public UserAccount withPassword(String password) {
+        this.setPassword(password);
+        return this;
     }
 
     /**
@@ -97,6 +117,11 @@ public class UserAccount {
         return roleId;
     }
 
+    public UserAccount withRoleId(Integer roleId) {
+        this.setRoleId(roleId);
+        return this;
+    }
+
     /**
      * @param roleId
      */
@@ -109,6 +134,11 @@ public class UserAccount {
      */
     public Boolean getSex() {
         return sex;
+    }
+
+    public UserAccount withSex(Boolean sex) {
+        this.setSex(sex);
+        return this;
     }
 
     /**
@@ -125,6 +155,11 @@ public class UserAccount {
         return nickName;
     }
 
+    public UserAccount withNickName(String nickName) {
+        this.setNickName(nickName);
+        return this;
+    }
+
     /**
      * @param nickName
      */
@@ -137,6 +172,11 @@ public class UserAccount {
      */
     public String getHeadUrl() {
         return headUrl;
+    }
+
+    public UserAccount withHeadUrl(String headUrl) {
+        this.setHeadUrl(headUrl);
+        return this;
     }
 
     /**
@@ -153,6 +193,11 @@ public class UserAccount {
         return appId;
     }
 
+    public UserAccount withAppId(String appId) {
+        this.setAppId(appId);
+        return this;
+    }
+
     /**
      * @param appId
      */
@@ -167,6 +212,11 @@ public class UserAccount {
         return openId;
     }
 
+    public UserAccount withOpenId(String openId) {
+        this.setOpenId(openId);
+        return this;
+    }
+
     /**
      * @param openId
      */
@@ -179,6 +229,11 @@ public class UserAccount {
      */
     public String getUnionId() {
         return unionId;
+    }
+
+    public UserAccount withUnionId(String unionId) {
+        this.setUnionId(unionId);
+        return this;
     }
 
     /**

@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>springlearning</name>
+    <name>jxxy-eShop</name>
     <description>Learning project for Spring Boot</description>
 
     <parent>
@@ -65,6 +65,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
 
         <!--mapper-->
         <dependency>

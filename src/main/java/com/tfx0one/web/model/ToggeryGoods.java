@@ -78,6 +78,11 @@ public class ToggeryGoods {
         return id;
     }
 
+    public ToggeryGoods withId(Integer id) {
+        this.setId(id);
+        return this;
+    }
+
     /**
      * @param id
      */
@@ -90,6 +95,11 @@ public class ToggeryGoods {
      */
     public Integer getSystemUserId() {
         return systemUserId;
+    }
+
+    public ToggeryGoods withSystemUserId(Integer systemUserId) {
+        this.setSystemUserId(systemUserId);
+        return this;
     }
 
     /**
@@ -106,6 +116,11 @@ public class ToggeryGoods {
         return name;
     }
 
+    public ToggeryGoods withName(String name) {
+        this.setName(name);
+        return this;
+    }
+
     /**
      * @param name
      */
@@ -118,6 +133,11 @@ public class ToggeryGoods {
      */
     public Integer getCount() {
         return count;
+    }
+
+    public ToggeryGoods withCount(Integer count) {
+        this.setCount(count);
+        return this;
     }
 
     /**
@@ -134,6 +154,11 @@ public class ToggeryGoods {
         return toggeryKindsId;
     }
 
+    public ToggeryGoods withToggeryKindsId(Integer toggeryKindsId) {
+        this.setToggeryKindsId(toggeryKindsId);
+        return this;
+    }
+
     /**
      * @param toggeryKindsId
      */
@@ -146,6 +171,11 @@ public class ToggeryGoods {
      */
     public BigDecimal getMarketPrice() {
         return marketPrice;
+    }
+
+    public ToggeryGoods withMarketPrice(BigDecimal marketPrice) {
+        this.setMarketPrice(marketPrice);
+        return this;
     }
 
     /**
@@ -162,6 +192,11 @@ public class ToggeryGoods {
         return discountPrice;
     }
 
+    public ToggeryGoods withDiscountPrice(BigDecimal discountPrice) {
+        this.setDiscountPrice(discountPrice);
+        return this;
+    }
+
     /**
      * @param discountPrice
      */
@@ -174,6 +209,11 @@ public class ToggeryGoods {
      */
     public BigDecimal getFreight() {
         return freight;
+    }
+
+    public ToggeryGoods withFreight(BigDecimal freight) {
+        this.setFreight(freight);
+        return this;
     }
 
     /**
@@ -190,6 +230,11 @@ public class ToggeryGoods {
         return title;
     }
 
+    public ToggeryGoods withTitle(String title) {
+        this.setTitle(title);
+        return this;
+    }
+
     /**
      * @param title
      */
@@ -202,6 +247,11 @@ public class ToggeryGoods {
      */
     public Integer getClickCount() {
         return clickCount;
+    }
+
+    public ToggeryGoods withClickCount(Integer clickCount) {
+        this.setClickCount(clickCount);
+        return this;
     }
 
     /**
@@ -218,6 +268,11 @@ public class ToggeryGoods {
         return weight;
     }
 
+    public ToggeryGoods withWeight(BigDecimal weight) {
+        this.setWeight(weight);
+        return this;
+    }
+
     /**
      * @param weight
      */
@@ -230,6 +285,11 @@ public class ToggeryGoods {
      */
     public Integer getPromoteStartDate() {
         return promoteStartDate;
+    }
+
+    public ToggeryGoods withPromoteStartDate(Integer promoteStartDate) {
+        this.setPromoteStartDate(promoteStartDate);
+        return this;
     }
 
     /**
@@ -246,6 +306,11 @@ public class ToggeryGoods {
         return promoteEndDate;
     }
 
+    public ToggeryGoods withPromoteEndDate(Integer promoteEndDate) {
+        this.setPromoteEndDate(promoteEndDate);
+        return this;
+    }
+
     /**
      * @param promoteEndDate
      */
@@ -258,6 +323,11 @@ public class ToggeryGoods {
      */
     public String getKeywords() {
         return keywords;
+    }
+
+    public ToggeryGoods withKeywords(String keywords) {
+        this.setKeywords(keywords);
+        return this;
     }
 
     /**
@@ -274,6 +344,11 @@ public class ToggeryGoods {
         return goodsBrief;
     }
 
+    public ToggeryGoods withGoodsBrief(String goodsBrief) {
+        this.setGoodsBrief(goodsBrief);
+        return this;
+    }
+
     /**
      * @param goodsBrief
      */
@@ -286,6 +361,11 @@ public class ToggeryGoods {
      */
     public String getGoodsSn() {
         return goodsSn;
+    }
+
+    public ToggeryGoods withGoodsSn(String goodsSn) {
+        this.setGoodsSn(goodsSn);
+        return this;
     }
 
     /**
@@ -302,6 +382,11 @@ public class ToggeryGoods {
         return isNew;
     }
 
+    public ToggeryGoods withIsNew(Boolean isNew) {
+        this.setIsNew(isNew);
+        return this;
+    }
+
     /**
      * @param isNew
      */
@@ -314,6 +399,11 @@ public class ToggeryGoods {
      */
     public Boolean getIsHot() {
         return isHot;
+    }
+
+    public ToggeryGoods withIsHot(Boolean isHot) {
+        this.setIsHot(isHot);
+        return this;
     }
 
     /**
@@ -330,6 +420,11 @@ public class ToggeryGoods {
         return addTime;
     }
 
+    public ToggeryGoods withAddTime(Integer addTime) {
+        this.setAddTime(addTime);
+        return this;
+    }
+
     /**
      * @param addTime
      */
@@ -342,6 +437,11 @@ public class ToggeryGoods {
      */
     public Integer getUpdateTime() {
         return updateTime;
+    }
+
+    public ToggeryGoods withUpdateTime(Integer updateTime) {
+        this.setUpdateTime(updateTime);
+        return this;
     }
 
     /**
@@ -358,6 +458,11 @@ public class ToggeryGoods {
         return canUseCoupon;
     }
 
+    public ToggeryGoods withCanUseCoupon(Boolean canUseCoupon) {
+        this.setCanUseCoupon(canUseCoupon);
+        return this;
+    }
+
     /**
      * @param canUseCoupon
      */
@@ -370,6 +475,11 @@ public class ToggeryGoods {
      */
     public String getGoodsThumb() {
         return goodsThumb;
+    }
+
+    public ToggeryGoods withGoodsThumb(String goodsThumb) {
+        this.setGoodsThumb(goodsThumb);
+        return this;
     }
 
     /**
@@ -386,6 +496,11 @@ public class ToggeryGoods {
         return status;
     }
 
+    public ToggeryGoods withStatus(Boolean status) {
+        this.setStatus(status);
+        return this;
+    }
+
     /**
      * @param status
      */
@@ -398,6 +513,11 @@ public class ToggeryGoods {
      */
     public String getGoodsDesc() {
         return goodsDesc;
+    }
+
+    public ToggeryGoods withGoodsDesc(String goodsDesc) {
+        this.setGoodsDesc(goodsDesc);
+        return this;
     }
 
     /**

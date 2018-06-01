@@ -3,8 +3,7 @@ package com.tfx0one.web.model;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "demo")
-public class DemoModel {
+public class Demo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,6 +22,11 @@ public class DemoModel {
         return id;
     }
 
+    public Demo withId(Integer id) {
+        this.setId(id);
+        return this;
+    }
+
     /**
      * @param id
      */
@@ -35,6 +39,11 @@ public class DemoModel {
      */
     public String getName() {
         return name;
+    }
+
+    public Demo withName(String name) {
+        this.setName(name);
+        return this;
     }
 
     /**
@@ -51,6 +60,11 @@ public class DemoModel {
         return money;
     }
 
+    public Demo withMoney(Float money) {
+        this.setMoney(money);
+        return this;
+    }
+
     /**
      * @param money
      */
@@ -63,6 +77,11 @@ public class DemoModel {
      */
     public Date getCreateTime() {
         return createTime;
+    }
+
+    public Demo withCreateTime(Date createTime) {
+        this.setCreateTime(createTime);
+        return this;
     }
 
     /**

@@ -19,6 +19,11 @@ public class VendorCategory {
         return id;
     }
 
+    public VendorCategory withId(Short id) {
+        this.setId(id);
+        return this;
+    }
+
     /**
      * @param id
      */
@@ -33,6 +38,11 @@ public class VendorCategory {
         return type;
     }
 
+    public VendorCategory withType(Short type) {
+        this.setType(type);
+        return this;
+    }
+
     /**
      * @param type
      */
@@ -45,6 +55,11 @@ public class VendorCategory {
      */
     public String getName() {
         return name;
+    }
+
+    public VendorCategory withName(String name) {
+        this.setName(name);
+        return this;
     }
 
     /**

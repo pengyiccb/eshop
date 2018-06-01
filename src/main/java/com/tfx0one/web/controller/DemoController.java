@@ -1,7 +1,7 @@
 package com.tfx0one.web.controller;
 
 import com.tfx0one.common.util.AjaxObject;
-import com.tfx0one.web.model.DemoModel;
+import com.tfx0one.web.model.Demo;
 import com.tfx0one.web.model.UserAccount;
 import com.tfx0one.web.service.DemoService;
 import com.tfx0one.web.service.UserAccountService;
@@ -25,13 +25,13 @@ public class DemoController {
     @RequestMapping(value="/demo/list", method = RequestMethod.GET)
     public AjaxObject list() {
 
-        List<DemoModel> l =  demoService.selectAll();
+        List<Demo> l =  demoService.selectAll();
 
         return AjaxObject.ok().data(l);
     }
 
     @RequestMapping(value="/demo/post", method = RequestMethod.POST)
-    public AjaxObject post(@RequestBody DemoModel demo) {
+    public AjaxObject post(@RequestBody Demo demo) {
         return AjaxObject.ok().data(demo);
     }
 

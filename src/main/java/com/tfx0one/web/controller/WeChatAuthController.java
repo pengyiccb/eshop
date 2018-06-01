@@ -66,6 +66,7 @@ public class WeChatAuthController {
         }
 
         System.out.println(" appId=" + appId + " " + code);
+        //1 发给微信授权
         JSONObject wxSession = weChatService.jscode2session(appId, code);
 
         if (StringUtils.isEmpty(wxSession)) {
@@ -82,7 +83,7 @@ public class WeChatAuthController {
         String wxSessionKey = (String)wxSession.get("session_key");
         System.out.println(wxSessionKey);
 
-        //创建账户 返回一个账户管理的 serverSessionKey 缓存时间30分钟
+        //2 创建账户 返回一个账户管理的 serverSessionKey 缓存时间30分钟
         String serverSessionKey = weChatService.createUserAccount(user, appId, wxOpenId, wxUnionId, wxSessionKey, 30*60);
 
 //        AjaxObject a = AjaxObject.ok("获取session成功").put("serverSessionKey", serverSessionKey);

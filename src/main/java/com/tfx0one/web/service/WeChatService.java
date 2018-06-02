@@ -88,7 +88,8 @@ public class WeChatService {
         String serverSessionKey = this.create3rdSession(openId, sessionKey, timeToIdleSeconds);
         UserAccount cacheUserAccount = null;
 
-        if (list.size() == 1) { //找到用户了。已经创建了
+        if (list.size() == 1) {
+            //找到用户了。已经创建了
             cacheUserAccount = list.get(0);
         } else { //没有找到，数据入库
             cacheUserAccount = new UserAccount();
@@ -103,7 +104,7 @@ public class WeChatService {
         }
 
         //把用户缓存起来。20分钟缓存
-        userAccountUtils.cacheLoginUser(cacheUserAccount); //找到的第一个
+        userAccountUtils.putCacheLoginUser(cacheUserAccount, serverSessionKey, 1200);
 
         return serverSessionKey;
     }

@@ -24,43 +24,42 @@ public class UserAccountUtils {
     @Resource
     private EhCacheUtils ehCacheUtils;
 
-//    public HttpServletRequest getCurrentRequest() throws IllegalStateException {
-//        ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//        if (attrs == null) {
-//            throw new IllegalStateException("当前线程中不存在 Request 上下文");
-//        }
-//        return attrs.getRequest();
-//    }
-
     //userAccount 放到 session中
-    public void cacheLoginUser(UserAccount userAccount)
+    public void putCacheLoginUser(UserAccount userAccount, String serverSessionKey, int timeToIdleSeconds)
     {
-        getCurRequest().getSession().setAttribute(CacheConstant.SESSION_LOGIN_USER, userAccount);
-//        ehCacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, serverSessionKey, userAccount, timeToIdleSeconds);
+        if (hasWeChatMiniProgramFlag()) {
+            ehCacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, serverSessionKey, userAccount, timeToIdleSeconds);
+        } else {
+            getCurrentRequest().getSession().setMaxInactiveInterval(timeToIdleSeconds);
+            getCurrentRequest().getSession().setAttribute(CacheConstant.SESSION_LOGIN_USER, userAccount);
+        }
 //        CacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT,
 //                sysUser.getId().toString(),
 //                sysUser,
 //                getSession().getMaxInactiveInterval());
     }
 
+    // 微信用户缓存在ehCache中。
+    // 网页登录的缓存在Session中。
     public UserAccount getCacheLoginUser()
     {
-        return (UserAccount)getCurRequest().getSession().getAttribute(CacheConstant.SESSION_LOGIN_USER);
-//        try {
-//            String serverSessionKey = getCurRequest().getParameter("serverSessionKey");
-//            if (serverSessionKey == null) {
-//                return null;
-//            }
-//            return ehCacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, serverSessionKey);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
+        //判断是否为微信用户
+        if (hasWeChatMiniProgramFlag()) {
+                String serverSessionKey = getCurrentRequest().getHeader("serverSessionKey");
+                return (serverSessionKey != null) ? ehCacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, serverSessionKey) : null;
+        } else {
+            return (UserAccount) getCurrentRequest().getSession().getAttribute(CacheConstant.SESSION_LOGIN_USER);
+        }
     }
 
+    //微信小程序的消息头
+    public boolean hasWeChatMiniProgramFlag() {
+        String header = getCurrentRequest().getHeader("User-Agent");
+        //TODO 真机待验证有效性
+        return header.contains("wechat") || header.contains("miniprogram");
+    }
 
-    public HttpServletRequest getCurRequest()
+    public HttpServletRequest getCurrentRequest()
     {
         RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         if (requestAttributes instanceof ServletRequestAttributes)
@@ -70,4 +69,12 @@ public class UserAccountUtils {
         }
         return null;
     }
+
+    //    public HttpServletRequest getCurrentRequest() throws IllegalStateException {
+//        ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        if (attrs == null) {
+//            throw new IllegalStateException("当前线程中不存在 Request 上下文");
+//        }
+//        return attrs.getRequest();
+//    }
 }

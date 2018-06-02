@@ -43,6 +43,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns(
                         //给微信使用的
+//                        "/api/v1/wechat/**",
                         "/api/v1/wechat/createSession", //连接到服务器
                         "/api/v1/wechat/productList", //商品和商品详情
                         "/api/v1/wechat/productDetail", //商品和商品详情
@@ -55,6 +56,24 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 //                        "/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg", "/**/fonts/*", //不拦截静态资源
 //                        "/index"
                 ); // 不进行登录拦截的
+
+//        registry.addInterceptor(getWXAuthInterceptor())
+//                .addPathPatterns("/api/v1/wechat/**")
+//                .excludePathPatterns(
+//                        //给微信使用的
+//                        "/api/v1/wechat/**",
+//                        "/api/v1/wechat/createSession", //连接到服务器
+//                        "/api/v1/wechat/productList", //商品和商品详情
+//                        "/api/v1/wechat/productDetail", //商品和商品详情
+//
+//                        //给后台使用的
+//                        "/static/**",
+//                        //登录页面
+//                        "/login"
+////                        "/dark-velvet-css/**",
+////                        "/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg", "/**/fonts/*", //不拦截静态资源
+////                        "/index"
+//                ); // 不进行登录拦截的
     }
 
     //fastjson

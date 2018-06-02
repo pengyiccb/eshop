@@ -54,7 +54,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
         //微信 wechatdevtools 开发工具使用的
         String user_agent = request.getHeader("User-Agent");
         System.out.println(user_agent);
-        if (user_agent.indexOf("wechat") == -1) { //不是微信发来的，不验证sessionKey。
+        if (!user_agent.contains("wechat")) { //不是微信发来的，不验证sessionKey。
             return true;
         }
 

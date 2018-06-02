@@ -3,15 +3,12 @@ package com.tfx0one.web.controller;
 import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.web.model.UserAccount;
 import com.tfx0one.web.service.UserAccountService;
-import net.sf.ehcache.CacheManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
-import java.util.Date;
 
 @Controller
 public class LoginController {
@@ -38,7 +35,7 @@ public class LoginController {
     public String login(@RequestParam Integer userId) {
         System.out.println("login() POST");
         UserAccount userAccount = userAccountService.selectByPrimaryKey(userId);
-        userAccountUtils.cacheLoginUser(userAccount);
+        userAccountUtils.putCacheLoginUser(userAccount, "", 1200);
         return "main";
     }
 }

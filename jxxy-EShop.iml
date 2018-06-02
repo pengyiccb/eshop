@@ -142,7 +142,5 @@
     <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.24.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.24.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.24.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.session:spring-session-data-redis:2.0.3.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.session:spring-session-core:2.0.3.RELEASE" level="project" />
   </component>
 </module>

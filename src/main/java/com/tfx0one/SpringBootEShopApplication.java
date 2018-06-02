@@ -14,7 +14,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @EnableTransactionManagement
 @MapperScan(basePackages = "com.tfx0one.web.mapper")
-@EnableRedisHttpSession
+//@EnableRedisHttpSession
 public class SpringBootEShopApplication {
 
 

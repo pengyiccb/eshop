@@ -1,9 +1,10 @@
 package com.tfx0one.web.model;
 
+import com.tfx0one.common.util.BaseEntity;
 import javax.persistence.*;
 
 @Table(name = "vendor_category")
-public class VendorCategory {
+public class VendorCategory extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short id;

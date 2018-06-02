@@ -1,10 +1,11 @@
 package com.tfx0one.web.model;
 
+import com.tfx0one.common.util.BaseEntity;
 import java.math.BigDecimal;
 import javax.persistence.*;
 
 @Table(name = "toggery_goods")
-public class ToggeryGoods {
+public class ToggeryGoods extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

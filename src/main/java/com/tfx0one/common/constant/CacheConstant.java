@@ -11,4 +11,10 @@ public class CacheConstant {
     public static final String CACHE_VENDOR_USER = "CACHE_VENDOR_USER";
 
 
+
+    //Session的key
+    // 把User对象绑定到session
+    public static final String SESSION_LOGIN_USER = "SESSION_LOGIN_USER";
+
+
 }

@@ -3,7 +3,7 @@ package com.tfx0one.web.service;
 import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.common.constant.WXAPIConstant;
 import com.tfx0one.common.util.HttpUtils;
-import com.tfx0one.common.util.WXUserAccountUtils;
+import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.web.model.UserAccount;
 import com.tfx0one.web.model.VendorUser;
 import com.tfx0one.web.model.WXUserInfo;
@@ -28,7 +28,7 @@ public class WeChatService {
     private UserAccountService userAccountService;
 
     @Resource
-    private WXUserAccountUtils wxUserAccountUtils;
+    private UserAccountUtils userAccountUtils;
 
     @Resource
     private VendorService vendorService;
@@ -103,7 +103,7 @@ public class WeChatService {
         }
 
         //把用户缓存起来。20分钟缓存
-        wxUserAccountUtils.cacheLoginUser(serverSessionKey, cacheUserAccount, timeToIdleSeconds); //找到的第一个
+        userAccountUtils.cacheLoginUser(cacheUserAccount); //找到的第一个
 
         return serverSessionKey;
     }

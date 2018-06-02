@@ -2,23 +2,16 @@ package com.tfx0one.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.common.util.AjaxObject;
-import com.tfx0one.common.util.EhCacheUtils;
-import com.tfx0one.common.util.WXUserAccountUtils;
+import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.web.model.UserAccount;
 import com.tfx0one.web.model.WXUserInfo;
 import com.tfx0one.web.service.UserAccountService;
 import com.tfx0one.web.service.WeChatService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by 2fx0one on 28/5/2018.
@@ -33,7 +26,7 @@ public class WeChatAuthController {
     private UserAccountService userAccountService;
 
     @Resource
-    private WXUserAccountUtils wxUserAccountUtils;
+    private UserAccountUtils userAccountUtils;
 
 
     /**
@@ -94,7 +87,7 @@ public class WeChatAuthController {
     @RequestMapping(value = "/api/v1/wechat/checkSession", method = RequestMethod.GET)
     public AjaxObject checkSession() {
 
-        UserAccount account = wxUserAccountUtils.getCacheLoginUser();
+        UserAccount account = userAccountUtils.getCacheLoginUser();
         System.out.println(account);
         System.out.println(account.getNickName());
         return AjaxObject.ok("checkOk");

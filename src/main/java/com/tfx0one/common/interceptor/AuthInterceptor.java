@@ -4,17 +4,20 @@ package com.tfx0one.common.interceptor;
  * Create by 2fx0one on 22/5/2018
  */
 
+import com.tfx0one.common.util.UserAccountUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Enumeration;
 import java.util.Map;
-import java.util.Map.*;
 
 public class AuthInterceptor implements HandlerInterceptor {
+
+    @Resource
+    private UserAccountUtils userAccountUtils;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -32,14 +35,16 @@ public class AuthInterceptor implements HandlerInterceptor {
         paramStr = paramStr.substring(0, paramStr.length() - 1);
 
 //        String ctx = request.getContextPath();
+        System.out.println("SessionId=" + request.getSession().getId());
         System.out.println("=== 通用授权拦截器 AuthInterceptor ===  " + paramStr);
-//        String ctx = request.getContextPath();
-//        System.out.println(request.getRequestURL());
-//        String user = (String)request.getSession().getAttribute("user");
-//        if (null == user) {
-//            response.sendRedirect( ctx+"/login");
-//            return false;
-//        }
+
+        if (null == userAccountUtils.getCacheLoginUser()) {
+            String ctx = request.getContextPath();
+//            System.out.println(request.getRequestURL());
+            response.sendRedirect( ctx+"/login");
+            return false;
+        }
+
         return true;
     }
 

@@ -4,7 +4,7 @@ package com.tfx0one.common.interceptor;
  * Create by 2fx0one on 22/5/2018
  */
 
-import com.tfx0one.common.util.WXUserAccountUtils;
+import com.tfx0one.common.util.UserAccountUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,7 +23,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
     }
 
     @Resource
-    private WXUserAccountUtils wxUserAccountUtils;
+    private UserAccountUtils userAccountUtils;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -48,6 +48,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
 //            return false;
 //        }
 
+//        request.setAttribute();
         System.out.println("SessionId=" + request.getSession().getId());
 
         //微信 wechatdevtools 开发工具使用的
@@ -64,7 +65,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
         System.out.println(content_type2);
 
         //serverSessionKey为空 || 不为空，检查redis中是否过期
-        if (null == wxUserAccountUtils.getCacheLoginUser()) {
+        if (null == userAccountUtils.getCacheLoginUser()) {
             errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 需要有效的 serverSessionKey ");
             return true;
         }

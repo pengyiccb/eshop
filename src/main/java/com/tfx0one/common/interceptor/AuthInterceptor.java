@@ -14,8 +14,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
-
 public class AuthInterceptor implements HandlerInterceptor {
+
+
 
     @Resource
     private UserAccountUtils userAccountUtils;
@@ -40,8 +41,8 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 //        String ctx = request.getContextPath();
 //        request.getSession();
-        System.out.println("header sessionKey" + request.getHeader("sessionKey"));
-        System.out.println("SessionId=" + request.getSession().getId());
+        System.out.println("header sessionKey = 【" + request.getHeader("sessionKey") + "]");
+        System.out.println("SessionId = 【" + request.getSession().getId() + "]");
 
         System.out.println(userAccountUtils.hasWeChatMiniProgramFlag()?"======微信登录！======":"=======网页登录=======");
 

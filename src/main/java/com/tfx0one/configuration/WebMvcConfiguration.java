@@ -34,14 +34,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(getWXAuthInterceptor())
-                .addPathPatterns("/api/v1/wechat/**")
-                .excludePathPatterns(
-                        "/api/v1/wechat/createSession", //连接到服务器
-                        "/api/v1/wechat/productList", //商品和商品详情
-                        "/api/v1/wechat/productDetail", //商品和商品详情
-                        "/api/v1/wechat/test" //商品和商品详情
-                );
         registry.addInterceptor(new AuthInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns(
@@ -54,6 +46,15 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 //                        "/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg", "/**/fonts/*", //不拦截静态资源
                         "/index"
                 ); // 不进行登录拦截的
+        registry.addInterceptor(getWXAuthInterceptor())
+                .addPathPatterns("/api/v1/wechat/**")
+                .excludePathPatterns(
+                        "/api/v1/wechat/createSession", //连接到服务器
+                        "/api/v1/wechat/productList", //商品和商品详情
+                        "/api/v1/wechat/productDetail", //商品和商品详情
+                        "/api/v1/wechat/test" //商品和商品详情
+                );
+
     }
 
     //fastjson

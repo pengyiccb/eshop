@@ -4,13 +4,9 @@ package com.tfx0one.common.interceptor;
  * Create by 2fx0one on 22/5/2018
  */
 
-import com.tfx0one.common.util.RedisUtils;
 import com.tfx0one.common.util.WXUserAccountUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,9 +21,6 @@ public class WXAuthInterceptor implements HandlerInterceptor {
     public WXAuthInterceptor() {
         System.out.println("=============== WXAuthInterceptor ===================");
     }
-
-    @Resource
-    private RedisUtils redisUtils;
 
     @Resource
     private WXUserAccountUtils wxUserAccountUtils;
@@ -54,6 +47,8 @@ public class WXAuthInterceptor implements HandlerInterceptor {
 //            response.sendRedirect( ctx+"/login");
 //            return false;
 //        }
+
+        System.out.println("SessionId=" + request.getSession().getId());
 
         //微信 wechatdevtools 开发工具使用的
         String user_agent = request.getHeader("User-Agent");

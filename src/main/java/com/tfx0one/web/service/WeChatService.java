@@ -3,7 +3,6 @@ package com.tfx0one.web.service;
 import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.common.constant.WXAPIConstant;
 import com.tfx0one.common.util.HttpUtils;
-import com.tfx0one.common.util.RedisUtils;
 import com.tfx0one.common.util.WXUserAccountUtils;
 import com.tfx0one.web.model.UserAccount;
 import com.tfx0one.web.model.VendorUser;
@@ -34,9 +33,6 @@ public class WeChatService {
     @Resource
     private VendorService vendorService;
 
-    @Resource
-    private RedisUtils redisUtils;
-
     public JSONObject jscode2session(String appId, String code) {
 
         VendorUser vendorUser = vendorService.selectByAppId(appId);
@@ -54,7 +50,6 @@ public class WeChatService {
 
         JSONObject json = JSONObject.parseObject(res);
         logger.info(json.toString());
-//        System.out.println(json);
         return json;
 
 //        return JSONObject.parse(res);

@@ -22,8 +22,8 @@
   </resultMap>
 
 
-  <select id="selectByAppId" resultType="com.tfx0one.web.model.VendorUser">
-
+  <!--编写sql 一定要使用resultMap 匹配-->
+  <select id="selectByAppId" resultMap="BaseResultMap">
     SELECT
       app_id, app_secret
     FROM

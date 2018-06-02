@@ -8,6 +8,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
+import java.io.PrintStream;
+
 import static org.junit.Assert.*;
 
 
@@ -27,6 +29,7 @@ public class VendorServiceTest {
         try {
             VendorUser vendorUser = vendorService.selectByAppId("wxdda83d03c2d1521c");
             VendorUser vendorUser2 = vendorService.selectByAppId("wxdda83d03c2d1521c");
+            System.out.println(vendorUser.getAppSecret());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,20 +1,16 @@
 package com.tfx0one.web.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.tfx0one.common.constant.CacheConstant;
-import com.tfx0one.common.constant.StatusConstant;
-import com.tfx0one.common.util.EhCacheUtils;
+import com.tfx0one.common.constant.WXAPIConstant;
 import com.tfx0one.common.util.HttpUtils;
 import com.tfx0one.common.util.RedisUtils;
 import com.tfx0one.common.util.WXUserAccountUtils;
-import com.tfx0one.configuration.WechatConfiguration;
 import com.tfx0one.web.model.UserAccount;
 import com.tfx0one.web.model.VendorUser;
 import com.tfx0one.web.model.WXUserInfo;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -30,9 +26,6 @@ public class WeChatService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
-    private WechatConfiguration wechatConfiguration;
-
-    @Resource
     private UserAccountService userAccountService;
 
     @Resource
@@ -45,13 +38,16 @@ public class WeChatService {
     private RedisUtils redisUtils;
 
     public JSONObject jscode2session(String appId, String code) {
+
         VendorUser vendorUser = vendorService.selectByAppId(appId);
         StringBuffer sb = new StringBuffer();
+        sb.append(WXAPIConstant.URL_JSCODE2SESSION+"?");
         sb.append("appid=").append(appId);
-        sb.append("&secret=").append(wechatConfiguration.getSecret());
+        sb.append("&secret=").append(vendorUser.getAppSecret());
         sb.append("&js_code=").append(code);
-        sb.append("&grant_type=").append(wechatConfiguration.getGrantType());
-        String res = HttpUtils.get(wechatConfiguration.getJscode2session() + "?" + sb.toString());
+        sb.append("&grant_type=").append(WXAPIConstant.GRANT_TYPE);
+//        System.out.println(sb.toString());
+        String res = HttpUtils.get(sb.toString());
         if (StringUtils.isEmpty(res)) {
             return null;
         }

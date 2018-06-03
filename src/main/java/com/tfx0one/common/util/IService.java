@@ -6,17 +6,17 @@ public interface IService<T> {
 
     /**
      * 根据实体类不为null的字段进行查询,条件全部使用=号and条件
-     * @param <T extend T>
      */
     public List<T> select(T record);
 
     /**
      * 根据实体类不为null的字段查询总数,条件全部使用=号and条件
-     * @param <T extend T>
      */
     public int selectCount(T record);
 
     T selectByPrimaryKey(Object key);
+
+    T selectOne(T entity);
 
     int save(T entity);
 

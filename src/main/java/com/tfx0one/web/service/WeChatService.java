@@ -35,7 +35,7 @@ public class WeChatService {
 
     public JSONObject jscode2session(String appId, String code) {
 
-        VendorUser vendorUser = vendorService.selectByAppId(appId);
+        VendorUser vendorUser = vendorService.selectOne(new VendorUser().withAppId(appId));
         StringBuffer sb = new StringBuffer();
         sb.append(WXAPIConstant.URL_JSCODE2SESSION+"?");
         sb.append("appid=").append(appId);
@@ -78,30 +78,33 @@ public class WeChatService {
     //利用 微信发来的数据 https://developers.weixin.qq.com/miniprogram/dev/api/api-login.html#wxloginobject
     //创建一个账户，如果数据存，直接返回数据库的用户
     public String createUserAccount(WXUserInfo userInfo, String appId, String openId, String unionId, String sessionKey, int timeToIdleSeconds) {
-        List<UserAccount> list = userAccountService.select(new UserAccount().withOpenId(openId));
 
-        System.out.println(list);
-        if (list.size() > 1) {
-            throw new RuntimeException("一个openId找到多个账号");
-        }
+
+//        List<UserAccount> list = userAccountService.select(new UserAccount().withOpenId(openId));
+//
+//        System.out.println(list);
+//        if (list.size() > 1) {
+//            throw new RuntimeException("一个openId找到多个账号");
+//        }
+        UserAccount cacheUserAccount = userAccountService.selectOne(new UserAccount().withOpenId(openId));
 
         String serverSessionKey = this.create3rdSession(openId, sessionKey, timeToIdleSeconds);
-        UserAccount cacheUserAccount = null;
 
-        if (list.size() == 1) {
+        if (cacheUserAccount == null) {
             //找到用户了。已经创建了
-            cacheUserAccount = list.get(0);
-        } else { //没有找到，数据入库
+//            cacheUserAccount = list.get(0);
+//        } else { //没有找到，新增数据入库
             cacheUserAccount = new UserAccount();
             cacheUserAccount.setAppId(appId);
             cacheUserAccount.setStatus(true);
-            cacheUserAccount.setSex(userInfo.getGender().equals("1"));
+            cacheUserAccount.setSex("1".equals(userInfo.getGender()));
             cacheUserAccount.setOpenId(openId);
             cacheUserAccount.setUnionId(unionId);
             cacheUserAccount.setHeadUrl(userInfo.getAvatarUrl());
             cacheUserAccount.setNickName(userInfo.getNickName());
             userAccountService.save(cacheUserAccount);
         }
+
 
         //把用户缓存起来。20分钟缓存
         userAccountUtils.putCacheLoginUser(cacheUserAccount, serverSessionKey, 1200);

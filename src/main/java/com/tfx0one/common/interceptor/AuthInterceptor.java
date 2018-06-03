@@ -41,8 +41,8 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 //        String ctx = request.getContextPath();
 //        request.getSession();
-        System.out.println("header sessionKey = 【" + request.getHeader("sessionKey") + "]");
-        System.out.println("SessionId = 【" + request.getSession().getId() + "]");
+        System.out.println("header sessionKey = [" + request.getHeader("sessionKey") + "]");
+        System.out.println("SessionId = [" + request.getSession().getId() + "]");
 
         System.out.println(userAccountUtils.hasWeChatMiniProgramFlag()?"======微信登录！======":"=======网页登录=======");
 

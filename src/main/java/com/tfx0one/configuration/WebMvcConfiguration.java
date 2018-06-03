@@ -42,6 +42,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(getAuthInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns(
+                        "/swagger-resources/**",
                         //给微信使用的
 //                        "/api/v1/wechat/**",
                         "/api/v1/wechat/createSession", //连接到服务器

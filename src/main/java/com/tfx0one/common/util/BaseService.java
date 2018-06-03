@@ -32,6 +32,13 @@ public abstract class BaseService<T> implements IService<T> {
     }
 
     @Override
+    public T selectOne(T entity) {
+        //说明：根据实体类不为null的字段查询，查询条件使用等号和and调校
+        return mapper.selectOne(entity);
+//        return mapper.selectByPrimaryKey(key);
+    }
+
+    @Override
     public T selectByPrimaryKey(Object key) {
         //说明：根据主键字段进行查询，方法参数必须包含完整的主键属性，查询条件使用等号
         return mapper.selectByPrimaryKey(key);
@@ -67,5 +74,6 @@ public abstract class BaseService<T> implements IService<T> {
         //重点：这个查询支持通过Example类指定查询列，通过selectProperties方法指定查询列
         return mapper.selectByExample(example);
     }
+
 
 }

@@ -39,11 +39,10 @@ public class UserAccountUtils {
 //                getSession().getMaxInactiveInterval());
     }
 
-    // 微信用户缓存在ehCache中。
+    // 微信用户缓存在自定义ehCache中。
     // 网页登录的缓存在Session中。
     public UserAccount getCacheLoginUser()
     {
-        //判断是否为微信用户
         if (hasWeChatMiniProgramFlag()) {
                 String serverSessionKey = getCurrentRequest().getHeader("serverSessionKey");
                 return (serverSessionKey != null) ? ehCacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, serverSessionKey) : null;
@@ -52,7 +51,7 @@ public class UserAccountUtils {
         }
     }
 
-    //微信小程序的消息头
+    //微信小程序的消息头 判断是否为微信用户
     public boolean hasWeChatMiniProgramFlag() {
         String header = getCurrentRequest().getHeader("User-Agent");
         //TODO 真机待验证有效性

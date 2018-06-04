@@ -90,7 +90,7 @@ public class AuthService {
         userAccountUtils.putCacheLoginUser(userDetails.getUserAccount(), userDetails.getUsername(), expiredTimeOutSecond);
 
         System.out.println("token =  " + token);
-        return JSONResult.ok("登录成功").data(token);
+        return JSONResult.ok("登录成功").put("token", token);
     }
 
     //微信

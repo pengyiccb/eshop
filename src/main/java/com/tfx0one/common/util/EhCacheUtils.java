@@ -23,7 +23,8 @@ public class EhCacheUtils {
 
     //必须用 CacheConfig.class 名字。否则  java.lang.ClassCastException: java.util.LinkedHashMap cannot be cast to org.springframework.cache.ehcache.EhCacheCacheManager
     @Autowired
-    private EhCacheCacheManager ehCacheCacheManager;// = SpringContextHolder.getBean("ehCacheCacheManager");
+    private EhCacheCacheManager ehCacheCacheManager;
+    // = SpringContextHolder.getBean("ehCacheCacheManager");
 
     public Ehcache getEhcache(String cacheName){
         if (ehCacheCacheManager == null) {
@@ -44,6 +45,7 @@ public class EhCacheUtils {
         this.getEhcache(cacheName).put(new Element(key, value));
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T get(String cacheName, String key) {
         if (!StringUtils.isEmpty(key)) {
             Element e = getEhcache(cacheName).get(key);

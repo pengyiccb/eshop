@@ -36,6 +36,17 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
+    <cache name="CACHE_VENDOR_USER"
+           maxEntriesLocalHeap="9999"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+
+
+
     <!--
     name：Cache的唯一标识
     maxElementsInMemory：内存中最大缓存对象数

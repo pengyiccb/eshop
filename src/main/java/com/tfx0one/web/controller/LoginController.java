@@ -1,39 +1,41 @@
 package com.tfx0one.web.controller;
 
-import net.sf.ehcache.CacheManager;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tfx0one.common.util.UserAccountUtils;
+import com.tfx0one.web.model.UserAccount;
+import com.tfx0one.web.service.UserAccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Date;
+import javax.annotation.Resource;
 
 @Controller
 public class LoginController {
 
 
-//    @Autowired
-//    private UserService userService;
+    @Resource
+    UserAccountUtils userAccountUtils;
+
+    @Resource
+    private UserAccountService userAccountService;
 
 //    @RequestMapping(value="/index", method = RequestMethod.GET)
 //    public String index() {
-////        User user = new User();
-////        user.setName("aaaa");
-////        user.setPassword("bbbb");
-////        user.setCreateTime(new Date());
-////        userService.save(user);
 //        return "main";
 //    }
-//
-//    @RequestMapping(value="/login", method = RequestMethod.GET)
-//    public String loginPage() {
-//        System.out.println("loginPage()");
-//        return "login";
-//    }
-//
-//    @RequestMapping(value="/login", method = RequestMethod.POST)
-//    public String login() {
-//        System.out.println("login()");
-//        return "main";
-//    }
+
+    @RequestMapping(value="/login", method = RequestMethod.GET)
+    public String loginPage() {
+        System.out.println("loginPage() GET");
+        return "login";
+    }
+
+    @RequestMapping(value="/login", method = RequestMethod.POST)
+    public String login(@RequestParam Integer userId) {
+        System.out.println("login() POST");
+        UserAccount userAccount = userAccountService.selectByPrimaryKey(userId);
+        userAccountUtils.putCacheLoginUser(userAccount, "", 1200);
+        return "main";
+    }
 }

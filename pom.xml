@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.tfx0one</groupId>
-    <artifactId>springlearning</artifactId>
+    <artifactId>jxxy-eShop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>springlearning</name>
-    <description>Learning project for Spring Boot</description>
+    <name>jxxy-eShop</name>
+    <description>eShop project for Spring Boot</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -65,6 +65,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
 
         <!--mapper-->
         <dependency>
@@ -126,6 +127,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
+        <!--spring-session-data-redis -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.session</groupId>-->
+            <!--<artifactId>spring-session-data-redis</artifactId>-->
+        <!--</dependency>-->
+
+
     </dependencies>
 
     <build>
@@ -159,6 +168,19 @@
                 </dependencies>
             </plugin>
         </plugins>
+
+        <!--包内的mapper资源文件-->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
     </build>
 
 

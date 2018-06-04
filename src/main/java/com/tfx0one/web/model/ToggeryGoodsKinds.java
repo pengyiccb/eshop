@@ -1,9 +1,10 @@
 package com.tfx0one.web.model;
 
+import com.tfx0one.common.util.BaseEntity;
 import javax.persistence.*;
 
 @Table(name = "toggery_goods_kinds")
-public class ToggeryGoodsKinds {
+public class ToggeryGoodsKinds extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,6 +24,11 @@ public class ToggeryGoodsKinds {
         return id;
     }
 
+    public ToggeryGoodsKinds withId(Integer id) {
+        this.setId(id);
+        return this;
+    }
+
     /**
      * @param id
      */
@@ -35,6 +41,11 @@ public class ToggeryGoodsKinds {
      */
     public Integer getKindsId() {
         return kindsId;
+    }
+
+    public ToggeryGoodsKinds withKindsId(Integer kindsId) {
+        this.setKindsId(kindsId);
+        return this;
     }
 
     /**
@@ -51,6 +62,11 @@ public class ToggeryGoodsKinds {
         return name;
     }
 
+    public ToggeryGoodsKinds withName(String name) {
+        this.setName(name);
+        return this;
+    }
+
     /**
      * @param name
      */
@@ -63,6 +79,11 @@ public class ToggeryGoodsKinds {
      */
     public Short getCategoryType() {
         return categoryType;
+    }
+
+    public ToggeryGoodsKinds withCategoryType(Short categoryType) {
+        this.setCategoryType(categoryType);
+        return this;
     }
 
     /**

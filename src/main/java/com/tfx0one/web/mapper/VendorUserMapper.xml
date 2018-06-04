@@ -7,7 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="category_type" jdbcType="SMALLINT" property="categoryType" />
-    <result column="program_uid" jdbcType="VARCHAR" property="programUid" />
+    <result column="app_id" jdbcType="VARCHAR" property="appId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="address" jdbcType="VARCHAR" property="address" />
@@ -20,4 +20,15 @@
     <result column="app_secret" jdbcType="VARCHAR" property="appSecret" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
   </resultMap>
+
+
+  <!--编写sql 一定要使用resultMap 匹配-->
+  <select id="selectByAppId" resultMap="BaseResultMap">
+    SELECT
+      app_id, app_secret
+    FROM
+      vendor_user
+    WHERE
+      app_id = #{appId}
+  </select>
 </mapper>

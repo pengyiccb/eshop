@@ -1,19 +1,15 @@
 package com.tfx0one.web.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.tfx0one.common.constant.CacheConstant;
-import com.tfx0one.common.constant.StatusConstant;
-import com.tfx0one.common.util.EhCacheUtils;
+import com.tfx0one.common.constant.WXAPIConstant;
 import com.tfx0one.common.util.HttpUtils;
-import com.tfx0one.common.util.RedisUtils;
-import com.tfx0one.common.util.WXUserAccountUtils;
-import com.tfx0one.configuration.WechatConfiguration;
+import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.web.model.UserAccount;
+import com.tfx0one.web.model.VendorUser;
 import com.tfx0one.web.model.WXUserInfo;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -29,31 +25,31 @@ public class WeChatService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
-    private WechatConfiguration wechatConfiguration;
-
-    @Resource
     private UserAccountService userAccountService;
 
     @Resource
-    private WXUserAccountUtils wxUserAccountUtils;
+    private UserAccountUtils userAccountUtils;
 
     @Resource
-    private RedisUtils redisUtils;
+    private VendorService vendorService;
 
     public JSONObject jscode2session(String appId, String code) {
+
+        VendorUser vendorUser = vendorService.selectOne(new VendorUser().withAppId(appId));
         StringBuffer sb = new StringBuffer();
+        sb.append(WXAPIConstant.URL_JSCODE2SESSION+"?");
         sb.append("appid=").append(appId);
-        sb.append("&secret=").append(wechatConfiguration.getSecret());
+        sb.append("&secret=").append(vendorUser.getAppSecret());
         sb.append("&js_code=").append(code);
-        sb.append("&grant_type=").append(wechatConfiguration.getGrantType());
-        String res = HttpUtils.get(wechatConfiguration.getJscode2session() + "?" + sb.toString());
+        sb.append("&grant_type=").append(WXAPIConstant.GRANT_TYPE);
+//        System.out.println(sb.toString());
+        String res = HttpUtils.get(sb.toString());
         if (StringUtils.isEmpty(res)) {
             return null;
         }
 
         JSONObject json = JSONObject.parseObject(res);
         logger.info(json.toString());
-//        System.out.println(json);
         return json;
 
 //        return JSONObject.parse(res);
@@ -82,25 +78,26 @@ public class WeChatService {
     //利用 微信发来的数据 https://developers.weixin.qq.com/miniprogram/dev/api/api-login.html#wxloginobject
     //创建一个账户，如果数据存，直接返回数据库的用户
     public String createUserAccount(WXUserInfo userInfo, String appId, String openId, String unionId, String sessionKey, int timeToIdleSeconds) {
-        UserAccount userAccount = new UserAccount();
-        userAccount.setOpenId(openId);
-        List<UserAccount> list = userAccountService.select(userAccount);
 
-        System.out.println(list);
-        if (list.size() > 1) {
-            throw new RuntimeException("一个openId找到多个账号");
-        }
+
+//        List<UserAccount> list = userAccountService.select(new UserAccount().withOpenId(openId));
+//
+//        System.out.println(list);
+//        if (list.size() > 1) {
+//            throw new RuntimeException("一个openId找到多个账号");
+//        }
+        UserAccount cacheUserAccount = userAccountService.selectOne(new UserAccount().withOpenId(openId));
 
         String serverSessionKey = this.create3rdSession(openId, sessionKey, timeToIdleSeconds);
-        UserAccount cacheUserAccount = null;
 
-        if (list.size() == 1) { //找到用户了。已经创建了
-            cacheUserAccount = list.get(0);
-        } else { //没有找到，数据入库
+        if (cacheUserAccount == null) {
+            //找到用户了。已经创建了
+//            cacheUserAccount = list.get(0);
+//        } else { //没有找到，新增数据入库
             cacheUserAccount = new UserAccount();
             cacheUserAccount.setAppId(appId);
             cacheUserAccount.setStatus(true);
-            cacheUserAccount.setSex(userInfo.getGender().equals("1"));
+            cacheUserAccount.setSex("1".equals(userInfo.getGender()));
             cacheUserAccount.setOpenId(openId);
             cacheUserAccount.setUnionId(unionId);
             cacheUserAccount.setHeadUrl(userInfo.getAvatarUrl());
@@ -108,8 +105,9 @@ public class WeChatService {
             userAccountService.save(cacheUserAccount);
         }
 
+
         //把用户缓存起来。20分钟缓存
-        wxUserAccountUtils.cacheLoginUser(serverSessionKey, cacheUserAccount, timeToIdleSeconds); //找到的第一个
+        userAccountUtils.putCacheLoginUser(cacheUserAccount, serverSessionKey, 1200);
 
         return serverSessionKey;
     }

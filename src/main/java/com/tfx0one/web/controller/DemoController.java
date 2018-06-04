@@ -1,12 +1,9 @@
 package com.tfx0one.web.controller;
 
-import com.tfx0one.common.util.AjaxObject;
-import com.tfx0one.web.model.DemoModel;
-import com.tfx0one.web.model.UserAccount;
+import com.tfx0one.common.util.JSONResult;
+import com.tfx0one.web.model.Demo;
 import com.tfx0one.web.service.DemoService;
-import com.tfx0one.web.service.UserAccountService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,16 +20,16 @@ public class DemoController {
 
     @ApiOperation(value = "测试用的", notes = "测试接口")
     @RequestMapping(value="/demo/list", method = RequestMethod.GET)
-    public AjaxObject list() {
+    public JSONResult list() {
 
-        List<DemoModel> l =  demoService.selectAll();
+        List<Demo> l =  demoService.selectAll();
 
-        return AjaxObject.ok().data(l);
+        return JSONResult.ok().data(l);
     }
 
     @RequestMapping(value="/demo/post", method = RequestMethod.POST)
-    public AjaxObject post(@RequestBody DemoModel demo) {
-        return AjaxObject.ok().data(demo);
+    public JSONResult post(@RequestBody Demo demo) {
+        return JSONResult.ok().data(demo);
     }
 
 

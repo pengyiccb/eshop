@@ -1,9 +1,10 @@
 package com.tfx0one.web.model;
 
+import com.tfx0one.common.util.BaseEntity;
 import javax.persistence.*;
 
 @Table(name = "vendor_category")
-public class VendorCategory {
+public class VendorCategory extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short id;
@@ -17,6 +18,11 @@ public class VendorCategory {
      */
     public Short getId() {
         return id;
+    }
+
+    public VendorCategory withId(Short id) {
+        this.setId(id);
+        return this;
     }
 
     /**
@@ -33,6 +39,11 @@ public class VendorCategory {
         return type;
     }
 
+    public VendorCategory withType(Short type) {
+        this.setType(type);
+        return this;
+    }
+
     /**
      * @param type
      */
@@ -45,6 +56,11 @@ public class VendorCategory {
      */
     public String getName() {
         return name;
+    }
+
+    public VendorCategory withName(String name) {
+        this.setName(name);
+        return this;
     }
 
     /**

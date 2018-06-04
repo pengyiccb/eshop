@@ -4,13 +4,9 @@ package com.tfx0one.common.interceptor;
  * Create by 2fx0one on 22/5/2018
  */
 
-import com.tfx0one.common.util.RedisUtils;
-import com.tfx0one.common.util.WXUserAccountUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tfx0one.common.util.UserAccountUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,10 +23,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
     }
 
     @Resource
-    private RedisUtils redisUtils;
-
-    @Resource
-    private WXUserAccountUtils wxUserAccountUtils;
+    private UserAccountUtils userAccountUtils;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -55,10 +48,13 @@ public class WXAuthInterceptor implements HandlerInterceptor {
 //            return false;
 //        }
 
+//        request.setAttribute();
+        System.out.println("SessionId=" + request.getSession().getId());
+
         //微信 wechatdevtools 开发工具使用的
         String user_agent = request.getHeader("User-Agent");
         System.out.println(user_agent);
-        if (user_agent.indexOf("wechat") == -1) { //不是微信发来的，不验证sessionKey。
+        if (!user_agent.contains("wechat")) { //不是微信发来的，不验证sessionKey。
             return true;
         }
 
@@ -69,7 +65,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
         System.out.println(content_type2);
 
         //serverSessionKey为空 || 不为空，检查redis中是否过期
-        if (null == wxUserAccountUtils.getCacheLoginUser()) {
+        if (null == userAccountUtils.getCacheLoginUser()) {
             errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 需要有效的 serverSessionKey ");
             return true;
         }

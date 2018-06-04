@@ -7,12 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
-@EnableTransactionManagement
-@MapperScan(basePackages = "com.tfx0one.web.mapper", markerInterface = MyMapper.class)
+@MapperScan(basePackages = "com.tfx0one.web.mapper")
 public class SpringBootEShopApplication {
 
 

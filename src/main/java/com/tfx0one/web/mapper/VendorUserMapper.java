@@ -4,4 +4,5 @@ import com.tfx0one.common.util.MyMapper;
 import com.tfx0one.web.model.VendorUser;
 
 public interface VendorUserMapper extends MyMapper<VendorUser> {
+    VendorUser selectByAppId(String appId);
 }

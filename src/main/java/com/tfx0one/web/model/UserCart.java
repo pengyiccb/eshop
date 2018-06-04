@@ -1,10 +1,11 @@
 package com.tfx0one.web.model;
 
+import com.tfx0one.common.util.BaseEntity;
 import java.math.BigDecimal;
 import javax.persistence.*;
 
 @Table(name = "user_cart")
-public class UserCart {
+public class UserCart extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -56,6 +57,11 @@ public class UserCart {
         return id;
     }
 
+    public UserCart withId(Integer id) {
+        this.setId(id);
+        return this;
+    }
+
     /**
      * @param id
      */
@@ -68,6 +74,11 @@ public class UserCart {
      */
     public Integer getKindsId() {
         return kindsId;
+    }
+
+    public UserCart withKindsId(Integer kindsId) {
+        this.setKindsId(kindsId);
+        return this;
     }
 
     /**
@@ -84,6 +95,11 @@ public class UserCart {
         return title;
     }
 
+    public UserCart withTitle(String title) {
+        this.setTitle(title);
+        return this;
+    }
+
     /**
      * @param title
      */
@@ -96,6 +112,11 @@ public class UserCart {
      */
     public Integer getUserAccount() {
         return userAccount;
+    }
+
+    public UserCart withUserAccount(Integer userAccount) {
+        this.setUserAccount(userAccount);
+        return this;
     }
 
     /**
@@ -112,6 +133,11 @@ public class UserCart {
         return createTime;
     }
 
+    public UserCart withCreateTime(Integer createTime) {
+        this.setCreateTime(createTime);
+        return this;
+    }
+
     /**
      * @param createTime
      */
@@ -124,6 +150,11 @@ public class UserCart {
      */
     public BigDecimal getMarketPrice() {
         return marketPrice;
+    }
+
+    public UserCart withMarketPrice(BigDecimal marketPrice) {
+        this.setMarketPrice(marketPrice);
+        return this;
     }
 
     /**
@@ -140,6 +171,11 @@ public class UserCart {
         return discountPrice;
     }
 
+    public UserCart withDiscountPrice(BigDecimal discountPrice) {
+        this.setDiscountPrice(discountPrice);
+        return this;
+    }
+
     /**
      * @param discountPrice
      */
@@ -152,6 +188,11 @@ public class UserCart {
      */
     public String getGoodsThumb() {
         return goodsThumb;
+    }
+
+    public UserCart withGoodsThumb(String goodsThumb) {
+        this.setGoodsThumb(goodsThumb);
+        return this;
     }
 
     /**
@@ -168,6 +209,11 @@ public class UserCart {
         return goodsColor;
     }
 
+    public UserCart withGoodsColor(String goodsColor) {
+        this.setGoodsColor(goodsColor);
+        return this;
+    }
+
     /**
      * @param goodsColor
      */
@@ -180,6 +226,11 @@ public class UserCart {
      */
     public BigDecimal getGoodsSize() {
         return goodsSize;
+    }
+
+    public UserCart withGoodsSize(BigDecimal goodsSize) {
+        this.setGoodsSize(goodsSize);
+        return this;
     }
 
     /**
@@ -196,6 +247,11 @@ public class UserCart {
         return count;
     }
 
+    public UserCart withCount(Integer count) {
+        this.setCount(count);
+        return this;
+    }
+
     /**
      * @param count
      */
@@ -208,6 +264,11 @@ public class UserCart {
      */
     public Boolean getIsNew() {
         return isNew;
+    }
+
+    public UserCart withIsNew(Boolean isNew) {
+        this.setIsNew(isNew);
+        return this;
     }
 
     /**
@@ -224,6 +285,11 @@ public class UserCart {
         return isHot;
     }
 
+    public UserCart withIsHot(Boolean isHot) {
+        this.setIsHot(isHot);
+        return this;
+    }
+
     /**
      * @param isHot
      */
@@ -238,6 +304,11 @@ public class UserCart {
         return goodId;
     }
 
+    public UserCart withGoodId(Integer goodId) {
+        this.setGoodId(goodId);
+        return this;
+    }
+
     /**
      * @param goodId
      */
@@ -250,6 +321,11 @@ public class UserCart {
      */
     public Integer getSystemType() {
         return systemType;
+    }
+
+    public UserCart withSystemType(Integer systemType) {
+        this.setSystemType(systemType);
+        return this;
     }
 
     /**

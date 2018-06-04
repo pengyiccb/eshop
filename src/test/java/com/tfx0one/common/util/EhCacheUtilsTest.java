@@ -21,8 +21,8 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class EhCacheUtilsTest {
 
-    @Autowired
-    private RedisUtils redisUtils;
+//    @Autowired
+//    private RedisUtils redisUtils;
 
 
 
@@ -63,11 +63,11 @@ public class EhCacheUtilsTest {
     @Test
     public void test() {
 
-        System.out.println(redisUtils);
-        String key = "aa";
-        String value = "xxxxvalxxxx";
-        redisUtils.set(key, value);
-        Assert.assertEquals(value,redisUtils.get(key));
+//        System.out.println(redisUtils);
+//        String key = "aa";
+//        String value = "xxxxvalxxxx";
+//        redisUtils.set(key, value);
+//        Assert.assertEquals(value,redisUtils.get(key));
 //        redisUtils.delete(key);
 
 //        System.out.println(cacheManager);

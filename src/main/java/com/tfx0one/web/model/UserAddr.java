@@ -1,9 +1,10 @@
 package com.tfx0one.web.model;
 
+import com.tfx0one.common.util.BaseEntity;
 import javax.persistence.*;
 
 @Table(name = "user_addr")
-public class UserAddr {
+public class UserAddr extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,6 +31,11 @@ public class UserAddr {
         return id;
     }
 
+    public UserAddr withId(Integer id) {
+        this.setId(id);
+        return this;
+    }
+
     /**
      * @param id
      */
@@ -42,6 +48,11 @@ public class UserAddr {
      */
     public Integer getUserAccount() {
         return userAccount;
+    }
+
+    public UserAddr withUserAccount(Integer userAccount) {
+        this.setUserAccount(userAccount);
+        return this;
     }
 
     /**
@@ -58,6 +69,11 @@ public class UserAddr {
         return name;
     }
 
+    public UserAddr withName(String name) {
+        this.setName(name);
+        return this;
+    }
+
     /**
      * @param name
      */
@@ -70,6 +86,11 @@ public class UserAddr {
      */
     public String getPhone() {
         return phone;
+    }
+
+    public UserAddr withPhone(String phone) {
+        this.setPhone(phone);
+        return this;
     }
 
     /**
@@ -86,6 +107,11 @@ public class UserAddr {
         return areaaddr;
     }
 
+    public UserAddr withAreaaddr(String areaaddr) {
+        this.setAreaaddr(areaaddr);
+        return this;
+    }
+
     /**
      * @param areaaddr
      */
@@ -100,6 +126,11 @@ public class UserAddr {
         return addrDesc;
     }
 
+    public UserAddr withAddrDesc(String addrDesc) {
+        this.setAddrDesc(addrDesc);
+        return this;
+    }
+
     /**
      * @param addrDesc
      */
@@ -112,6 +143,11 @@ public class UserAddr {
      */
     public String getAreaCode() {
         return areaCode;
+    }
+
+    public UserAddr withAreaCode(String areaCode) {
+        this.setAreaCode(areaCode);
+        return this;
     }
 
     /**

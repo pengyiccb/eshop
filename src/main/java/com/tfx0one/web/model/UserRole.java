@@ -1,9 +1,10 @@
 package com.tfx0one.web.model;
 
+import com.tfx0one.common.util.BaseEntity;
 import javax.persistence.*;
 
 @Table(name = "user_role")
-public class UserRole {
+public class UserRole extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,6 +21,11 @@ public class UserRole {
         return id;
     }
 
+    public UserRole withId(Integer id) {
+        this.setId(id);
+        return this;
+    }
+
     /**
      * @param id
      */
@@ -34,6 +40,11 @@ public class UserRole {
         return roleId;
     }
 
+    public UserRole withRoleId(Integer roleId) {
+        this.setRoleId(roleId);
+        return this;
+    }
+
     /**
      * @param roleId
      */
@@ -46,6 +57,11 @@ public class UserRole {
      */
     public String getName() {
         return name;
+    }
+
+    public UserRole withName(String name) {
+        this.setName(name);
+        return this;
     }
 
     /**

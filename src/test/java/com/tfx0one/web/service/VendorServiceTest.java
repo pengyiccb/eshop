@@ -27,9 +27,9 @@ public class VendorServiceTest {
     @Test
     public void selectByAppId() {
         try {
-            VendorUser vendorUser = vendorService.selectByAppId("wxdda83d03c2d1521c");
-            VendorUser vendorUser2 = vendorService.selectByAppId("wxdda83d03c2d1521c");
-            System.out.println(vendorUser.getAppSecret());
+//            VendorUser vendorUser = vendorService.selectByAppId("wxdda83d03c2d1521c");
+//            VendorUser vendorUser2 = vendorService.selectByAppId("wxdda83d03c2d1521c");
+//            System.out.println(vendorUser.getAppSecret());
         } catch (Exception e) {
             e.printStackTrace();
         }

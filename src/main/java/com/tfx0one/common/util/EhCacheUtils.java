@@ -9,6 +9,8 @@ import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
+
 /**
  * Created by 2fx0one on 28/5/2018.
  * TODE 需要重写缓存配置
@@ -22,7 +24,7 @@ public class EhCacheUtils {
 //    private static CacheManager cacheManager = SpringContextHolder.getBean(CacheManager.class);
 
     //必须用 CacheConfig.class 名字。否则  java.lang.ClassCastException: java.util.LinkedHashMap cannot be cast to org.springframework.cache.ehcache.EhCacheCacheManager
-    @Autowired
+    @Resource
     private EhCacheCacheManager ehCacheCacheManager;
     // = SpringContextHolder.getBean("ehCacheCacheManager");
 

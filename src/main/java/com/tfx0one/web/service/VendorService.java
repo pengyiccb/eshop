@@ -17,13 +17,4 @@ import javax.annotation.Resource;
 @Service
 //@CacheConfig(cacheNames = CacheConstant.CACHE_VENDOR_USER)
 public class VendorService extends BaseService<VendorUser> {
-
-    @Resource
-    VendorUserMapper vendorUserMapper;
-
-//    @Cacheable
-    public VendorUser selectByAppId(String appId) {
-        return vendorUserMapper.selectByAppId(appId);
-    }
-
 }

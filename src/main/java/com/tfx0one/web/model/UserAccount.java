@@ -1,6 +1,7 @@
 package com.tfx0one.web.model;
 
 import com.tfx0one.common.util.BaseEntity;
+import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "user_account")
@@ -13,7 +14,12 @@ public class UserAccount extends BaseEntity {
 
     private Boolean status;
 
+    private String username;
+
     private String password;
+
+    @Column(name = "last_reset_password_time")
+    private Date lastResetPasswordTime;
 
     @Column(name = "role_id")
     private Integer roleId;
@@ -93,6 +99,25 @@ public class UserAccount extends BaseEntity {
     }
 
     /**
+     * @return username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    public UserAccount withUsername(String username) {
+        this.setUsername(username);
+        return this;
+    }
+
+    /**
+     * @param username
+     */
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
+    /**
      * @return password
      */
     public String getPassword() {
@@ -109,6 +134,25 @@ public class UserAccount extends BaseEntity {
      */
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    /**
+     * @return last_reset_password_time
+     */
+    public Date getLastResetPasswordTime() {
+        return lastResetPasswordTime;
+    }
+
+    public UserAccount withLastResetPasswordTime(Date lastResetPasswordTime) {
+        this.setLastResetPasswordTime(lastResetPasswordTime);
+        return this;
+    }
+
+    /**
+     * @param lastResetPasswordTime
+     */
+    public void setLastResetPasswordTime(Date lastResetPasswordTime) {
+        this.lastResetPasswordTime = lastResetPasswordTime;
     }
 
     /**

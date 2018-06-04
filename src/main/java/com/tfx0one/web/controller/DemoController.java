@@ -4,6 +4,7 @@ import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.web.model.Demo;
 import com.tfx0one.web.service.DemoService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 
 @RestController
+@PreAuthorize("hasAuthority('ADMIN')")
 public class DemoController {
     @Resource
     private DemoService demoService;

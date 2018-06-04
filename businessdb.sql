@@ -132,16 +132,18 @@ CREATE TABLE `user_account` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `phone` varchar(21) DEFAULT NULL,
   `status` tinyint(1) DEFAULT '0',
+  `username` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
+  `last_reset_password_time` datetime DEFAULT NULL,
   `role_id` mediumint(8) DEFAULT NULL,
-  `sex` tinyint(1) NOT NULL,
+  `sex` tinyint(1) DEFAULT NULL,
   `nick_name` varchar(1024) DEFAULT NULL,
-  `head_url` varchar(200) NOT NULL,
-  `app_id` varchar(200) NOT NULL,
-  `open_id` varchar(200) NOT NULL,
+  `head_url` varchar(200) DEFAULT '',
+  `app_id` varchar(200) DEFAULT '',
+  `open_id` varchar(200) DEFAULT '',
   `union_id` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,7 +152,7 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` VALUES (1,NULL,1,NULL,NULL,1,'机车王小二','https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqxPKde5h68XULD7URQm4g2p9xlDTlMJhV4BNJeeboInKhqvqB475fiaJoYlsLF9y8M6jXddmKRG5g/132','wxdda83d03c2d1521c','oUeJY5KR0bECG54dDD0trBqgzkDo','oJ6K-1eZqk8pv1Lvae7zfd-MaVfw'),(2,NULL,1,NULL,NULL,1,'Yang','https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKcq5xY5euQmIBBzlGuwUJibxFHFNia83YXwianUprszUmDOoxZYEMq4IRNdicgDmpyUtkZpmkr86QkGA/132','wxdda83d03c2d1521c','oUeJY5P0SfCNrJnlLtYTJiKm57yM',NULL);
+INSERT INTO `user_account` VALUES (3,NULL,NULL,'wangkun','$2a$10$1aRFT.OVSzJ8FoNu6mIZK.cjOlH39JP8fyGIebQhvJADhbjrGYw56','2018-06-04 14:33:41',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,4 +314,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-01 20:41:13
+-- Dump completed on 2018-06-04 14:33:49

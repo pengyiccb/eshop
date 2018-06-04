@@ -1,8 +1,11 @@
 package com.tfx0one.common.auth;
 
+import com.tfx0one.common.util.UserAccountUtils;
+import com.tfx0one.web.model.UserAccount;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -23,12 +26,13 @@ public class JwtTokenUtils {
     @Value("${jwt.expiredTimeOutSecond}")
     private int expiredTimeOutSecond;
 
+
     public Date generateExpirationDate(int expiredTimeSecond) {
 //        expiredTimeSecond
         return new Date(System.currentTimeMillis() + expiredTimeSecond*1000);
     }
 
-    public String generateToken(Map<String, Object> claims, String secret, int expiredTimeOutSecond) {
+    public String generateTokenThenCacheUser(Map<String, Object> claims, String secret, int expiredTimeOutSecond) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate(expiredTimeOutSecond))
@@ -64,10 +68,9 @@ public class JwtTokenUtils {
         return authToken != null && userDetails != null;
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateTokenThenCacheUser(UserDetails userDetails) {
         Map<String, Object> data = new HashMap<>();
         data.put("username", userDetails.getUsername());
-
-        return this.generateToken(data, this.secret, this.expiredTimeOutSecond);
+        return this.generateTokenThenCacheUser(data, this.secret, this.expiredTimeOutSecond);
     }
 }

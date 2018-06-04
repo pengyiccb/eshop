@@ -12,19 +12,18 @@ import java.util.stream.Collectors;
 /**
  * Created by 2fx0one on 2018/6/4.
  */
+
+//创建数据库中的对应授权用户
 public class JwtUserFactory {
     private JwtUserFactory() {
     }
 
 
     public static JwtUser create(UserAccount user) {
-        return new JwtUser(
-                user.getId(),
+        return new JwtUser(user,
                 user.getUsername(),
                 user.getPassword(),
-                "email",
-                mapToGrantedAuthorities(Arrays.asList("ADMIN", "ROLE_USER")),
-                new Date()
+                mapToGrantedAuthorities(Arrays.asList("ROLE_USER"))
         );
     }
 

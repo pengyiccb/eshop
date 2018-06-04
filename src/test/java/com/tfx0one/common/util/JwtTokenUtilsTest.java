@@ -19,7 +19,7 @@ public class JwtTokenUtilsTest {
 //        Map<String, Object> c = new HashMap<>();
 //        c.put("a", 1);
 //        String secret = "a2Vsdmlu";
-//        String token = jwtTokenUtils.generateToken(c, secret, 1000);
+//        String token = jwtTokenUtils.generateTokenThenCacheUser(c, secret, 1000);
 //
 //        System.out.println(token);
 //

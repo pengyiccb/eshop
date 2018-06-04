@@ -1,7 +1,9 @@
 package com.tfx0one.web.controller;
 
 import com.tfx0one.common.util.JSONResult;
+import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.web.model.Demo;
+import com.tfx0one.web.model.UserAccount;
 import com.tfx0one.web.service.DemoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,14 +17,19 @@ import java.util.List;
  */
 
 @RestController
-@PreAuthorize("hasAuthority('ADMIN')")
+@PreAuthorize("hasRole('USER')")
 public class DemoController {
     @Resource
     private DemoService demoService;
 
+    @Resource
+    private UserAccountUtils userAccountUtils;
+
     @ApiOperation(value = "测试用的", notes = "测试接口")
     @RequestMapping(value="/demo/list", method = RequestMethod.GET)
     public JSONResult list() {
+
+        System.out.println(userAccountUtils.getCacheLoginUser());
 
         List<Demo> l =  demoService.selectAll();
 

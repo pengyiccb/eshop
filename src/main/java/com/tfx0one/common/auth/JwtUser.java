@@ -1,11 +1,11 @@
 package com.tfx0one.common.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tfx0one.web.model.UserAccount;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * Created by 2fx0one on 2018/6/4.
@@ -13,36 +13,30 @@ import java.util.Date;
 
 //包装 JWT 的 User
 public class JwtUser implements UserDetails {
-    private final int id;
     private final String username;
     private final String password;
-    private final String email;
+
+    private final UserAccount userAccount;
+
     private final Collection<? extends GrantedAuthority> authorities;
-    private final Date lastPasswordResetDate;
 
     public JwtUser(
-            int id,
+            UserAccount userAccount,
             String username,
             String password,
-            String email,
-            Collection<? extends GrantedAuthority> authorities,
-            Date lastPasswordResetDate) {
-        this.id = id;
+            Collection<? extends GrantedAuthority> authorities
+            ) {
         this.username = username;
-        this.password = password;
-        this.email = email;
+        this.password = password; //new BCryptPasswordEncoder().encode(passwd) 加密
+//        this.email = email;
+        this.userAccount = userAccount;
         this.authorities = authorities;
-        this.lastPasswordResetDate = lastPasswordResetDate;
+//        this.lastPasswordResetDate = lastPasswordResetDate;
     }
     //返回分配给用户的角色列表
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
-    }
-
-    @JsonIgnore
-    public int getId() {
-        return id;
     }
 
     @JsonIgnore
@@ -77,11 +71,12 @@ public class JwtUser implements UserDetails {
     @JsonIgnore
     @Override
     public boolean isEnabled() {
+        System.out.println("isEnabled()  用户状态： " + userAccount.getStatus());
         return true;
     }
     // 这个是自定义的，返回上次密码重置日期
     @JsonIgnore
-    public Date getLastPasswordResetDate() {
-        return lastPasswordResetDate;
+    public UserAccount getUserAccount() {
+        return userAccount;
     }
 }

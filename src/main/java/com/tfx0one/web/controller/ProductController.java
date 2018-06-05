@@ -22,11 +22,9 @@ public class ProductController {
     @Resource
     ProductService productService;
 
-
     @ApiOperation(value = "获取主页的数据", notes = "需要传递appId 作为参数")
     @RequestMapping(value="/api/v1/wechat/productList", method = RequestMethod.GET)
     public JSONResult productList(@RequestParam String appId) {
-
         List<ToggeryGoods> list = productService.select(null);
         return JSONResult.ok().data(list);
     }

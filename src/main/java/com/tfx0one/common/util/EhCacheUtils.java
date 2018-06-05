@@ -18,17 +18,11 @@ import javax.annotation.Resource;
 @Component
 public class EhCacheUtils {
 
-
-//    @Autowired
-//    private static CacheManager cacheManager;
-//    private static CacheManager cacheManager = SpringContextHolder.getBean(CacheManager.class);
-
-    //必须用 CacheConfig.class 名字。否则  java.lang.ClassCastException: java.util.LinkedHashMap cannot be cast to org.springframework.cache.ehcache.EhCacheCacheManager
-    @Resource
+   @Resource
     private EhCacheCacheManager ehCacheCacheManager;
     // = SpringContextHolder.getBean("ehCacheCacheManager");
 
-    public Ehcache getEhcache(String cacheName){
+    private Ehcache getEhcache(String cacheName){
         if (ehCacheCacheManager == null) {
             throw new NullPointerException("CacheManager == null");
         }
@@ -58,9 +52,11 @@ public class EhCacheUtils {
         return null;
     }
 
+    //删除一个缓冲
     public boolean remove(String cacheName,String key){
         return getEhcache(cacheName).remove(key);
     }
+
 //
 //
 //    //=============spring包装的缓存管理对象======================
@@ -103,11 +99,11 @@ public class EhCacheUtils {
 //     *
 //     * @Description: 删除缓存中的信息
 //     */
-    public void evict(String cacheName,String key) {
-        if (!StringUtils.isEmpty(key)) {
-            getCache(cacheName).evict(key);
-        }
-    }
+//    public void evict(String cacheName,String key) {
+//        if (!StringUtils.isEmpty(key)) {
+//            getCache(cacheName).evict(key);
+//        }
+//    }
 
 
 }

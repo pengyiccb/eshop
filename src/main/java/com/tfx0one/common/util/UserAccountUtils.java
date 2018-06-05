@@ -25,6 +25,7 @@ public class UserAccountUtils {
     private final Logger logger = LoggerFactory.getLogger(UserAccountUtils.class);
 
     @Resource
+    //app内的缓存
     private EhCacheUtils ehCacheUtils;
 
     //放入缓存 登录的用户信息

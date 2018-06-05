@@ -84,9 +84,10 @@ public class AuthService {
 
         final JwtUser userDetails = (JwtUser)jwtUserService.loadUserByUsername(username);
 
-        //登录完成。生成token 用户缓存起来。
+        //登录完成。生成token
         final String token = jwtTokenUtils.generateTokenThenCacheUser(userDetails);
 
+        //用户缓存起来。
         userAccountUtils.putCacheLoginUser(userDetails.getUserAccount(), userDetails.getUsername(), expiredTimeOutSecond);
 
         System.out.println("token =  " + token);
@@ -112,12 +113,12 @@ public class AuthService {
         JSONObject wxSession = weChatService.jscode2session(appId, code);
 
         if (StringUtils.isEmpty(wxSession)) {
-            return JSONResult.error(-1, "授权失败！wxSession为空");
+            return JSONResult.error("授权失败！wxSession为空");
         }
 
         //获取异常
         if(wxSession.containsKey("errcode")){
-            return JSONResult.error(-2, "授权失败！wxSession获取错误！");
+            return JSONResult.error("授权失败！wxSession获取错误！");
         }
 
         String wxOpenId = (String)wxSession.get("openid");
@@ -131,6 +132,7 @@ public class AuthService {
         return this.login(userAccount.getUsername(), "123456"); //默认密码
 //        return JSONResult.ok("获取session成功");
     }
+
 
     private UserAccount createUserAccount(WXUserInfo userInfo, String appId, String openId, String unionId) {
         UserAccount userAccount = userAccountService.selectOne(new UserAccount().withOpenId(openId));

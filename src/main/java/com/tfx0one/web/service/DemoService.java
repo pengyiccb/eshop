@@ -14,7 +14,6 @@ import java.util.List;
  * Created by 2fx0one on 29/5/2018.
  */
 @Service
-@CacheConfig
 public class DemoService extends BaseService<Demo> {
 
     @Autowired

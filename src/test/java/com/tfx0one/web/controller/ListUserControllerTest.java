@@ -26,6 +26,7 @@ public class ListUserControllerTest {
     private WebApplicationContext wac;
 
     private MockMvc mockMvc;
+
     private MockHttpSession session;
 
     @Before

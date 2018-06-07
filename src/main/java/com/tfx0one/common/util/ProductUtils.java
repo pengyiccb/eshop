@@ -35,22 +35,22 @@ public class ProductUtils {
     private ProductSkuService productSkuService;
 
     // ================= 缓存 SPU 商品 基本信息 相关 =================
-    public EShopProduct getProductSPU(String vendorUserId, int spuId){
+    public EShopProduct getProductSPU(int vendorUserId, int spuId){
         return this.getProductSPU(vendorUserId).get(spuId);
     }
     //通过商户ID 找到商户的产品基本信息
-    public Map<Integer, EShopProduct> getProductSPU(String vendorUserId){
-        Map<Integer, EShopProduct> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SPU, vendorUserId);
+    public Map<Integer, EShopProduct> getProductSPU(int vendorUserId){
+        Map<Integer, EShopProduct> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SPU, String.valueOf(vendorUserId));
         return CollectionUtils.isEmpty(map) ? map : refreshProductsSPU(vendorUserId);
     }
 
     //刷新商户的基本信息，并缓存起来
     //注意，如果商户后台新增记录。这里就一定要刷新了。
-    public  Map<Integer, EShopProduct> refreshProductsSPU(String vendorUserId) {
-        List<EShopProduct> spuList = productService.select(new EShopProduct().withVendorUserId(Integer.parseInt(vendorUserId)));
+    public  Map<Integer, EShopProduct> refreshProductsSPU(int vendorUserId) {
+        List<EShopProduct> spuList = productService.select(new EShopProduct().withVendorUserId(vendorUserId));
         Map<Integer, EShopProduct> map = new HashMap<>();
         spuList.forEach(e -> map.put(e.getId(), e));
-        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SPU, vendorUserId, map);
+        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SPU, String.valueOf(vendorUserId), map);
         return map;
     }
 
@@ -59,22 +59,22 @@ public class ProductUtils {
 
     // ================= 缓存 SKU 单品 详情 相关 =================
     //通过商户ID 找到商户的产品详细信息
-    public EShopProductSku getProductSKU(String vendorUserId, int skuId) {
+    public EShopProductSku getProductSKU(int vendorUserId, int skuId) {
         return this.getProductSKU(vendorUserId).get(skuId);
     }
 
-    public Map<Integer, EShopProductSku> getProductSKU(String vendorUserId) {
-        Map<Integer, EShopProductSku> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU, vendorUserId);
+    public Map<Integer, EShopProductSku> getProductSKU(int vendorUserId) {
+        Map<Integer, EShopProductSku> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU, String.valueOf(vendorUserId));
         return CollectionUtils.isEmpty(map) ? map : refreshProductsSKU(vendorUserId);
     }
 
     //刷新商户的详细信息，并缓存起来
     //注意，如果商户后台新增记录。这里就一定要刷新了。
-    public Map<Integer, EShopProductSku> refreshProductsSKU(String vendorUserId) {
-        List<EShopProductSku> skuList = productSkuService.selectByVendorUserId(Integer.parseInt(vendorUserId));
+    public Map<Integer, EShopProductSku> refreshProductsSKU(int vendorUserId) {
+        List<EShopProductSku> skuList = productSkuService.selectByVendorUserId(vendorUserId);
         Map<Integer, EShopProductSku> map = new HashMap<>();
         skuList.forEach(e -> map.put(e.getId(), e));
-        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU, vendorUserId, map);
+        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU, String.valueOf(vendorUserId), map);
         return map;
     }
 

@@ -29,7 +29,7 @@ public class ProductService extends BaseService<EShopProduct> {
 
     //基本商品数据信息列表，不包含单品信息
     public List<EShopProduct> selectByVendorUserId(int vendorUserId) {
-        Map<Integer, EShopProduct> map = productUtils.getProductSPUList(String.valueOf(vendorUserId));
+        Map<Integer, EShopProduct> map = productUtils.getProductSPU(vendorUserId);
         List<EShopProduct> list = new ArrayList(map.values());
         return list;
     }

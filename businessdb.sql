@@ -50,6 +50,122 @@ INSERT INTO `demo` VALUES (1,'aa',1,'2018-05-29 16:22:47'),(2,'bbbcc',2,'2018-05
 UNLOCK TABLES;
 
 --
+-- Table structure for table `e_shop_product`
+--
+
+DROP TABLE IF EXISTS `e_shop_product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_product` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(64) NOT NULL COMMENT '标题',
+  `subtitle` varchar(64) DEFAULT NULL COMMENT '副标题',
+  `brief` varchar(255) DEFAULT NULL COMMENT '产品简述',
+  `content_desc` text COMMENT '详情',
+  `price_underline` decimal(10,2) DEFAULT NULL COMMENT '划线价格 市场价',
+  `sale_amount` int(11) NOT NULL COMMENT '销售额',
+  `keyword` varchar(255) DEFAULT NULL COMMENT '关键字',
+  `product_catagory_id` int(10) unsigned NOT NULL COMMENT '产品的类别',
+  `sort_order` tinyint(4) NOT NULL COMMENT '排序',
+  `is_on_sale` tinyint(4) NOT NULL COMMENT '是否上架',
+  `img_primary_url` varchar(255) DEFAULT NULL COMMENT '主图',
+  `img_list_url` varchar(255) DEFAULT NULL COMMENT '图片列表',
+  `is_delete` tinyint(4) DEFAULT NULL,
+  `vendor_id` int(11) DEFAULT NULL COMMENT '商家',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_product`
+--
+
+LOCK TABLES `e_shop_product` WRITE;
+/*!40000 ALTER TABLE `e_shop_product` DISABLE KEYS */;
+/*!40000 ALTER TABLE `e_shop_product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_shop_product_catagory`
+--
+
+DROP TABLE IF EXISTS `e_shop_product_catagory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_product_catagory` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint(20) NOT NULL,
+  `name` char(255) NOT NULL COMMENT '名字',
+  `catagory_desc` varchar(255) DEFAULT NULL COMMENT '描述',
+  `sort_order` smallint(6) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品分类 可以是类 目 或者 品牌';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_product_catagory`
+--
+
+LOCK TABLES `e_shop_product_catagory` WRITE;
+/*!40000 ALTER TABLE `e_shop_product_catagory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `e_shop_product_catagory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_shop_product_sku`
+--
+
+DROP TABLE IF EXISTS `e_shop_product_sku`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_product_sku` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(10) unsigned DEFAULT NULL COMMENT '属于哪个产品',
+  `unit_price` decimal(10,2) DEFAULT NULL COMMENT '单价',
+  `cost_price` decimal(10,2) NOT NULL COMMENT '成本价 可为空',
+  `stock_amount` int(11) DEFAULT NULL COMMENT '库存',
+  `stock_sn` int(11) NOT NULL COMMENT '商家自定义编号',
+  `attr_option` varchar(255) DEFAULT NULL COMMENT 'sku属性ID串',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品SKU（库存单品）。影响价格和库存。\r如：手机内存容量。颜色。\r多个对应一个商品';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_product_sku`
+--
+
+LOCK TABLES `e_shop_product_sku` WRITE;
+/*!40000 ALTER TABLE `e_shop_product_sku` DISABLE KEYS */;
+/*!40000 ALTER TABLE `e_shop_product_sku` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_shop_product_sku_attrs`
+--
+
+DROP TABLE IF EXISTS `e_shop_product_sku_attrs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_product_sku_attrs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'sku属性id',
+  `product_sku_id` int(10) unsigned NOT NULL COMMENT '属性对应的单品',
+  `attr_type` varchar(255) NOT NULL COMMENT '属性的类型',
+  `attr_content` varchar(255) NOT NULL COMMENT '属性的值',
+  `sort_order` int(11) NOT NULL COMMENT '属性的排序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='sku 销售属性。影响价格和库存。手机内存容量。颜色。\r多个对应一个商品';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_product_sku_attrs`
+--
+
+LOCK TABLES `e_shop_product_sku_attrs` WRITE;
+/*!40000 ALTER TABLE `e_shop_product_sku_attrs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `e_shop_product_sku_attrs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `toggery_goods`
 --
 
@@ -143,7 +259,7 @@ CREATE TABLE `user_account` (
   `open_id` varchar(200) DEFAULT '',
   `union_id` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +268,7 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` VALUES (3,NULL,NULL,'wangkun','$2a$10$1aRFT.OVSzJ8FoNu6mIZK.cjOlH39JP8fyGIebQhvJADhbjrGYw56','2018-06-04 14:33:41',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `user_account` VALUES (3,NULL,NULL,'wangkun','$2a$10$1aRFT.OVSzJ8FoNu6mIZK.cjOlH39JP8fyGIebQhvJADhbjrGYw56','2018-06-04 14:33:41',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,NULL,1,'oUeJY5KR0bECG54dDD0trBqgzkDo','$2a$10$OG4r8nfEXwRK/Q8v/e2Y6.HRRv..OoHRV1uEdrkjlvqJsCHCgnlfi','2018-06-04 18:08:52',NULL,1,'机车王小二','https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqxPKde5h68XULD7URQm4g2p9xlDTlMJhV4BNJeeboInKhqvqB475fiaJoYlsLF9y8M6jXddmKRG5g/132','wxdda83d03c2d1521c','oUeJY5KR0bECG54dDD0trBqgzkDo','oJ6K-1eZqk8pv1Lvae7zfd-MaVfw'),(5,NULL,1,'oUeJY5P0SfCNrJnlLtYTJiKm57yM','$2a$10$atYIChH0bWET1QbKwA8bce3VD2NyfIF3mahrZSV8qZKX4//DU6Dgy','2018-06-05 16:52:59',NULL,1,'Yang','https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKcq5xY5euQmIBBzlGuwUJibxFHFNia83YXwianUprszUmDOoxZYEMq4IRNdicgDmpyUtkZpmkr86QkGA/132','wxdda83d03c2d1521c','oUeJY5P0SfCNrJnlLtYTJiKm57yM',NULL);
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,4 +430,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-04 14:33:49
+-- Dump completed on 2018-06-07 11:31:41

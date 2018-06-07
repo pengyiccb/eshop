@@ -18,7 +18,7 @@
     <result column="img_primary_url" jdbcType="VARCHAR" property="imgPrimaryUrl" />
     <result column="img_list_url" jdbcType="VARCHAR" property="imgListUrl" />
     <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
-    <result column="vendor_id" jdbcType="INTEGER" property="vendorId" />
+    <result column="vendor_user_id" jdbcType="INTEGER" property="vendorUserId" />
     <result column="content_desc" jdbcType="LONGVARCHAR" property="contentDesc" />
   </resultMap>
 </mapper>

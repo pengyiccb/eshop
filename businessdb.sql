@@ -71,7 +71,7 @@ CREATE TABLE `e_shop_product` (
   `img_primary_url` varchar(255) DEFAULT NULL COMMENT '主图',
   `img_list_url` varchar(255) DEFAULT NULL COMMENT '图片列表',
   `is_delete` tinyint(4) DEFAULT NULL,
-  `vendor_id` int(11) DEFAULT NULL COMMENT '商家',
+  `vendor_user_id` int(11) DEFAULT NULL COMMENT '商家id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -163,78 +163,6 @@ CREATE TABLE `e_shop_product_sku_attr` (
 LOCK TABLES `e_shop_product_sku_attr` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_sku_attr` DISABLE KEYS */;
 /*!40000 ALTER TABLE `e_shop_product_sku_attr` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `toggery_goods`
---
-
-DROP TABLE IF EXISTS `toggery_goods`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `toggery_goods` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `system_user_id` mediumint(8) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `count` mediumint(8) NOT NULL,
-  `toggery_kinds_id` mediumint(8) NOT NULL,
-  `market_price` decimal(10,2) NOT NULL,
-  `discount_price` decimal(10,2) NOT NULL,
-  `freight` decimal(10,2) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `click_count` int(10) NOT NULL DEFAULT '0',
-  `weight` decimal(10,3) NOT NULL,
-  `promote_start_date` int(11) NOT NULL,
-  `promote_end_date` int(11) NOT NULL,
-  `keywords` varchar(255) NOT NULL,
-  `goods_brief` varchar(255) DEFAULT NULL,
-  `goods_desc` text,
-  `goods_sn` varchar(60) NOT NULL,
-  `is_new` tinyint(1) NOT NULL,
-  `is_hot` tinyint(1) NOT NULL,
-  `add_time` int(11) NOT NULL,
-  `update_time` int(11) NOT NULL,
-  `can_use_coupon` tinyint(1) NOT NULL,
-  `goods_thumb` varchar(255) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `toggery_goods`
---
-
-LOCK TABLES `toggery_goods` WRITE;
-/*!40000 ALTER TABLE `toggery_goods` DISABLE KEYS */;
-INSERT INTO `toggery_goods` VALUES (1,1,'商品1',100,4,200.00,200.00,10.00,'最新商品1',0,0.010,-1,-1,'服装,商品1','商品1简介','商品1详情','商品1序列号',1,1,0,0,0,'http://p9l3k4x4g.bkt.clouddn.com/product1.jpg',0),(2,1,'商品2',990,4,3000.00,3000.00,10.00,'最新商品2',0,2.000,-1,-1,'服装,商品2','商品2简介','商品2详情','商品2序列号',1,1,0,0,0,'http://p9l3k4x4g.bkt.clouddn.com/product1.jpg',0),(3,1,'商品3',1000,4,10000.00,10000.00,10.00,'最新商品3',0,20.250,-1,-1,'服装,商品3','商品3简介','商品3详情','商品3序列号',1,1,0,0,0,'http://p9l3k4x4g.bkt.clouddn.com/product1.jpg',0),(4,1,'商品4',55,4,360.00,360.00,10.00,'最新商品4',0,25.250,-1,-1,'服装,商品4','商品4简介','商品4详情','商品4序列号',1,1,0,0,0,'http://p9l3k4x4g.bkt.clouddn.com/product1.jpg',0),(5,1,'商品5',18888,4,780.00,780.00,10.00,'最新商品5',0,33.000,-1,-1,'服装,商品5','商品5简介','商品5详情','商品5序列号',1,1,0,0,0,'http://p9l3k4x4g.bkt.clouddn.com/product1.jpg',0);
-/*!40000 ALTER TABLE `toggery_goods` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `toggery_goods_kinds`
---
-
-DROP TABLE IF EXISTS `toggery_goods_kinds`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `toggery_goods_kinds` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `kinds_id` mediumint(8) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `category_type` smallint(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `toggery_goods_kinds`
---
-
-LOCK TABLES `toggery_goods_kinds` WRITE;
-/*!40000 ALTER TABLE `toggery_goods_kinds` DISABLE KEYS */;
-INSERT INTO `toggery_goods_kinds` VALUES (1,1,'上衣',1),(2,2,'裤子',1),(3,3,'鞋子',1),(4,4,'其他',1);
-/*!40000 ALTER TABLE `toggery_goods_kinds` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -430,4 +358,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-07 14:45:56
+-- Dump completed on 2018-06-07 15:15:37

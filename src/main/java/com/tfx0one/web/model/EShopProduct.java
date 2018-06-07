@@ -76,10 +76,10 @@ public class EShopProduct extends BaseEntity {
     private Byte isDelete;
 
     /**
-     * 商家
+     * 商家id
      */
-    @Column(name = "vendor_id")
-    private Integer vendorId;
+    @Column(name = "vendor_user_id")
+    private Integer vendorUserId;
 
     /**
      * 详情
@@ -379,26 +379,26 @@ public class EShopProduct extends BaseEntity {
     }
 
     /**
-     * 获取商家
+     * 获取商家id
      *
-     * @return vendor_id - 商家
+     * @return vendor_user_id - 商家id
      */
-    public Integer getVendorId() {
-        return vendorId;
+    public Integer getVendorUserId() {
+        return vendorUserId;
     }
 
-    public EShopProduct withVendorId(Integer vendorId) {
-        this.setVendorId(vendorId);
+    public EShopProduct withVendorUserId(Integer vendorUserId) {
+        this.setVendorUserId(vendorUserId);
         return this;
     }
 
     /**
-     * 设置商家
+     * 设置商家id
      *
-     * @param vendorId 商家
+     * @param vendorUserId 商家id
      */
-    public void setVendorId(Integer vendorId) {
-        this.vendorId = vendorId;
+    public void setVendorUserId(Integer vendorUserId) {
+        this.vendorUserId = vendorUserId;
     }
 
     /**

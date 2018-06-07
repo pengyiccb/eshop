@@ -3,8 +3,8 @@ package com.tfx0one.web.model;
 import com.tfx0one.common.util.BaseEntity;
 import javax.persistence.*;
 
-@Table(name = "e_shop_product_sku_attrs")
-public class EShopProductSkuAttrs extends BaseEntity {
+@Table(name = "e_shop_product_sku_attr")
+public class EShopProductSkuAttr extends BaseEntity {
     /**
      * sku属性id
      */
@@ -45,7 +45,7 @@ public class EShopProductSkuAttrs extends BaseEntity {
         return id;
     }
 
-    public EShopProductSkuAttrs withId(Integer id) {
+    public EShopProductSkuAttr withId(Integer id) {
         this.setId(id);
         return this;
     }
@@ -68,7 +68,7 @@ public class EShopProductSkuAttrs extends BaseEntity {
         return productCatagoryId;
     }
 
-    public EShopProductSkuAttrs withProductCatagoryId(Integer productCatagoryId) {
+    public EShopProductSkuAttr withProductCatagoryId(Integer productCatagoryId) {
         this.setProductCatagoryId(productCatagoryId);
         return this;
     }
@@ -91,7 +91,7 @@ public class EShopProductSkuAttrs extends BaseEntity {
         return attrType;
     }
 
-    public EShopProductSkuAttrs withAttrType(String attrType) {
+    public EShopProductSkuAttr withAttrType(String attrType) {
         this.setAttrType(attrType);
         return this;
     }
@@ -114,7 +114,7 @@ public class EShopProductSkuAttrs extends BaseEntity {
         return attrContent;
     }
 
-    public EShopProductSkuAttrs withAttrContent(String attrContent) {
+    public EShopProductSkuAttr withAttrContent(String attrContent) {
         this.setAttrContent(attrContent);
         return this;
     }
@@ -137,7 +137,7 @@ public class EShopProductSkuAttrs extends BaseEntity {
         return sortOrder;
     }
 
-    public EShopProductSkuAttrs withSortOrder(Integer sortOrder) {
+    public EShopProductSkuAttr withSortOrder(Integer sortOrder) {
         this.setSortOrder(sortOrder);
         return this;
     }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tfx0one.web.mapper.EShopProductSkuAttrsMapper">
+  <resultMap id="BaseResultMap" type="com.tfx0one.web.model.EShopProductSkuAttrs">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product_sku_id" jdbcType="INTEGER" property="productSkuId" />
+    <result column="attr_type" jdbcType="VARCHAR" property="attrType" />
+    <result column="attr_content" jdbcType="VARCHAR" property="attrContent" />
+    <result column="sort_order" jdbcType="INTEGER" property="sortOrder" />
+  </resultMap>
+</mapper>

@@ -15,8 +15,8 @@ public class EShopProductSkuAttrs extends BaseEntity {
     /**
      * 属性对应的单品
      */
-    @Column(name = "product_sku_id")
-    private Integer productSkuId;
+    @Column(name = "product_catagory_id")
+    private Integer productCatagoryId;
 
     /**
      * 属性的类型
@@ -62,24 +62,24 @@ public class EShopProductSkuAttrs extends BaseEntity {
     /**
      * 获取属性对应的单品
      *
-     * @return product_sku_id - 属性对应的单品
+     * @return product_catagory_id - 属性对应的单品
      */
-    public Integer getProductSkuId() {
-        return productSkuId;
+    public Integer getProductCatagoryId() {
+        return productCatagoryId;
     }
 
-    public EShopProductSkuAttrs withProductSkuId(Integer productSkuId) {
-        this.setProductSkuId(productSkuId);
+    public EShopProductSkuAttrs withProductCatagoryId(Integer productCatagoryId) {
+        this.setProductCatagoryId(productCatagoryId);
         return this;
     }
 
     /**
      * 设置属性对应的单品
      *
-     * @param productSkuId 属性对应的单品
+     * @param productCatagoryId 属性对应的单品
      */
-    public void setProductSkuId(Integer productSkuId) {
-        this.productSkuId = productSkuId;
+    public void setProductCatagoryId(Integer productCatagoryId) {
+        this.productCatagoryId = productCatagoryId;
     }
 
     /**

@@ -148,7 +148,7 @@ DROP TABLE IF EXISTS `e_shop_product_sku_attrs`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `e_shop_product_sku_attrs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'sku属性id',
-  `product_sku_id` int(10) unsigned NOT NULL COMMENT '属性对应的单品',
+  `product_catagory_id` int(10) unsigned NOT NULL COMMENT '属性对应的单品',
   `attr_type` varchar(255) NOT NULL COMMENT '属性的类型',
   `attr_content` varchar(255) NOT NULL COMMENT '属性的值',
   `sort_order` int(11) NOT NULL COMMENT '属性的排序',
@@ -430,4 +430,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-07 11:31:41
+-- Dump completed on 2018-06-07 14:16:40

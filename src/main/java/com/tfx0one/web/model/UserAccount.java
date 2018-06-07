@@ -287,4 +287,27 @@ public class UserAccount extends BaseEntity {
     public void setUnionId(String unionId) {
         this.unionId = unionId == null ? null : unionId.trim();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", phone=").append(phone);
+        sb.append(", status=").append(status);
+        sb.append(", username=").append(username);
+        sb.append(", password=").append(password);
+        sb.append(", lastResetPasswordTime=").append(lastResetPasswordTime);
+        sb.append(", roleId=").append(roleId);
+        sb.append(", sex=").append(sex);
+        sb.append(", nickName=").append(nickName);
+        sb.append(", headUrl=").append(headUrl);
+        sb.append(", appId=").append(appId);
+        sb.append(", openId=").append(openId);
+        sb.append(", unionId=").append(unionId);
+        sb.append("]");
+        return sb.toString();
+    }
 }

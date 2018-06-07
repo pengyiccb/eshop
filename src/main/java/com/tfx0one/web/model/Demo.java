@@ -91,4 +91,18 @@ public class Demo extends BaseEntity {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", name=").append(name);
+        sb.append(", money=").append(money);
+        sb.append(", createTime=").append(createTime);
+        sb.append("]");
+        return sb.toString();
+    }
 }

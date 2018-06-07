@@ -423,4 +423,29 @@ public class EShopProduct extends BaseEntity {
     public void setContentDesc(String contentDesc) {
         this.contentDesc = contentDesc == null ? null : contentDesc.trim();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", title=").append(title);
+        sb.append(", subtitle=").append(subtitle);
+        sb.append(", brief=").append(brief);
+        sb.append(", priceUnderline=").append(priceUnderline);
+        sb.append(", saleAmount=").append(saleAmount);
+        sb.append(", keyword=").append(keyword);
+        sb.append(", productCatagoryId=").append(productCatagoryId);
+        sb.append(", sortOrder=").append(sortOrder);
+        sb.append(", isOnSale=").append(isOnSale);
+        sb.append(", imgPrimaryUrl=").append(imgPrimaryUrl);
+        sb.append(", imgListUrl=").append(imgListUrl);
+        sb.append(", isDelete=").append(isDelete);
+        sb.append(", vendorUserId=").append(vendorUserId);
+        sb.append(", contentDesc=").append(contentDesc);
+        sb.append("]");
+        return sb.toString();
+    }
 }

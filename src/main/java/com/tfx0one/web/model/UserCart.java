@@ -334,4 +334,29 @@ public class UserCart extends BaseEntity {
     public void setSystemType(Integer systemType) {
         this.systemType = systemType;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", kindsId=").append(kindsId);
+        sb.append(", title=").append(title);
+        sb.append(", userAccount=").append(userAccount);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", marketPrice=").append(marketPrice);
+        sb.append(", discountPrice=").append(discountPrice);
+        sb.append(", goodsThumb=").append(goodsThumb);
+        sb.append(", goodsColor=").append(goodsColor);
+        sb.append(", goodsSize=").append(goodsSize);
+        sb.append(", count=").append(count);
+        sb.append(", isNew=").append(isNew);
+        sb.append(", isHot=").append(isHot);
+        sb.append(", goodId=").append(goodId);
+        sb.append(", systemType=").append(systemType);
+        sb.append("]");
+        return sb.toString();
+    }
 }

@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 @Component
 public class EhCacheUtils {
 
-   @Resource
+   @Autowired
     private EhCacheCacheManager ehCacheCacheManager;
     // = SpringContextHolder.getBean("ehCacheCacheManager");
 

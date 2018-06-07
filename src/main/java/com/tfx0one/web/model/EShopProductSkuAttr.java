@@ -150,4 +150,19 @@ public class EShopProductSkuAttr extends BaseEntity {
     public void setSortOrder(Integer sortOrder) {
         this.sortOrder = sortOrder;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", productCatagoryId=").append(productCatagoryId);
+        sb.append(", attrType=").append(attrType);
+        sb.append(", attrContent=").append(attrContent);
+        sb.append(", sortOrder=").append(sortOrder);
+        sb.append("]");
+        return sb.toString();
+    }
 }

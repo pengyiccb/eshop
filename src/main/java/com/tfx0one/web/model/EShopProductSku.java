@@ -38,7 +38,7 @@ public class EShopProductSku extends BaseEntity {
      * 商家自定义编号
      */
     @Column(name = "stock_sn")
-    private Integer stockSn;
+    private String stockSn;
 
     /**
      * sku属性ID串
@@ -162,11 +162,11 @@ public class EShopProductSku extends BaseEntity {
      *
      * @return stock_sn - 商家自定义编号
      */
-    public Integer getStockSn() {
+    public String getStockSn() {
         return stockSn;
     }
 
-    public EShopProductSku withStockSn(Integer stockSn) {
+    public EShopProductSku withStockSn(String stockSn) {
         this.setStockSn(stockSn);
         return this;
     }
@@ -176,8 +176,8 @@ public class EShopProductSku extends BaseEntity {
      *
      * @param stockSn 商家自定义编号
      */
-    public void setStockSn(Integer stockSn) {
-        this.stockSn = stockSn;
+    public void setStockSn(String stockSn) {
+        this.stockSn = stockSn == null ? null : stockSn.trim();
     }
 
     /**
@@ -201,5 +201,22 @@ public class EShopProductSku extends BaseEntity {
      */
     public void setAttrOption(String attrOption) {
         this.attrOption = attrOption == null ? null : attrOption.trim();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", productId=").append(productId);
+        sb.append(", unitPrice=").append(unitPrice);
+        sb.append(", costPrice=").append(costPrice);
+        sb.append(", stockAmount=").append(stockAmount);
+        sb.append(", stockSn=").append(stockSn);
+        sb.append(", attrOption=").append(attrOption);
+        sb.append("]");
+        return sb.toString();
     }
 }

@@ -310,4 +310,28 @@ public class VendorUser extends BaseEntity {
     public void setNickName(String nickName) {
         this.nickName = nickName == null ? null : nickName.trim();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", categoryType=").append(categoryType);
+        sb.append(", appId=").append(appId);
+        sb.append(", name=").append(name);
+        sb.append(", createDate=").append(createDate);
+        sb.append(", address=").append(address);
+        sb.append(", phone=").append(phone);
+        sb.append(", logoUrl=").append(logoUrl);
+        sb.append(", customPhone=").append(customPhone);
+        sb.append(", cardId=").append(cardId);
+        sb.append(", businessRegistrationNo=").append(businessRegistrationNo);
+        sb.append(", status=").append(status);
+        sb.append(", appSecret=").append(appSecret);
+        sb.append(", nickName=").append(nickName);
+        sb.append("]");
+        return sb.toString();
+    }
 }

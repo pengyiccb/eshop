@@ -135,4 +135,19 @@ public class EShopProductCatagory extends BaseEntity {
     public void setSortOrder(Short sortOrder) {
         this.sortOrder = sortOrder;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", parentId=").append(parentId);
+        sb.append(", name=").append(name);
+        sb.append(", catagoryDesc=").append(catagoryDesc);
+        sb.append(", sortOrder=").append(sortOrder);
+        sb.append("]");
+        return sb.toString();
+    }
 }

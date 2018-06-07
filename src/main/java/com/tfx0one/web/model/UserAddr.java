@@ -156,4 +156,21 @@ public class UserAddr extends BaseEntity {
     public void setAreaCode(String areaCode) {
         this.areaCode = areaCode == null ? null : areaCode.trim();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", userAccount=").append(userAccount);
+        sb.append(", name=").append(name);
+        sb.append(", phone=").append(phone);
+        sb.append(", areaaddr=").append(areaaddr);
+        sb.append(", addrDesc=").append(addrDesc);
+        sb.append(", areaCode=").append(areaCode);
+        sb.append("]");
+        return sb.toString();
+    }
 }

@@ -51,13 +51,13 @@ public abstract class BaseService<T> implements IService<T> {
     }
 
     @Override
-    public int delete(Object key) {
+    public int deleteByPrimaryKey(Object key) {
         //说明：根据主键字段进行删除，方法参数必须包含完整的主键属性
         return mapper.deleteByPrimaryKey(key);
     }
 
     @Override
-    public int updateAll(T entity) {
+    public int updateByPrimaryKey(T entity) {
         //说明：根据主键更新实体全部字段，null值会被更新
         return mapper.updateByPrimaryKey(entity);
     }

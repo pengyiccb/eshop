@@ -49,7 +49,5 @@ public class ProductControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
 //                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("abc"))
                 .andDo(MockMvcResultHandlers.print());
-
-
     }
 }

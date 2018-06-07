@@ -21,14 +21,14 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class VendorServiceTest {
 
-    @Resource
-    VendorService vendorService;
+//    @Resource
+//    VendorService vendorService;
 
     @Test
     public void selectByAppId() {
         try {
-//            VendorUser vendorUser = vendorService.selectByAppId("wxdda83d03c2d1521c");
-//            VendorUser vendorUser2 = vendorService.selectByAppId("wxdda83d03c2d1521c");
+//            VendorUser vendorUser = vendorService.selectByVendorUserId("wxdda83d03c2d1521c");
+//            VendorUser vendorUser2 = vendorService.selectByVendorUserId("wxdda83d03c2d1521c");
 //            System.out.println(vendorUser.getAppSecret());
         } catch (Exception e) {
             e.printStackTrace();

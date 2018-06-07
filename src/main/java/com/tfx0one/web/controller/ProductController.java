@@ -26,7 +26,7 @@ public class ProductController {
     @Autowired
     private VenderUserService venderUserService;
 
-    @ApiOperation(value = "获取主页的数据", notes = "需要传递appId 作为参数")
+    @ApiOperation(value = "获取主页的数据, 基本数据信息，不包含单品信息", notes = "需要传递appId 作为参数")
     @RequestMapping(value="/api/v1/wechat/productList", method = RequestMethod.GET)
     public JSONResult productList(@RequestParam String appId) {
         VendorUser vendorUser = venderUserService.selectOne(new VendorUser().withAppId(appId));
@@ -34,7 +34,7 @@ public class ProductController {
             return JSONResult.error("商家的 appId 不存在！");
         }
 //        List<ToggeryGoods> list = productService.select(null);
-        return JSONResult.ok().data(productService.selectByAppId(vendorUser.getId()));
+        return JSONResult.ok().data(productService.selectByVendorUserId(vendorUser.getId()));
     }
 
     @ApiOperation(value = "获取商品详情", notes = "传递商品的Id")

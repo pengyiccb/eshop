@@ -61,7 +61,7 @@ public class EhCacheUtils {
 //
 //    //=============spring包装的缓存管理对象======================
 ////    //通过spring得到缓存管理对象
-    public Cache getCache(String cacheName) {
+    private Cache getCache(String cacheName) {
         return ehCacheCacheManager.getCache(cacheName);
     }
 //

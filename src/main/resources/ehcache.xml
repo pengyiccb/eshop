@@ -9,26 +9,26 @@
                   maxEntriesLocalDisk="100000" />
 
 
-    <cache name="CACHE_DEMO"
-           maxEntriesLocalHeap="9999"
-           overflowToDisk="false"
-           eternal="false"
-           diskPersistent="false"
-           timeToLiveSeconds="0"
-           timeToIdleSeconds="0"
-           statistics="true"/>
+    <!--<cache name="CACHE_DEMO"-->
+           <!--maxEntriesLocalHeap="10000"-->
+           <!--overflowToDisk="false"-->
+           <!--eternal="false"-->
+           <!--diskPersistent="false"-->
+           <!--timeToLiveSeconds="0"-->
+           <!--timeToIdleSeconds="0"-->
+           <!--statistics="true"/>-->
 
-    <cache name="CACHE_WX_SESSION"
-           maxEntriesLocalHeap="9999"
-           overflowToDisk="false"
-           eternal="false"
-           diskPersistent="false"
-           timeToLiveSeconds="0"
-           timeToIdleSeconds="0"
-           statistics="true"/>
+    <!--<cache name="CACHE_WX_SESSION"-->
+           <!--maxEntriesLocalHeap="10000"-->
+           <!--overflowToDisk="false"-->
+           <!--eternal="false"-->
+           <!--diskPersistent="false"-->
+           <!--timeToLiveSeconds="0"-->
+           <!--timeToIdleSeconds="0"-->
+           <!--statistics="true"/>-->
 
     <cache name="CACHE_USER_ACCOUNT"
-           maxEntriesLocalHeap="9999"
+           maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"
            diskPersistent="false"
@@ -37,7 +37,25 @@
            statistics="true"/>
 
     <cache name="CACHE_VENDOR_USER"
-           maxEntriesLocalHeap="9999"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+
+    <cache name="CACHE_PRODUCT_SPU"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+
+    <cache name="CACHE_PRODUCT_SKU"
+           maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"
            diskPersistent="false"

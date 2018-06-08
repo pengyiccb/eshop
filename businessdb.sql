@@ -64,7 +64,7 @@ CREATE TABLE `e_shop_product` (
   `content_desc` text COMMENT '详情',
   `price_underline` decimal(10,2) DEFAULT NULL COMMENT '划线价格 市场价',
   `keyword` varchar(255) DEFAULT NULL COMMENT '关键字',
-  `product_catagory_id` int(10) unsigned NOT NULL COMMENT '产品的类别',
+  `product_category_id` int(10) unsigned NOT NULL COMMENT '产品的类别',
   `sort_order` tinyint(4) NOT NULL COMMENT '排序',
   `is_on_sale` tinyint(4) NOT NULL COMMENT '是否上架',
   `img_primary_url` varchar(255) DEFAULT NULL COMMENT '主图',
@@ -362,4 +362,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-08 13:06:00
+-- Dump completed on 2018-06-08 15:12:04

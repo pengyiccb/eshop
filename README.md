@@ -26,7 +26,7 @@
 
 - 编写 HTML 网页，实现用户交互。 （视图层）
 - 编写 Controller，配置url路由接口。（控制层）
-- 编写 Service，实现业务逻辑。（业务层）
+- 编写 Service，实现业务逻辑同时包装DAO层。（业务层）
 - 编写 Mybatis 的 Mapper 映射器。（DAO持久层）
 
 

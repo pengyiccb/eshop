@@ -1,6 +1,6 @@
 package com.tfx0one.web.service;
 
-import com.tfx0one.web.model.EShopProductSku;
+import com.tfx0one.web.model.EShopProduct;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +12,20 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * Created by 2fx0one on 2018/6/7.
+ * Created by 2fx0one on 2018/6/8.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProductSkuServiceTest {
+public class ProductServiceTest {
 
     @Autowired
-    private ProductSkuService productSkuService;
+    private ProductService productService;
+
     @Test
     public void selectByVendorUserId() {
-        List<EShopProductSku> list = productSkuService.testselectByProductId(1);
-        List<EShopProductSku> list2 = productSkuService.testselectByProductId(1);
-//        List<EShopProductSku> list2 = productSkuService.selectByVendorUserId(1);
+        List<EShopProduct> list =  (List<EShopProduct>)productService.productList("wxdda83d03c2d1521c").get("data");
+        List<EShopProduct> list2 =  (List<EShopProduct>)productService.productList("wxdda83d03c2d1521c").get("data");
         list.forEach(System.out::println);
         list2.forEach(System.out::println);
-//        list2.forEach(System.out::println);
     }
 }

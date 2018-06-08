@@ -48,7 +48,7 @@ public class ProductUtils {
     //通过商户ID 找到商户的产品基本信息
     public Map<Integer, EShopProduct> getProductSPU(int vendorUserId){
         Map<Integer, EShopProduct> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SPU, String.valueOf(vendorUserId));
-        return CollectionUtils.isEmpty(map) ? map : refreshProductsSPU(vendorUserId);
+        return !CollectionUtils.isEmpty(map) ? map : refreshProductsSPU(vendorUserId);
     }
 
     //刷新商户的基本信息，并缓存起来
@@ -73,7 +73,7 @@ public class ProductUtils {
     //获取商品下的所有单品
     public Map<Integer, EShopProductSku> getProductSKU(int productSpuId) {
         Map<Integer, EShopProductSku> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU, String.valueOf(productSpuId));
-        return CollectionUtils.isEmpty(map) ? map : refreshProductsSKU(productSpuId);
+        return !CollectionUtils.isEmpty(map) ? map : refreshProductsSKU(productSpuId);
     }
 
     //刷新某个商品的详细信息，并缓存起来
@@ -84,9 +84,10 @@ public class ProductUtils {
             return null;
         }
         final int productCategoryId = product.getProductCatagoryId();
+        final int productVendorUserId = product.getVendorUserId();
 
         //遍历单品
-        List<EShopProductSku> skuList = productSkuService.selectByProductId(spuProductId);
+        List<EShopProductSku> skuList = productSkuService.select(new EShopProductSku().withProductId(spuProductId));
         Map<Integer, EShopProductSku> map = new HashMap<>();
         skuList.forEach(e -> {
 
@@ -118,7 +119,7 @@ public class ProductUtils {
 
     public Map<Integer, EShopProductSkuAttr> getProductAttr(int productCatagoryId) {
         Map<Integer, EShopProductSkuAttr> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR, String.valueOf(productCatagoryId));
-        return CollectionUtils.isEmpty(map) ? map : refreshProductAttr(productCatagoryId);
+        return !CollectionUtils.isEmpty(map) ? map : refreshProductAttr(productCatagoryId);
     }
 
     public Map<Integer, EShopProductSkuAttr> refreshProductAttr(int productCatagoryId) {

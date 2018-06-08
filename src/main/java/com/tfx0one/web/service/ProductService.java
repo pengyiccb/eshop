@@ -1,18 +1,18 @@
 package com.tfx0one.web.service;
 
 import com.tfx0one.common.util.BaseService;
-import com.tfx0one.common.util.EhCacheUtils;
+import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.ProductUtils;
 import com.tfx0one.web.model.EShopProduct;
+import com.tfx0one.web.model.EShopProductSku;
+import com.tfx0one.web.model.VendorUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import com.tfx0one.common.constant.CacheConstant;
 
 
 /**
@@ -25,10 +25,26 @@ public class ProductService extends BaseService<EShopProduct> {
     @Autowired
     private ProductUtils productUtils;
 
-    //基本商品数据信息列表，不包含单品信息
-    public List<EShopProduct> selectByVendorUserId(int vendorUserId) {
-        Map<Integer, EShopProduct> map = productUtils.getProductSPU(vendorUserId);
-        List<EShopProduct> list = new ArrayList<>(map.values());
-        return list;
+    @Autowired
+    private VenderUserService venderUserService;
+
+
+    //该商家的基本商品数据信息列表，不包含单品信息
+    public JSONResult productList(String appId) {
+        VendorUser vendorUser = venderUserService.selectOne(new VendorUser().withAppId(appId));
+        if (vendorUser == null) {
+            return JSONResult.error("商家的 appId 不存在！appId = " + appId);
+        }
+        Map<Integer, EShopProduct> map = productUtils.getProductSPU(vendorUser.getId());
+        return JSONResult.ok().data(new ArrayList<>(map.values()));
+    }
+
+    //该商品下所有单品数据列表，详细信息
+    public JSONResult productDetail(Integer productId) {
+        Map<Integer, EShopProductSku> map = productUtils.getProductSKU(productId);
+        if (map == null) {
+            return JSONResult.error("商品 productId 不存在！productId = " + productId);
+        }
+        return JSONResult.ok().data(new ArrayList<>(map.values()));
     }
 }

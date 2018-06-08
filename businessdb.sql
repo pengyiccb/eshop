@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.22, for osx10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.22, for osx10.13 (x86_64)
 --
 -- Host: localhost    Database: businessdb
 -- ------------------------------------------------------
@@ -45,7 +45,6 @@ CREATE TABLE `demo` (
 
 LOCK TABLES `demo` WRITE;
 /*!40000 ALTER TABLE `demo` DISABLE KEYS */;
-INSERT INTO `demo` VALUES (1,'aa',1,'2018-05-29 16:22:47'),(2,'bbbcc',2,'2018-05-28 16:23:01');
 /*!40000 ALTER TABLE `demo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,21 +57,21 @@ DROP TABLE IF EXISTS `e_shop_product`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `e_shop_product` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(64) NOT NULL COMMENT '±êÌâ',
-  `subtitle` varchar(64) DEFAULT NULL COMMENT '¸±±êÌâ',
-  `brief` varchar(255) DEFAULT NULL COMMENT '²úÆ·¼òÊö',
-  `content_desc` text COMMENT 'ÏêÇé',
-  `price_underline` decimal(10,2) DEFAULT NULL COMMENT '»®Ïß¼Û¸ñ ÊĞ³¡¼Û',
-  `keyword` varchar(255) DEFAULT NULL COMMENT '¹Ø¼ü×Ö',
-  `product_category_id` int(10) unsigned NOT NULL COMMENT '²úÆ·µÄÀà±ğ',
-  `sort_order` tinyint(4) NOT NULL COMMENT 'ÅÅĞò',
-  `is_on_sale` tinyint(4) NOT NULL COMMENT 'ÊÇ·ñÉÏ¼Ü',
-  `img_primary_url` varchar(255) DEFAULT NULL COMMENT 'Ö÷Í¼',
-  `img_list_url` varchar(255) DEFAULT NULL COMMENT 'Í¼Æ¬ÁĞ±í',
+  `title` varchar(64) NOT NULL COMMENT 'æ ‡é¢˜',
+  `subtitle` varchar(64) DEFAULT NULL COMMENT 'å‰¯æ ‡é¢˜',
+  `brief` varchar(255) DEFAULT NULL COMMENT 'äº§å“ç®€è¿°',
+  `content_desc` text COMMENT 'è¯¦æƒ…',
+  `price_underline` decimal(10,2) DEFAULT NULL COMMENT 'åˆ’çº¿ä»·æ ¼ å¸‚åœºä»·',
+  `keyword` varchar(255) DEFAULT NULL COMMENT 'å…³é”®å­—',
+  `product_category_id` int(10) unsigned NOT NULL COMMENT 'äº§å“çš„ç±»åˆ«',
+  `sort_order` tinyint(4) NOT NULL COMMENT 'æ’åº',
+  `is_on_sale` tinyint(4) NOT NULL COMMENT 'æ˜¯å¦ä¸Šæ¶',
+  `img_primary_url` varchar(255) DEFAULT NULL COMMENT 'ä¸»å›¾',
+  `img_list_url` varchar(255) DEFAULT NULL COMMENT 'å›¾ç‰‡åˆ—è¡¨',
   `is_delete` tinyint(4) DEFAULT NULL,
-  `vendor_user_id` int(11) DEFAULT NULL COMMENT 'ÉÌ¼Ò',
+  `vendor_user_id` int(11) DEFAULT NULL COMMENT 'å•†å®¶',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='²úÆ·±í SPU\n°üº¬ÁË²úÆ·µÄ»ù±¾ÊôĞÔ¡£²»Ó°Ïì¼Û¸ñ¡£\nÈç£ºiphone x ²úÆ·';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='äº§å“è¡¨ SPU\råŒ…å«äº†äº§å“çš„åŸºæœ¬å±æ€§ã€‚ä¸å½±å“ä»·æ ¼ã€‚\rå¦‚ï¼šiphone x äº§å“';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,11 +93,11 @@ DROP TABLE IF EXISTS `e_shop_product_category`;
 CREATE TABLE `e_shop_product_category` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` bigint(20) NOT NULL,
-  `name` char(255) COLLATE utf8_bin NOT NULL COMMENT 'Ãû×Ö',
-  `category_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT 'ÃèÊö',
-  `sort_order` smallint(6) DEFAULT NULL COMMENT 'ÅÅĞò',
+  `name` char(255) COLLATE utf8_bin NOT NULL COMMENT 'åå­—',
+  `category_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT 'æè¿°',
+  `sort_order` smallint(6) DEFAULT NULL COMMENT 'æ’åº',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='²úÆ··ÖÀà ¿ÉÒÔÊÇÀà Ä¿ »òÕß Æ·ÅÆ';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='äº§å“åˆ†ç±» å¯ä»¥æ˜¯ç±» ç›® æˆ–è€… å“ç‰Œ';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,15 +118,15 @@ DROP TABLE IF EXISTS `e_shop_product_sku`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `e_shop_product_sku` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` int(10) unsigned DEFAULT NULL COMMENT 'ÊôÓÚÄÄ¸ö²úÆ·',
-  `unit_price` decimal(10,2) DEFAULT NULL COMMENT 'µ¥¼Û',
-  `cost_price` decimal(10,2) NOT NULL COMMENT '³É±¾¼Û ¿ÉÎª¿Õ',
-  `stock_amount` int(11) NOT NULL COMMENT '¿â´æ',
-  `sale_amount` int(11) NOT NULL COMMENT 'ÏúÊÛ¶î',
-  `stock_sn` int(11) NOT NULL COMMENT 'ÉÌ¼Ò×Ô¶¨Òå±àºÅ',
-  `attr_option` varchar(255) DEFAULT NULL COMMENT 'skuÊôĞÔID´®',
+  `product_id` int(10) unsigned DEFAULT NULL COMMENT 'å±äºå“ªä¸ªäº§å“',
+  `unit_price` decimal(10,2) DEFAULT NULL COMMENT 'å•ä»·',
+  `cost_price` decimal(10,2) NOT NULL COMMENT 'æˆæœ¬ä»· å¯ä¸ºç©º',
+  `stock_amount` int(11) NOT NULL COMMENT 'åº“å­˜',
+  `sale_amount` int(11) NOT NULL COMMENT 'é”€å”®é¢',
+  `stock_sn` int(11) NOT NULL COMMENT 'å•†å®¶è‡ªå®šä¹‰ç¼–å·',
+  `attr_option` varchar(255) DEFAULT NULL COMMENT 'skuå±æ€§IDä¸²',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='²úÆ·SKU£¨¿â´æµ¥Æ·£©¡£Ó°Ïì¼Û¸ñºÍ¿â´æ¡£\nÈç£ºÊÖ»úÄÚ´æÈİÁ¿¡£ÑÕÉ«¡£\n¶à¸ö¶ÔÓ¦Ò»¸öÉÌÆ·';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='äº§å“SKUï¼ˆåº“å­˜å•å“ï¼‰ã€‚å½±å“ä»·æ ¼å’Œåº“å­˜ã€‚\rå¦‚ï¼šæ‰‹æœºå†…å­˜å®¹é‡ã€‚é¢œè‰²ã€‚\rå¤šä¸ªå¯¹åº”ä¸€ä¸ªå•†å“';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,13 +146,13 @@ DROP TABLE IF EXISTS `e_shop_product_sku_attr`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `e_shop_product_sku_attr` (
-  `id` int(10) unsigned NOT NULL COMMENT 'skuÊôĞÔid',
-  `product_category_id` int(10) unsigned NOT NULL COMMENT 'skuÊôĞÔ¶ÔÓ¦µÄ·ÖÀà',
-  `attr_type` varchar(255) NOT NULL COMMENT 'ÊôĞÔµÄÀàĞÍ',
-  `attr_content` varchar(255) NOT NULL COMMENT 'ÊôĞÔµÄÖµ',
-  `sort_order` int(11) NOT NULL COMMENT 'ÊôĞÔµÄÅÅĞò',
+  `id` int(10) unsigned NOT NULL COMMENT 'skuå±æ€§id',
+  `product_category_id` int(10) unsigned NOT NULL COMMENT 'skuå±æ€§å¯¹åº”çš„åˆ†ç±»',
+  `attr_type` varchar(255) NOT NULL COMMENT 'å±æ€§çš„ç±»å‹',
+  `attr_content` varchar(255) NOT NULL COMMENT 'å±æ€§çš„å€¼',
+  `sort_order` int(11) NOT NULL COMMENT 'å±æ€§çš„æ’åº',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='sku ÏúÊÛÊôĞÔ¡£Ó°Ïì¼Û¸ñºÍ¿â´æ¡£ÊÖ»úÄÚ´æÈİÁ¿¡£ÑÕÉ«¡£\n¶à¸ö¶ÔÓ¦Ò»¸öÉÌÆ·';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='sku é”€å”®å±æ€§ã€‚å½±å“ä»·æ ¼å’Œåº“å­˜ã€‚æ‰‹æœºå†…å­˜å®¹é‡ã€‚é¢œè‰²ã€‚\rå¤šä¸ªå¯¹åº”ä¸€ä¸ªå•†å“';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +206,6 @@ CREATE TABLE `toggery_goods` (
 
 LOCK TABLES `toggery_goods` WRITE;
 /*!40000 ALTER TABLE `toggery_goods` DISABLE KEYS */;
-INSERT INTO `toggery_goods` VALUES (1,1,'å•†å“1',100,4,200.00,200.00,10.00,'æœ€æ–°å•†å“1',0,0.010,-1,-1,'æœè£…,å•†å“1','å•†å“1ç®€ä»‹','å•†å“1è¯¦æƒ…','å•†å“1åºåˆ—å·',1,1,0,0,0,'http://p9l3k4x4g.bkt.clouddn.com/product1.jpg',0),(2,1,'å•†å“2',990,4,3000.00,3000.00,10.00,'æœ€æ–°å•†å“2',0,2.000,-1,-1,'æœè£…,å•†å“2','å•†å“2ç®€ä»‹','å•†å“2è¯¦æƒ…','å•†å“2åºåˆ—å·',1,1,0,0,0,'http://p9l3k4x4g.bkt.clouddn.com/product1.jpg',0),(3,1,'å•†å“3',1000,4,10000.00,10000.00,10.00,'æœ€æ–°å•†å“3',0,20.250,-1,-1,'æœè£…,å•†å“3','å•†å“3ç®€ä»‹','å•†å“3è¯¦æƒ…','å•†å“3åºåˆ—å·',1,1,0,0,0,'http://p9l3k4x4g.bkt.clouddn.com/product1.jpg',0),(4,1,'å•†å“4',55,4,360.00,360.00,10.00,'æœ€æ–°å•†å“4',0,25.250,-1,-1,'æœè£…,å•†å“4','å•†å“4ç®€ä»‹','å•†å“4è¯¦æƒ…','å•†å“4åºåˆ—å·',1,1,0,0,0,'http://p9l3k4x4g.bkt.clouddn.com/product1.jpg',0),(5,1,'å•†å“5',18888,4,780.00,780.00,10.00,'æœ€æ–°å•†å“5',0,33.000,-1,-1,'æœè£…,å•†å“5','å•†å“5ç®€ä»‹','å•†å“5è¯¦æƒ…','å•†å“5åºåˆ—å·',1,1,0,0,0,'http://p9l3k4x4g.bkt.clouddn.com/product1.jpg',0);
 /*!40000 ALTER TABLE `toggery_goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +231,6 @@ CREATE TABLE `toggery_goods_kinds` (
 
 LOCK TABLES `toggery_goods_kinds` WRITE;
 /*!40000 ALTER TABLE `toggery_goods_kinds` DISABLE KEYS */;
-INSERT INTO `toggery_goods_kinds` VALUES (1,1,'ä¸Šè¡£',1),(2,2,'è£¤å­',1),(3,3,'é‹å­',1),(4,4,'å…¶ä»–',1);
 /*!40000 ALTER TABLE `toggery_goods_kinds` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -260,7 +257,7 @@ CREATE TABLE `user_account` (
   `union_id` varchar(200) DEFAULT NULL,
   `default_addr_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -269,7 +266,6 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` VALUES (3,NULL,NULL,'wangkun','$2a$10$1aRFT.OVSzJ8FoNu6mIZK.cjOlH39JP8fyGIebQhvJADhbjrGYw56','2018-06-04 14:33:41',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,NULL,1,'oUeJY5KR0bECG54dDD0trBqgzkDo','$2a$10$OG4r8nfEXwRK/Q8v/e2Y6.HRRv..OoHRV1uEdrkjlvqJsCHCgnlfi','2018-06-04 18:08:52',NULL,1,'æœºè½¦ç‹å°äºŒ','https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqxPKde5h68XULD7URQm4g2p9xlDTlMJhV4BNJeeboInKhqvqB475fiaJoYlsLF9y8M6jXddmKRG5g/132','wxdda83d03c2d1521c','oUeJY5KR0bECG54dDD0trBqgzkDo','oJ6K-1eZqk8pv1Lvae7zfd-MaVfw',NULL),(5,NULL,1,'oUeJY5P0SfCNrJnlLtYTJiKm57yM','$2a$10$atYIChH0bWET1QbKwA8bce3VD2NyfIF3mahrZSV8qZKX4//DU6Dgy','2018-06-05 16:52:59',NULL,1,'Yang','https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKcq5xY5euQmIBBzlGuwUJibxFHFNia83YXwianUprszUmDOoxZYEMq4IRNdicgDmpyUtkZpmkr86QkGA/132','wxdda83d03c2d1521c','oUeJY5P0SfCNrJnlLtYTJiKm57yM',NULL,NULL);
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,10 +305,10 @@ DROP TABLE IF EXISTS `user_cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_cart` (
-  `id` int(10) unsigned NOT NULL COMMENT 'Ö÷¼ü',
-  `product_sku_id` int(11) NOT NULL COMMENT '²úÆ·µ¥Æ·id',
-  `user_account` int(11) NOT NULL COMMENT 'ÓÃ»§id',
-  `create_time` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
+  `id` int(10) unsigned NOT NULL COMMENT 'ä¸»é”®',
+  `product_sku_id` int(11) NOT NULL COMMENT 'äº§å“å•å“id',
+  `user_account` int(11) NOT NULL COMMENT 'ç”¨æˆ·id',
+  `create_time` datetime NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
   `count` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -335,19 +331,19 @@ DROP TABLE IF EXISTS `user_order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_order` (
-  `id` int(10) unsigned NOT NULL COMMENT 'Ö÷¼ü',
-  `roder_sn` varchar(50) COLLATE utf8_bin NOT NULL COMMENT '¶©µ¥ºÅ',
-  `status` int(11) NOT NULL COMMENT '¶©µ¥×´Ì¬',
-  `create_time` datetime NOT NULL COMMENT '´´½¨Ê±¼ä',
-  `product_sku_id` int(11) NOT NULL COMMENT 'µ¥Æ·id',
-  `freight` decimal(10,2) NOT NULL COMMENT 'ÔË·Ñ',
-  `count` int(11) NOT NULL COMMENT 'ÊıÁ¿',
-  `addr_id` int(11) DEFAULT NULL COMMENT 'µØÖ·id',
-  `real_money` decimal(10,2) NOT NULL COMMENT 'Êµ¼Ê¼Û¸ñ',
-  `express_sn` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '¿ìµİµ¥ºÅ',
-  `update_time` datetime NOT NULL COMMENT '¸üĞÂÊ±¼ä',
-  `user_account` int(11) NOT NULL COMMENT 'ÓÃ»§ÕËºÅ',
-  `wechar_orderid` varchar(200) COLLATE utf8_bin DEFAULT NULL COMMENT 'Î¢ĞÅ¶©µ¥id',
+  `id` int(10) unsigned NOT NULL COMMENT 'ä¸»é”®',
+  `roder_sn` varchar(50) COLLATE utf8_bin NOT NULL COMMENT 'è®¢å•å·',
+  `status` int(11) NOT NULL COMMENT 'è®¢å•çŠ¶æ€',
+  `create_time` datetime NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `product_sku_id` int(11) NOT NULL COMMENT 'å•å“id',
+  `freight` decimal(10,2) NOT NULL COMMENT 'è¿è´¹',
+  `count` int(11) NOT NULL COMMENT 'æ•°é‡',
+  `addr_id` int(11) DEFAULT NULL COMMENT 'åœ°å€id',
+  `real_money` decimal(10,2) NOT NULL COMMENT 'å®é™…ä»·æ ¼',
+  `express_sn` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT 'å¿«é€’å•å·',
+  `update_time` datetime NOT NULL COMMENT 'æ›´æ–°æ—¶é—´',
+  `user_account` int(11) NOT NULL COMMENT 'ç”¨æˆ·è´¦å·',
+  `wechar_orderid` varchar(200) COLLATE utf8_bin DEFAULT NULL COMMENT 'å¾®ä¿¡è®¢å•id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -406,7 +402,6 @@ CREATE TABLE `vendor_category` (
 
 LOCK TABLES `vendor_category` WRITE;
 /*!40000 ALTER TABLE `vendor_category` DISABLE KEYS */;
-INSERT INTO `vendor_category` VALUES (1,1,'æœè£…');
 /*!40000 ALTER TABLE `vendor_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -442,7 +437,6 @@ CREATE TABLE `vendor_user` (
 
 LOCK TABLES `vendor_user` WRITE;
 /*!40000 ALTER TABLE `vendor_user` DISABLE KEYS */;
-INSERT INTO `vendor_user` VALUES (1,1,'wxdda83d03c2d1521c','å¼ ä¸‰å°åº—','2018-05-31 09:03:27','æ±Ÿè¥¿çœå—æ˜Œå¸‚ä¸‡è¾¾å¹¿åœº3Aå†™å­—æ¥¼','15579166875',NULL,NULL,'360124198900000000','130100600095237',0,'fad3978bb8d6aed7a341feb506b5f6e5','å¼ ä¸‰');
 /*!40000 ALTER TABLE `vendor_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -454,10 +448,10 @@ DROP TABLE IF EXISTS `vendor_user_config`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `vendor_user_config` (
-  `id` int(10) unsigned NOT NULL COMMENT 'Ö÷¼ü',
-  `vendor_id` int(11) NOT NULL COMMENT 'ÉÌ»§id',
-  `config_key` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'ÅäÖÃkeyÖµ',
-  `config_value` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'ÅäÖÃvalueÖµ',
+  `id` int(10) unsigned NOT NULL COMMENT 'ä¸»é”®',
+  `vendor_id` int(11) NOT NULL COMMENT 'å•†æˆ·id',
+  `config_key` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'é…ç½®keyå€¼',
+  `config_value` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'é…ç½®valueå€¼',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -480,4 +474,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-08 15:24:02
+-- Dump completed on 2018-06-08 15:42:54

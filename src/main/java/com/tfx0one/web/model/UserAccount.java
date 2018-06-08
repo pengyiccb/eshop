@@ -41,6 +41,9 @@ public class UserAccount extends BaseEntity {
     @Column(name = "union_id")
     private String unionId;
 
+    @Column(name = "default_addr_id")
+    private Integer defaultAddrId;
+
     /**
      * @return id
      */
@@ -288,6 +291,25 @@ public class UserAccount extends BaseEntity {
         this.unionId = unionId == null ? null : unionId.trim();
     }
 
+    /**
+     * @return default_addr_id
+     */
+    public Integer getDefaultAddrId() {
+        return defaultAddrId;
+    }
+
+    public UserAccount withDefaultAddrId(Integer defaultAddrId) {
+        this.setDefaultAddrId(defaultAddrId);
+        return this;
+    }
+
+    /**
+     * @param defaultAddrId
+     */
+    public void setDefaultAddrId(Integer defaultAddrId) {
+        this.defaultAddrId = defaultAddrId;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -307,6 +329,7 @@ public class UserAccount extends BaseEntity {
         sb.append(", appId=").append(appId);
         sb.append(", openId=").append(openId);
         sb.append(", unionId=").append(unionId);
+        sb.append(", defaultAddrId=").append(defaultAddrId);
         sb.append("]");
         return sb.toString();
     }

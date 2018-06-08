@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class VendorCategory extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short id;
+    private Integer id;
 
     private Short type;
 
@@ -16,11 +16,11 @@ public class VendorCategory extends BaseEntity {
     /**
      * @return id
      */
-    public Short getId() {
+    public Integer getId() {
         return id;
     }
 
-    public VendorCategory withId(Short id) {
+    public VendorCategory withId(Integer id) {
         this.setId(id);
         return this;
     }
@@ -28,7 +28,7 @@ public class VendorCategory extends BaseEntity {
     /**
      * @param id
      */
-    public void setId(Short id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

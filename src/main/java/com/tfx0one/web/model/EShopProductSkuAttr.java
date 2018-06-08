@@ -13,7 +13,7 @@ public class EShopProductSkuAttr extends BaseEntity {
     private Integer id;
 
     /**
-     * 属性对应的单品
+     * sku属性对应的分类
      */
     @Column(name = "product_category_id")
     private Integer productCategoryId;
@@ -60,9 +60,9 @@ public class EShopProductSkuAttr extends BaseEntity {
     }
 
     /**
-     * 获取属性对应的单品
+     * 获取sku属性对应的分类
      *
-     * @return product_category_id - 属性对应的单品
+     * @return product_category_id - sku属性对应的分类
      */
     public Integer getProductCategoryId() {
         return productCategoryId;
@@ -74,9 +74,9 @@ public class EShopProductSkuAttr extends BaseEntity {
     }
 
     /**
-     * 设置属性对应的单品
+     * 设置sku属性对应的分类
      *
-     * @param productCategoryId 属性对应的单品
+     * @param productCategoryId sku属性对应的分类
      */
     public void setProductCategoryId(Integer productCategoryId) {
         this.productCategoryId = productCategoryId;

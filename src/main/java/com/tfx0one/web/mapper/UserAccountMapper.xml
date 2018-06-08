@@ -18,5 +18,6 @@
     <result column="app_id" jdbcType="VARCHAR" property="appId" />
     <result column="open_id" jdbcType="VARCHAR" property="openId" />
     <result column="union_id" jdbcType="VARCHAR" property="unionId" />
+    <result column="default_addr_id" jdbcType="INTEGER" property="defaultAddrId" />
   </resultMap>
 </mapper>

@@ -63,7 +63,6 @@ CREATE TABLE `e_shop_product` (
   `brief` varchar(255) DEFAULT NULL COMMENT '产品简述',
   `content_desc` text COMMENT '详情',
   `price_underline` decimal(10,2) DEFAULT NULL COMMENT '划线价格 市场价',
-  `sale_amount` int(11) NOT NULL COMMENT '销售额',
   `keyword` varchar(255) DEFAULT NULL COMMENT '关键字',
   `product_catagory_id` int(10) unsigned NOT NULL COMMENT '产品的类别',
   `sort_order` tinyint(4) NOT NULL COMMENT '排序',
@@ -71,9 +70,9 @@ CREATE TABLE `e_shop_product` (
   `img_primary_url` varchar(255) DEFAULT NULL COMMENT '主图',
   `img_list_url` varchar(255) DEFAULT NULL COMMENT '图片列表',
   `is_delete` tinyint(4) DEFAULT NULL,
-  `vendor_user_id` int(11) DEFAULT NULL COMMENT '商家id',
+  `vendor_id` int(11) DEFAULT NULL COMMENT '商家',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品表 SPU\r包含了产品的基本属性。不影响价格。\r如：iphone x 产品';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,6 +123,7 @@ CREATE TABLE `e_shop_product_sku` (
   `unit_price` decimal(10,2) DEFAULT NULL COMMENT '单价',
   `cost_price` decimal(10,2) NOT NULL COMMENT '成本价 可为空',
   `stock_amount` int(11) DEFAULT NULL COMMENT '库存',
+  `sale_amount` int(11) NOT NULL COMMENT '销售额',
   `stock_sn` int(11) NOT NULL COMMENT '商家自定义编号',
   `attr_option` varchar(255) DEFAULT NULL COMMENT 'sku属性ID串',
   PRIMARY KEY (`id`)
@@ -358,4 +358,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-07 16:21:19
+-- Dump completed on 2018-06-08 12:35:00

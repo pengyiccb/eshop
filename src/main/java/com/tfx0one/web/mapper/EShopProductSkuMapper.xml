@@ -13,7 +13,7 @@
     <result column="stock_sn" jdbcType="VARCHAR" property="stockSn" />
     <result column="attr_option" jdbcType="VARCHAR" property="attrOption" />
   </resultMap>
-
+  <!--<cache></cache>-->
   <select id="selectByVendorUserId" resultMap="BaseResultMap">
     SELECT
       a.id as id,

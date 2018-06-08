@@ -30,14 +30,13 @@
 - 编写 Mybatis 的 Mapper 映射器。（DAO持久层）
 
 
+# 1.1 F&Q
+- 二级缓存：
 
-## 1.1 Service 层编写规范。
+    [开启二级缓存](https://github.com/abel533/Mapper/wiki/7.1.cache)
     
-    Service封装了业务，也是最方便入手的一层。
-    我们先来完成一个Service
+    开启二级缓存配置：
     
-```
-    
-```
-    
+        1. map接口配置 @CacheNamespaceRef(Mapper.class) 
+        2. xml 需要配置 <cache>
     

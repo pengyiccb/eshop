@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.tfx0one.common.constant.CacheConstant;
 
@@ -22,15 +23,12 @@ import com.tfx0one.common.constant.CacheConstant;
 public class ProductService extends BaseService<EShopProduct> {
 
     @Autowired
-    private EhCacheUtils ehCacheUtils;
-
-    @Autowired
     private ProductUtils productUtils;
 
     //基本商品数据信息列表，不包含单品信息
     public List<EShopProduct> selectByVendorUserId(int vendorUserId) {
         Map<Integer, EShopProduct> map = productUtils.getProductSPU(vendorUserId);
-        List<EShopProduct> list = new ArrayList(map.values());
+        List<EShopProduct> list = new ArrayList<>(map.values());
         return list;
     }
 }

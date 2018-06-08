@@ -62,7 +62,9 @@ public class EhCacheUtilsTest {
 
     @Test
     public void test() {
-
+        String key = "aa";
+        String value = "xxxxvalxxxx";
+        ehCacheUtils.put("abc", key, value);
 //        System.out.println(redisUtils);
 //        String key = "aa";
 //        String value = "xxxxvalxxxx";

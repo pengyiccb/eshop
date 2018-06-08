@@ -32,12 +32,6 @@ public class EShopProduct extends BaseEntity {
     private BigDecimal priceUnderline;
 
     /**
-     * 销售额
-     */
-    @Column(name = "sale_amount")
-    private Integer saleAmount;
-
-    /**
      * 关键字
      */
     private String keyword;
@@ -76,7 +70,7 @@ public class EShopProduct extends BaseEntity {
     private Byte isDelete;
 
     /**
-     * 商家id
+     * 商家
      */
     @Column(name = "vendor_user_id")
     private Integer vendorUserId;
@@ -196,29 +190,6 @@ public class EShopProduct extends BaseEntity {
      */
     public void setPriceUnderline(BigDecimal priceUnderline) {
         this.priceUnderline = priceUnderline;
-    }
-
-    /**
-     * 获取销售额
-     *
-     * @return sale_amount - 销售额
-     */
-    public Integer getSaleAmount() {
-        return saleAmount;
-    }
-
-    public EShopProduct withSaleAmount(Integer saleAmount) {
-        this.setSaleAmount(saleAmount);
-        return this;
-    }
-
-    /**
-     * 设置销售额
-     *
-     * @param saleAmount 销售额
-     */
-    public void setSaleAmount(Integer saleAmount) {
-        this.saleAmount = saleAmount;
     }
 
     /**
@@ -379,9 +350,9 @@ public class EShopProduct extends BaseEntity {
     }
 
     /**
-     * 获取商家id
+     * 获取商家
      *
-     * @return vendor_user_id - 商家id
+     * @return vendor_user_id - 商家
      */
     public Integer getVendorUserId() {
         return vendorUserId;
@@ -393,9 +364,9 @@ public class EShopProduct extends BaseEntity {
     }
 
     /**
-     * 设置商家id
+     * 设置商家
      *
-     * @param vendorUserId 商家id
+     * @param vendorUserId 商家
      */
     public void setVendorUserId(Integer vendorUserId) {
         this.vendorUserId = vendorUserId;
@@ -435,7 +406,6 @@ public class EShopProduct extends BaseEntity {
         sb.append(", subtitle=").append(subtitle);
         sb.append(", brief=").append(brief);
         sb.append(", priceUnderline=").append(priceUnderline);
-        sb.append(", saleAmount=").append(saleAmount);
         sb.append(", keyword=").append(keyword);
         sb.append(", productCatagoryId=").append(productCatagoryId);
         sb.append(", sortOrder=").append(sortOrder);

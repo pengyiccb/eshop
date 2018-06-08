@@ -10,17 +10,33 @@
     <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
     <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
     <result column="stock_amount" jdbcType="INTEGER" property="stockAmount" />
-    <result column="stock_sn" jdbcType="VARCHAR" property="stockSn" />
+    <result column="sale_amount" jdbcType="INTEGER" property="saleAmount" />
+    <result column="stock_sn" jdbcType="INTEGER" property="stockSn" />
     <result column="attr_option" jdbcType="VARCHAR" property="attrOption" />
   </resultMap>
-  <!--<cache></cache>-->
-  <select id="selectByVendorUserId" resultMap="BaseResultMap">
+
+  <resultMap id="BaseResultMapWithProduct" type="com.tfx0one.web.model.EShopProductSku">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_catagory_id" jdbcType="INTEGER" property="productCatagoryId" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
+    <result column="stock_amount" jdbcType="INTEGER" property="stockAmount" />
+    <result column="sale_amount" jdbcType="INTEGER" property="saleAmount" />
+    <result column="stock_sn" jdbcType="INTEGER" property="stockSn" />
+    <result column="attr_option" jdbcType="VARCHAR" property="attrOption" />
+  </resultMap>
+
+  <select id="selectByProductId" resultMap="BaseResultMapWithProduct">
     SELECT
       a.id as id,
       product_id,
+      product_catagory_id,
+      vendor_user_id,
       unit_price,
       cost_price,
       stock_amount,
+      sale_amount,
       stock_sn,
       attr_option
     FROM
@@ -28,4 +44,6 @@
     WHERE
       a.product_id = b.id
   </select>
+
+
 </mapper>

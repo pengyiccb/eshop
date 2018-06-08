@@ -70,9 +70,9 @@ CREATE TABLE `e_shop_product` (
   `img_primary_url` varchar(255) DEFAULT NULL COMMENT '主图',
   `img_list_url` varchar(255) DEFAULT NULL COMMENT '图片列表',
   `is_delete` tinyint(4) DEFAULT NULL,
-  `vendor_id` int(11) DEFAULT NULL COMMENT '商家',
+  `vendor_user_id` int(11) DEFAULT NULL COMMENT '商家',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品表 SPU\r包含了产品的基本属性。不影响价格。\r如：iphone x 产品';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='产品表 SPU\r包含了产品的基本属性。不影响价格。\r如：iphone x 产品';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,6 +81,7 @@ CREATE TABLE `e_shop_product` (
 
 LOCK TABLES `e_shop_product` WRITE;
 /*!40000 ALTER TABLE `e_shop_product` DISABLE KEYS */;
+INSERT INTO `e_shop_product` VALUES (1,'t','s',NULL,NULL,123.00,NULL,1,0,0,NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `e_shop_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,7 +99,7 @@ CREATE TABLE `e_shop_product_catagory` (
   `catagory_desc` varchar(255) DEFAULT NULL COMMENT '描述',
   `sort_order` smallint(6) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品分类 可以是类 目 或者 品牌';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='产品分类 可以是类 目 或者 品牌';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,6 +108,7 @@ CREATE TABLE `e_shop_product_catagory` (
 
 LOCK TABLES `e_shop_product_catagory` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_catagory` DISABLE KEYS */;
+INSERT INTO `e_shop_product_catagory` VALUES (1,0,'',NULL,NULL);
 /*!40000 ALTER TABLE `e_shop_product_catagory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,12 +124,12 @@ CREATE TABLE `e_shop_product_sku` (
   `product_id` int(10) unsigned DEFAULT NULL COMMENT '属于哪个产品',
   `unit_price` decimal(10,2) DEFAULT NULL COMMENT '单价',
   `cost_price` decimal(10,2) NOT NULL COMMENT '成本价 可为空',
-  `stock_amount` int(11) DEFAULT NULL COMMENT '库存',
+  `stock_amount` int(11) NOT NULL COMMENT '库存',
   `sale_amount` int(11) NOT NULL COMMENT '销售额',
   `stock_sn` int(11) NOT NULL COMMENT '商家自定义编号',
   `attr_option` varchar(255) DEFAULT NULL COMMENT 'sku属性ID串',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品SKU（库存单品）。影响价格和库存。\r如：手机内存容量。颜色。\r多个对应一个商品';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='产品SKU（库存单品）。影响价格和库存。\r如：手机内存容量。颜色。\r多个对应一个商品';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,6 +138,7 @@ CREATE TABLE `e_shop_product_sku` (
 
 LOCK TABLES `e_shop_product_sku` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_sku` DISABLE KEYS */;
+INSERT INTO `e_shop_product_sku` VALUES (1,1,1.00,0.00,1,3,0,'1|2'),(2,1,2.00,0.00,2,4,0,'1|3');
 /*!40000 ALTER TABLE `e_shop_product_sku` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +156,7 @@ CREATE TABLE `e_shop_product_sku_attr` (
   `attr_content` varchar(255) NOT NULL COMMENT '属性的值',
   `sort_order` int(11) NOT NULL COMMENT '属性的排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='sku 销售属性。影响价格和库存。手机内存容量。颜色。\r多个对应一个商品';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='sku 销售属性。影响价格和库存。手机内存容量。颜色。\r多个对应一个商品';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,6 +165,7 @@ CREATE TABLE `e_shop_product_sku_attr` (
 
 LOCK TABLES `e_shop_product_sku_attr` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_sku_attr` DISABLE KEYS */;
+INSERT INTO `e_shop_product_sku_attr` VALUES (1,1,'color','red',0),(2,1,'size','x',0),(3,1,'size','m',1);
 /*!40000 ALTER TABLE `e_shop_product_sku_attr` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,4 +362,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-08 12:35:00
+-- Dump completed on 2018-06-08 12:47:42

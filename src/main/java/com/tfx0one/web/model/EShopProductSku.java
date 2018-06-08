@@ -35,16 +35,33 @@ public class EShopProductSku extends BaseEntity {
     private Integer stockAmount;
 
     /**
+     * 销售额
+     */
+    @Column(name = "sale_amount")
+    private Integer saleAmount;
+
+    /**
      * 商家自定义编号
      */
     @Column(name = "stock_sn")
-    private String stockSn;
+    private Integer stockSn;
 
     /**
      * sku属性ID串
      */
     @Column(name = "attr_option")
     private String attrOption;
+
+    @Transient
+    private Integer productCatagoryId;
+
+    public Integer getProductCatagoryId() {
+        return productCatagoryId;
+    }
+
+    public void setProductCatagoryId(Integer productCatagoryId) {
+        this.productCatagoryId = productCatagoryId;
+    }
 
     /**
      * @return id
@@ -158,15 +175,38 @@ public class EShopProductSku extends BaseEntity {
     }
 
     /**
+     * 获取销售额
+     *
+     * @return sale_amount - 销售额
+     */
+    public Integer getSaleAmount() {
+        return saleAmount;
+    }
+
+    public EShopProductSku withSaleAmount(Integer saleAmount) {
+        this.setSaleAmount(saleAmount);
+        return this;
+    }
+
+    /**
+     * 设置销售额
+     *
+     * @param saleAmount 销售额
+     */
+    public void setSaleAmount(Integer saleAmount) {
+        this.saleAmount = saleAmount;
+    }
+
+    /**
      * 获取商家自定义编号
      *
      * @return stock_sn - 商家自定义编号
      */
-    public String getStockSn() {
+    public Integer getStockSn() {
         return stockSn;
     }
 
-    public EShopProductSku withStockSn(String stockSn) {
+    public EShopProductSku withStockSn(Integer stockSn) {
         this.setStockSn(stockSn);
         return this;
     }
@@ -176,8 +216,8 @@ public class EShopProductSku extends BaseEntity {
      *
      * @param stockSn 商家自定义编号
      */
-    public void setStockSn(String stockSn) {
-        this.stockSn = stockSn == null ? null : stockSn.trim();
+    public void setStockSn(Integer stockSn) {
+        this.stockSn = stockSn;
     }
 
     /**
@@ -214,6 +254,7 @@ public class EShopProductSku extends BaseEntity {
         sb.append(", unitPrice=").append(unitPrice);
         sb.append(", costPrice=").append(costPrice);
         sb.append(", stockAmount=").append(stockAmount);
+        sb.append(", saleAmount=").append(saleAmount);
         sb.append(", stockSn=").append(stockSn);
         sb.append(", attrOption=").append(attrOption);
         sb.append("]");

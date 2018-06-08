@@ -18,7 +18,12 @@ public class ProductSkuService extends BaseService<EShopProductSku> {
     @Resource
     private EShopProductSkuMapper eShopProductSkuMapper;
 
-    public List<EShopProductSku> selectByVendorUserId(int vendorUserId){
-        return this.eShopProductSkuMapper.selectByVendorUserId(vendorUserId);
+//    public List<EShopProductSku> selectByVendorUserId(int vendorUserId){
+//        return this.eShopProductSkuMapper.selectByVendorUserId(vendorUserId);
+//    }
+
+    public List<EShopProductSku> selectByProductId(int productId){
+        return this.eShopProductSkuMapper.selectByProductId(productId);
     }
+
 }

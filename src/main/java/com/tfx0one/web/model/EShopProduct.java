@@ -39,8 +39,8 @@ public class EShopProduct extends BaseEntity {
     /**
      * 产品的类别
      */
-    @Column(name = "product_catagory_id")
-    private Integer productCatagoryId;
+    @Column(name = "product_category_id")
+    private Integer productCategoryId;
 
     /**
      * 排序
@@ -218,24 +218,24 @@ public class EShopProduct extends BaseEntity {
     /**
      * 获取产品的类别
      *
-     * @return product_catagory_id - 产品的类别
+     * @return product_category_id - 产品的类别
      */
-    public Integer getProductCatagoryId() {
-        return productCatagoryId;
+    public Integer getProductCategoryId() {
+        return productCategoryId;
     }
 
-    public EShopProduct withProductCatagoryId(Integer productCatagoryId) {
-        this.setProductCatagoryId(productCatagoryId);
+    public EShopProduct withProductCategoryId(Integer productCategoryId) {
+        this.setProductCategoryId(productCategoryId);
         return this;
     }
 
     /**
      * 设置产品的类别
      *
-     * @param productCatagoryId 产品的类别
+     * @param productCategoryId 产品的类别
      */
-    public void setProductCatagoryId(Integer productCatagoryId) {
-        this.productCatagoryId = productCatagoryId;
+    public void setProductCategoryId(Integer productCategoryId) {
+        this.productCategoryId = productCategoryId;
     }
 
     /**
@@ -407,7 +407,7 @@ public class EShopProduct extends BaseEntity {
         sb.append(", brief=").append(brief);
         sb.append(", priceUnderline=").append(priceUnderline);
         sb.append(", keyword=").append(keyword);
-        sb.append(", productCatagoryId=").append(productCatagoryId);
+        sb.append(", productCategoryId=").append(productCategoryId);
         sb.append(", sortOrder=").append(sortOrder);
         sb.append(", isOnSale=").append(isOnSale);
         sb.append(", imgPrimaryUrl=").append(imgPrimaryUrl);

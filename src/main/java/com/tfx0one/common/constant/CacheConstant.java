@@ -5,7 +5,7 @@ package com.tfx0one.common.constant;
  */
 public class CacheConstant {
     // 缓存key
-    public static final String CACHE_DEMO= "CACHE_DEMO"; // 测试用缓存
+//    public static final String CACHE_DEMO= "CACHE_DEMO"; // 测试用缓存
 //    public static final String CACHE_WX_SESSION = "CACHE_WX_SESSION";
     public static final String CACHE_USER_ACCOUNT = "CACHE_USER_ACCOUNT";
     public static final String CACHE_VENDOR_USER = "CACHE_VENDOR_USER";
@@ -21,7 +21,7 @@ public class CacheConstant {
 
     //Session的key
     // 把User对象绑定到session
-    public static final String SESSION_LOGIN_USER = "SESSION_LOGIN_USER";
+//    public static final String SESSION_LOGIN_USER = "SESSION_LOGIN_USER";
 
 
 }

@@ -11,7 +11,7 @@
     <result column="brief" jdbcType="VARCHAR" property="brief" />
     <result column="price_underline" jdbcType="DECIMAL" property="priceUnderline" />
     <result column="keyword" jdbcType="VARCHAR" property="keyword" />
-    <result column="product_catagory_id" jdbcType="INTEGER" property="productCatagoryId" />
+    <result column="product_category_id" jdbcType="INTEGER" property="productCategoryId" />
     <result column="sort_order" jdbcType="TINYINT" property="sortOrder" />
     <result column="is_on_sale" jdbcType="TINYINT" property="isOnSale" />
     <result column="img_primary_url" jdbcType="VARCHAR" property="imgPrimaryUrl" />

@@ -21,12 +21,13 @@ public class DemoService extends BaseService<Demo> {
 
     public List<Demo> selectAll() {
         //测试缓存
-        List<Demo> list = ehCacheUtils.get(CacheConstant.CACHE_DEMO,"DemoService");
-        if (null == list) {
-            list = this.select(null);
-            ehCacheUtils.put(CacheConstant.CACHE_DEMO, "DemoService", list);
-        }
-        return list;
+//        List<Demo> list = ehCacheUtils.get(CacheConstant.CACHE_DEMO,"DemoService");
+//        if (null == list) {
+//            list = this.select(null);
+//            ehCacheUtils.put(CacheConstant.CACHE_DEMO, "DemoService", list);
+//        }
+//        return list;
+        return null;
     }
 
 

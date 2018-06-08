@@ -35,7 +35,7 @@ public class WeChatService {
 
     public JSONObject jscode2session(String appId, String code) {
 
-        VendorUser vendorUser = venderUserService.selectOne(new VendorUser().withAppId(appId));
+        VendorUser vendorUser = venderUserService.selectByAppId(appId);
         StringBuffer sb = new StringBuffer();
         sb.append(WXAPIConstant.URL_JSCODE2SESSION+"?");
         sb.append("appid=").append(appId);

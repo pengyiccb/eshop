@@ -21,16 +21,16 @@ import java.util.List;
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
-    //关键，将拦截器作为bean写入配置中
-    @Bean
-    public WXAuthInterceptor getWXAuthInterceptor(){
-        return new WXAuthInterceptor();
-    }
-
-    @Bean
-    public AuthInterceptor getAuthInterceptor(){
-        return new AuthInterceptor();
-    }
+    //关键，将拦截器作为bean写入配置中 废弃的拦截器
+//    @Bean
+//    public WXAuthInterceptor getWXAuthInterceptor(){
+//        return new WXAuthInterceptor();
+//    }
+//
+//    @Bean
+//    public AuthInterceptor getAuthInterceptor(){
+//        return new AuthInterceptor();
+//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -31,7 +31,7 @@ public class ProductService extends BaseService<EShopProduct> {
 
     //该商家的基本商品数据信息列表，不包含单品信息
     public JSONResult productList(String appId) {
-        VendorUser vendorUser = venderUserService.selectOne(new VendorUser().withAppId(appId));
+        VendorUser vendorUser = venderUserService.selectByAppId(appId);
         if (vendorUser == null) {
             return JSONResult.error("商家的 appId 不存在！appId = " + appId);
         }

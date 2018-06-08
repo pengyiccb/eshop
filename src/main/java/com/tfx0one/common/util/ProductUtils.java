@@ -21,7 +21,7 @@ import java.util.*;
  */
 @Component
 public class ProductUtils {
-//商品 单品相关
+    //缓存 商品 单品相关
     private final Logger logger = LoggerFactory.getLogger(ProductUtils.class);
 
     @Autowired
@@ -80,10 +80,9 @@ public class ProductUtils {
     //注意，如果商户后台新增记录。这里就一定要刷新了。 按照商品刷新
     private Map<Integer, EShopProductSku> refreshProductsSKU(int spuProductId) {
         EShopProduct product = productService.selectOne(new EShopProduct().withId(spuProductId));
-        if (product == null ) {
-            return null;
-        }
-        final int productCategoryId = product.getProductCatagoryId();
+        if (product == null ) { return null; }
+
+        final int productCategoryId = product.getProductCategoryId();
         final int productVendorUserId = product.getVendorUserId();
 
         //遍历单品

@@ -61,9 +61,9 @@
         -->
 
         <!--这里表示自动匹配所有表。-->
-        <!--<table tableName="%">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true" />-->
-        <!--</table>-->
+        <table tableName="%">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
+        </table>
 
         <!--<table tableName="demo" domainObjectName="DemoModel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->

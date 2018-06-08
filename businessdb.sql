@@ -86,30 +86,30 @@ INSERT INTO `e_shop_product` VALUES (1,'t','s',NULL,NULL,123.00,NULL,1,0,0,NULL,
 UNLOCK TABLES;
 
 --
--- Table structure for table `e_shop_product_catagory`
+-- Table structure for table `e_shop_product_category`
 --
 
-DROP TABLE IF EXISTS `e_shop_product_catagory`;
+DROP TABLE IF EXISTS `e_shop_product_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `e_shop_product_catagory` (
+CREATE TABLE `e_shop_product_category` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` bigint(20) NOT NULL,
   `name` char(255) NOT NULL COMMENT '名字',
-  `catagory_desc` varchar(255) DEFAULT NULL COMMENT '描述',
+  `category_desc` varchar(255) DEFAULT NULL COMMENT '描述',
   `sort_order` smallint(6) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='产品分类 可以是类 目 或者 品牌';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `e_shop_product_catagory`
+-- Dumping data for table `e_shop_product_category`
 --
 
-LOCK TABLES `e_shop_product_catagory` WRITE;
-/*!40000 ALTER TABLE `e_shop_product_catagory` DISABLE KEYS */;
-INSERT INTO `e_shop_product_catagory` VALUES (1,0,'',NULL,NULL);
-/*!40000 ALTER TABLE `e_shop_product_catagory` ENABLE KEYS */;
+LOCK TABLES `e_shop_product_category` WRITE;
+/*!40000 ALTER TABLE `e_shop_product_category` DISABLE KEYS */;
+INSERT INTO `e_shop_product_category` VALUES (1,0,'',NULL,NULL);
+/*!40000 ALTER TABLE `e_shop_product_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -151,7 +151,7 @@ DROP TABLE IF EXISTS `e_shop_product_sku_attr`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `e_shop_product_sku_attr` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'sku属性id',
-  `product_catagory_id` int(10) unsigned NOT NULL COMMENT '属性对应的单品',
+  `product_category_id` int(10) unsigned NOT NULL COMMENT '属性对应的单品',
   `attr_type` varchar(255) NOT NULL COMMENT '属性的类型',
   `attr_content` varchar(255) NOT NULL COMMENT '属性的值',
   `sort_order` int(11) NOT NULL COMMENT '属性的排序',
@@ -362,4 +362,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-08 12:47:42
+-- Dump completed on 2018-06-08 13:06:00

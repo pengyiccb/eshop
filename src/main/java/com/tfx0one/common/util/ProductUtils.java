@@ -14,9 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by 2fx0one on 2018/6/7.
@@ -81,11 +79,30 @@ public class ProductUtils {
     //刷新某个商品的详细信息，并缓存起来
     //注意，如果商户后台新增记录。这里就一定要刷新了。 按照商品刷新
     private Map<Integer, EShopProductSku> refreshProductsSKU(int spuProductId) {
+        EShopProduct product = productService.selectOne(new EShopProduct().withId(spuProductId));
+        if (product == null ) {
+            return null;
+        }
+        final int productCategoryId = product.getProductCatagoryId();
+
+        //遍历单品
         List<EShopProductSku> skuList = productSkuService.selectByProductId(spuProductId);
         Map<Integer, EShopProductSku> map = new HashMap<>();
         skuList.forEach(e -> {
+
+            //遍历单品中属性
+            List<String> list = new ArrayList<>(Arrays.asList(e.getAttrOption().split("\\|")));
+            final List<EShopProductSkuAttr> attrList = new ArrayList<>();
+            list.forEach(attr -> {
+                EShopProductSkuAttr skuAttr = getProductAttr(productCategoryId, e.getId());
+                attrList.add(skuAttr);
+            });
+
+            e.setAttrs(attrList);
             map.put(e.getId(), e);
-            String[] options = e.getAttrOption().split("\\|");
+//            String[] options = e.getAttrOption().split("\\|");
+//            EShopProductSkuAttr skuAttr = getProductAttr(productCatagoryId, e.getId());
+//            e.getProductCatagoryId()
 //            getProductSPU()
 //            options.
         });
@@ -99,7 +116,7 @@ public class ProductUtils {
 //        return this.getProductAttr(productCatagoryId).get(skuAttrId);
 //    }
 
-    public EShopProductSkuAttr getProductAttr(int productCatagoryId, String skuAttrId) {
+    public EShopProductSkuAttr getProductAttr(int productCatagoryId, int skuAttrId) {
         return this.getProductAttr(productCatagoryId).get(skuAttrId);
     }
 

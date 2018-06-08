@@ -2,6 +2,7 @@ package com.tfx0one.web.model;
 
 import com.tfx0one.common.util.BaseEntity;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.*;
 
 @Table(name = "e_shop_product_sku")
@@ -61,6 +62,17 @@ public class EShopProductSku extends BaseEntity {
 
     public void setProductCatagoryId(Integer productCatagoryId) {
         this.productCatagoryId = productCatagoryId;
+    }
+
+    @Transient
+    private List<EShopProductSkuAttr> attrs;
+
+    public List<EShopProductSkuAttr> getAttrs() {
+        return attrs;
+    }
+
+    public void setAttrs(List<EShopProductSkuAttr> attrs) {
+        this.attrs = attrs;
     }
 
     /**

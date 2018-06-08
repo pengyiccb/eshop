@@ -3,8 +3,8 @@ package com.tfx0one.web.model;
 import com.tfx0one.common.util.BaseEntity;
 import javax.persistence.*;
 
-@Table(name = "e_shop_product_catagory")
-public class EShopProductCatagory extends BaseEntity {
+@Table(name = "e_shop_product_category")
+public class EShopProductCategory extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,8 +20,8 @@ public class EShopProductCatagory extends BaseEntity {
     /**
      * 描述
      */
-    @Column(name = "catagory_desc")
-    private String catagoryDesc;
+    @Column(name = "category_desc")
+    private String categoryDesc;
 
     /**
      * 排序
@@ -36,7 +36,7 @@ public class EShopProductCatagory extends BaseEntity {
         return id;
     }
 
-    public EShopProductCatagory withId(Integer id) {
+    public EShopProductCategory withId(Integer id) {
         this.setId(id);
         return this;
     }
@@ -55,7 +55,7 @@ public class EShopProductCatagory extends BaseEntity {
         return parentId;
     }
 
-    public EShopProductCatagory withParentId(Long parentId) {
+    public EShopProductCategory withParentId(Long parentId) {
         this.setParentId(parentId);
         return this;
     }
@@ -76,7 +76,7 @@ public class EShopProductCatagory extends BaseEntity {
         return name;
     }
 
-    public EShopProductCatagory withName(String name) {
+    public EShopProductCategory withName(String name) {
         this.setName(name);
         return this;
     }
@@ -93,24 +93,24 @@ public class EShopProductCatagory extends BaseEntity {
     /**
      * 获取描述
      *
-     * @return catagory_desc - 描述
+     * @return category_desc - 描述
      */
-    public String getCatagoryDesc() {
-        return catagoryDesc;
+    public String getCategoryDesc() {
+        return categoryDesc;
     }
 
-    public EShopProductCatagory withCatagoryDesc(String catagoryDesc) {
-        this.setCatagoryDesc(catagoryDesc);
+    public EShopProductCategory withCategoryDesc(String categoryDesc) {
+        this.setCategoryDesc(categoryDesc);
         return this;
     }
 
     /**
      * 设置描述
      *
-     * @param catagoryDesc 描述
+     * @param categoryDesc 描述
      */
-    public void setCatagoryDesc(String catagoryDesc) {
-        this.catagoryDesc = catagoryDesc == null ? null : catagoryDesc.trim();
+    public void setCategoryDesc(String categoryDesc) {
+        this.categoryDesc = categoryDesc == null ? null : categoryDesc.trim();
     }
 
     /**
@@ -122,7 +122,7 @@ public class EShopProductCatagory extends BaseEntity {
         return sortOrder;
     }
 
-    public EShopProductCatagory withSortOrder(Short sortOrder) {
+    public EShopProductCategory withSortOrder(Short sortOrder) {
         this.setSortOrder(sortOrder);
         return this;
     }
@@ -145,7 +145,7 @@ public class EShopProductCatagory extends BaseEntity {
         sb.append(", id=").append(id);
         sb.append(", parentId=").append(parentId);
         sb.append(", name=").append(name);
-        sb.append(", catagoryDesc=").append(catagoryDesc);
+        sb.append(", categoryDesc=").append(categoryDesc);
         sb.append(", sortOrder=").append(sortOrder);
         sb.append("]");
         return sb.toString();

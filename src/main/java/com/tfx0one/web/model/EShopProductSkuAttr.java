@@ -15,8 +15,8 @@ public class EShopProductSkuAttr extends BaseEntity {
     /**
      * 属性对应的单品
      */
-    @Column(name = "product_catagory_id")
-    private Integer productCatagoryId;
+    @Column(name = "product_category_id")
+    private Integer productCategoryId;
 
     /**
      * 属性的类型
@@ -62,24 +62,24 @@ public class EShopProductSkuAttr extends BaseEntity {
     /**
      * 获取属性对应的单品
      *
-     * @return product_catagory_id - 属性对应的单品
+     * @return product_category_id - 属性对应的单品
      */
-    public Integer getProductCatagoryId() {
-        return productCatagoryId;
+    public Integer getProductCategoryId() {
+        return productCategoryId;
     }
 
-    public EShopProductSkuAttr withProductCatagoryId(Integer productCatagoryId) {
-        this.setProductCatagoryId(productCatagoryId);
+    public EShopProductSkuAttr withProductCategoryId(Integer productCategoryId) {
+        this.setProductCategoryId(productCategoryId);
         return this;
     }
 
     /**
      * 设置属性对应的单品
      *
-     * @param productCatagoryId 属性对应的单品
+     * @param productCategoryId 属性对应的单品
      */
-    public void setProductCatagoryId(Integer productCatagoryId) {
-        this.productCatagoryId = productCatagoryId;
+    public void setProductCategoryId(Integer productCategoryId) {
+        this.productCategoryId = productCategoryId;
     }
 
     /**
@@ -158,7 +158,7 @@ public class EShopProductSkuAttr extends BaseEntity {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", productCatagoryId=").append(productCatagoryId);
+        sb.append(", productCategoryId=").append(productCategoryId);
         sb.append(", attrType=").append(attrType);
         sb.append(", attrContent=").append(attrContent);
         sb.append(", sortOrder=").append(sortOrder);

@@ -70,11 +70,11 @@ public class UserAccountUtils {
     }
 
 //    //微信小程序的消息头 判断是否为微信用户
-    public boolean hasWeChatMiniProgramFlag() {
-        String header = getCurrentRequest().getHeader("User-Agent");
-        //TODO 真机待验证有效性
-        return header.contains("wechat") || header.contains("miniprogram");
-    }
+//    public boolean hasWeChatMiniProgramFlag() {
+//        String header = getCurrentRequest().getHeader("User-Agent");
+//        //TODO 真机待验证有效性
+//        return header.contains("wechat") || header.contains("miniprogram");
+//    }
 
     private HttpServletRequest getCurrentRequest()
     {

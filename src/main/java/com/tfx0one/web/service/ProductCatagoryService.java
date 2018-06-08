@@ -1,7 +1,7 @@
 package com.tfx0one.web.service;
 
 import com.tfx0one.common.util.BaseService;
-import com.tfx0one.web.model.EShopProductCatagory;
+import com.tfx0one.web.model.EShopProductCategory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 //产品分类
-public class ProductCatagoryService extends BaseService<EShopProductCatagory> {
+public class ProductCatagoryService extends BaseService<EShopProductCategory> {
 }

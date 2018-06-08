@@ -62,7 +62,6 @@
 
         <!--这里表示自动匹配所有表。-->
         <table tableName="%">
-            <!--mysql 配置 -->
             <generatedKey column="id" sqlStatement="Mysql" identity="true" />
         </table>
 

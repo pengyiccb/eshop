@@ -25,37 +25,37 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //TODO session登录标记
-        String paramStr = request.getRequestURL().toString() + "?";
-        Map<String,String[]> params = request.getParameterMap();
-        if (params != null && params.size() > 0) {
-            for(Map.Entry<String, String[]> p : params.entrySet()){
-                if(p.getValue() == null || p.getValue().length == 0){
-                    continue;
-                }
-                paramStr += p.getKey() + "=" + p.getValue()[0] + "&";
-            }
-        }
-        paramStr = paramStr.substring(0, paramStr.length() - 1);
-        System.out.println("=== 通用授权拦截器 AuthInterceptor ===  " + paramStr);
-
-        System.out.println(request.getHeader("User-Agent"));
-
-//        String ctx = request.getContextPath();
-//        request.getSession();
-        System.out.println("header sessionKey = [" + request.getHeader("sessionKey") + "]");
-        System.out.println("SessionId = [" + request.getSession().getId() + "]");
-
-        System.out.println(userAccountUtils.hasWeChatMiniProgramFlag()?"======微信登录！======":"=======网页登录=======");
-
-        //未登录用户
-        if (null == userAccountUtils.getCacheLoginUser()) {
-            if (userAccountUtils.hasWeChatMiniProgramFlag()) {
-                errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 需要有效的 serverSessionKey, 设置在header中");
-            } else {
-                response.sendRedirect(request.getContextPath() + "/login");
-            }
-            return false;
-        }
+//        String paramStr = request.getRequestURL().toString() + "?";
+//        Map<String,String[]> params = request.getParameterMap();
+//        if (params != null && params.size() > 0) {
+//            for(Map.Entry<String, String[]> p : params.entrySet()){
+//                if(p.getValue() == null || p.getValue().length == 0){
+//                    continue;
+//                }
+//                paramStr += p.getKey() + "=" + p.getValue()[0] + "&";
+//            }
+//        }
+//        paramStr = paramStr.substring(0, paramStr.length() - 1);
+//        System.out.println("=== 通用授权拦截器 AuthInterceptor ===  " + paramStr);
+//
+//        System.out.println(request.getHeader("User-Agent"));
+//
+////        String ctx = request.getContextPath();
+////        request.getSession();
+//        System.out.println("header sessionKey = [" + request.getHeader("sessionKey") + "]");
+//        System.out.println("SessionId = [" + request.getSession().getId() + "]");
+//
+//        System.out.println(userAccountUtils.hasWeChatMiniProgramFlag()?"======微信登录！======":"=======网页登录=======");
+//
+//        //未登录用户
+//        if (null == userAccountUtils.getCacheLoginUser()) {
+//            if (userAccountUtils.hasWeChatMiniProgramFlag()) {
+//                errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 需要有效的 serverSessionKey, 设置在header中");
+//            } else {
+//                response.sendRedirect(request.getContextPath() + "/login");
+//            }
+//            return false;
+//        }
 
         return true;
     }

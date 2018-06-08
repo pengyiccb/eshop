@@ -10,22 +10,9 @@
     <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
     <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
     <result column="stock_amount" jdbcType="INTEGER" property="stockAmount" />
-    <result column="stock_sn" jdbcType="VARCHAR" property="stockSn" />
+    <result column="sale_amount" jdbcType="INTEGER" property="saleAmount" />
+    <result column="stock_sn" jdbcType="INTEGER" property="stockSn" />
     <result column="attr_option" jdbcType="VARCHAR" property="attrOption" />
   </resultMap>
 
-  <select id="selectByVendorUserId" resultMap="BaseResultMap">
-    SELECT
-      a.id as id,
-      product_id,
-      unit_price,
-      cost_price,
-      stock_amount,
-      stock_sn,
-      attr_option
-    FROM
-      e_shop_product_sku a, e_shop_product b
-    WHERE
-      a.product_id = b.id
-  </select>
 </mapper>

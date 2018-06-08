@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache updateCheck="false" name="defaultCache">
 
-    <diskStore path="java.io.tmpdir/mytemplate/ehcache/default" />
+    <diskStore path="java.io.tmpdir/temp/ehcache/default" />
 
     <!-- DefaultCache setting. -->
     <defaultCache maxEntriesLocalHeap="100" eternal="false"
@@ -55,6 +55,15 @@
            statistics="true"/>
 
     <cache name="CACHE_PRODUCT_SKU"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+
+    <cache name="CACHE_PRODUCT_SKU_ATTR"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"

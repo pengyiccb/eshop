@@ -32,12 +32,6 @@ public class EShopProduct extends BaseEntity {
     private BigDecimal priceUnderline;
 
     /**
-     * 销售额
-     */
-    @Column(name = "sale_amount")
-    private Integer saleAmount;
-
-    /**
      * 关键字
      */
     private String keyword;
@@ -45,8 +39,8 @@ public class EShopProduct extends BaseEntity {
     /**
      * 产品的类别
      */
-    @Column(name = "product_catagory_id")
-    private Integer productCatagoryId;
+    @Column(name = "product_category_id")
+    private Integer productCategoryId;
 
     /**
      * 排序
@@ -76,7 +70,7 @@ public class EShopProduct extends BaseEntity {
     private Byte isDelete;
 
     /**
-     * 商家id
+     * 商家
      */
     @Column(name = "vendor_user_id")
     private Integer vendorUserId;
@@ -199,29 +193,6 @@ public class EShopProduct extends BaseEntity {
     }
 
     /**
-     * 获取销售额
-     *
-     * @return sale_amount - 销售额
-     */
-    public Integer getSaleAmount() {
-        return saleAmount;
-    }
-
-    public EShopProduct withSaleAmount(Integer saleAmount) {
-        this.setSaleAmount(saleAmount);
-        return this;
-    }
-
-    /**
-     * 设置销售额
-     *
-     * @param saleAmount 销售额
-     */
-    public void setSaleAmount(Integer saleAmount) {
-        this.saleAmount = saleAmount;
-    }
-
-    /**
      * 获取关键字
      *
      * @return keyword - 关键字
@@ -247,24 +218,24 @@ public class EShopProduct extends BaseEntity {
     /**
      * 获取产品的类别
      *
-     * @return product_catagory_id - 产品的类别
+     * @return product_category_id - 产品的类别
      */
-    public Integer getProductCatagoryId() {
-        return productCatagoryId;
+    public Integer getProductCategoryId() {
+        return productCategoryId;
     }
 
-    public EShopProduct withProductCatagoryId(Integer productCatagoryId) {
-        this.setProductCatagoryId(productCatagoryId);
+    public EShopProduct withProductCategoryId(Integer productCategoryId) {
+        this.setProductCategoryId(productCategoryId);
         return this;
     }
 
     /**
      * 设置产品的类别
      *
-     * @param productCatagoryId 产品的类别
+     * @param productCategoryId 产品的类别
      */
-    public void setProductCatagoryId(Integer productCatagoryId) {
-        this.productCatagoryId = productCatagoryId;
+    public void setProductCategoryId(Integer productCategoryId) {
+        this.productCategoryId = productCategoryId;
     }
 
     /**
@@ -379,9 +350,9 @@ public class EShopProduct extends BaseEntity {
     }
 
     /**
-     * 获取商家id
+     * 获取商家
      *
-     * @return vendor_user_id - 商家id
+     * @return vendor_user_id - 商家
      */
     public Integer getVendorUserId() {
         return vendorUserId;
@@ -393,9 +364,9 @@ public class EShopProduct extends BaseEntity {
     }
 
     /**
-     * 设置商家id
+     * 设置商家
      *
-     * @param vendorUserId 商家id
+     * @param vendorUserId 商家
      */
     public void setVendorUserId(Integer vendorUserId) {
         this.vendorUserId = vendorUserId;
@@ -435,9 +406,8 @@ public class EShopProduct extends BaseEntity {
         sb.append(", subtitle=").append(subtitle);
         sb.append(", brief=").append(brief);
         sb.append(", priceUnderline=").append(priceUnderline);
-        sb.append(", saleAmount=").append(saleAmount);
         sb.append(", keyword=").append(keyword);
-        sb.append(", productCatagoryId=").append(productCatagoryId);
+        sb.append(", productCategoryId=").append(productCategoryId);
         sb.append(", sortOrder=").append(sortOrder);
         sb.append(", isOnSale=").append(isOnSale);
         sb.append(", imgPrimaryUrl=").append(imgPrimaryUrl);

@@ -5,9 +5,14 @@ import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.ProductUtils;
 import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductSku;
+import com.tfx0one.web.model.EShopProductSkuAttr;
+import com.tfx0one.web.model.EShopProductCategory;
+
 import com.tfx0one.web.model.VendorUser;
 import com.tfx0one.web.mapper.EShopProductMapper;
 import com.tfx0one.web.mapper.EShopProductSkuMapper;
+import com.tfx0one.web.mapper.EShopProductSkuAttrMapper;
+import com.tfx0one.web.mapper.EShopProductCategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +62,12 @@ public class ProductService extends BaseService<EShopProduct> {
     @Autowired
     private EShopProductSkuMapper eshopProductSkuMap;
 
+    @Autowired
+    private EShopProductSkuAttrMapper eshopProductSkuAttrMap;
+
+    @Autowired
+    private EShopProductCategoryMapper eshopProductCategoryMapper;
+
     //插入商品数据信
     public int insertProductData(EShopProduct eshopProduct) {
         eshopProduct.withBrief("");
@@ -95,5 +106,21 @@ public class ProductService extends BaseService<EShopProduct> {
         eshopProductSkuMap.insertEShopSKUAndGetID(eshopProductSku);
 
         return eshopProductSku.getId();
+    }
+
+    //插入商品SKUArr
+    public int insertProductSkuArr(EShopProductSkuAttr eshopProductSkuArr) {
+
+        eshopProductSkuAttrMap.insertEShopSKUAttrAndGetID(eshopProductSkuArr);
+
+        return eshopProductSkuArr.getId();
+    }
+
+    //插入商品SKUArr
+    public int insertProductCategory(EShopProductCategory eshopProductCategory) {
+
+        eshopProductCategoryMapper.insertEShopCategoryAndGetID(eshopProductCategory);
+
+        return eshopProductCategory.getId();
     }
 }

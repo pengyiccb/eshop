@@ -15,4 +15,8 @@
     <result column="attr_option" jdbcType="VARCHAR" property="attrOption" />
   </resultMap>
 
+  <insert id="insertEShopSKUAndGetID" useGeneratedKeys="true" keyProperty="id" parameterType="com.tfx0one.web.model.EShopProductSku">
+    insert into e_shop_product_sku(product_id, unit_price, cost_price, stock_amount, sale_amount, stock_sn, attr_option)
+    values(#{productId}, #{unitPrice}, #{costPrice}, #{stockAmount},#{saleAmount},#{stockSn},#{attrOption})
+  </insert>
 </mapper>

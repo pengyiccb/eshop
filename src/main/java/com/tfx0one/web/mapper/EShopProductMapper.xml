@@ -20,4 +20,12 @@
     <result column="vendor_user_id" jdbcType="INTEGER" property="vendorUserId" />
     <result column="content_desc" jdbcType="LONGVARCHAR" property="contentDesc" />
   </resultMap>
+
+  <insert id="insertEShopProductAndGetID" useGeneratedKeys="true" keyProperty="id" parameterType="com.tfx0one.web.model.EShopProduct">
+    insert into e_shop_product
+    (title, subtitle, brief, content_desc, price_underline, keyword, product_category_id, sort_order, is_on_sale,
+    img_primary_url, img_list_url, vendor_user_id, is_delete)
+    values(#{title}, #{subtitle}, #{brief}, #{contentDesc},#{priceUnderline},#{keyword},#{productCategoryId}, #{sortOrder},#{isOnSale},
+    #{imgPrimaryUrl},#{imgListUrl},#{vendorUserId}, #{isDelete})
+  </insert>
 </mapper>

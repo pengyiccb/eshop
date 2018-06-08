@@ -40,4 +40,11 @@ public class ProductServiceTest {
         list2.forEach(System.out::println);
 
     }
+
+    @Test
+    public void test3() {
+        //详细信息 测试
+        productService.insertProductData(new EShopProduct());
+
+    }
 }

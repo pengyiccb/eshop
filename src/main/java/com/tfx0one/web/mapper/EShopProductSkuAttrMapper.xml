@@ -11,4 +11,9 @@
     <result column="attr_content" jdbcType="VARCHAR" property="attrContent" />
     <result column="sort_order" jdbcType="INTEGER" property="sortOrder" />
   </resultMap>
+
+  <insert id="insertEShopSKUAttrAndGetID" useGeneratedKeys="true" keyProperty="id" parameterType="com.tfx0one.web.model.EShopProductSku">
+    insert into e_shop_product_sku_attr(product_category_id, attr_type, attr_content, sort_order)
+    values(#{productCategoryId}, #{attrType}, #{attrContent}, #{sortOrder})
+  </insert>
 </mapper>

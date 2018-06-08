@@ -165,76 +165,6 @@ LOCK TABLES `e_shop_product_sku_attr` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `toggery_goods`
---
-
-DROP TABLE IF EXISTS `toggery_goods`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `toggery_goods` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `system_user_id` mediumint(8) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `count` mediumint(8) NOT NULL,
-  `toggery_kinds_id` mediumint(8) NOT NULL,
-  `market_price` decimal(10,2) NOT NULL,
-  `discount_price` decimal(10,2) NOT NULL,
-  `freight` decimal(10,2) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `click_count` int(10) NOT NULL DEFAULT '0',
-  `weight` decimal(10,3) NOT NULL,
-  `promote_start_date` int(11) NOT NULL,
-  `promote_end_date` int(11) NOT NULL,
-  `keywords` varchar(255) NOT NULL,
-  `goods_brief` varchar(255) DEFAULT NULL,
-  `goods_desc` text,
-  `goods_sn` varchar(60) NOT NULL,
-  `is_new` tinyint(1) NOT NULL,
-  `is_hot` tinyint(1) NOT NULL,
-  `add_time` int(11) NOT NULL,
-  `update_time` int(11) NOT NULL,
-  `can_use_coupon` tinyint(1) NOT NULL,
-  `goods_thumb` varchar(255) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `toggery_goods`
---
-
-LOCK TABLES `toggery_goods` WRITE;
-/*!40000 ALTER TABLE `toggery_goods` DISABLE KEYS */;
-/*!40000 ALTER TABLE `toggery_goods` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `toggery_goods_kinds`
---
-
-DROP TABLE IF EXISTS `toggery_goods_kinds`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `toggery_goods_kinds` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `kinds_id` mediumint(8) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `category_type` smallint(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `toggery_goods_kinds`
---
-
-LOCK TABLES `toggery_goods_kinds` WRITE;
-/*!40000 ALTER TABLE `toggery_goods_kinds` DISABLE KEYS */;
-/*!40000 ALTER TABLE `toggery_goods_kinds` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `user_account`
 --
 
@@ -474,4 +404,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-08 15:42:54
+-- Dump completed on 2018-06-08 16:22:35

@@ -20,8 +20,8 @@ import java.util.*;
  * Created by 2fx0one on 2018/6/7.
  */
 @Component
-//商品 单品相关
 public class ProductUtils {
+//商品 单品相关
     private final Logger logger = LoggerFactory.getLogger(ProductUtils.class);
 
     @Autowired
@@ -100,11 +100,7 @@ public class ProductUtils {
 
             e.setAttrs(attrList);
             map.put(e.getId(), e);
-//            String[] options = e.getAttrOption().split("\\|");
-//            EShopProductSkuAttr skuAttr = getProductAttr(productCatagoryId, e.getId());
-//            e.getProductCatagoryId()
-//            getProductSPU()
-//            options.
+
         });
         ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU, String.valueOf(spuProductId), map);
         return map;
@@ -126,8 +122,7 @@ public class ProductUtils {
     }
 
     public Map<Integer, EShopProductSkuAttr> refreshProductAttr(int productCatagoryId) {
-//        List<EShopProductSkuAttr> skuAttrList = productSkuAttrService.select(new EShopProductSkuAttr().withProductCatagoryId(productCatagoryId));
-        List<EShopProductSkuAttr> skuAttrList = productSkuAttrService.select(null);
+        List<EShopProductSkuAttr> skuAttrList = productSkuAttrService.select(new EShopProductSkuAttr().withProductCategoryId(productCatagoryId));
         Map<Integer, EShopProductSkuAttr> map = new HashMap<>();
         skuAttrList.forEach(e -> map.put(e.getId(), e));
         ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR, String.valueOf(productCatagoryId), map);

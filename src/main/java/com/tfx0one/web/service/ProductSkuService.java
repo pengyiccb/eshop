@@ -1,11 +1,13 @@
 package com.tfx0one.web.service;
 
 import com.tfx0one.common.util.BaseService;
+import com.tfx0one.common.util.ProductUtils;
 import com.tfx0one.web.mapper.EShopProductSkuMapper;
 import com.tfx0one.web.model.EShopProductSku;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,14 +18,10 @@ import java.util.List;
 public class ProductSkuService extends BaseService<EShopProductSku> {
 
     @Resource
-    private EShopProductSkuMapper eShopProductSkuMapper;
-
-//    public List<EShopProductSku> selectByVendorUserId(int vendorUserId){
-//        return this.eShopProductSkuMapper.selectByVendorUserId(vendorUserId);
-//    }
+    private ProductUtils productUtils;
 
     public List<EShopProductSku> selectByProductId(int productId){
-        return this.eShopProductSkuMapper.selectByProductId(productId);
+        return new ArrayList<>(productUtils.getProductSKU(productId).values());
     }
 
 }

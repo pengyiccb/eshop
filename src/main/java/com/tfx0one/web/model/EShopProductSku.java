@@ -257,19 +257,35 @@ public class EShopProductSku extends BaseEntity {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", productId=").append(productId);
-        sb.append(", unitPrice=").append(unitPrice);
-        sb.append(", costPrice=").append(costPrice);
-        sb.append(", stockAmount=").append(stockAmount);
-        sb.append(", saleAmount=").append(saleAmount);
-        sb.append(", stockSn=").append(stockSn);
-        sb.append(", attrOption=").append(attrOption);
-        sb.append("]");
-        return sb.toString();
+        return "EShopProductSku{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", unitPrice=" + unitPrice +
+                ", costPrice=" + costPrice +
+                ", stockAmount=" + stockAmount +
+                ", saleAmount=" + saleAmount +
+                ", stockSn=" + stockSn +
+                ", attrOption='" + attrOption + '\'' +
+                ", productCatagoryId=" + productCatagoryId +
+                ", attrs=" + attrs +
+                '}';
     }
+
+    //    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(getClass().getSimpleName());
+//        sb.append(" [");
+//        sb.append("Hash = ").append(hashCode());
+//        sb.append(", id=").append(id);
+//        sb.append(", productId=").append(productId);
+//        sb.append(", unitPrice=").append(unitPrice);
+//        sb.append(", costPrice=").append(costPrice);
+//        sb.append(", stockAmount=").append(stockAmount);
+//        sb.append(", saleAmount=").append(saleAmount);
+//        sb.append(", stockSn=").append(stockSn);
+//        sb.append(", attrOption=").append(attrOption);
+//        sb.append("]");
+//        return sb.toString();
+//    }
 }

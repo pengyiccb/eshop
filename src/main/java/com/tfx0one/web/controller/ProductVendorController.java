@@ -36,7 +36,7 @@ public class ProductVendorController {
     @ApiOperation(value = "获取商家可选分类中的可选属性", notes = "需要传递 productCategroyId 作为参数")
     @RequestMapping(value="/api/v1/shop/productAttrOption", method = RequestMethod.GET)
     public JSONResult productAttrOption(@RequestParam int productCategroyId) {
-        return productSkuAttrService.getSkuAttrOptionByProductCategoryId(productCategroyId);
+        return productSkuAttrService.getSkuAttrOptionTreeByProductCategoryId(productCategroyId);
     }
 
 

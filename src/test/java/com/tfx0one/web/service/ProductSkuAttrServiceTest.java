@@ -20,7 +20,7 @@ public class ProductSkuAttrServiceTest {
 
     @Test
     public void getSkuAttrByProductCategoryId() {
-        JSONResult o = productSkuAttrService.getSkuAttrOptionByProductCategoryId(1);
+        JSONResult o = productSkuAttrService.getSkuAttrOptionTreeByProductCategoryId(1);
         System.out.println(JSONObject.toJSONString(o));
 //       System.out.println(productSkuAttrService.getSkuAttrOptionByProductCategoryId(1));
        System.out.println(productSkuAttrService.getAllProductCategoryOption(123));

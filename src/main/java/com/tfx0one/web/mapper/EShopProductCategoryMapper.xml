@@ -14,6 +14,6 @@
 
   <insert id="insertEShopCategoryAndGetID" useGeneratedKeys="true" keyProperty="id" parameterType="com.tfx0one.web.model.EShopProductCategory">
     insert into e_shop_product_category(parent_id, name, category_desc, sort_order)
-    values(#{parentId}, #{name}, #{categoryDesc},#{sort_order})
+    values(#{parentId}, #{name}, #{categoryDesc},#{sortOrder})
   </insert>
 </mapper>

@@ -108,7 +108,7 @@ public class ProductUtils {
 //        return this.getProductAttr(productCatagoryId).get(skuAttrId);
 //    }
 
-    private EShopProductSkuAttr getProductAttr(int productCatagoryId, int skuAttrId) {
+    public EShopProductSkuAttr getProductAttr(int productCatagoryId, int skuAttrId) {
         return this.getProductAttr(productCatagoryId).get(skuAttrId);
     }
 
@@ -125,11 +125,15 @@ public class ProductUtils {
         return map;
     }
 
+    //树状，给商户后台添加商品时使用。
+    private static Map<Integer, Map<String, List<EShopProductSkuAttr>>> skuAttrOptionByCategoryId = new HashMap<>();
+
+
 
     //商户上传新商品的时候，刷新这个商品的相关缓存。
-    public void refreshProduct() {
-
+    public void refreshProduct(int vendorUserId, int productCategoryId, int productSpuId) {
+        refreshProductsSPU(vendorUserId);
+        refreshProductsSKU(productSpuId);
+        refreshProductAttr(productCategoryId);
     }
-
-
 }

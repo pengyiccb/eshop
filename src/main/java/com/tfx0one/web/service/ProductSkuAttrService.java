@@ -25,10 +25,26 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     @Resource
     private EShopProductCategoryMapper eShopProductCategoryMapper;
 
-    public JSONResult getSkuAttrByProductCategoryId(int productCategoryId) {
-        //TODO 要新增表 可选属性。 下期需求
+    //获取改分类下的所有选择
+    public JSONResult getSkuAttrOptionByProductCategoryId(int productCategoryId) {
+        //TODO 逻辑上 需要放到缓存中
 //        Map<Integer, EShopProductSkuAttr> map = productUtils.getProductAttr(productCategoryId);
-//        List<EShopProductSkuAttr> list = new ArrayList<>(map.values());
+        List<EShopProductSkuAttr> list = new ArrayList<>(productUtils.getProductAttr(productCategoryId).values());
+        //把list数据整理分类成如下格式
+//        data={COLOR=[红, 黑], SIZE=[m, x]}
+        Map<String, List<EShopProductSkuAttr>> map = new HashMap<>();
+        list.forEach(e -> {
+            if (! map.containsKey(e.getAttrType())) {
+                map.put(e.getAttrType(), new ArrayList<>());
+            }
+            //加入
+            if (! map.get(e.getAttrType()).contains(e)) {
+                map.get(e.getAttrType()).add(e);
+            }
+        });
+
+
+
 //
 //        List<String> l = new ArrayList<>();
 //        list.forEach(e -> {
@@ -36,15 +52,15 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 //                l.add(e.getAttrType());
 //            }
 //        });
-        Map<String, Object> map = new HashMap<>();
-        map.put("COLOR", "颜色");
-        map.put("SIZE", "尺码");
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("COLOR", "颜色");
+//        map.put("SIZE", "尺码");
 //        List<EShopProductSkuAttr> list = select(new EShopProductSkuAttr().withProductCategoryId(productCategoryId));
 
         return JSONResult.ok().data(map);
     }
 
-    public JSONResult getAllProductCategory(int vendorId) {
+    public JSONResult getAllProductCategoryOption(int vendorId) {
         //TODO 分类应该缓存 vendorId 没有使用
         List<EShopProductCategory> list = eShopProductCategoryMapper.select(null);
         return JSONResult.ok().data(list);

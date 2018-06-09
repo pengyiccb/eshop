@@ -149,13 +149,13 @@ DROP TABLE IF EXISTS `e_shop_product_sku_attr`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `e_shop_product_sku_attr` (
-  `id` int(10) unsigned NOT NULL COMMENT 'sku属性id',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'sku属性id',
   `product_category_id` int(10) unsigned NOT NULL COMMENT 'sku属性对应的分类',
   `attr_type` varchar(255) NOT NULL COMMENT '属性的类型',
   `attr_content` varchar(255) NOT NULL COMMENT '属性的值',
   `sort_order` int(11) NOT NULL COMMENT '属性的排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='sku 销售属性。影响价格和库存。手机内存容量。颜色。\r多个对应一个商品';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='sku 销售属性。影响价格和库存。手机内存容量。颜色。\r多个对应一个商品';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -409,4 +409,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-09 10:44:24
+-- Dump completed on 2018-06-09 10:55:41

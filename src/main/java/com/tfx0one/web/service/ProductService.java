@@ -11,16 +11,19 @@ import com.tfx0one.web.model.EShopProductCategory;
 import com.tfx0one.web.model.VendorUser;
 import com.tfx0one.web.mapper.EShopProductMapper;
 import com.tfx0one.web.mapper.EShopProductSkuMapper;
-import com.tfx0one.web.mapper.EShopProductSkuAttrMapper;
 import com.tfx0one.web.mapper.EShopProductCategoryMapper;
+import com.tfx0one.web.mapper.EShopProductSkuAttrMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.math.BigDecimal;
+import java.lang.Short;
 
 
 /**
@@ -57,6 +60,9 @@ public class ProductService extends BaseService<EShopProduct> {
     }
 
     @Autowired
+    private EShopProductCategoryMapper eshopProductCategoryMapper;
+
+    @Autowired
     private EShopProductMapper eshopProductMap;
 
     @Autowired
@@ -65,11 +71,10 @@ public class ProductService extends BaseService<EShopProduct> {
     @Autowired
     private EShopProductSkuAttrMapper eshopProductSkuAttrMap;
 
-    @Autowired
-    private EShopProductCategoryMapper eshopProductCategoryMapper;
 
     //插入商品数据信
     public int insertProductData(EShopProduct eshopProduct) {
+
         eshopProduct.withBrief("");
         eshopProduct.withContentDesc("");
         eshopProduct.withImgListUrl("");
@@ -89,6 +94,17 @@ public class ProductService extends BaseService<EShopProduct> {
 
         eshopProductSku.withProductId(eshopProduct.getId());
         insertProductSku(eshopProductSku);
+
+        EShopProductCategory eshopProductCategory = new EShopProductCategory();
+        insertProductCategory(eshopProductCategory);
+
+
+
+
+        EShopProductSkuAttr eshopProductSkuArr = new EShopProductSkuAttr();
+        eshopProductSkuArr.withProductCategoryId(eshopProductCategory.getId());
+        insertProductSkuArr(eshopProductSkuArr);
+
 
         return  0 ;
     }
@@ -111,6 +127,9 @@ public class ProductService extends BaseService<EShopProduct> {
     //插入商品SKUArr
     public int insertProductSkuArr(EShopProductSkuAttr eshopProductSkuArr) {
 
+        eshopProductSkuArr.withAttrContent("");
+        eshopProductSkuArr.withAttrType("");
+        eshopProductSkuArr.withSortOrder(0);
         eshopProductSkuAttrMap.insertEShopSKUAttrAndGetID(eshopProductSkuArr);
 
         return eshopProductSkuArr.getId();
@@ -119,7 +138,13 @@ public class ProductService extends BaseService<EShopProduct> {
     //插入商品SKUArr
     public int insertProductCategory(EShopProductCategory eshopProductCategory) {
 
+        Short s = 1;
+        eshopProductCategory.withParentId(new Long(1));
+        eshopProductCategory.withName("");
+        eshopProductCategory.withCategoryDesc("");
+        eshopProductCategory.withSortOrder(s);
         eshopProductCategoryMapper.insertEShopCategoryAndGetID(eshopProductCategory);
+
 
         return eshopProductCategory.getId();
     }

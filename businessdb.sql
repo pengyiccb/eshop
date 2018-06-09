@@ -71,7 +71,7 @@ CREATE TABLE `e_shop_product` (
   `is_delete` tinyint(4) DEFAULT NULL,
   `vendor_user_id` int(11) DEFAULT NULL COMMENT '商家',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品表 SPU\r包含了产品的基本属性。不影响价格。\r如：iphone x 产品';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='产品表 SPU\r包含了产品的基本属性。不影响价格。\r如：iphone x 产品';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,6 +80,7 @@ CREATE TABLE `e_shop_product` (
 
 LOCK TABLES `e_shop_product` WRITE;
 /*!40000 ALTER TABLE `e_shop_product` DISABLE KEYS */;
+INSERT INTO `e_shop_product` VALUES (1,'title','subtile','brief','content very long',999.99,'衣服',1,0,1,'',NULL,NULL,1);
 /*!40000 ALTER TABLE `e_shop_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +98,7 @@ CREATE TABLE `e_shop_product_category` (
   `category_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
   `sort_order` smallint(6) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='产品分类 可以是类 目 或者 品牌';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='产品分类 可以是类 目 或者 品牌';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,6 +107,7 @@ CREATE TABLE `e_shop_product_category` (
 
 LOCK TABLES `e_shop_product_category` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_category` DISABLE KEYS */;
+INSERT INTO `e_shop_product_category` VALUES (1,0,'衣服','衣服',0);
 /*!40000 ALTER TABLE `e_shop_product_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,7 +128,7 @@ CREATE TABLE `e_shop_product_sku` (
   `stock_sn` int(11) NOT NULL COMMENT '商家自定义编号',
   `attr_option` varchar(255) DEFAULT NULL COMMENT 'sku属性ID串',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品SKU（库存单品）。影响价格和库存。\r如：手机内存容量。颜色。\r多个对应一个商品';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='产品SKU（库存单品）。影响价格和库存。\r如：手机内存容量。颜色。\r多个对应一个商品';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,6 +137,7 @@ CREATE TABLE `e_shop_product_sku` (
 
 LOCK TABLES `e_shop_product_sku` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_sku` DISABLE KEYS */;
+INSERT INTO `e_shop_product_sku` VALUES (1,1,99.99,10.00,1,0,0,'1|3'),(2,1,88.88,8.00,12,0,0,'1|4');
 /*!40000 ALTER TABLE `e_shop_product_sku` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,6 +164,7 @@ CREATE TABLE `e_shop_product_sku_attr` (
 
 LOCK TABLES `e_shop_product_sku_attr` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_sku_attr` DISABLE KEYS */;
+INSERT INTO `e_shop_product_sku_attr` VALUES (1,1,'COLOR','red',0),(2,1,'COLOR','black',1),(3,1,'SIZE','m',0),(4,1,'SIZE','x',1);
 /*!40000 ALTER TABLE `e_shop_product_sku_attr` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,6 +371,7 @@ CREATE TABLE `vendor_user` (
 
 LOCK TABLES `vendor_user` WRITE;
 /*!40000 ALTER TABLE `vendor_user` DISABLE KEYS */;
+INSERT INTO `vendor_user` VALUES (1,0,'wxdda83d03c2d1521c','','2018-06-09 02:41:48','','',NULL,NULL,'','',0,'fad3978bb8d6aed7a341feb506b5f6e5','');
 /*!40000 ALTER TABLE `vendor_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -404,4 +409,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-08 16:22:35
+-- Dump completed on 2018-06-09 10:44:24

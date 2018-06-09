@@ -71,11 +71,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 允许对于网站静态资源的无授权访问
                 .antMatchers(
                         HttpMethod.GET,
-//                        "/api/v1/wechat/productList", //商品和商品详情
-//                        "/api/v1/wechat/productDetail", //商品和商品详情
+                        "/",
+                        "/api/v1/wechat/productList", //商品和商品详情
+                        "/api/v1/wechat/productDetail", //商品和商品详情
                         "/v2/api-docs",
                         "/swagger-resources/**",
-                        "/",
                         "/*.html",
                         "/favicon.ico",
                         "/**/*.html",

@@ -3,6 +3,7 @@ package com.tfx0one.web.controller;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.web.service.ProductService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;

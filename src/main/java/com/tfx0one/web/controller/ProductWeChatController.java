@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  */
 
 @RestController
-public class ProductController {
+public class ProductWeChatController {
 
     @Resource
     private ProductService productService;

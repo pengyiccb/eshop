@@ -164,7 +164,7 @@ CREATE TABLE `e_shop_product_sku_attr` (
 
 LOCK TABLES `e_shop_product_sku_attr` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_sku_attr` DISABLE KEYS */;
-INSERT INTO `e_shop_product_sku_attr` VALUES (1,1,'COLOR','red',0),(2,1,'COLOR','black',1),(3,1,'SIZE','m',0),(4,1,'SIZE','x',1);
+INSERT INTO `e_shop_product_sku_attr` VALUES (1,1,'COLOR','红',0),(2,1,'COLOR','黑',1),(3,1,'SIZE','m',0),(4,1,'SIZE','x',1);
 /*!40000 ALTER TABLE `e_shop_product_sku_attr` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,7 +191,7 @@ CREATE TABLE `user_account` (
   `union_id` varchar(200) DEFAULT NULL,
   `default_addr_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,6 +200,7 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
+INSERT INTO `user_account` VALUES (5,NULL,NULL,'test','$2a$10$9TBnSUPfsTg6anyDF5DI2OtFSDky9u9fZntSXkM/nWQe8gGCgyU6K','2018-06-09 11:16:38',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -409,4 +410,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-09 10:55:41
+-- Dump completed on 2018-06-09 16:17:57

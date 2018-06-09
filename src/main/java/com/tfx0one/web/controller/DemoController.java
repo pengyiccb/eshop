@@ -38,7 +38,7 @@ public class DemoController {
 
     @RequestMapping(value="/demo/post", method = RequestMethod.POST)
     public JSONResult post(@RequestBody Demo demo) {
-        return JSONResult.ok().data(demo);
+        return JSONResult.ok().data(demo.withMoney(123456.1f));
     }
 
 

@@ -34,7 +34,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProductControllerTest {
+public class ProductWeChatControllerTest {
 
     @Autowired
     private WebApplicationContext wac;
@@ -99,6 +99,7 @@ public class ProductControllerTest {
 
         // 发送post请求 注意 json数据放在 content 中
         String o = JSONObject.toJSONString(new Demo().withId(1).withCreateTime(new Date()).withMoney(1.23f).withName("demo1"));
+        System.out.println(o);
 
         ResultActions actionsPost = mockMvc.perform(
                 MockMvcRequestBuilders
@@ -111,8 +112,6 @@ public class ProductControllerTest {
 
         actionsPost.andExpect(MockMvcResultMatchers.status().isOk());
         actionsPost.andDo(MockMvcResultHandlers.print());
-
-
 
 //        actions.andDo(new ResultHandler() {
 //            @Override

@@ -61,9 +61,6 @@ public class ProductUtils {
         return map;
     }
 
-
-
-
     // ================= 缓存 SKU 单品 详情 相关 按照商品ID缓存 =================
     //通过商户ID和产品ID 找到商户的该产品详细信息
 //    public Map<Integer, EShopProductSku> getProductSKU(int vendorUserId, int productSpuId) {
@@ -83,7 +80,7 @@ public class ProductUtils {
         if (product == null ) { return null; }
 
         final int productCategoryId = product.getProductCategoryId();
-        final int productVendorUserId = product.getVendorUserId();
+//        final int productVendorUserId = product.getVendorUserId();
 
         //遍历单品
         List<EShopProductSku> skuList = productSkuService.select(new EShopProductSku().withProductId(spuProductId));
@@ -107,26 +104,31 @@ public class ProductUtils {
     }
 
     //================= 缓存 SKU 属性 相关 单品SKU属性 按照属性ID缓存 =================
-
 //    public EShopProductSkuAttr getProductAttr(String skuAttrId) {
 //        return this.getProductAttr(productCatagoryId).get(skuAttrId);
 //    }
 
-    public EShopProductSkuAttr getProductAttr(int productCatagoryId, int skuAttrId) {
+    private EShopProductSkuAttr getProductAttr(int productCatagoryId, int skuAttrId) {
         return this.getProductAttr(productCatagoryId).get(skuAttrId);
     }
 
-    public Map<Integer, EShopProductSkuAttr> getProductAttr(int productCatagoryId) {
-        Map<Integer, EShopProductSkuAttr> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR, String.valueOf(productCatagoryId));
-        return !CollectionUtils.isEmpty(map) ? map : refreshProductAttr(productCatagoryId);
+    public Map<Integer, EShopProductSkuAttr> getProductAttr(int productCategoryId) {
+        Map<Integer, EShopProductSkuAttr> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR, String.valueOf(productCategoryId));
+        return !CollectionUtils.isEmpty(map) ? map : refreshProductAttr(productCategoryId);
     }
 
-    public Map<Integer, EShopProductSkuAttr> refreshProductAttr(int productCatagoryId) {
-        List<EShopProductSkuAttr> skuAttrList = productSkuAttrService.select(new EShopProductSkuAttr().withProductCategoryId(productCatagoryId));
+    private Map<Integer, EShopProductSkuAttr> refreshProductAttr(int productCategoryId) {
+        List<EShopProductSkuAttr> skuAttrList = productSkuAttrService.select(new EShopProductSkuAttr().withProductCategoryId(productCategoryId));
         Map<Integer, EShopProductSkuAttr> map = new HashMap<>();
         skuAttrList.forEach(e -> map.put(e.getId(), e));
-        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR, String.valueOf(productCatagoryId), map);
+        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR, String.valueOf(productCategoryId), map);
         return map;
+    }
+
+
+    //商户上传新商品的时候，刷新这个商品的相关缓存。
+    public void refreshProduct() {
+
     }
 
 

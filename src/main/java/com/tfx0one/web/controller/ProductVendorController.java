@@ -4,6 +4,7 @@ import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
+import com.tfx0one.web.model.EShopProductAndSku;
 import com.tfx0one.web.service.ProductService;
 import com.tfx0one.web.service.ProductSkuAttrService;
 import com.tfx0one.web.service.ProductSkuService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+import java.util.Map;
 /**
  * Created by 2fx0one on 2018/6/9.
  */
@@ -54,15 +55,14 @@ public class ProductVendorController {
 
     @ApiOperation(value = "创建商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
     @RequestMapping(value="/api/v1/shop/createProduct", method = RequestMethod.POST)
-    public JSONResult createProduct(@RequestParam(value = "product") EShopProduct product,
-                                    @RequestParam(value = "productSku") List<EShopProductSku> productSku
-                                    ) {
+    public JSONResult createProduct(@RequestBody EShopProductAndSku nProInfo) {
 
         try {
-            int nProID = productService.insertProductData(product);
-            for (EShopProductSku nProSku : productSku) {
+            //EShopProduct e = (EShopProduct)nProInfo.get("product");
+            int nProID = productService.insertProductData(nProInfo.product);
+            for (EShopProductSku nProSku : nProInfo.productSkuList) {
                 nProSku.withProductId(nProID);
-                int nProSkuID = productSkuService.insertProductSku(nProSku);
+                int nProSkuID = productSkuService.insertProductSku((EShopProductSku)nProSku);
             }
         }
         catch (Exception e) {
@@ -73,8 +73,8 @@ public class ProductVendorController {
 
     @ApiOperation(value = "修改商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
     @RequestMapping(value="/api/v1/shop/modifyProduct", method = RequestMethod.POST)
-    public JSONResult modifyProduct(@RequestParam EShopProduct product,
-                                    @RequestParam(value = "productSku") List<EShopProductSku> productSku
+    public JSONResult modifyProduct(@RequestBody EShopProduct product,
+                                    @RequestBody List<EShopProductSku> productSku
     ) {
         try{
             productService.updateEShopProductByID(product);

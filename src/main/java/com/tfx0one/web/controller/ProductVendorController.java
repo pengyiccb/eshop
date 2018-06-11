@@ -47,8 +47,8 @@ public class ProductVendorController {
 
     @ApiOperation(value = "创建商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
     @RequestMapping(value="/api/v1/shop/createProduct", method = RequestMethod.POST)
-    public JSONResult createProduct(@RequestParam EShopProduct product,
-                                    @RequestParam List<EShopProductSku> productSku
+    public JSONResult createProduct(@RequestParam(value = "product") EShopProduct product,
+                                    @RequestParam(value = "productSku") List<EShopProductSku> productSku
                                     ) {
 
         try {
@@ -67,7 +67,7 @@ public class ProductVendorController {
     @ApiOperation(value = "修改商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
     @RequestMapping(value="/api/v1/shop/modifyProduct", method = RequestMethod.POST)
     public JSONResult modifyProduct(@RequestParam EShopProduct product,
-                                    @RequestParam List<EShopProductSku> productSku
+                                    @RequestParam(value = "productSku") List<EShopProductSku> productSku
     ) {
         try{
             productService.updateEShopProductByID(product);

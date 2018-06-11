@@ -2,6 +2,7 @@ package com.tfx0one.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.web.model.Demo;
+import com.tfx0one.web.model.EShopProductSkuAttr;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +25,15 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import com.tfx0one.web.model.EShopProduct;
+import com.tfx0one.web.model.EShopProductSku;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -143,5 +151,82 @@ public class ProductWeChatControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
 //                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("abc"))
                 .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void testInsertPro() throws Exception{
+        //发登录请求
+        String username = "test";
+        String password = "123456";
+        ResultActions actions = mockMvc.perform(
+                MockMvcRequestBuilders
+                        .post("/auth/login").param("username", username).param("password", password)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8));
+
+        // 必须登录成功才有下一步
+        actions.andExpect(MockMvcResultMatchers.status().isOk());
+
+        //获取token 分步写清楚
+        MvcResult result = actions.andReturn();
+        String s = result.getResponse().getContentAsString();
+        JSONObject json = JSONObject.parseObject(s);
+        String token = (String)json.get("token");
+
+
+        EShopProduct eshopProduct = new EShopProduct();
+        eshopProduct.withBrief("");
+        eshopProduct.withContentDesc("");
+        eshopProduct.withImgListUrl("");
+        eshopProduct.withTitle("");
+        eshopProduct.withKeyword("");
+        eshopProduct.withPriceUnderline(new BigDecimal(1.34));
+        eshopProduct.withSortOrder(new Byte("0"));
+        eshopProduct.withIsOnSale(new Byte("0"));
+        eshopProduct.withIsDelete(new Byte("0"));
+        eshopProduct.withProductCategoryId(1);
+        eshopProduct.withVendorUserId(0);
+        eshopProduct.withSubtitle("");
+        eshopProduct.withImgPrimaryUrl("");
+
+        List list = new ArrayList();
+        EShopProductSku eshopProductSku = new EShopProductSku();
+        eshopProductSku.withUnitPrice(new BigDecimal(1.34));
+        eshopProductSku.withCostPrice(new BigDecimal(1.34));
+        eshopProductSku.withStockAmount(0);
+        eshopProductSku.withStockSn(1);
+        eshopProductSku.withAttrOption("qqq");
+        eshopProductSku.withSaleAmount(0);
+        list.add(eshopProductSku);
+
+        EShopProductSku eshopProductSku1 = new EShopProductSku();
+        eshopProductSku1.withUnitPrice(new BigDecimal(1.34));
+        eshopProductSku1.withCostPrice(new BigDecimal(1.34));
+        eshopProductSku1.withStockAmount(0);
+        eshopProductSku1.withStockSn(1);
+        eshopProductSku1.withAttrOption("qqq");
+        eshopProductSku1.withSaleAmount(0);
+        list.add(eshopProductSku1);
+
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("product", eshopProduct);
+        map.put("productSku", list);
+
+        // 发送post请求 注意 json数据放在 content 中
+        String o = JSONObject.toJSONString(map);
+        System.out.println(o);
+
+        ResultActions actionsPost = mockMvc.perform(
+                MockMvcRequestBuilders
+                        .post("/api/v1/shop/createProduct")
+//                        .param("demo", o)
+                        .header("Authorization", "Bearer "+ token)
+                        .content(o) //post json数据放这里！！！！
+                        .contentType(MediaType.APPLICATION_JSON_UTF8) //post json数据放这里！！！！
+                        .accept(MediaType.APPLICATION_JSON_UTF8));
+
+        actionsPost.andDo(MockMvcResultHandlers.print());
+        actionsPost.andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

@@ -50,14 +50,18 @@ public class ProductVendorController {
     public JSONResult createProduct(@RequestParam EShopProduct product,
                                     @RequestParam List<EShopProductSku> productSku
                                     ) {
-        int nProID = productService.insertProductData(product);
-        for(EShopProductSku nProSku : productSku)
-        {
-            nProSku.withProductId(nProID);
-            int nProSkuID = productSkuService.insertProductSku(nProSku);
-        }
 
-        return null;
+        try {
+            int nProID = productService.insertProductData(product);
+            for (EShopProductSku nProSku : productSku) {
+                nProSku.withProductId(nProID);
+                int nProSkuID = productSkuService.insertProductSku(nProSku);
+            }
+        }
+        catch (Exception e) {
+            return JSONResult.error("执行失败");
+        }
+        return JSONResult.ok("执行成功");
     }
 
     @ApiOperation(value = "修改商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
@@ -65,12 +69,17 @@ public class ProductVendorController {
     public JSONResult modifyProduct(@RequestParam EShopProduct product,
                                     @RequestParam List<EShopProductSku> productSku
     ) {
-        productService.updateEShopProductByID(product);
-        for(EShopProductSku nProSku : productSku)
-        {
-            productSkuService.updateProductSku(nProSku);
+        try{
+            productService.updateEShopProductByID(product);
+            for(EShopProductSku nProSku : productSku)
+            {
+                productSkuService.updateProductSku(nProSku);
+            }
+        }catch (Exception e) {
+            return JSONResult.error("执行失败");
         }
-        return null;
+
+        return JSONResult.ok("执行成功");
     }
 
 }

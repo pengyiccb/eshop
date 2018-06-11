@@ -125,10 +125,9 @@ public class ProductUtils {
         return map;
     }
 
-//    ================= 缓存 SKU单品属性 树状 单品SKU属性 按照属性ID缓存 =================/**/
+//================= 缓存 SKU单品属性 树状 单品SKU属性 按照属性ID缓存 =================
     //树状，给商户后台添加商品时使用。
-    private static Map<Integer, Map<String, List<EShopProductSkuAttr>>> skuAttrOptionByCategoryId = new HashMap<>();
-
+    //Map<Integer, Map<String, List<EShopProductSkuAttr>>>
     public Map<String, List<EShopProductSkuAttr>> getSkuAttrOptionTree(int productCategoryId) {
         Map<String, List<EShopProductSkuAttr>> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE, String.valueOf(productCategoryId));
         return !CollectionUtils.isEmpty(map) ? map : refreshSkuAttrOptionTree(productCategoryId);

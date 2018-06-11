@@ -53,4 +53,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 
         return eshopProductSkuArr.getId();
     }
+
+    public JSONResult setSkuAttrOptionTreeByProductCategoryId(EShopProductSkuAttr attr) {
+    }
 }

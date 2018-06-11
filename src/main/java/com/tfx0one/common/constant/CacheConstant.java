@@ -13,6 +13,7 @@ public class CacheConstant {
     public static final String CACHE_PRODUCT_SPU = "CACHE_PRODUCT_SPU"; //商品SPU 按照商家缓存
     public static final String CACHE_PRODUCT_SKU = "CACHE_PRODUCT_SPU"; //单品SKU 按照商品缓存
     public static final String CACHE_PRODUCT_SKU_ATTR = "CACHE_PRODUCT_SKU_ATTR"; //单品SKU属性 按照属性ID缓存
+    public static final String CACHE_PRODUCT_SKU_ATTR_TREE = "CACHE_PRODUCT_SKU_ATTR_TREE"; //单品SKU属性 按照属性ID缓存
 
 
 

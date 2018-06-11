@@ -30,13 +30,13 @@ public class ProductVendorController {
     @ApiOperation(value = "获取商家可用的商品分类", notes = "需要传递 vendorId 作为参数")
     @RequestMapping(value="/api/v1/shop/ProductCategoryOption", method = RequestMethod.GET)
     public JSONResult ProductOption(@RequestParam int vendorId) {
-        return productSkuAttrService.getAllProductCategory(vendorId);
+        return productSkuAttrService.getAllProductCategoryOption(vendorId);
     }
 
     @ApiOperation(value = "获取商家可选分类中的可选属性", notes = "需要传递 productCategroyId 作为参数")
     @RequestMapping(value="/api/v1/shop/productAttrOption", method = RequestMethod.GET)
     public JSONResult productAttrOption(@RequestParam int productCategroyId) {
-        return productSkuAttrService.getSkuAttrByProductCategoryId(productCategroyId);
+        return productSkuAttrService.getSkuAttrOptionTreeByProductCategoryId(productCategroyId);
     }
 
 

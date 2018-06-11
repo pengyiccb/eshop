@@ -26,30 +26,20 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     @Resource
     private EShopProductCategoryMapper eShopProductCategoryMapper;
 
-    public JSONResult getSkuAttrByProductCategoryId(int productCategoryId) {
-        //TODO 要新增表 可选属性。 下期需求
-//        Map<Integer, EShopProductSkuAttr> map = productUtils.getProductAttr(productCategoryId);
-//        List<EShopProductSkuAttr> list = new ArrayList<>(map.values());
-//
-//        List<String> l = new ArrayList<>();
-//        list.forEach(e -> {
-//            if (! l.contains(e.getAttrType())) {
-//                l.add(e.getAttrType());
-//            }
-//        });
-        Map<String, Object> map = new HashMap<>();
-        map.put("COLOR", "颜色");
-        map.put("SIZE", "尺码");
-//        List<EShopProductSkuAttr> list = select(new EShopProductSkuAttr().withProductCategoryId(productCategoryId));
-
-        return JSONResult.ok().data(map);
-    }
-
-    public JSONResult getAllProductCategory(int vendorId) {
+    public JSONResult getAllProductCategoryOption(int vendorId) {
         //TODO 分类应该缓存 vendorId 没有使用
         List<EShopProductCategory> list = eShopProductCategoryMapper.select(null);
         return JSONResult.ok().data(list);
     }
+
+    //获取改分类下的所有选择
+    public JSONResult getSkuAttrOptionTreeByProductCategoryId(int productCategoryId) {
+        Map<String, List<EShopProductSkuAttr>> map = productUtils.getSkuAttrOptionTree(productCategoryId);
+
+        return JSONResult.ok().data(map);
+    }
+
+
 
     @Resource
     private EShopProductSkuAttrMapper eshopProductSkuAttrMap;

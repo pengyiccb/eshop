@@ -72,6 +72,15 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
+    <cache name="CACHE_PRODUCT_SKU_ATTR_TREE"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+
 
 
     <!--

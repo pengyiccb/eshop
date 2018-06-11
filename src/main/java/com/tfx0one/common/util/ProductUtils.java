@@ -103,12 +103,12 @@ public class ProductUtils {
         return map;
     }
 
-    //================= 缓存 SKU 属性 相关 单品SKU属性 按照属性ID缓存 =================
+    //================= 缓存 SKU单品属性 相关 单品SKU属性 按照属性ID缓存 =================
 //    public EShopProductSkuAttr getProductAttr(String skuAttrId) {
 //        return this.getProductAttr(productCatagoryId).get(skuAttrId);
 //    }
 
-    private EShopProductSkuAttr getProductAttr(int productCatagoryId, int skuAttrId) {
+    public EShopProductSkuAttr getProductAttr(int productCatagoryId, int skuAttrId) {
         return this.getProductAttr(productCatagoryId).get(skuAttrId);
     }
 
@@ -125,11 +125,40 @@ public class ProductUtils {
         return map;
     }
 
+//    ================= 缓存 SKU单品属性 树状 单品SKU属性 按照属性ID缓存 =================/**/
+    //树状，给商户后台添加商品时使用。
+    private static Map<Integer, Map<String, List<EShopProductSkuAttr>>> skuAttrOptionByCategoryId = new HashMap<>();
 
-    //商户上传新商品的时候，刷新这个商品的相关缓存。
-    public void refreshProduct() {
+    public Map<String, List<EShopProductSkuAttr>> getSkuAttrOptionTree(int productCategoryId) {
+        Map<String, List<EShopProductSkuAttr>> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE, String.valueOf(productCategoryId));
+        return !CollectionUtils.isEmpty(map) ? map : refreshSkuAttrOptionTree(productCategoryId);
+    }
 
+    private Map<String, List<EShopProductSkuAttr>> refreshSkuAttrOptionTree(int productCategoryId) {
+        List<EShopProductSkuAttr> skuAttrList = new ArrayList<>(getProductAttr(productCategoryId).values());
+        //树状缓存
+        Map<String, List<EShopProductSkuAttr>> map = new HashMap<>();
+        skuAttrList.forEach(e -> {
+            if (! map.containsKey(e.getAttrType())) {
+                map.put(e.getAttrType(), new ArrayList<>());
+            }
+            //加入
+            if (! map.get(e.getAttrType()).contains(e)) {
+                map.get(e.getAttrType()).add(e);
+            }
+        });
+        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE, String.valueOf(productCategoryId), map);
+        return map;
     }
 
 
+
+
+    //商户上传新商品的时候，刷新这个商品的相关缓存。
+    public void refreshProduct(int vendorUserId, int productCategoryId, int productSpuId) {
+        refreshProductsSPU(vendorUserId);
+        refreshProductsSKU(productSpuId);
+        refreshProductAttr(productCategoryId);
+        refreshSkuAttrOptionTree(productCategoryId);
+    }
 }

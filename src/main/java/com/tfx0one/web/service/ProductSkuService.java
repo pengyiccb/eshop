@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.math.BigDecimal;
 /**
  * Created by 2fx0one on 2018/6/7.
  */
@@ -25,4 +25,19 @@ public class ProductSkuService extends BaseService<EShopProductSku> {
         return new ArrayList<>(productUtils.getProductSKU(productId).values());
     }
 
+    private EShopProductSkuMapper eshopProductSkuMap;
+
+    //插入商品SKU
+    public int insertProductSku(EShopProductSku eshopProductSku) {
+        eshopProductSku.withUnitPrice(new BigDecimal(1.34));
+        eshopProductSku.withCostPrice(new BigDecimal(1.34));
+        eshopProductSku.withStockAmount(0);
+        eshopProductSku.withStockSn(1);
+        eshopProductSku.withAttrOption("qqq");
+        eshopProductSku.withSaleAmount(0);
+
+        eshopProductSkuMap.insertEShopSKUAndGetID(eshopProductSku);
+
+        return eshopProductSku.getId();
+    }
 }

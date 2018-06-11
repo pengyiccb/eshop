@@ -4,6 +4,7 @@ import com.tfx0one.common.util.BaseService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.ProductUtils;
 import com.tfx0one.web.mapper.EShopProductCategoryMapper;
+import com.tfx0one.web.mapper.EShopProductSkuAttrMapper;
 import com.tfx0one.web.model.EShopProductCategory;
 import com.tfx0one.web.model.EShopProductSkuAttr;
 import org.springframework.stereotype.Service;
@@ -48,5 +49,18 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
         //TODO 分类应该缓存 vendorId 没有使用
         List<EShopProductCategory> list = eShopProductCategoryMapper.select(null);
         return JSONResult.ok().data(list);
+    }
+
+    @Resource
+    private EShopProductSkuAttrMapper eshopProductSkuAttrMap;
+    //插入商品SKUArr
+    public int insertProductSkuArr(EShopProductSkuAttr eshopProductSkuArr) {
+
+//        eshopProductSkuArr.withAttrContent("");
+ //       eshopProductSkuArr.withAttrType("");
+ //       eshopProductSkuArr.withSortOrder(0);
+        eshopProductSkuAttrMap.insertEShopSKUAttrAndGetID(eshopProductSkuArr);
+
+        return eshopProductSkuArr.getId();
     }
 }

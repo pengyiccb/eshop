@@ -8,4 +8,5 @@ public class ProductSkuAttrConstant {
     //应该是Map结构
     //单品属性需要填写的常量分类名字
     public static final String COLOR = "COLOR"; //颜色
+    public static final String SIZE = "SIZE"; //尺码
 }

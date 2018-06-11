@@ -3,14 +3,12 @@ package com.tfx0one.web.controller;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductSku;
+import com.tfx0one.web.model.EShopProductSkuAttr;
 import com.tfx0one.web.service.ProductService;
 import com.tfx0one.web.service.ProductSkuAttrService;
 import com.tfx0one.web.service.ProductSkuService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -38,10 +36,19 @@ public class ProductVendorController {
         return productSkuAttrService.getAllProductCategoryOption(vendorId);
     }
 
+
+    @ApiOperation(value = "设置商家可选分类中的可选属性", notes = "需要传递 productCategroyId 作为参数")
+    @RequestMapping(value="/api/v1/shop/setProductAttrOption", method = RequestMethod.POST)
+    public JSONResult setProductAttrOption(@RequestBody EShopProductSkuAttr attr) {
+        return productSkuAttrService.setSkuAttrOptionTreeByProductCategoryId(attr);
+    }
+
+
     @ApiOperation(value = "获取商家可选分类中的可选属性", notes = "需要传递 productCategroyId 作为参数")
-    @RequestMapping(value="/api/v1/shop/productAttrOption", method = RequestMethod.GET)
-    public JSONResult productAttrOption(@RequestParam int productCategroyId) {
-        return productSkuAttrService.getSkuAttrOptionTreeByProductCategoryId(productCategroyId);
+    @RequestMapping(value="/api/v1/shop/getProductAttrOption", method = RequestMethod.GET)
+    public JSONResult getProductAttrOption(@RequestParam int productCategoryId) {
+        System.out.println(productCategoryId);
+        return productSkuAttrService.getSkuAttrOptionTreeByProductCategoryId(productCategoryId);
     }
 
 

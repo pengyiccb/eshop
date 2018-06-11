@@ -89,9 +89,9 @@ public class EhCacheUtils {
 //     * @param cacheName
 //     */
     public void clear(String cacheName){
-        if (getCache(cacheName) != null) {
+//        if (getCache(cacheName) != null) {
             getCache(cacheName).clear();
-        }
+//        }
     }
 //
 //

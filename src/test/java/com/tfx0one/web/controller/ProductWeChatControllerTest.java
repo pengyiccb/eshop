@@ -97,29 +97,40 @@ public class ProductWeChatControllerTest {
         //发送get请求
         ResultActions actionsGet = mockMvc.perform(
                 MockMvcRequestBuilders
-                        .get("/demo/list")
+                        .get("/api/v1/wechat/productList").param("appId", "wxdda83d03c2d1521c")
                         .header("Authorization", "Bearer "+ token)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8));
 
-        actionsGet.andExpect(MockMvcResultMatchers.status().isOk());
         actionsGet.andDo(MockMvcResultHandlers.print());
+        actionsGet.andExpect(MockMvcResultMatchers.status().isOk());
 
-        // 发送post请求 注意 json数据放在 content 中
-        String o = JSONObject.toJSONString(new Demo().withId(1).withCreateTime(new Date()).withMoney(1.23f).withName("demo1"));
-        System.out.println(o);
-
-        ResultActions actionsPost = mockMvc.perform(
+        //发送get请求
+        ResultActions actionsGet2 = mockMvc.perform(
                 MockMvcRequestBuilders
-                        .post("/demo/post")
-//                        .param("demo", o)
+                        .get("/api/v1/wechat/productDetail").param("productId", "1")
                         .header("Authorization", "Bearer "+ token)
-                        .content(o) //post json数据放这里！！！！
-                        .contentType(MediaType.APPLICATION_JSON_UTF8) //post json数据放这里！！！！
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8));
 
-        actionsPost.andExpect(MockMvcResultMatchers.status().isOk());
-        actionsPost.andDo(MockMvcResultHandlers.print());
+        actionsGet2.andExpect(MockMvcResultMatchers.status().isOk());
+        actionsGet2.andDo(MockMvcResultHandlers.print());
+
+        // 发送post请求 注意 json数据放在 content 中
+//        String o = JSONObject.toJSONString(new Demo().withId(1).withCreateTime(new Date()).withMoney(1.23f).withName("demo1"));
+//        System.out.println(o);
+//
+//        ResultActions actionsPost = mockMvc.perform(
+//                MockMvcRequestBuilders
+//                        .post("/demo/post")
+////                        .param("demo", o)
+//                        .header("Authorization", "Bearer "+ token)
+//                        .content(o) //post json数据放这里！！！！
+//                        .contentType(MediaType.APPLICATION_JSON_UTF8) //post json数据放这里！！！！
+//                        .accept(MediaType.APPLICATION_JSON_UTF8));
+//
+//        actionsPost.andExpect(MockMvcResultMatchers.status().isOk());
+//        actionsPost.andDo(MockMvcResultHandlers.print());
 
 //        actions.andDo(new ResultHandler() {
 //            @Override

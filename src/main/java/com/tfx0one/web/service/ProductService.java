@@ -77,6 +77,11 @@ public class ProductService extends BaseService<EShopProduct> {
     }
 
 
+    //更新商品数据信
+    public void updateEShopProductByID(EShopProduct eshopProduct) {
+        eshopProductMap.updateEShopProductByID(eshopProduct);
+        return;
+    }
 
 
 

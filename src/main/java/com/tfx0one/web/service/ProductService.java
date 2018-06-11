@@ -1,6 +1,7 @@
 package com.tfx0one.web.service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.common.util.BaseService;
 import com.tfx0one.common.util.JSONResult;
@@ -86,7 +87,6 @@ public class ProductService extends BaseService<EShopProduct> {
     //更新商品数据信
     public void updateEShopProductByID(EShopProduct eshopProduct) {
         eshopProductMap.updateEShopProductByID(eshopProduct);
-        return;
     }
 
     @Resource
@@ -100,12 +100,13 @@ public class ProductService extends BaseService<EShopProduct> {
         EShopProduct product = JSONObject.parseObject(JSON.toJSONString(models.get("product")), EShopProduct.class);
         eShopProductMapper.insertEShopProductAndGetID(product);
 
-        List skuList = JSONObject.parseObject(JSON.toJSONString(models.get("skuList")), List.class);
+//        List<JSONObject> skuList = JSONObject.parseObject(JSON.toJSONString(models.get("skuList")), List.class);
+        JSONArray array = JSONObject.parseArray(JSON.toJSONString(models.get("skuList")));
 
-        skuList.forEach(e->{
+        array.forEach(e->{
             EShopProductSku sku = JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class);
             System.out.println("==========" + sku);
-            productSkuService.insertProductSku(sku.withProductId(product.getId()));
+            productSkuService.save(sku.withProductId(product.getId()));
         });
 
         //刷新缓存数据
@@ -113,10 +114,9 @@ public class ProductService extends BaseService<EShopProduct> {
 
         return JSONResult.ok("创建成功！");
 
+    }
 
-
-
-
-
+    public JSONResult modifyProduct(Map<String,Object> models) {
+        return null;
     }
 }

@@ -76,20 +76,20 @@ public class ProductVendorController {
 
     @ApiOperation(value = "修改商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
     @RequestMapping(value="/api/v1/shop/modifyProduct", method = RequestMethod.POST)
-    public JSONResult modifyProduct(@RequestParam EShopProduct product,
-                                    @RequestParam(value = "productSku") List<EShopProductSku> productSku
-    ) {
-        try{
-//            productService.updateEShopProductByID(product);
-            for(EShopProductSku nProSku : productSku)
-            {
-                productSkuService.updateProductSku(nProSku);
-            }
-        }catch (Exception e) {
-            return JSONResult.error("执行失败");
-        }
-
-        return JSONResult.ok("执行成功");
+    public JSONResult modifyProduct(@RequestBody Map<String, Object> models) {
+        return productService.modifyProduct(models);
+//        try{
+////            productService.updateEShopProductByID(product);
+//            for(EShopProductSku nProSku : productSku)
+//            {
+//                productSkuService.updateProductSku(nProSku);
+//            }
+//        }catch (Exception e) {
+//            return JSONResult.error("执行失败");
+//        }
+//
+//        return JSONResult.ok("执行成功");
+//    }
     }
 
 }

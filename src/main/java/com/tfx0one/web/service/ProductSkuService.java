@@ -25,6 +25,7 @@ public class ProductSkuService extends BaseService<EShopProductSku> {
         return new ArrayList<>(productUtils.getProductSKU(productId).values());
     }
 
+    @Resource
     private EShopProductSkuMapper eshopProductSkuMap;
 
     //插入商品SKU

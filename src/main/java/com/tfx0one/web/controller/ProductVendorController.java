@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 2fx0one on 2018/6/9.
@@ -54,21 +55,23 @@ public class ProductVendorController {
 
     @ApiOperation(value = "创建商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
     @RequestMapping(value="/api/v1/shop/createProduct", method = RequestMethod.POST)
-    public JSONResult createProduct(@RequestParam(value = "product") EShopProduct product,
-                                    @RequestParam(value = "productSku") List<EShopProductSku> productSku
-                                    ) {
+    public JSONResult createProduct(@RequestBody Map<String, Object> models
 
-        try {
-            int nProID = productService.insertProductData(product);
-            for (EShopProductSku nProSku : productSku) {
-                nProSku.withProductId(nProID);
-                int nProSkuID = productSkuService.insertProductSku(nProSku);
-            }
-        }
-        catch (Exception e) {
-            return JSONResult.error("执行失败");
-        }
-        return JSONResult.ok("执行成功");
+//                                    @RequestParam(value = "product") EShopProduct product,
+//                                    @RequestParam(value = "productSku") List<EShopProductSku> productSku
+                                    ) {
+        return productService.createProduct(models);
+//        try {
+//            int nProID = productService.insertProductData(product);
+//            for (EShopProductSku nProSku : productSku) {
+//                nProSku.withProductId(nProID);
+//                int nProSkuID = productSkuService.insertProductSku(nProSku);
+//            }
+//        }
+//        catch (Exception e) {
+//            return JSONResult.error("执行失败");
+//        }
+//        return JSONResult.ok("执行成功");
     }
 
     @ApiOperation(value = "修改商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
@@ -77,7 +80,7 @@ public class ProductVendorController {
                                     @RequestParam(value = "productSku") List<EShopProductSku> productSku
     ) {
         try{
-            productService.updateEShopProductByID(product);
+//            productService.updateEShopProductByID(product);
             for(EShopProductSku nProSku : productSku)
             {
                 productSkuService.updateProductSku(nProSku);

@@ -222,7 +222,7 @@ public class ProductWeChatControllerTest {
 
         Map<String, Object> map = new HashMap<>();
         map.put("product", eshopProduct);
-        map.put("productSku", list);
+        map.put("skuList", list);
 
         // 发送post请求 注意 json数据放在 content 中
         String o = JSONObject.toJSONString(map);

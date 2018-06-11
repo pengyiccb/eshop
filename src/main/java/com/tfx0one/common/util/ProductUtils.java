@@ -125,7 +125,18 @@ public class ProductUtils {
         return map;
     }
 
-//================= 缓存 SKU单品属性 树状 单品SKU属性 按照属性ID缓存 =================
+
+    //商户上传新商品的时候，刷新这个商品的相关缓存。
+    public void refreshAllProduct(int vendorUserId, int productCategoryId, int productSpuId) {
+        refreshProductsSPU(vendorUserId);
+        refreshProductsSKU(productSpuId);
+        refreshProductAttr(productCategoryId);
+    }
+
+
+
+
+    //后台添加商品时使用的缓存 ================= 缓存 SKU单品属性 树状 单品SKU属性 按照属性ID缓存 =================
     //树状，给商户后台添加商品时使用。
     //Map<Integer, Map<String, List<EShopProductSkuAttr>>>
     public Map<String, List<EShopProductSkuAttr>> getSkuAttrOptionTree(int productCategoryId) {
@@ -133,7 +144,7 @@ public class ProductUtils {
         return !CollectionUtils.isEmpty(map) ? map : refreshSkuAttrOptionTree(productCategoryId);
     }
 
-    private Map<String, List<EShopProductSkuAttr>> refreshSkuAttrOptionTree(int productCategoryId) {
+    public Map<String, List<EShopProductSkuAttr>> refreshSkuAttrOptionTree(int productCategoryId) {
         List<EShopProductSkuAttr> skuAttrList = new ArrayList<>(getProductAttr(productCategoryId).values());
         //树状缓存
         Map<String, List<EShopProductSkuAttr>> map = new HashMap<>();
@@ -150,14 +161,4 @@ public class ProductUtils {
         return map;
     }
 
-
-
-
-    //商户上传新商品的时候，刷新这个商品的相关缓存。
-    public void refreshProduct(int vendorUserId, int productCategoryId, int productSpuId) {
-        refreshProductsSPU(vendorUserId);
-        refreshProductsSKU(productSpuId);
-        refreshProductAttr(productCategoryId);
-        refreshSkuAttrOptionTree(productCategoryId);
-    }
 }

@@ -130,7 +130,9 @@ public class ProductUtils {
     public void refreshAllProduct(int vendorUserId, int productCategoryId, int productSpuId) {
         refreshProductsSPU(vendorUserId);
         refreshProductsSKU(productSpuId);
+
         refreshProductAttr(productCategoryId);
+        refreshSkuAttrOptionTree(productCategoryId);
     }
 
 
@@ -145,7 +147,11 @@ public class ProductUtils {
     }
 
     public Map<String, List<EShopProductSkuAttr>> refreshSkuAttrOptionTree(int productCategoryId) {
-        List<EShopProductSkuAttr> skuAttrList = new ArrayList<>(getProductAttr(productCategoryId).values());
+
+//        refreshProductAttr(productCategoryId);
+        List<EShopProductSkuAttr> skuAttrList = productSkuAttrService.select(new EShopProductSkuAttr().withProductCategoryId(productCategoryId));
+
+//        List<EShopProductSkuAttr> skuAttrList = new ArrayList<>(getProductAttr(productCategoryId).values());
         //树状缓存
         Map<String, List<EShopProductSkuAttr>> map = new HashMap<>();
         skuAttrList.forEach(e -> {

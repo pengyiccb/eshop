@@ -1,5 +1,7 @@
 package com.tfx0one.web.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.common.util.BaseService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.ProductUtils;
@@ -7,8 +9,12 @@ import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.VendorUser;
 import com.tfx0one.web.mapper.EShopProductMapper;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.annotation.Resource;
@@ -83,7 +89,34 @@ public class ProductService extends BaseService<EShopProduct> {
         return;
     }
 
+    @Resource
+    private ProductSkuService productSkuService;
+
+    @Resource
+    private EShopProductMapper eShopProductMapper;
+
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
+    public JSONResult createProduct(Map<String,Object> models) {
+        EShopProduct product = JSONObject.parseObject(JSON.toJSONString(models.get("product")), EShopProduct.class);
+        eShopProductMapper.insertEShopProductAndGetID(product);
+
+        List skuList = JSONObject.parseObject(JSON.toJSONString(models.get("skuList")), List.class);
+
+        skuList.forEach(e->{
+            EShopProductSku sku = JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class);
+            System.out.println("==========" + sku);
+            productSkuService.insertProductSku(sku.withProductId(product.getId()));
+        });
+
+        //刷新缓存数据
+        productUtils.refreshAllProduct(product.getVendorUserId(), product.getProductCategoryId(), product.getId());
+
+        return JSONResult.ok("创建成功！");
 
 
 
+
+
+
+    }
 }

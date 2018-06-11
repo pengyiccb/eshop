@@ -27,10 +27,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductSku;
-import com.tfx0one.web.model.EShopProductAndSku;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -182,24 +185,22 @@ public class ProductWeChatControllerTest {
         String token = (String)json.get("token");
 
 
-        EShopProductAndSku eshopProduct = new EShopProductAndSku();
-        eshopProduct.product = new EShopProduct();
-        eshopProduct.productSkuList = new ArrayList<EShopProductSku>() ;
-        eshopProduct.product.withBrief("");
-        eshopProduct.product.withContentDesc("");
-        eshopProduct.product.withImgListUrl("");
-        eshopProduct.product.withTitle("");
-        eshopProduct.product.withKeyword("");
-        eshopProduct.product.withPriceUnderline(new BigDecimal(1.34));
-        eshopProduct.product.withSortOrder(new Byte("0"));
-        eshopProduct.product.withIsOnSale(new Byte("0"));
-        eshopProduct.product.withIsDelete(new Byte("0"));
-        eshopProduct.product.withProductCategoryId(1);
-        eshopProduct.product.withVendorUserId(0);
-        eshopProduct.product.withSubtitle("");
-        eshopProduct.product.withImgPrimaryUrl("");
+        EShopProduct eshopProduct = new EShopProduct();
+        eshopProduct.withBrief("");
+        eshopProduct.withContentDesc("");
+        eshopProduct.withImgListUrl("");
+        eshopProduct.withTitle("");
+        eshopProduct.withKeyword("");
+        eshopProduct.withPriceUnderline(new BigDecimal(1.34));
+        eshopProduct.withSortOrder(new Byte("0"));
+        eshopProduct.withIsOnSale(new Byte("0"));
+        eshopProduct.withIsDelete(new Byte("0"));
+        eshopProduct.withProductCategoryId(1);
+        eshopProduct.withVendorUserId(0);
+        eshopProduct.withSubtitle("");
+        eshopProduct.withImgPrimaryUrl("");
 
-
+        List list = new ArrayList();
         EShopProductSku eshopProductSku = new EShopProductSku();
         eshopProductSku.withUnitPrice(new BigDecimal(1.34));
         eshopProductSku.withCostPrice(new BigDecimal(1.34));
@@ -207,19 +208,24 @@ public class ProductWeChatControllerTest {
         eshopProductSku.withStockSn(1);
         eshopProductSku.withAttrOption("qqq");
         eshopProductSku.withSaleAmount(0);
-        eshopProduct.productSkuList.add(eshopProductSku);
+        list.add(eshopProductSku);
 
-        eshopProductSku = new EShopProductSku();
-        eshopProductSku.withUnitPrice(new BigDecimal(1.34));
-        eshopProductSku.withCostPrice(new BigDecimal(1.34));
-        eshopProductSku.withStockAmount(0);
-        eshopProductSku.withStockSn(1);
-        eshopProductSku.withAttrOption("qqq");
-        eshopProductSku.withSaleAmount(0);
-        eshopProduct.productSkuList.add(eshopProductSku);
+        EShopProductSku eshopProductSku1 = new EShopProductSku();
+        eshopProductSku1.withUnitPrice(new BigDecimal(1.34));
+        eshopProductSku1.withCostPrice(new BigDecimal(1.34));
+        eshopProductSku1.withStockAmount(0);
+        eshopProductSku1.withStockSn(1);
+        eshopProductSku1.withAttrOption("qqq");
+        eshopProductSku1.withSaleAmount(0);
+        list.add(eshopProductSku1);
+
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("product", eshopProduct);
+        map.put("skuList", list);
 
         // 发送post请求 注意 json数据放在 content 中
-        String o = JSONObject.toJSONString(eshopProduct);
+        String o = JSONObject.toJSONString(map);
         System.out.println(o);
 
         ResultActions actionsPost = mockMvc.perform(

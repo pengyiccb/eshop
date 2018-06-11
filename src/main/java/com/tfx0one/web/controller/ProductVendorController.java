@@ -55,41 +55,14 @@ public class ProductVendorController {
 
     @ApiOperation(value = "创建商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
     @RequestMapping(value="/api/v1/shop/createProduct", method = RequestMethod.POST)
-    public JSONResult createProduct(@RequestBody Map<String, Object> models
-
-//                                    @RequestParam(value = "product") EShopProduct product,
-//                                    @RequestParam(value = "productSku") List<EShopProductSku> productSku
-                                    ) {
+    public JSONResult createProduct(@RequestBody Map<String, Object> models) {
         return productService.createProduct(models);
-//        try {
-//            int nProID = productService.insertProductData(product);
-//            for (EShopProductSku nProSku : productSku) {
-//                nProSku.withProductId(nProID);
-//                int nProSkuID = productSkuService.insertProductSku(nProSku);
-//            }
-//        }
-//        catch (Exception e) {
-//            return JSONResult.error("执行失败");
-//        }
-//        return JSONResult.ok("执行成功");
     }
 
     @ApiOperation(value = "修改商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
     @RequestMapping(value="/api/v1/shop/modifyProduct", method = RequestMethod.POST)
     public JSONResult modifyProduct(@RequestBody Map<String, Object> models) {
         return productService.modifyProduct(models);
-//        try{
-////            productService.updateEShopProductByID(product);
-//            for(EShopProductSku nProSku : productSku)
-//            {
-//                productSkuService.updateProductSku(nProSku);
-//            }
-//        }catch (Exception e) {
-//            return JSONResult.error("执行失败");
-//        }
-//
-//        return JSONResult.ok("执行成功");
-//    }
     }
 
 }

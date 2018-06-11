@@ -117,6 +117,21 @@ public class ProductService extends BaseService<EShopProduct> {
     }
 
     public JSONResult modifyProduct(Map<String,Object> models) {
-        return null;
+        EShopProduct product = JSONObject.parseObject(JSON.toJSONString(models.get("product")), EShopProduct.class);
+        eShopProductMapper.updateEShopProductByID(product);
+
+//        List<JSONObject> skuList = JSONObject.parseObject(JSON.toJSONString(models.get("skuList")), List.class);
+        JSONArray array = JSONObject.parseArray(JSON.toJSONString(models.get("skuList")));
+
+        array.forEach(e->{
+            EShopProductSku sku = JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class);
+            System.out.println("==========" + sku);
+            productSkuService.updateByPrimaryKey(sku);
+        });
+
+        //刷新缓存数据
+        productUtils.refreshAllProduct(product.getVendorUserId(), product.getProductCategoryId(), product.getId());
+
+        return JSONResult.ok("修改成功！");
     }
 }

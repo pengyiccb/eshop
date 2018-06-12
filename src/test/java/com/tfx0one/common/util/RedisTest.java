@@ -29,8 +29,8 @@ public class RedisTest {
         Assert.assertEquals("testValue1", redisTemplate.opsForValue().get("test:set"));
         System.out.println(redisTemplate.opsForValue().get("test:set"));
         Thread.sleep(10000);
-        redisTemplate.execute((RedisCallback<Object>) connection -> {
-//            connection.set();
-        });
+//        redisTemplate.execute((RedisCallback<Object>) connection -> {
+////            connection.set();
+//        });
     }
 }

@@ -7,6 +7,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -29,11 +30,20 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 //        return new AuthInterceptor();
 //    }
 
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        System.out.println("---------------- registry =-===============");
-//        registry.addMapping("/**");//设置访问的IP和端口，此代表所有都可以访问
-//    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        System.out.println("================ CorsRegistry  ================");
+        //设置允许跨域的路径
+        registry.addMapping("/**")
+                //设置允许跨域请求的域名
+                .allowedOrigins("*")
+                //是否允许证书 不再默认开启
+                .allowCredentials(true)
+                //设置允许的方法
+                .allowedMethods("*")
+                //跨域允许时间
+                .maxAge(3600);
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

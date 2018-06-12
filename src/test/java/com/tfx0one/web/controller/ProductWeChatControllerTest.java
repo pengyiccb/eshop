@@ -240,4 +240,86 @@ public class ProductWeChatControllerTest {
         actionsPost.andDo(MockMvcResultHandlers.print());
         actionsPost.andExpect(MockMvcResultMatchers.status().isOk());
     }
+
+    @Test
+    public void testUpdatePro() throws Exception{
+        //发登录请求
+        String username = "test";
+        String password = "123456";
+        ResultActions actions = mockMvc.perform(
+                MockMvcRequestBuilders
+                        .post("/auth/login").param("username", username).param("password", password)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8));
+
+        // 必须登录成功才有下一步
+        actions.andExpect(MockMvcResultMatchers.status().isOk());
+
+        //获取token 分步写清楚
+        MvcResult result = actions.andReturn();
+        String s = result.getResponse().getContentAsString();
+        JSONObject json = JSONObject.parseObject(s);
+        String token = (String)json.get("token");
+
+
+        EShopProduct eshopProduct = new EShopProduct();
+        eshopProduct.withId(14);
+        eshopProduct.withBrief("111");
+        eshopProduct.withContentDesc("222");
+        eshopProduct.withImgListUrl("333");
+        eshopProduct.withTitle("44");
+        eshopProduct.withKeyword("555");
+        eshopProduct.withPriceUnderline(new BigDecimal(2.34));
+        eshopProduct.withSortOrder(new Byte("1"));
+        eshopProduct.withIsOnSale(new Byte("1"));
+        eshopProduct.withIsDelete(new Byte("1"));
+        eshopProduct.withProductCategoryId(2);
+        eshopProduct.withVendorUserId(1);
+        eshopProduct.withSubtitle("222");
+        eshopProduct.withImgPrimaryUrl("22");
+
+        List list = new ArrayList();
+        EShopProductSku eshopProductSku = new EShopProductSku();
+        eshopProductSku.withId(12);
+        eshopProductSku.withProductId(eshopProduct.getId());
+        eshopProductSku.withUnitPrice(new BigDecimal(2.34));
+        eshopProductSku.withCostPrice(new BigDecimal(2.34));
+        eshopProductSku.withStockAmount(10);
+        eshopProductSku.withStockSn(11);
+        eshopProductSku.withAttrOption("rrr");
+        eshopProductSku.withSaleAmount(100);
+        list.add(eshopProductSku);
+
+        EShopProductSku eshopProductSku1 = new EShopProductSku();
+        eshopProductSku1.withId(13);
+        eshopProductSku1.withProductId(eshopProduct.getId());
+        eshopProductSku1.withUnitPrice(new BigDecimal(2.34));
+        eshopProductSku1.withCostPrice(new BigDecimal(2.34));
+        eshopProductSku1.withStockAmount(100);
+        eshopProductSku1.withStockSn(11);
+        eshopProductSku1.withAttrOption("yyy");
+        eshopProductSku1.withSaleAmount(200);
+        list.add(eshopProductSku1);
+
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("product", eshopProduct);
+        map.put("skuList", list);
+
+        // 发送post请求 注意 json数据放在 content 中
+        String o = JSONObject.toJSONString(map);
+        System.out.println(o);
+
+        ResultActions actionsPost = mockMvc.perform(
+                MockMvcRequestBuilders
+                        .post("/api/v1/shop/modifyProduct")
+//                        .param("demo", o)
+                        .header("Authorization", "Bearer "+ token)
+                        .content(o) //post json数据放这里！！！！
+                        .contentType(MediaType.APPLICATION_JSON_UTF8) //post json数据放这里！！！！
+                        .accept(MediaType.APPLICATION_JSON_UTF8));
+
+        actionsPost.andDo(MockMvcResultHandlers.print());
+        actionsPost.andExpect(MockMvcResultMatchers.status().isOk());
+    }
 }

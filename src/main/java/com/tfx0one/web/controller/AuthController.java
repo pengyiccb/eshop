@@ -1,6 +1,5 @@
 package com.tfx0one.web.controller;
 
-
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.web.service.AuthService;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+;
 
 /**
  * Created by 2fx0one on 2018/6/4.

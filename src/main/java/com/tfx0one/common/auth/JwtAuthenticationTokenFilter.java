@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -39,13 +38,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(
             HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         //拿到token 进行验证
         String authHeader = request.getHeader(this.tokenHeader);
         logger.info("authentication authHeader = [ " + authHeader + " ]");
-        if (authHeader != null && authHeader.startsWith(tokenHead)) {
-            final String authToken = authHeader.substring(tokenHead.length()+1); // The part after "Bearer " 用空格
+        if (authHeader != null && authHeader.startsWith(tokenHead) && authHeader.length()>tokenHead.length() + 1) {
+            final String authToken = authHeader.substring(tokenHead.length() + 1); // The part after "Bearer " 用空格
             String username = jwtTokenUtils.getUsernameFromToken(authToken);
 
             logger.info("authentication username = " + username);
@@ -80,7 +78,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     }
 
-    private void errorStrWriteToResponse(HttpServletResponse response, int code, String errorCode) throws IOException{
+    private void errorStrWriteToResponse(HttpServletResponse response, int code, String errorCode) throws IOException {
         String errStr = "{\"code\":" + code + ",\"msg\":\"" + errorCode + "\"}";
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");

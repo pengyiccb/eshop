@@ -19,10 +19,10 @@ public class EhCacheConfiguration {
      * 据shared与否的设置,Spring分别通过CacheManager.create()或new CacheManager()方式来创建一个ehcache基地.
      */
     @Bean
-    public EhCacheManagerFactoryBean ehCacheManagerFactoryBean(){
-        EhCacheManagerFactoryBean cacheManagerFactoryBean = new EhCacheManagerFactoryBean ();
-        cacheManagerFactoryBean.setConfigLocation (new ClassPathResource("ehcache.xml"));
-        cacheManagerFactoryBean.setShared (true);
+    public EhCacheManagerFactoryBean ehCacheManagerFactoryBean() {
+        EhCacheManagerFactoryBean cacheManagerFactoryBean = new EhCacheManagerFactoryBean();
+        cacheManagerFactoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
+        cacheManagerFactoryBean.setShared(true);
         return cacheManagerFactoryBean;
     }
 
@@ -31,9 +31,9 @@ public class EhCacheConfiguration {
      */
     @Bean(name = "ehCacheCacheManager")
     @Primary
-    public EhCacheCacheManager ehCacheCacheManager(EhCacheManagerFactoryBean bean){
+    public EhCacheCacheManager ehCacheCacheManager(EhCacheManagerFactoryBean bean) {
         System.out.println("==============  Initializing EhCache CacheManager ==============");
-        return new EhCacheCacheManager (bean.getObject ());
+        return new EhCacheCacheManager(bean.getObject());
     }
 
 

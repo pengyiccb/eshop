@@ -69,7 +69,8 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
         if (attr.getAttrContent() == null) {
             return JSONResult.error("属性参数错误 attrContent 不能为空");
         }
-        if (!"COLOR_SIZE".contains(attr.getAttrType())) {
+        if (!ProductSkuAttrConstant.attr.containsValue(attr.getAttrType())) {
+//        if (!"COLOR_SIZE".contains(attr.getAttrType())) {
             return JSONResult.error("属性参数错误， 暂时只能设置 COLOR 和 SIZE 的属性， 但是设置为：" + attr.getAttrType());
         }
 

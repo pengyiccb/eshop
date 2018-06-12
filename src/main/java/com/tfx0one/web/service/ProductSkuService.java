@@ -18,12 +18,12 @@ import java.math.BigDecimal;
 //单品 SKU
 public class ProductSkuService extends BaseService<EShopProductSku> {
 
-    @Autowired
-    private ProductUtils productUtils;
-
-    public List<EShopProductSku> testselectByProductId(int productId){
-        return new ArrayList<>(productUtils.getProductSKU(productId).values());
-    }
+//    @Autowired
+//    private ProductUtils productUtils;
+//
+//    public List<EShopProductSku> testselectByProductId(int productId){
+//        return new ArrayList<>(productUtils.getProductSKU(productId).values());
+//    }
 
     @Resource
     private EShopProductSkuMapper eshopProductSkuMap;

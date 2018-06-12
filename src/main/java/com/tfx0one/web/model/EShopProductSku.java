@@ -71,6 +71,17 @@ public class EShopProductSku extends BaseEntity {
         return attrs;
     }
 
+    @Transient
+    private EShopProduct product;
+
+    public EShopProduct getProduct() {
+        return product;
+    }
+
+    public void setProduct(EShopProduct product) {
+        this.product = product;
+    }
+
     public void setAttrs(List<EShopProductSkuAttr> attrs) {
         this.attrs = attrs;
     }

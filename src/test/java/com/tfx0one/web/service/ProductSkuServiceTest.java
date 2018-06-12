@@ -22,11 +22,11 @@ public class ProductSkuServiceTest {
     private ProductSkuService productSkuService;
     @Test
     public void selectByVendorUserId() {
-        List<EShopProductSku> list = productSkuService.testselectByProductId(1);
-        List<EShopProductSku> list2 = productSkuService.testselectByProductId(1);
-//        List<EShopProductSku> list2 = productSkuService.selectByVendorUserId(1);
-        list.forEach(System.out::println);
-        list2.forEach(System.out::println);
+//        List<EShopProductSku> list = productSkuService.testselectByProductId(1);
+//        List<EShopProductSku> list2 = productSkuService.testselectByProductId(1);
+////        List<EShopProductSku> list2 = productSkuService.selectByVendorUserId(1);
+//        list.forEach(System.out::println);
 //        list2.forEach(System.out::println);
+////        list2.forEach(System.out::println);
     }
 }

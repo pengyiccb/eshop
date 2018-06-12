@@ -10,6 +10,8 @@ import com.tfx0one.web.service.ProductSkuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -21,6 +23,7 @@ import java.util.*;
  */
 @Component
 public class ProductUtils {
+
     //缓存 商品 单品相关
     private final Logger logger = LoggerFactory.getLogger(ProductUtils.class);
 
@@ -67,6 +70,12 @@ public class ProductUtils {
 //        return this.getProductSKU(productSpuId);
 //    }
 
+    //通过单品的ID 获取一个单品的基本信息和详细信息
+    public EShopProductSku getProductSKUById(int skuId) {
+        return null;
+//        EShopProductSku sku = productSkuService.selectByPrimaryKey(skuId);
+    }
+
     //获取商品下的所有单品
     public Map<Integer, EShopProductSku> getProductSKU(int productSpuId) {
         Map<Integer, EShopProductSku> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU, String.valueOf(productSpuId));
@@ -95,7 +104,10 @@ public class ProductUtils {
                 attrList.add(skuAttr);
             });
 
+            //每个单品设置的属性
             e.setAttrs(attrList);
+            //每个单品设置的商品基本信息
+            e.setProduct(product);
             map.put(e.getId(), e);
 
         });
@@ -154,13 +166,13 @@ public class ProductUtils {
 //        List<EShopProductSkuAttr> skuAttrList = new ArrayList<>(getProductAttr(productCategoryId).values());
         //树状缓存
         Map<String, List<EShopProductSkuAttr>> map = new HashMap<>();
-        skuAttrList.forEach(e -> {
-            if (! map.containsKey(e.getAttrType())) {
-                map.put(e.getAttrType(), new ArrayList<>());
+        skuAttrList.forEach(skuAttr -> {
+            if (! map.containsKey(skuAttr.getAttrType())) {
+                map.put(skuAttr.getAttrType(), new ArrayList<>());
             }
             //加入
-            if (! map.get(e.getAttrType()).contains(e)) {
-                map.get(e.getAttrType()).add(e);
+            if (! map.get(skuAttr.getAttrType()).contains(skuAttr)) {
+                map.get(skuAttr.getAttrType()).add(skuAttr);
             }
         });
         ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE, String.valueOf(productCategoryId), map);

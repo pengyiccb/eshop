@@ -7,6 +7,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -28,6 +29,11 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 //    public AuthInterceptor getAuthInterceptor(){
 //        return new AuthInterceptor();
 //    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");//设置访问的IP和端口，此代表所有都可以访问
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -50,7 +50,12 @@ public class ProductVendorController {
     }
 
 
-    @ApiOperation(value = "创建商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
+    @ApiOperation(value = "创建商品", notes = "需要传递 JSON数据包装 {product:EShopProduct, skuList:List<EShopProductSku>} 作为参数： \n{\"product\":\n" +
+            " {\"isOnSale\":0,\"priceUnderline\":1.0,\"productCategoryId\":1,\"sortOrder\":0,\"title\":\"测试标题\",\"vendorUserId\":1},\n" +
+            " \"skuList\":[\n" +
+            "  {\"attrOption\":\"1|3\",\"costPrice\":1.23,\"saleAmount\":0,\"stockAmount\":0,\"unitPrice\":1.23},\n" +
+            "  {\"attrOption\":\"2|3\",\"costPrice\":1.23,\"saleAmount\":0,\"stockAmount\":0,\"unitPrice\":1.23}]\n" +
+            "}")
     @RequestMapping(value = "/api/v1/shop/createProduct", method = RequestMethod.POST)
     public JSONResult createProduct(@RequestBody Map<String, Object> models) {
         return productService.createProduct(models);

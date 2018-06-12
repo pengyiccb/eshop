@@ -30,7 +30,7 @@ public class RedisTest {
         System.out.println(redisTemplate.opsForValue().get("test:set"));
         Thread.sleep(10000);
         redisTemplate.execute((RedisCallback<Object>) connection -> {
-            connection.set()
+//            connection.set();
         });
     }
 }

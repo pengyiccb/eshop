@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -38,29 +39,38 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(
             HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         //拿到token 进行验证
         String authHeader = request.getHeader(this.tokenHeader);
+        logger.info("authentication authHeader = [ " + authHeader + " ]");
         if (authHeader != null && authHeader.startsWith(tokenHead)) {
             final String authToken = authHeader.substring(tokenHead.length()+1); // The part after "Bearer " 用空格
             String username = jwtTokenUtils.getUsernameFromToken(authToken);
 
-            logger.info("checking authentication " + username);
+            logger.info("authentication username = " + username);
+            if (username == null) {
+                errorStrWriteToResponse(response, -1, "无效的 Token");
+                return;
+            }
 
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            //TODO 验证失败时。需要返回信息
+
+            if (SecurityContextHolder.getContext().getAuthentication() == null) {
+                logger.info("checking authentication ===== " + username);
 
                 UserDetails userDetails = jwtUserService.loadUserByUsername(username);
 
                 if (jwtTokenUtils.validateToken(authToken, userDetails)) {
-                    logger.info("1===== ");
+//                    logger.info("checking authentication 1===== ");
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
 
-                    logger.info("2===== ");
+//                    logger.info("checking authentication 2===== ");
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(
                             request));
 
-                    logger.info("3====== authenticated user " + username + ", setting security context");
+                    logger.info("checking authentication =====  authenticated user " + username + " setting security context");
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
@@ -68,6 +78,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
 
+    }
+
+    private void errorStrWriteToResponse(HttpServletResponse response, int code, String errorCode) throws IOException{
+        String errStr = "{\"code\":" + code + ",\"msg\":\"" + errorCode + "\"}";
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json; charset=utf-8");
+        response.getWriter().println(errStr);
     }
 
 }

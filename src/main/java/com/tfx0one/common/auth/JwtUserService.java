@@ -29,6 +29,9 @@ public class JwtUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        if (username == null) {
+            throw new UsernameNotFoundException(String.format("No user found with username 'null' !"));
+        }
         //缓存中拿 没有才到数据库拿
         UserAccount userAccount = userAccountUtils.getCacheLoginUserByUsername(username);
         if (userAccount == null) {
@@ -37,10 +40,10 @@ public class JwtUserService implements UserDetailsService {
             userAccountUtils.putCacheLoginUser(userAccount, userAccount.getUsername(), expiredTimeOutSecond);
         }
 
-        if (userAccount == null) {
-            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
-        } else {
+//        if (userAccount == null) {
+//            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
+//        } else {
             return JwtUserFactory.create(userAccount);
-        }
+//        }
     }
 }

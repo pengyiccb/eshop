@@ -54,9 +54,9 @@ public class JwtTokenUtils {
     }
 
     public String getUsernameFromToken(String authToken) {
-        System.out.println("getUsernameFromToken() " + authToken);
+//        System.out.println("getUsernameFromToken() " + authToken);
         Claims claims = this.getClaimsFromToken(authToken, this.secret);
-        System.out.println("getUsernameFromToken() " + claims);
+//        System.out.println("getUsernameFromToken() " + claims);
 //        if (claims != null) {
 //            return claims.get("username", String.class);
 //        }

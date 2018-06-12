@@ -128,6 +128,12 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+        <!--rabbitMQ-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
         <!--spring-session-data-redis -->
         <!--<dependency>-->
             <!--<groupId>org.springframework.session</groupId>-->

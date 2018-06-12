@@ -2,10 +2,15 @@ package com.tfx0one.common.util;
 
 import com.tfx0one.common.auth.JwtTokenUtils;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Created by 2fx0one on 2018/6/4.
  */
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class JwtTokenUtilsTest {
 
 

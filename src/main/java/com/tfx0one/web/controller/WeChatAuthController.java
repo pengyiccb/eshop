@@ -1,15 +1,14 @@
 package com.tfx0one.web.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.web.model.UserAccount;
-import com.tfx0one.web.model.WXUserInfo;
 import com.tfx0one.web.service.UserAccountService;
 import com.tfx0one.web.service.WeChatService;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 

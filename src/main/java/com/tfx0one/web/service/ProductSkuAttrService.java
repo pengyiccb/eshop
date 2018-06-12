@@ -45,17 +45,17 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 
 
 
-    @Resource
-    private EShopProductSkuAttrMapper eshopProductSkuAttrMap;
-    //插入商品SKUArr
-    public int insertProductSkuArr(EShopProductSkuAttr eshopProductSkuArr) {
-
- //       eshopProductSkuArr.withAttrContent("");
- //       eshopProductSkuArr.withAttrType("");
- //       eshopProductSkuArr.withSortOrder(0);
-        eshopProductSkuAttrMap.insertEShopSKUAttrAndGetID(eshopProductSkuArr);
-        return eshopProductSkuArr.getId();
-    }
+//    @Resource
+//    private EShopProductSkuAttrMapper eshopProductSkuAttrMap;
+//    //插入商品SKUArr
+//    public int insertProductSkuArr(EShopProductSkuAttr eshopProductSkuArr) {
+//
+// //       eshopProductSkuArr.withAttrContent("");
+// //       eshopProductSkuArr.withAttrType("");
+// //       eshopProductSkuArr.withSortOrder(0);
+//        eshopProductSkuAttrMap.insertEShopSKUAttrAndGetID(eshopProductSkuArr);
+//        return eshopProductSkuArr.getId();
+//    }
 
     public JSONResult setSkuAttrOptionTreeByProductCategoryId(EShopProductSkuAttr attr) {
         if (attr.getProductCategoryId() == null) {

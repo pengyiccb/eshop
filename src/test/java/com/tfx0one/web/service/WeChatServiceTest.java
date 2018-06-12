@@ -25,11 +25,11 @@ public class WeChatServiceTest {
     public void test() {
 //        System.out.println(cacheManager);
 //        System.out.println(cacheManager.getEhcache(""));
-        String opendId = "openid";
-        String sessionKey = "sessionKey";
-        String s = weChatService.create3rdSession(opendId, sessionKey, 60);
-//        Assert.assertEquals(sessionKey+ "#" + opendId ,  redisUtils.get(s));
-        System.out.println(s);
+//        String opendId = "openid";
+//        String sessionKey = "sessionKey";
+//        String s = weChatService.create3rdSession(opendId, sessionKey, 60);
+////        Assert.assertEquals(sessionKey+ "#" + opendId ,  redisUtils.get(s));
+//        System.out.println(s);
 
 
     }

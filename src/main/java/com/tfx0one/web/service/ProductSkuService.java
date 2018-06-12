@@ -24,35 +24,35 @@ public class ProductSkuService extends BaseService<EShopProductSku> {
 //    public List<EShopProductSku> testselectByProductId(int productId){
 //        return new ArrayList<>(productUtils.getProductSKU(productId).values());
 //    }
-
-    @Resource
-    private EShopProductSkuMapper eshopProductSkuMap;
-
-    //插入商品SKU
-    public int insertProductSku(EShopProductSku eshopProductSku) {
-        //     eshopProductSku.withUnitPrice(new BigDecimal(1.34));
-        //     eshopProductSku.withCostPrice(new BigDecimal(1.34));
-        //     eshopProductSku.withStockAmount(0);
-        //     eshopProductSku.withStockSn(1);
-        //     eshopProductSku.withAttrOption("qqq");
-        //     eshopProductSku.withSaleAmount(0);
-
-        eshopProductSkuMap.insertEShopSKUAndGetID(eshopProductSku);
-
-        return eshopProductSku.getId();
-    }
-
-    //更新商品SKU
-    public void updateProductSku(EShopProductSku eshopProductSku) {
-        //     eshopProductSku.withUnitPrice(new BigDecimal(1.34));
-        //     eshopProductSku.withCostPrice(new BigDecimal(1.34));
-        //     eshopProductSku.withStockAmount(0);
-        //     eshopProductSku.withStockSn(1);
-        //     eshopProductSku.withAttrOption("qqq");
-        //     eshopProductSku.withSaleAmount(0);
-
-        eshopProductSkuMap.updateEShopSKUByID(eshopProductSku);
-
-        return ;
-    }
+//
+//    @Resource
+//    private EShopProductSkuMapper eshopProductSkuMap;
+//
+//    //插入商品SKU
+//    public int insertProductSku(EShopProductSku eshopProductSku) {
+//        //     eshopProductSku.withUnitPrice(new BigDecimal(1.34));
+//        //     eshopProductSku.withCostPrice(new BigDecimal(1.34));
+//        //     eshopProductSku.withStockAmount(0);
+//        //     eshopProductSku.withStockSn(1);
+//        //     eshopProductSku.withAttrOption("qqq");
+//        //     eshopProductSku.withSaleAmount(0);
+//
+//        eshopProductSkuMap.insertEShopSKUAndGetID(eshopProductSku);
+//
+//        return eshopProductSku.getId();
+//    }
+//
+//    //更新商品SKU
+//    public void updateProductSku(EShopProductSku eshopProductSku) {
+//        //     eshopProductSku.withUnitPrice(new BigDecimal(1.34));
+//        //     eshopProductSku.withCostPrice(new BigDecimal(1.34));
+//        //     eshopProductSku.withStockAmount(0);
+//        //     eshopProductSku.withStockSn(1);
+//        //     eshopProductSku.withAttrOption("qqq");
+//        //     eshopProductSku.withSaleAmount(0);
+//
+//        eshopProductSkuMap.updateEShopSKUByID(eshopProductSku);
+//
+//        return ;
+//    }
 }

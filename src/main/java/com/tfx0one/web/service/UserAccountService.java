@@ -2,7 +2,6 @@ package com.tfx0one.web.service;
 
 import com.tfx0one.common.util.BaseService;
 import com.tfx0one.web.model.UserAccount;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 
 /**

@@ -41,8 +41,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         //拿到token 进行验证
         String authHeader = request.getHeader(this.tokenHeader);
-        logger.info("authentication authHeader = [ " + authHeader + " ]");
         if (authHeader != null && authHeader.startsWith(tokenHead) && authHeader.length()>tokenHead.length() + 1) {
+            logger.info("authentication authHeader = [ " + authHeader + " ]");
             final String authToken = authHeader.substring(tokenHead.length() + 1); // The part after "Bearer " 用空格
             String username = jwtTokenUtils.getUsernameFromToken(authToken);
 

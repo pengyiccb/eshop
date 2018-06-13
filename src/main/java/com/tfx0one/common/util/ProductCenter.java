@@ -20,9 +20,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by 2fx0one on 2018/6/12.
  */
 @Component
-public class ProductUtils2 {
+public class ProductCenter {
+//    商品中心
     //缓存 商品 单品相关
-    private final Logger logger = LoggerFactory.getLogger(ProductUtils2.class);
+    private final Logger logger = LoggerFactory.getLogger(ProductCenter.class);
 
     @Autowired
     //app内的缓存
@@ -43,7 +44,6 @@ public class ProductUtils2 {
             return (T) getProductSPUById(id);
         } else if (cls == EShopProductSku.class) {
             return (T) getProductSKUById(id);
-
         }
         return null;
     }

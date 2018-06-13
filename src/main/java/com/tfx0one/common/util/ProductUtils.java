@@ -97,7 +97,7 @@ public class ProductUtils {
             List<String> list = new ArrayList<>(Arrays.asList(e.getAttrOption().split("\\|")));
             final List<EShopProductSkuAttr> attrList = new ArrayList<>();
             list.forEach(attr -> {
-                EShopProductSkuAttr skuAttr = getProductAttr(productCategoryId, e.getId());
+                EShopProductSkuAttr skuAttr = getProductAttr(productCategoryId, Integer.parseInt(attr));
                 attrList.add(skuAttr);
             });
 
@@ -139,7 +139,6 @@ public class ProductUtils {
     public void refreshAllProduct(int vendorUserId, int productCategoryId, int productSpuId) {
         refreshProductsSPU(vendorUserId);
         refreshProductsSKU(productSpuId);
-
         refreshProductAttr(productCategoryId);
         refreshSkuAttrOptionTree(productCategoryId);
     }

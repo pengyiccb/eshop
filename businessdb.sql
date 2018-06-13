@@ -71,7 +71,7 @@ CREATE TABLE `e_shop_product` (
   `is_delete` tinyint(4) DEFAULT NULL,
   `vendor_user_id` int(11) DEFAULT NULL COMMENT '商家',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='产品表 SPU\r包含了产品的基本属性。不影响价格。\r如：iphone x 产品';
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='产品表 SPU\r包含了产品的基本属性。不影响价格。\r如：iphone x 产品';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +80,7 @@ CREATE TABLE `e_shop_product` (
 
 LOCK TABLES `e_shop_product` WRITE;
 /*!40000 ALTER TABLE `e_shop_product` DISABLE KEYS */;
-INSERT INTO `e_shop_product` VALUES (1,'title','subtile','brief','content very long',999.99,'衣服',1,0,1,'我是主图1',NULL,NULL,1),(2,'title2','subtile2','brief','content very long',888.99,'衣服',1,1,1,'我是主图2',NULL,NULL,1),(22,'所有的',NULL,'萨芬不会解散加菲猫开始打',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,1),(23,'啊兄弟',NULL,'嘻嘻嘻嘻',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,1),(24,'相对',NULL,'谢谢谢',NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,1);
+INSERT INTO `e_shop_product` VALUES (1,'英爵伦 2018夏季新款 男士纯色短袖T恤 男装体恤上衣简约潮牌衣服','95%棉 打底柔软舒适 外穿简约时尚',' 纯电商(只在线上销售)',' 纯电商(只在线上销售)',55.00,'男装',1,1,1,'https://img.alicdn.com/imgextra/i1/1860270913/TB1Zs5JwQCWBuNjy0FaXXXUlXXa_!!0-item_pic.jpg_430x430q90.jpg','https://img.alicdn.com/imgextra/i2/134363478/TB2LT82r7SWBuNjSszdXXbeSpXa-134363478.jpg',1,1),(2,'男士短袖t恤2018夏季新款男生翻领潮流男装polo衫半袖夏装上衣服','外穿简约时尚',' 纯电商(只在线上销售)',' 纯电商(只在线上销售)',66.00,'男装',1,2,1,'https://img.alicdn.com/imgextra/i2/1589942160/TB2uD6voTXYBeNkHFrdXXciuVXa_!!1589942160.jpg','https://img.alicdn.com/imgextra/i3/1589942160/TB2NBJqimcqBKNjSZFgXXX_kXXa_!!1589942160.jpg',1,1),(3,'美特斯邦威短袖t恤男潮流2018夏季新款条纹海军风印花上衣服韩版','字母印花 经典圆领','2018年夏季','Meters Bonwe/美特斯邦威',77.00,'男装',1,3,1,'https://metersbonwe.tmall.com/shop/view_shop.htm?spm=a220o.1000855.w5003-17193593444.1.792556d99GSKFN&mytmenu=mdianpu&utkn=g%2Cypamzwglxgyo5tp6xhm3ppon7c26u1528127082222&user_number_id=134363478&scm=1028.1.2.20001&scene=taobao_shop','https://img.alicdn.com/imgextra/i2/134363478/TB2LT82r7SWBuNjSszdXXbeSpXa-134363478.jpg',1,1),(4,'美特斯邦威短袖衬衫男2018夏季新款基础衬衣休闲纯色纯棉牛津纺','立领设计 字母印花口袋','2018年夏季','Meters Bonwe/美特斯邦威',88.88,'男装',1,4,1,'https://img.alicdn.com/imgextra/i2/134363478/TB2oeG2r21TBuNjy0FjXXajyXXa-134363478.jpg','https://img.alicdn.com/imgextra/i3/134363478/TB2ZWJKrYSYBuNjSspiXXXNzpXa-134363478.jpg',1,1),(5,'美特斯邦威短袖衬衫男装2018夏季新款纯棉chic原宿港风格子衬衫','经典格纹 斜纹口袋','2018年秋季','Meters Bonwe/美特斯邦威',99.99,'男装',1,5,1,'https://img.alicdn.com/imgextra/i2/134363478/TB2b97GiyOYBuNjSsD4XXbSkFXa-134363478.jpg','https://img.alicdn.com/imgextra/i2/134363478/TB2b97GiyOYBuNjSsD4XXbSkFXa-134363478.jpg',1,1),(6,'美特斯邦威情侣短袖t恤女百搭纯色纯棉打底衫上衣韩2018夏装新款','纯色T恤 舒适圆领','2018年夏季','Meters Bonwe/美特斯邦威',111.10,'女装',2,6,1,'https://img.alicdn.com/imgextra/i2/134363478/TB2_zkOmnXYBeNkHFrdXXciuVXa-134363478.jpg','https://img.alicdn.com/imgextra/i1/134363478/TB2gUX1uUR1BeNjy0FmXXb0wVXa-134363478.jpg',1,1),(7,'美特斯邦威短袖t恤女士2018夏装新款气质圆领拼接半袖体恤韩版潮','爱心刺绣 蕾丝袖口','2018年夏季','Meters Bonwe/美特斯邦威',122.21,'女装',2,7,1,'https://img.alicdn.com/imgextra/i1/134363478/TB2lWbxcQZmBKNjSZPiXXXFNVXa-134363478.jpg','https://img.alicdn.com/imgextra/i1/134363478/TB2gUX1uUR1BeNjy0FmXXb0wVXa-134363478.jpg',1,1),(8,'aui欧洲站2018夏季新款欧美时尚欧货潮女装气质名媛收腰连衣裙女','气质名媛时尚收腰版型','中长裙','欧美风格',133.32,'女装',2,8,1,'https://img.alicdn.com/imgextra/i2/3027255178/TB29tNAlv5TBuNjSspmXXaDRVXa_!!3027255178.jpg','https://img.alicdn.com/imgextra/i4/3027255178/TB25zMWlXuWBuNjSszbXXcS7FXa_!!3027255178.jpg',1,1),(9,'2018夏季新款欧美时尚重工刺绣花连衣裙气质蕾丝修身显瘦A字裙女','女巫定制时装 蕾丝修身显瘦A字裙','中长裙','欧美风格',144.43,'女装',2,9,1,'https://img.alicdn.com/imgextra/i2/2243781651/TB2kCkerv9TBuNjy1zbXXXpepXa_!!2243781651.jpg','https://img.alicdn.com/imgextra/i4/2243781651/TB2yiPZaBcXBuNjt_XoXXXIwFXa_!!2243781651.jpg',1,1),(10,'伊莲娜欧货品牌女装2018夏季新款a字优雅气质真丝连衣裙女士丝绸','透气清凉亲肤触感 轻松随意无拘束飘逸舒适','复古','无袖',155.54,'女装',2,10,1,'https://img.alicdn.com/imgextra/i3/741251318/TB26_MLifuSBuNkHFqDXXXfhVXa_!!741251318.jpg','https://img.alicdn.com/imgextra/i1/741251318/TB23yFZfDCWBKNjSZFtXXaC3FXa_!!741251318.jpg',1,1);
 /*!40000 ALTER TABLE `e_shop_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +137,7 @@ CREATE TABLE `e_shop_product_sku` (
 
 LOCK TABLES `e_shop_product_sku` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_sku` DISABLE KEYS */;
-INSERT INTO `e_shop_product_sku` VALUES (1,1,99.99,10.00,1,0,0,'1|3'),(2,1,88.88,8.00,12,0,0,'1|4'),(3,2,77.88,8.00,12,0,0,'1|4'),(4,2,77.88,8.00,12,0,0,'1|3'),(13,22,111.00,111.00,111,NULL,NULL,'1|3'),(14,22,222.00,222.00,222,NULL,NULL,'1|4'),(15,22,333.00,333.00,333,NULL,NULL,'2|3'),(16,22,444.00,444.00,444,NULL,NULL,'2|4'),(17,22,555.00,555.00,555,NULL,NULL,'9|3'),(18,22,666.00,666.00,666,NULL,NULL,'9|4'),(19,23,111.00,444.00,222,NULL,NULL,'1|3'),(20,24,123.00,123.00,123,NULL,NULL,'1|4');
+INSERT INTO `e_shop_product_sku` VALUES (1,1,55.00,10.00,999,10,0,'1|2'),(2,2,66.00,20.00,888,100,0,'1|2'),(3,3,77.00,30.00,777,200,0,'1|2'),(4,4,88.88,40.00,666,300,0,'1|2'),(5,5,99.99,50.00,555,400,0,'1|2'),(6,6,111.10,60.00,444,500,0,'1|2'),(7,7,122.21,70.00,333,600,0,'1|2'),(8,8,133.32,80.00,222,700,0,'1|2'),(9,9,144.43,90.00,111,800,0,'1|2'),(10,10,155.54,100.00,777,900,0,'1|2');
 /*!40000 ALTER TABLE `e_shop_product_sku` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,7 +164,7 @@ CREATE TABLE `e_shop_product_sku_attr` (
 
 LOCK TABLES `e_shop_product_sku_attr` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_sku_attr` DISABLE KEYS */;
-INSERT INTO `e_shop_product_sku_attr` VALUES (1,1,'COLOR','红',0),(2,1,'COLOR','黑',1),(3,1,'SIZE','m',0),(4,1,'SIZE','x',1),(9,1,'COLOR','白色',3),(11,1,'COLOR','111',0),(12,1,'COLOR','222',0),(13,1,'COLOR','333',0),(14,1,'COLOR','444',0),(15,1,'COLOR','555',0),(16,1,'COLOR','666',0);
+INSERT INTO `e_shop_product_sku_attr` VALUES (1,1,'COLOR','红',0),(2,1,'COLOR','黑',1),(3,1,'SIZE','m',0),(4,1,'SIZE','x',1);
 /*!40000 ALTER TABLE `e_shop_product_sku_attr` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,7 +240,7 @@ DROP TABLE IF EXISTS `user_cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_cart` (
-  `id` int(10) unsigned NOT NULL COMMENT '主键',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `product_sku_id` int(11) NOT NULL COMMENT '产品单品id',
   `user_account` int(11) NOT NULL COMMENT '用户id',
   `create_time` datetime NOT NULL COMMENT '创建时间',
@@ -266,7 +266,7 @@ DROP TABLE IF EXISTS `user_order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_order` (
-  `id` int(10) unsigned NOT NULL COMMENT '主键',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `roder_sn` varchar(50) COLLATE utf8_bin NOT NULL COMMENT '订单号',
   `status` int(11) NOT NULL COMMENT '订单状态',
   `create_time` datetime NOT NULL COMMENT '创建时间',
@@ -410,4 +410,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-12 16:16:50
+-- Dump completed on 2018-06-13 10:48:22

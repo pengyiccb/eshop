@@ -34,7 +34,7 @@ public class JwtUserService implements UserDetailsService {
         if (userAccount == null) {
             System.out.println("====用户登录数据 第一次是从从数据库拿数据，会在一定时间内缓存!!!=======");
 //            userAccount = userAccountService.selectOne(new UserAccount().withUsername(username));
-            userAccountUtils.refreshLoginUser(username);
+            userAccount = userAccountUtils.refreshLoginUser(username);
 //            userAccountUtils.putCacheLoginUser(userAccount, userAccount.getUsername(), expiredTimeOutSecond);
         }
 

@@ -2,6 +2,7 @@ package com.tfx0one.web.model;
 
 import com.tfx0one.common.util.BaseEntity;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 @Table(name = "user_cart")
@@ -32,6 +33,13 @@ public class UserCart extends BaseEntity {
     private Date createTime;
 
     private Integer count;
+
+    @Transient
+    private EShopProduct eShopProduct;
+
+    @Transient
+    private EShopProductSku eShopProductSku;
+
 
     /**
      * 获取主键
@@ -143,6 +151,39 @@ public class UserCart extends BaseEntity {
     public void setCount(Integer count) {
         this.count = count;
     }
+
+
+    /**
+     * @return EShopProduct
+     */
+    public EShopProduct getEShopProduct() {
+        return eShopProduct;
+    }
+
+
+    /**
+     * @param eShopProduct
+     */
+    public void setEShopProduct(EShopProduct eShopProduct) {
+        this.eShopProduct = eShopProduct;
+    }
+
+
+    /**
+     * @return EShopProductSku
+     */
+    public EShopProductSku getEShopProducSkut() {
+        return eShopProductSku;
+    }
+
+
+    /**
+     * @param eShopProductSku
+     */
+    public void setEShopProductSku(EShopProductSku eShopProductSku) {
+        this.eShopProductSku = eShopProductSku;
+    }
+
 
     @Override
     public String toString() {

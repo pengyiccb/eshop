@@ -22,7 +22,6 @@ public class JwtUserService implements UserDetailsService {
     private UserAccountUtils userAccountUtils;
 
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -41,7 +40,7 @@ public class JwtUserService implements UserDetailsService {
 //        if (userAccount == null) {
 //            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
 //        } else {
-            return JwtUserFactory.create(userAccount);
+        return JwtUserFactory.create(userAccount);
 //        }
     }
 }

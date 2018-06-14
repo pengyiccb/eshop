@@ -54,28 +54,28 @@ public class ProductService extends BaseService<EShopProduct> {
         return JSONResult.ok().data(new ArrayList<>(map.values()));
     }
 
-     @Resource
+    @Resource
     private EShopProductMapper eshopProductMap;
 
 
     //插入商品数据信
     public int insertProductData(EShopProduct eshopProduct) {
 
- //       eshopProduct.withBrief("");
- //       eshopProduct.withContentDesc("");
- //       eshopProduct.withImgListUrl("");
- //       eshopProduct.withTitle("");
- //       eshopProduct.withKeyword("");
- //       eshopProduct.withPriceUnderline(new BigDecimal(1.34));
- //       eshopProduct.withSortOrder(new Byte("0"));
- //       eshopProduct.withIsOnSale(new Byte("0"));
- //       eshopProduct.withIsDelete(new Byte("0"));
- //       eshopProduct.withProductCategoryId(1);
- //       eshopProduct.withVendorUserId(0);
- //       eshopProduct.withSubtitle("");
+        //       eshopProduct.withBrief("");
+        //       eshopProduct.withContentDesc("");
+        //       eshopProduct.withImgListUrl("");
+        //       eshopProduct.withTitle("");
+        //       eshopProduct.withKeyword("");
+        //       eshopProduct.withPriceUnderline(new BigDecimal(1.34));
+        //       eshopProduct.withSortOrder(new Byte("0"));
+        //       eshopProduct.withIsOnSale(new Byte("0"));
+        //       eshopProduct.withIsDelete(new Byte("0"));
+        //       eshopProduct.withProductCategoryId(1);
+        //       eshopProduct.withVendorUserId(0);
+        //       eshopProduct.withSubtitle("");
 
         eshopProductMap.insertEShopProductAndGetID(eshopProduct);
-        return  eshopProduct.getId() ;
+        return eshopProduct.getId();
     }
 
 
@@ -90,15 +90,15 @@ public class ProductService extends BaseService<EShopProduct> {
     @Resource
     private EShopProductMapper eShopProductMapper;
 
-    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
-    public JSONResult createProduct(Map<String,Object> models) {
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, timeout = 36000, rollbackFor = Exception.class)
+    public JSONResult createProduct(Map<String, Object> models) {
         EShopProduct product = JSONObject.parseObject(JSON.toJSONString(models.get("product")), EShopProduct.class);
         eShopProductMapper.insertEShopProductAndGetID(product);
 
 //        List<JSONObject> skuList = JSONObject.parseObject(JSON.toJSONString(models.get("skuList")), List.class);
         JSONArray array = JSONObject.parseArray(JSON.toJSONString(models.get("skuList")));
 
-        array.forEach(e->{
+        array.forEach(e -> {
             EShopProductSku sku = JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class);
             System.out.println("==========" + sku);
             productSkuService.save(sku.withProductId(product.getId()));
@@ -111,14 +111,14 @@ public class ProductService extends BaseService<EShopProduct> {
 
     }
 
-    public JSONResult modifyProduct(Map<String,Object> models) {
+    public JSONResult modifyProduct(Map<String, Object> models) {
         EShopProduct product = JSONObject.parseObject(JSON.toJSONString(models.get("product")), EShopProduct.class);
         eShopProductMapper.updateEShopProductByID(product);
 
 //        List<JSONObject> skuList = JSONObject.parseObject(JSON.toJSONString(models.get("skuList")), List.class);
         JSONArray array = JSONObject.parseArray(JSON.toJSONString(models.get("skuList")));
 
-        array.forEach(e->{
+        array.forEach(e -> {
             EShopProductSku sku = JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class);
             System.out.println("==========" + sku);
             productSkuService.updateByPrimaryKey(sku);

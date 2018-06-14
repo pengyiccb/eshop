@@ -61,21 +61,21 @@ public class EShopProductSku extends BaseEntity {
         return attrs;
     }
 
-    @Transient
-    private EShopProduct product;
-
-    public EShopProduct getProduct() {
-        return product;
-    }
-
-    public void setProduct(EShopProduct product) {
-        this.product = product;
-    }
-
-    public EShopProductSku withProduct(EShopProduct product) {
-        this.setProduct(product);
-        return this;
-    }
+//    @Transient
+//    private EShopProduct product;
+//
+//    public EShopProduct getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(EShopProduct product) {
+//        this.product = product;
+//    }
+//
+//    public EShopProductSku withProduct(EShopProduct product) {
+//        this.setProduct(product);
+//        return this;
+//    }
 
     public void setAttrs(List<EShopProductSkuAttr> attrs) {
         this.attrs = attrs;
@@ -277,7 +277,7 @@ public class EShopProductSku extends BaseEntity {
                 ", saleAmount=" + saleAmount +
                 ", stockSn=" + stockSn +
                 ", attrOption='" + attrOption + '\'' +
-                ", product=" + product +
+//                ", product=" + product +
                 ", attrs=" + attrs +
                 '}';
     }

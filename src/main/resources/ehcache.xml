@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache updateCheck="false" name="defaultCache">
 
-    <diskStore path="java.io.tmpdir/temp/ehcache/default" />
+    <diskStore path="java.io.tmpdir/temp/ehcache/default"/>
 
     <!-- DefaultCache setting. -->
     <defaultCache maxEntriesLocalHeap="100" eternal="false"
                   timeToIdleSeconds="300" timeToLiveSeconds="600" overflowToDisk="true"
-                  maxEntriesLocalDisk="100000" />
+                  maxEntriesLocalDisk="100000"/>
 
 
     <!--<cache name="CACHE_DEMO"-->
-           <!--maxEntriesLocalHeap="10000"-->
-           <!--overflowToDisk="false"-->
-           <!--eternal="false"-->
-           <!--diskPersistent="false"-->
-           <!--timeToLiveSeconds="0"-->
-           <!--timeToIdleSeconds="0"-->
-           <!--statistics="true"/>-->
+    <!--maxEntriesLocalHeap="10000"-->
+    <!--overflowToDisk="false"-->
+    <!--eternal="false"-->
+    <!--diskPersistent="false"-->
+    <!--timeToLiveSeconds="0"-->
+    <!--timeToIdleSeconds="0"-->
+    <!--statistics="true"/>-->
 
     <!--<cache name="CACHE_WX_SESSION"-->
-           <!--maxEntriesLocalHeap="10000"-->
-           <!--overflowToDisk="false"-->
-           <!--eternal="false"-->
-           <!--diskPersistent="false"-->
-           <!--timeToLiveSeconds="0"-->
-           <!--timeToIdleSeconds="0"-->
-           <!--statistics="true"/>-->
+    <!--maxEntriesLocalHeap="10000"-->
+    <!--overflowToDisk="false"-->
+    <!--eternal="false"-->
+    <!--diskPersistent="false"-->
+    <!--timeToLiveSeconds="0"-->
+    <!--timeToIdleSeconds="0"-->
+    <!--statistics="true"/>-->
 
     <cache name="CACHE_USER_ACCOUNT"
            maxEntriesLocalHeap="10000"
@@ -45,7 +45,45 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
-    <cache name="CACHE_PRODUCT_SPU"
+    <!--<cache name="CACHE_PRODUCT_SPU"-->
+    <!--maxEntriesLocalHeap="10000"-->
+    <!--overflowToDisk="false"-->
+    <!--eternal="false"-->
+    <!--diskPersistent="false"-->
+    <!--timeToLiveSeconds="0"-->
+    <!--timeToIdleSeconds="0"-->
+    <!--statistics="true"/>-->
+
+    <!--<cache name="CACHE_PRODUCT_SKU"-->
+    <!--maxEntriesLocalHeap="10000"-->
+    <!--overflowToDisk="false"-->
+    <!--eternal="false"-->
+    <!--diskPersistent="false"-->
+    <!--timeToLiveSeconds="0"-->
+    <!--timeToIdleSeconds="0"-->
+    <!--statistics="true"/>-->
+
+    <!--<cache name="CACHE_PRODUCT_SKU_ATTR"-->
+    <!--maxEntriesLocalHeap="10000"-->
+    <!--overflowToDisk="false"-->
+    <!--eternal="false"-->
+    <!--diskPersistent="false"-->
+    <!--timeToLiveSeconds="0"-->
+    <!--timeToIdleSeconds="0"-->
+    <!--statistics="true"/>-->
+
+
+    <!--public static final String CACHE_PRODUCT_SPU_BY_VENDOR_ID = "CACHE_PRODUCT_SPU_BY_VENDOR_ID"; //商品SPU 按照 商家ID 缓存-->
+    <!--public static final String CACHE_PRODUCT_SPU_BY_ID = "CACHE_PRODUCT_SPU_BY_ID"; //商品SPU 按照商品ID缓存-->
+    <cache name="CACHE_PRODUCT_SPU_BY_VENDOR_ID"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+    <cache name="CACHE_PRODUCT_SPU_BY_ID"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"
@@ -54,7 +92,17 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
-    <cache name="CACHE_PRODUCT_SKU"
+    <!--public static final String CACHE_PRODUCT_SKU_BY_PRODUCT_ID = "CACHE_PRODUCT_SKU_BY_PRODUCT_ID"; //单品SKU 按照 商品ID 缓存-->
+    <!--public static final String CACHE_PRODUCT_SKU_BY_ID = "CACHE_PRODUCT_SKU_BY_ID"; //单品SKU 按照单品ID缓存-->
+    <cache name="CACHE_PRODUCT_SKU_BY_PRODUCT_ID"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+    <cache name="CACHE_PRODUCT_SKU_BY_ID"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"
@@ -63,7 +111,17 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
-    <cache name="CACHE_PRODUCT_SKU_ATTR"
+    <!--public static final String CACHE_PRODUCT_SKU_ATTR_BY_CATEGORY_ID = "CACHE_PRODUCT_SKU_ATTR_BY_CATEGORY_ID"; //单品SKU属性 按照属性ID缓存-->
+    <!--public static final String CACHE_PRODUCT_SKU_ATTR_BY_ID = "CACHE_PRODUCT_SKU_ATTR_BY_ID"; //单品SKU属性 按照属性ID缓存-->
+    <cache name="CACHE_PRODUCT_SKU_ATTR_BY_CATEGORY_ID"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+    <cache name="CACHE_PRODUCT_SKU_ATTR_BY_ID"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"
@@ -72,6 +130,8 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
+
+    <!--public static final String CACHE_PRODUCT_SKU_ATTR_TREE = "CACHE_PRODUCT_SKU_ATTR_TREE"; //单品SKU属性 按照 属性ID 缓存-->
     <cache name="CACHE_PRODUCT_SKU_ATTR_TREE"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
@@ -80,7 +140,6 @@
            timeToLiveSeconds="0"
            timeToIdleSeconds="0"
            statistics="true"/>
-
 
 
     <!--

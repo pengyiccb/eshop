@@ -2,8 +2,10 @@ package com.tfx0one.common.util;
 
 import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.web.model.UserAccount;
+import com.tfx0one.web.service.UserAccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -28,9 +30,20 @@ public class UserAccountUtils {
     //app内的缓存
     private EhCacheUtils ehCacheUtils;
 
+    @Resource
+    private UserAccountService userAccountService;
+
+    @Value("${jwt.expiredTimeOutSecond}")
+    private int expiredTimeOutSecond;
+
+    public UserAccount refreshLoginUser(String username) {
+        UserAccount userAccount = userAccountService.selectOne(new UserAccount().withUsername(username));
+        this.putCacheLoginUser(userAccount, userAccount.getUsername(), expiredTimeOutSecond);
+        return userAccount;
+    }
+
     //放入缓存 登录的用户信息
-    public void putCacheLoginUser(UserAccount userAccount, String username, int timeToIdleSeconds)
-    {
+    private void putCacheLoginUser(UserAccount userAccount, String username, int timeToIdleSeconds) {
         ehCacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, username, userAccount, timeToIdleSeconds);
 
 //        if (hasWeChatMiniProgramFlag()) {
@@ -46,15 +59,14 @@ public class UserAccountUtils {
     }
 
     //获取缓存 登录的用户信息 不要在 security 的拦截器中调用。
-    public UserAccount getCacheLoginUser()
-    {
+    public UserAccount getCacheLoginUser() {
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
             throw new RuntimeException("SecurityContextHolder.getContext().getAuthentication() == null");
 //            System.out.println("SecurityContextHolder.getContext().getAuthentication() == null");
 //            return null;
         }
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println("getCacheLoginUser() " +userDetails.getUsername());
+        System.out.println("getCacheLoginUser() " + userDetails.getUsername());
         return getCacheLoginUserByUsername(userDetails.getUsername());
 //        userDetails.getPassword();
 //        userDetails.g
@@ -65,6 +77,7 @@ public class UserAccountUtils {
 //            return (UserAccount) getCurrentRequest().getSession().getAttribute(CacheConstant.SESSION_LOGIN_USER);
 //        }
     }
+
     public UserAccount getCacheLoginUserByUsername(String username) {
         return StringUtils.isEmpty(username) ? null : ehCacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, username);
     }
@@ -76,11 +89,9 @@ public class UserAccountUtils {
 //        return header.contains("wechat") || header.contains("miniprogram");
 //    }
 
-    private HttpServletRequest getCurrentRequest()
-    {
+    private HttpServletRequest getCurrentRequest() {
         RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-        if (requestAttributes instanceof ServletRequestAttributes)
-        {
+        if (requestAttributes instanceof ServletRequestAttributes) {
             ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
             return servletRequestAttributes.getRequest();
         }

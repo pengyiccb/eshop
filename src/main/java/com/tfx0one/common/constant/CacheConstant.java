@@ -10,11 +10,16 @@ public class CacheConstant {
     public static final String CACHE_USER_ACCOUNT = "CACHE_USER_ACCOUNT";
     public static final String CACHE_VENDOR_USER = "CACHE_VENDOR_USER";
 
-    public static final String CACHE_PRODUCT_SPU = "CACHE_PRODUCT_SPU"; //商品SPU 按照商家缓存
-    public static final String CACHE_PRODUCT_SKU = "CACHE_PRODUCT_SKU"; //单品SKU 按照商品缓存
-    public static final String CACHE_PRODUCT_SKU_ATTR = "CACHE_PRODUCT_SKU_ATTR"; //单品SKU属性 按照属性ID缓存
-    public static final String CACHE_PRODUCT_SKU_ATTR_TREE = "CACHE_PRODUCT_SKU_ATTR_TREE"; //单品SKU属性 按照属性ID缓存
+    public static final String CACHE_PRODUCT_SPU_BY_VENDOR_ID = "CACHE_PRODUCT_SPU_BY_VENDOR_ID"; //商品SPU 按照 商家ID 缓存
+    public static final String CACHE_PRODUCT_SPU_BY_ID = "CACHE_PRODUCT_SPU_BY_ID"; //商品SPU 按照商品ID缓存
 
+    public static final String CACHE_PRODUCT_SKU_BY_PRODUCT_ID = "CACHE_PRODUCT_SKU_BY_PRODUCT_ID"; //单品SKU 按照 商品ID 缓存
+    public static final String CACHE_PRODUCT_SKU_BY_ID = "CACHE_PRODUCT_SKU_BY_ID"; //单品SKU 按照单品ID缓存
+
+    public static final String CACHE_PRODUCT_SKU_ATTR_BY_CATEGORY_ID = "CACHE_PRODUCT_SKU_ATTR_BY_CATEGORY_ID"; //单品SKU属性 按照属性ID缓存
+    public static final String CACHE_PRODUCT_SKU_ATTR_BY_ID = "CACHE_PRODUCT_SKU_ATTR_BY_ID"; //单品SKU属性 按照属性ID缓存
+
+    public static final String CACHE_PRODUCT_SKU_ATTR_TREE = "CACHE_PRODUCT_SKU_ATTR_TREE"; //单品SKU属性 按照 属性ID 缓存
 
 
 

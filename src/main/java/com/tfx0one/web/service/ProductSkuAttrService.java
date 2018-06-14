@@ -5,16 +5,11 @@ import com.tfx0one.common.util.BaseService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.ProductUtils;
 import com.tfx0one.web.mapper.EShopProductCategoryMapper;
-import com.tfx0one.web.mapper.EShopProductSkuAttrMapper;
 import com.tfx0one.web.model.EShopProductCategory;
 import com.tfx0one.web.model.EShopProductSkuAttr;
-import com.tfx0one.web.model.VendorUser;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,6 +22,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 
     @Resource
     private ProductUtils productUtils;
+
     @Resource
     private EShopProductCategoryMapper eShopProductCategoryMapper;
 

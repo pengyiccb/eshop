@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -26,6 +25,7 @@ public class RedisTest {
 
 
     @Test
+    @SuppressWarnings("unchecked")
     public void test1() throws Exception{
         System.out.println(redisTemplate);
         redisTemplate.opsForValue().set("test:set", "testValue1");

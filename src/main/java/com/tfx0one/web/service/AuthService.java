@@ -9,7 +9,6 @@ import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.web.model.UserAccount;
 import com.tfx0one.web.model.WXUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -67,8 +66,8 @@ public class AuthService {
     }
 
 
-    @Value("${jwt.expiredTimeOutSecond}")
-    private int expiredTimeOutSecond;
+//    @Value("${jwt.expiredTimeOutSecond}")
+//    private int expiredTimeOutSecond;
 
     //网页登录 返回 token
     public JSONResult login(String username, String password){
@@ -87,7 +86,8 @@ public class AuthService {
         final String token = jwtTokenUtils.generateTokenThenCacheUser(userDetails);
 
         //用户缓存起来。
-        userAccountUtils.putCacheLoginUser(userDetails.getUserAccount(), userDetails.getUsername(), expiredTimeOutSecond);
+        userAccountUtils.refreshLoginUser(username);
+//        userAccountUtils.putCacheLoginUser(userDetails.getUserAccount(), userDetails.getUsername(), expiredTimeOutSecond);
 
         System.out.println("token =  " + token);
         return JSONResult.ok("登录成功").put("token", token);

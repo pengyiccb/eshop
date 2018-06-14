@@ -1,9 +1,10 @@
 package com.tfx0one.web.model;
 
 import com.tfx0one.common.util.BaseEntity;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
-import javax.persistence.*;
 
 @Table(name = "e_shop_product_sku")
 public class EShopProductSku extends BaseEntity {
@@ -54,17 +55,6 @@ public class EShopProductSku extends BaseEntity {
     private String attrOption;
 
     @Transient
-    private Integer productCatagoryId;
-
-    public Integer getProductCatagoryId() {
-        return productCatagoryId;
-    }
-
-    public void setProductCatagoryId(Integer productCatagoryId) {
-        this.productCatagoryId = productCatagoryId;
-    }
-
-    @Transient
     private List<EShopProductSkuAttr> attrs;
 
     public List<EShopProductSkuAttr> getAttrs() {
@@ -82,8 +72,18 @@ public class EShopProductSku extends BaseEntity {
         this.product = product;
     }
 
+    public EShopProductSku withProduct(EShopProduct product) {
+        this.setProduct(product);
+        return this;
+    }
+
     public void setAttrs(List<EShopProductSkuAttr> attrs) {
         this.attrs = attrs;
+    }
+
+    public EShopProductSku withAttrs(List<EShopProductSkuAttr> attrs) {
+        this.setAttrs(attrs);
+        return this;
     }
 
     /**
@@ -277,7 +277,7 @@ public class EShopProductSku extends BaseEntity {
                 ", saleAmount=" + saleAmount +
                 ", stockSn=" + stockSn +
                 ", attrOption='" + attrOption + '\'' +
-                ", productCatagoryId=" + productCatagoryId +
+                ", product=" + product +
                 ", attrs=" + attrs +
                 '}';
     }

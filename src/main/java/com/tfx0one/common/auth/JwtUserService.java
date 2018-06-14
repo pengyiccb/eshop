@@ -4,8 +4,6 @@ import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.web.model.UserAccount;
 import com.tfx0one.web.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,8 +21,7 @@ public class JwtUserService implements UserDetailsService {
     @Autowired
     private UserAccountUtils userAccountUtils;
 
-    @Value("${jwt.expiredTimeOutSecond}")
-    private int expiredTimeOutSecond;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -36,8 +33,9 @@ public class JwtUserService implements UserDetailsService {
         UserAccount userAccount = userAccountUtils.getCacheLoginUserByUsername(username);
         if (userAccount == null) {
             System.out.println("====用户登录数据 第一次是从从数据库拿数据，会在一定时间内缓存!!!=======");
-            userAccount = userAccountService.selectOne(new UserAccount().withUsername(username));
-            userAccountUtils.putCacheLoginUser(userAccount, userAccount.getUsername(), expiredTimeOutSecond);
+//            userAccount = userAccountService.selectOne(new UserAccount().withUsername(username));
+            userAccountUtils.refreshLoginUser(username);
+//            userAccountUtils.putCacheLoginUser(userAccount, userAccount.getUsername(), expiredTimeOutSecond);
         }
 
 //        if (userAccount == null) {

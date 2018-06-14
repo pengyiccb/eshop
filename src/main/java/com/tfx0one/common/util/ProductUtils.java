@@ -24,8 +24,8 @@ public class ProductUtils {
     //缓存 商品 单品相关
     private final Logger logger = LoggerFactory.getLogger(ProductUtils.class);
 
-    @Autowired
     //app内的缓存
+    @Autowired
     private EhCacheUtils ehCacheUtils;
 
     @Autowired
@@ -37,17 +37,26 @@ public class ProductUtils {
     @Autowired
     private ProductSkuAttrService productSkuAttrService;
 
+//    @Autowired
+//    public ProductUtils(EhCacheUtils ehCacheUtils, ProductService productService, ProductSkuService productSkuService, ProductSkuAttrService productSkuAttrService) {
+//        this.ehCacheUtils = ehCacheUtils;
+//        this.productService = productService;
+//        this.productSkuService = productSkuService;
+//        this.productSkuAttrService = productSkuAttrService;
+//        this.refreshAllProduct(1, 1, 1);
+//    }
+
 //    public <T> T getProductxxx(Class<T> tClass, int vendorUserId, int spuId){
 //        return this.getProductSPU(vendorUserId).get(spuId);
 //    }
 
     // ================= 缓存 SPU 商品 基本信息 相关 =================
-    public EShopProduct getProductSPU(int vendorUserId, int productSpuId){
-        return this.getProductSPU(vendorUserId).get(productSpuId);
-    }
+//    public EShopProduct getProductSPU(int vendorUserId, int productSpuId){
+//        return this.getProductSPU(vendorUserId).get(productSpuId);
+//    }
     //通过商户ID 找到商户的产品基本信息
     public Map<Integer, EShopProduct> getProductSPU(int vendorUserId){
-        Map<Integer, EShopProduct> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SPU, String.valueOf(vendorUserId));
+        Map<Integer, EShopProduct> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SPU_BY_VENDOR_ID, String.valueOf(vendorUserId));
         return !CollectionUtils.isEmpty(map) ? map : refreshProductsSPU(vendorUserId);
     }
 
@@ -57,7 +66,7 @@ public class ProductUtils {
         List<EShopProduct> spuList = productService.select(new EShopProduct().withVendorUserId(vendorUserId));
         Map<Integer, EShopProduct> map = new HashMap<>();
         spuList.forEach(e -> map.put(e.getId(), e));
-        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SPU, String.valueOf(vendorUserId), map);
+        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SPU_BY_VENDOR_ID, String.valueOf(vendorUserId), map);
         return map;
     }
 
@@ -67,15 +76,15 @@ public class ProductUtils {
 //        return this.getProductSKU(productSpuId);
 //    }
 
-    //通过单品的ID 获取一个单品的基本信息和详细信息
-    public EShopProductSku getProductSKUById(int skuId) {
-        return null;
-//        EShopProductSku sku = productSkuService.selectByPrimaryKey(skuId);
-    }
+//    //通过单品的ID 获取一个单品的基本信息和详细信息
+//    public EShopProductSku getProductSKUById(int skuId) {
+//        return null;
+////        EShopProductSku sku = productSkuService.selectByPrimaryKey(skuId);
+//    }
 
     //获取商品下的所有单品
     public Map<Integer, EShopProductSku> getProductSKU(int productSpuId) {
-        Map<Integer, EShopProductSku> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU, String.valueOf(productSpuId));
+        Map<Integer, EShopProductSku> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_BY_PRODUCT_ID, String.valueOf(productSpuId));
         return !CollectionUtils.isEmpty(map) ? map : refreshProductsSKU(productSpuId);
     }
 
@@ -92,7 +101,6 @@ public class ProductUtils {
         List<EShopProductSku> skuList = productSkuService.select(new EShopProductSku().withProductId(spuProductId));
         Map<Integer, EShopProductSku> map = new HashMap<>();
         skuList.forEach(e -> {
-
             //遍历单品中属性
             List<String> list = new ArrayList<>(Arrays.asList(e.getAttrOption().split("\\|")));
             final List<EShopProductSkuAttr> attrList = new ArrayList<>();
@@ -108,7 +116,7 @@ public class ProductUtils {
             map.put(e.getId(), e);
 
         });
-        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU, String.valueOf(spuProductId), map);
+        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_BY_PRODUCT_ID, String.valueOf(spuProductId), map);
         return map;
     }
 
@@ -122,7 +130,7 @@ public class ProductUtils {
     }
 
     public Map<Integer, EShopProductSkuAttr> getProductAttr(int productCategoryId) {
-        Map<Integer, EShopProductSkuAttr> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR, String.valueOf(productCategoryId));
+        Map<Integer, EShopProductSkuAttr> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_CATEGORY_ID, String.valueOf(productCategoryId));
         return !CollectionUtils.isEmpty(map) ? map : refreshProductAttr(productCategoryId);
     }
 
@@ -130,17 +138,18 @@ public class ProductUtils {
         List<EShopProductSkuAttr> skuAttrList = productSkuAttrService.select(new EShopProductSkuAttr().withProductCategoryId(productCategoryId));
         Map<Integer, EShopProductSkuAttr> map = new HashMap<>();
         skuAttrList.forEach(e -> map.put(e.getId(), e));
-        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR, String.valueOf(productCategoryId), map);
+        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_CATEGORY_ID, String.valueOf(productCategoryId), map);
         return map;
     }
 
 
     //商户上传新商品的时候，刷新这个商品的相关缓存。
     public void refreshAllProduct(int vendorUserId, int productCategoryId, int productSpuId) {
-        refreshProductsSPU(vendorUserId);
-        refreshProductsSKU(productSpuId);
-        refreshProductAttr(productCategoryId);
+        //逆向刷新
         refreshSkuAttrOptionTree(productCategoryId);
+        refreshProductAttr(productCategoryId);
+        refreshProductsSKU(productSpuId);
+        refreshProductsSPU(vendorUserId);
     }
 
 

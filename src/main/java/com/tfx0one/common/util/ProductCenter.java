@@ -56,6 +56,9 @@ public class ProductCenter {
         ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SPU_BY_VENDOR_ID, String.valueOf(vendorUserId), spuList);
         return spuList;
     }
+    private void removeProductSPUListByVendorId(int vendorUserId) {
+        ehCacheUtils.remove(CacheConstant.CACHE_PRODUCT_SPU_BY_VENDOR_ID, String.valueOf(vendorUserId));
+    }
 
 
     //获取商品下的所有单品 点击商品详情页 使用
@@ -78,6 +81,9 @@ public class ProductCenter {
         }
         ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_BY_PRODUCT_ID, String.valueOf(productSpuId), list);
         return list;
+    }
+    private void removeProductSKUListByProductId(int vendorUserId) {
+        ehCacheUtils.remove(CacheConstant.CACHE_PRODUCT_SKU_BY_PRODUCT_ID, String.valueOf(vendorUserId));
     }
 
 
@@ -181,34 +187,34 @@ public class ProductCenter {
     }
 
 
-    //后台添加商品时使用的缓存 ================= 缓存 SKU单品属性 树状 单品SKU属性 按照属性ID缓存 =================
-    //树状，给商户后台添加商品时使用。
-    //Map<Integer, Map<String, List<EShopProductSkuAttr>>>
-    public Map<String, List<EShopProductSkuAttr>> getSkuAttrOptionTree(int productCategoryId) {
-        Map<String, List<EShopProductSkuAttr>> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE, String.valueOf(productCategoryId));
-        return !CollectionUtils.isEmpty(map) ? map : refreshSkuAttrOptionTree(productCategoryId);
-    }
-
-    public Map<String, List<EShopProductSkuAttr>> refreshSkuAttrOptionTree(int productCategoryId) {
-
-//        refreshProductAttr(productCategoryId);
-        List<EShopProductSkuAttr> skuAttrList = productSkuAttrService.select(new EShopProductSkuAttr().withProductCategoryId(productCategoryId));
-
-//        List<EShopProductSkuAttr> skuAttrList = new ArrayList<>(getProductAttr(productCategoryId).values());
-        //树状缓存
-        Map<String, List<EShopProductSkuAttr>> map = new HashMap<>();
-        skuAttrList.forEach(skuAttr -> {
-            if (!map.containsKey(skuAttr.getAttrType())) {
-                map.put(skuAttr.getAttrType(), new ArrayList<>());
-            }
-            //加入
-            if (!map.get(skuAttr.getAttrType()).contains(skuAttr)) {
-                map.get(skuAttr.getAttrType()).add(skuAttr);
-            }
-        });
-        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE, String.valueOf(productCategoryId), map);
-        return map;
-    }
+//    //后台添加商品时使用的缓存 ================= 缓存 SKU单品属性 树状 单品SKU属性 按照属性ID缓存 =================
+//    //树状，给商户后台添加商品时使用。
+//    //Map<Integer, Map<String, List<EShopProductSkuAttr>>>
+//    public Map<String, List<EShopProductSkuAttr>> getSkuAttrOptionTree(int productCategoryId) {
+//        Map<String, List<EShopProductSkuAttr>> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE, String.valueOf(productCategoryId));
+//        return !CollectionUtils.isEmpty(map) ? map : refreshSkuAttrOptionTree(productCategoryId);
+//    }
+//
+//    public Map<String, List<EShopProductSkuAttr>> refreshSkuAttrOptionTree(int productCategoryId) {
+//
+////        refreshProductAttr(productCategoryId);
+//        List<EShopProductSkuAttr> skuAttrList = productSkuAttrService.select(new EShopProductSkuAttr().withProductCategoryId(productCategoryId));
+//
+////        List<EShopProductSkuAttr> skuAttrList = new ArrayList<>(getProductAttr(productCategoryId).values());
+//        //树状缓存
+//        Map<String, List<EShopProductSkuAttr>> map = new HashMap<>();
+//        skuAttrList.forEach(skuAttr -> {
+//            if (!map.containsKey(skuAttr.getAttrType())) {
+//                map.put(skuAttr.getAttrType(), new ArrayList<>());
+//            }
+//            //加入
+//            if (!map.get(skuAttr.getAttrType()).contains(skuAttr)) {
+//                map.get(skuAttr.getAttrType()).add(skuAttr);
+//            }
+//        });
+//        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE, String.valueOf(productCategoryId), map);
+//        return map;
+//    }
 
 
 }

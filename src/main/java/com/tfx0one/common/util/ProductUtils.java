@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by 2fx0one on 2018/6/7.
@@ -104,18 +105,16 @@ public class ProductUtils {
         Map<Integer, EShopProductSku> map = new HashMap<>();
         skuList.forEach(e -> {
             //遍历单品中属性
-            List<String> list = new ArrayList<>(Arrays.asList(e.getAttrOption().split("\\|")));
-            final List<EShopProductSkuAttr> attrList = new ArrayList<>();
-            list.forEach(attr -> {
-                EShopProductSkuAttr skuAttr = getProductAttr(productCategoryId, Integer.parseInt(attr));
-                attrList.add(skuAttr);
-            });
-
             //每个单品设置的属性
-            e.setAttrs(attrList);
+            map.put(e.getId(),
+                    e.withAttrs(
+                    Arrays.asList(e.getAttrOption().split("\\|"))
+                    .parallelStream()
+                    .map(attr -> getProductSkuAttr(productCategoryId, Integer.parseInt(attr)))
+                    .collect(Collectors.toList())));
             //每个单品设置的商品基本信息
 //            e.setProduct(product);
-            map.put(e.getId(), e);
+//            map.put(e.getId(), e);
 
         });
         ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_BY_PRODUCT_ID, String.valueOf(spuProductId), map);
@@ -127,11 +126,11 @@ public class ProductUtils {
 //        return this.getProductAttr(productCatagoryId).get(skuAttrId);
 //    }
 
-    public EShopProductSkuAttr getProductAttr(int productCatagoryId, int skuAttrId) {
-        return this.getProductAttr(productCatagoryId).get(skuAttrId);
+    public EShopProductSkuAttr getProductSkuAttr(int productCatagoryId, int skuAttrId) {
+        return this.getProductSkuAttr(productCatagoryId).get(skuAttrId);
     }
 
-    public Map<Integer, EShopProductSkuAttr> getProductAttr(int productCategoryId) {
+    public Map<Integer, EShopProductSkuAttr> getProductSkuAttr(int productCategoryId) {
         Map<Integer, EShopProductSkuAttr> map = ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_CATEGORY_ID, String.valueOf(productCategoryId));
         return !CollectionUtils.isEmpty(map) ? map : refreshProductAttr(productCategoryId);
     }
@@ -148,10 +147,13 @@ public class ProductUtils {
     //商户上传新商品的时候，刷新这个商品的相关缓存。
     public void refreshAllProduct(int vendorUserId, int productCategoryId, int productSpuId) {
         //逆向刷新
+        //
         refreshSkuAttrOptionTree(productCategoryId);
+
+        refreshProductsSPU(vendorUserId);
+
         refreshProductAttr(productCategoryId);
         refreshProductsSKU(productSpuId);
-        refreshProductsSPU(vendorUserId);
     }
 
 

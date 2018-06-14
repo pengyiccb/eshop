@@ -10,6 +10,14 @@ public class CacheConstant {
     public static final String CACHE_USER_ACCOUNT = "CACHE_USER_ACCOUNT";
     public static final String CACHE_VENDOR_USER = "CACHE_VENDOR_USER";
 
+
+    public static final String CACHE_PRODUCT_SPU = "CACHE_PRODUCT_SPU";
+    public static final String CACHE_PRODUCT_SKU = "CACHE_PRODUCT_SKU";
+    public static final String CACHE_PRODUCT_SKU_ATTR = "CACHE_PRODUCT_SKU_ATTR";
+
+
+
+
     public static final String CACHE_PRODUCT_SPU_BY_VENDOR_ID = "CACHE_PRODUCT_SPU_BY_VENDOR_ID"; //商品SPU 按照 商家ID 缓存
     public static final String CACHE_PRODUCT_SPU_BY_ID = "CACHE_PRODUCT_SPU_BY_ID"; //商品SPU 按照商品ID缓存
 

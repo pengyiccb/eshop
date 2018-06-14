@@ -45,32 +45,32 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
-    <!--<cache name="CACHE_PRODUCT_SPU"-->
-    <!--maxEntriesLocalHeap="10000"-->
-    <!--overflowToDisk="false"-->
-    <!--eternal="false"-->
-    <!--diskPersistent="false"-->
-    <!--timeToLiveSeconds="0"-->
-    <!--timeToIdleSeconds="0"-->
-    <!--statistics="true"/>-->
+    <cache name="CACHE_PRODUCT_SPU"
+    maxEntriesLocalHeap="10000"
+    overflowToDisk="false"
+    eternal="false"
+    diskPersistent="false"
+    timeToLiveSeconds="0"
+    timeToIdleSeconds="0"
+    statistics="true"/>
 
-    <!--<cache name="CACHE_PRODUCT_SKU"-->
-    <!--maxEntriesLocalHeap="10000"-->
-    <!--overflowToDisk="false"-->
-    <!--eternal="false"-->
-    <!--diskPersistent="false"-->
-    <!--timeToLiveSeconds="0"-->
-    <!--timeToIdleSeconds="0"-->
-    <!--statistics="true"/>-->
+    <cache name="CACHE_PRODUCT_SKU"
+    maxEntriesLocalHeap="10000"
+    overflowToDisk="false"
+    eternal="false"
+    diskPersistent="false"
+    timeToLiveSeconds="0"
+    timeToIdleSeconds="0"
+    statistics="true"/>
 
-    <!--<cache name="CACHE_PRODUCT_SKU_ATTR"-->
-    <!--maxEntriesLocalHeap="10000"-->
-    <!--overflowToDisk="false"-->
-    <!--eternal="false"-->
-    <!--diskPersistent="false"-->
-    <!--timeToLiveSeconds="0"-->
-    <!--timeToIdleSeconds="0"-->
-    <!--statistics="true"/>-->
+    <cache name="CACHE_PRODUCT_SKU_ATTR"
+    maxEntriesLocalHeap="10000"
+    overflowToDisk="false"
+    eternal="false"
+    diskPersistent="false"
+    timeToLiveSeconds="0"
+    timeToIdleSeconds="0"
+    statistics="true"/>
 
 
     <!--public static final String CACHE_PRODUCT_SPU_BY_VENDOR_ID = "CACHE_PRODUCT_SPU_BY_VENDOR_ID"; //商品SPU 按照 商家ID 缓存-->

@@ -13,22 +13,22 @@ public class EShopProductSkuAttr extends BaseEntity {
     private Integer id;
 
     /**
-     * sku属性对应的分类
+     * 属性的父级ID
      */
-    @Column(name = "product_category_id")
-    private Integer productCategoryId;
+    @Column(name = "parent_id")
+    private Integer parentId;
 
     /**
-     * 属性的类型
+     * 属性对应的用户
      */
-    @Column(name = "attr_type")
-    private String attrType;
+    @Column(name = "user_account_id")
+    private Integer userAccountId;
 
     /**
      * 属性的值
      */
-    @Column(name = "attr_content")
-    private String attrContent;
+    @Column(name = "attr_name")
+    private String attrName;
 
     /**
      * 属性的排序
@@ -60,72 +60,72 @@ public class EShopProductSkuAttr extends BaseEntity {
     }
 
     /**
-     * 获取sku属性对应的分类
+     * 获取属性的父级ID
      *
-     * @return product_category_id - sku属性对应的分类
+     * @return parent_id - 属性的父级ID
      */
-    public Integer getProductCategoryId() {
-        return productCategoryId;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public EShopProductSkuAttr withProductCategoryId(Integer productCategoryId) {
-        this.setProductCategoryId(productCategoryId);
+    public EShopProductSkuAttr withParentId(Integer parentId) {
+        this.setParentId(parentId);
         return this;
     }
 
     /**
-     * 设置sku属性对应的分类
+     * 设置属性的父级ID
      *
-     * @param productCategoryId sku属性对应的分类
+     * @param parentId 属性的父级ID
      */
-    public void setProductCategoryId(Integer productCategoryId) {
-        this.productCategoryId = productCategoryId;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     /**
-     * 获取属性的类型
+     * 获取属性对应的用户
      *
-     * @return attr_type - 属性的类型
+     * @return user_account_id - 属性对应的用户
      */
-    public String getAttrType() {
-        return attrType;
+    public Integer getUserAccountId() {
+        return userAccountId;
     }
 
-    public EShopProductSkuAttr withAttrType(String attrType) {
-        this.setAttrType(attrType);
+    public EShopProductSkuAttr withUserAccountId(Integer userAccountId) {
+        this.setUserAccountId(userAccountId);
         return this;
     }
 
     /**
-     * 设置属性的类型
+     * 设置属性对应的用户
      *
-     * @param attrType 属性的类型
+     * @param userAccountId 属性对应的用户
      */
-    public void setAttrType(String attrType) {
-        this.attrType = attrType == null ? null : attrType.trim();
+    public void setUserAccountId(Integer userAccountId) {
+        this.userAccountId = userAccountId;
     }
 
     /**
      * 获取属性的值
      *
-     * @return attr_content - 属性的值
+     * @return attr_name - 属性的值
      */
-    public String getAttrContent() {
-        return attrContent;
+    public String getAttrName() {
+        return attrName;
     }
 
-    public EShopProductSkuAttr withAttrContent(String attrContent) {
-        this.setAttrContent(attrContent);
+    public EShopProductSkuAttr withAttrName(String attrName) {
+        this.setAttrName(attrName);
         return this;
     }
 
     /**
      * 设置属性的值
      *
-     * @param attrContent 属性的值
+     * @param attrName 属性的值
      */
-    public void setAttrContent(String attrContent) {
-        this.attrContent = attrContent == null ? null : attrContent.trim();
+    public void setAttrName(String attrName) {
+        this.attrName = attrName == null ? null : attrName.trim();
     }
 
     /**
@@ -158,9 +158,9 @@ public class EShopProductSkuAttr extends BaseEntity {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", productCategoryId=").append(productCategoryId);
-        sb.append(", attrType=").append(attrType);
-        sb.append(", attrContent=").append(attrContent);
+        sb.append(", parentId=").append(parentId);
+        sb.append(", userAccountId=").append(userAccountId);
+        sb.append(", attrName=").append(attrName);
         sb.append(", sortOrder=").append(sortOrder);
         sb.append("]");
         return sb.toString();

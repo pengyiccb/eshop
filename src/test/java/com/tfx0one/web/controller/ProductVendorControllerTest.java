@@ -1,7 +1,6 @@
 package com.tfx0one.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.tfx0one.web.model.Demo;
 import com.tfx0one.web.model.EShopProductSkuAttr;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,10 +18,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.Date;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by 2fx0one on 2018/6/11.
@@ -47,6 +42,7 @@ public class ProductVendorControllerTest {
 
 //        session.setAttribute("user", "user");
     }
+
     @Test
     public void setProductAttrOption() throws Exception {
         //发登录请求
@@ -65,14 +61,14 @@ public class ProductVendorControllerTest {
         MvcResult result = actions.andReturn();
         String s = result.getResponse().getContentAsString();
         JSONObject json = JSONObject.parseObject(s);
-        String token = (String)json.get("token");
+        String token = (String) json.get("token");
 
         System.out.println(token);
 
 
         // 发送post请求 注意 json数据放在 content 中
         String o = JSONObject.toJSONString(
-                new EShopProductSkuAttr().withAttrType("COLOR").withAttrContent("白色").withProductCategoryId(1).withSortOrder(3)
+                new EShopProductSkuAttr().withAttrName("COLOR").withUserAccountId(1).withSortOrder(3)
         );
         System.out.println("@TEST" + o);
 
@@ -80,7 +76,7 @@ public class ProductVendorControllerTest {
                 MockMvcRequestBuilders
                         .post("/api/v1/shop/setProductAttrOption")
 //                        .param("demo", o)
-                        .header("Authorization", "Bearer "+ token)
+                        .header("Authorization", "Bearer " + token)
                         .content(o) //post json数据放这里！！！！
                         .contentType(MediaType.APPLICATION_JSON_UTF8) //post json数据放这里！！！！
                         .accept(MediaType.APPLICATION_JSON_UTF8));
@@ -107,7 +103,7 @@ public class ProductVendorControllerTest {
         MvcResult result = actions.andReturn();
         String s = result.getResponse().getContentAsString();
         JSONObject json = JSONObject.parseObject(s);
-        String token = (String)json.get("token");
+        String token = (String) json.get("token");
 
         System.out.println(token);
 
@@ -115,7 +111,7 @@ public class ProductVendorControllerTest {
         ResultActions actionsGet = mockMvc.perform(
                 MockMvcRequestBuilders
                         .get("/api/v1/shop/getProductAttrOption").param("productCategoryId", "1")
-                        .header("Authorization", "Bearer "+ token)
+                        .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8));
 

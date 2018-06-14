@@ -132,7 +132,7 @@
 
 
     <!--public static final String CACHE_PRODUCT_SKU_ATTR_TREE = "CACHE_PRODUCT_SKU_ATTR_TREE"; //单品SKU属性 按照 属性ID 缓存-->
-    <cache name="CACHE_PRODUCT_SKU_ATTR_TREE"
+    <cache name="CACHE_PRODUCT_SKU_ATTR_TREE_BY_USER_ACCOUNT_ID"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"

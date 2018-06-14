@@ -4,6 +4,7 @@ import com.tfx0one.common.constant.ProductSkuAttrConstant;
 import com.tfx0one.common.util.BaseService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.ProductUtils;
+import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.web.mapper.EShopProductCategoryMapper;
 import com.tfx0one.web.model.EShopProductCategory;
 import com.tfx0one.web.model.EShopProductSkuAttr;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by 2fx0one on 2018/6/7.
@@ -22,6 +21,9 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 
     @Resource
     private ProductUtils productUtils;
+
+    @Resource
+    private UserAccountUtils userAccountUtils;
 
     @Resource
     private EShopProductCategoryMapper eShopProductCategoryMapper;
@@ -34,11 +36,10 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 
     //获取改分类下的所有选择
     public JSONResult getSkuAttrOptionTreeByProductCategoryId(int productCategoryId) {
-        Map<String, List<EShopProductSkuAttr>> map = productUtils.getSkuAttrOptionTree(productCategoryId);
+        List<EShopProductSkuAttr> list = productUtils.getSkuAttrOptionTree(productCategoryId);
 
-        return JSONResult.ok().data(map);
+        return JSONResult.ok().data(list);
     }
-
 
 
 //    @Resource
@@ -54,36 +55,32 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 //    }
 
     public JSONResult setSkuAttrOptionTreeByProductCategoryId(EShopProductSkuAttr attr) {
-        if (attr.getProductCategoryId() == null) {
+
+        if (attr.getUserAccountId() == null) {
             return JSONResult.error("属性参数错误 productCategoryId 不能为空");
+        }
+
+        if (!userAccountUtils.getCacheLoginUser().getId().equals(attr.getUserAccountId())) {
+            return JSONResult.error("属性参数错误 user_account_id 对应用户不存在");
         }
 
         if (attr.getSortOrder() == null) {
             return JSONResult.error("属性参数错误 sortOrder 不能为空");
         }
 
-        if (attr.getAttrContent() == null) {
-            return JSONResult.error("属性参数错误 attrContent 不能为空");
+        if (attr.getAttrName() == null) {
+            return JSONResult.error("属性参数错误 attrName 不能为空");
         }
-        if (!ProductSkuAttrConstant.attr.containsValue(attr.getAttrType())) {
+
+//        this.select(new EShopProductSkuAttr().withUserAccountId())
+        if (!ProductSkuAttrConstant.attr.contains(attr.getAttrName())) {
 //        if (!"COLOR_SIZE".contains(attr.getAttrType())) {
-            return JSONResult.error("属性参数错误， 暂时只能设置 COLOR 和 SIZE 的属性， 但是设置为：" + attr.getAttrType());
+            return JSONResult.error("属性参数错误， 暂时只能设置 COLOR 和 SIZE 的属性， 但是设置为：" + attr.getAttrName());
         }
 
-        //过滤一下，相同属性 就不插入数据库了。
-        List<EShopProductSkuAttr> list = productUtils.getSkuAttrOptionTree(attr.getProductCategoryId()).get(attr.getAttrType())
-                .stream().filter(
-                        e -> attr.getAttrType().equals(e.getAttrType()) && attr.getAttrContent().equals(e.getAttrContent())
-                ).collect(Collectors.toList());
-
-        if (list.size() > 0) {
-            return JSONResult.error("属性重复 已经存在 " + attr.getAttrType() + " : " + attr.getAttrContent());
-        }
-
-        this.save(attr);
-
-        productUtils.refreshSkuAttrOptionTree(attr.getProductCategoryId()); //刷新树状结构
-        return getSkuAttrOptionTreeByProductCategoryId(attr.getProductCategoryId());
+        //过滤一下子节点
+//
+        return null;
     }
 
 //    public JSONResult setSkuAttrOptionTreeByProductCategoryId(int productCategoryId, String attrType, String attrContent) {

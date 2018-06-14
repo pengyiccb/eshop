@@ -1,7 +1,9 @@
 package com.tfx0one.web.model;
 
 import com.tfx0one.common.util.BaseEntity;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name = "e_shop_product_sku_attr")
 public class EShopProductSkuAttr extends BaseEntity {
@@ -41,6 +43,23 @@ public class EShopProductSkuAttr extends BaseEntity {
      *
      * @return id - sku属性id
      */
+
+    @Transient
+    private List<EShopProductSkuAttr> children;
+
+    public List<EShopProductSkuAttr> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<EShopProductSkuAttr> children) {
+        this.children = children;
+    }
+
+    public EShopProductSkuAttr withChildren(List<EShopProductSkuAttr> children) {
+        this.setChildren(children);
+        return this;
+    }
+
     public Integer getId() {
         return id;
     }

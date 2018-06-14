@@ -27,7 +27,7 @@ public class CacheConstant {
     public static final String CACHE_PRODUCT_SKU_ATTR_BY_CATEGORY_ID = "CACHE_PRODUCT_SKU_ATTR_BY_CATEGORY_ID"; //单品SKU属性 按照属性ID缓存
     public static final String CACHE_PRODUCT_SKU_ATTR_BY_ID = "CACHE_PRODUCT_SKU_ATTR_BY_ID"; //单品SKU属性 按照属性ID缓存
 
-    public static final String CACHE_PRODUCT_SKU_ATTR_TREE = "CACHE_PRODUCT_SKU_ATTR_TREE"; //单品SKU属性 按照 属性ID 缓存
+    public static final String CACHE_PRODUCT_SKU_ATTR_TREE_BY_USER_ACCOUNT_ID = "CACHE_PRODUCT_SKU_ATTR_TREE_BY_USER_ACCOUNT_ID"; //单品SKU属性 按照 ID 缓存
 
 
 

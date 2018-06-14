@@ -3,6 +3,7 @@ package com.tfx0one.web.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.util.BaseService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.ProductUtils;
@@ -11,6 +12,9 @@ import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.VendorUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -35,17 +40,27 @@ public class ProductService extends BaseService<EShopProduct> {
     @Autowired
     private VenderUserService venderUserService;
 
-
-    //该商家的基本商品数据信息列表，不包含单品信息
-//    @Cacheable(key = "#appId+'_appId'")
-    public JSONResult productList(String appId) {
-        VendorUser vendorUser = venderUserService.selectByAppId(appId);
-        if (vendorUser == null) {
-            return JSONResult.error("商家的 appId 不存在！appId = " + appId);
-        }
-        Map<Integer, EShopProduct> map = productUtils.getProductSPU(vendorUser.getId());
-        return JSONResult.ok().data(new ArrayList<>(map.values()));
+    //缓存查询
+    @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SPU_BY_VENDOR_ID, key = "#p0")
+    public List<EShopProduct> selectByVendorId(int vendorId) {
+        return this.select(new EShopProduct().withVendorUserId(vendorId));
     }
+
+
+    @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SPU_BY_ID, key = "#p0")
+    public EShopProduct selectById(Integer productId) {
+        return this.selectOne(new EShopProduct().withId(productId));
+    }
+    //该商家的基本商品数据信息列表，不包含单品信息
+////    @Cacheable(key = "#appId+'_appId'")
+//    public JSONResult productList(String appId) {
+//        VendorUser vendorUser = venderUserService.selectByAppId(appId);
+//        if (vendorUser == null) {
+//            return JSONResult.error("商家的 appId 不存在！appId = " + appId);
+//        }
+////        Map<Integer, EShopProduct> map = productUtils.getProductSPU(vendorUser.getId());
+//        return JSONResult.ok().data(new ArrayList<>(this.selectByVendorId(vendorUser.getId())));
+//    }
 
     //该商品下所有单品数据列表，详细信息
 //    @Cacheable(key = "#productId+'_productId'")
@@ -62,6 +77,12 @@ public class ProductService extends BaseService<EShopProduct> {
 
 
     //插入商品数据信
+//    @Caching(put = {
+//
+//    }, evict = {
+//            @CacheEvict(cacheNames = "a", key = "#eshopProduct.vendorUserId")
+//    }
+//    )
 //    @CachePut(key = "#eshopProduct.id+'_productId'")
     public int insertProductData(EShopProduct eshopProduct) {
         eshopProductMap.insertEShopProductAndGetID(eshopProduct);
@@ -119,4 +140,5 @@ public class ProductService extends BaseService<EShopProduct> {
 
         return JSONResult.ok("修改成功！");
     }
+
 }

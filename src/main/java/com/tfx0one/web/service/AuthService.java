@@ -125,9 +125,11 @@ public class AuthService {
         String wxSessionKey = (String)wxSession.get("session_key");
         System.out.println(wxSessionKey);
 
-        //2 创建账户 返回一个账户管理的 serverSessionKey 缓存时间30分钟
+        //2 创建账户 返回一个账户
         UserAccount userAccount = this.createUserAccount(user, appId, wxOpenId, wxUnionId);
 
+        //登录 获取token
+        //appId_openid 作为UserName
         return this.login(userAccount.getUsername(), "123456"); //默认密码
 //        return JSONResult.ok("获取session成功");
     }
@@ -149,7 +151,7 @@ public class AuthService {
 
             //为方便调试设置的账号和密码，微信账号可以使用web接口调试
             userAccount
-                    .withUsername(openId) //用openId 作为登录账号
+                    .withUsername(appId+"_"+openId) //用openId 作为登录账号
                     .withPassword(new BCryptPasswordEncoder().encode("123456")); //默认密码
 
             userAccountService.save(userAccount);

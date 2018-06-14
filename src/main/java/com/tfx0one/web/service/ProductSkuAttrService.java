@@ -1,16 +1,21 @@
 package com.tfx0one.web.service;
 
+import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.constant.ProductSkuAttrConstant;
+import com.tfx0one.common.constant.StringConstant;
 import com.tfx0one.common.util.BaseService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.ProductUtils;
 import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.web.mapper.EShopProductCategoryMapper;
 import com.tfx0one.web.model.EShopProductCategory;
+import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,6 +87,42 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 //
         return null;
     }
+
+    @Resource
+    private ProductSkuService productSkuService;
+
+    @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, key = "#p0")
+    public EShopProductSkuAttr selectById(int skuId){
+        return this.selectOne(new EShopProductSkuAttr().withId(skuId));
+    }
+
+
+    @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE_BY_PRODUCT_ID, key = "#p0")
+    public List<EShopProductSkuAttr> selectByProductId(Integer productId) {
+        //获取所有单品。
+        List<EShopProductSku> list = productSkuService.selectByProductId(productId);
+        //创建头
+        EShopProductSkuAttr attr = list.get(0).getAttrs().get(0);
+
+        //组合单品中的数据。
+//        格式为  [
+        //    //  {name:"颜色","skuAttrs":[{红},{黄}]},
+        //    //  {name:"尺码","skuAttrs":[{M},{X}]}
+        //    // ]
+
+        List<EShopProductSkuAttr> children = new ArrayList<>();
+        list.stream().forEach(sku-> {
+//            sku.getAttrs().stream().forEach(attr -> {
+//                attr.getId();
+//                attr.getAttrName();
+//            });
+//            String[] attrId = e.getAttrOption().split(StringConstant.SPLITTER);
+//            EShopProductSkuAttr root = this.select(new EShopProductSkuAttr().withParentId());
+        });
+        return null;
+    }
+
+
 
 //    public JSONResult setSkuAttrOptionTreeByProductCategoryId(int productCategoryId, String attrType, String attrContent) {
 //        return setSkuAttrOptionTreeByProductCategoryId(

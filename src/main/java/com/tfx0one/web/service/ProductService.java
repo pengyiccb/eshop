@@ -40,16 +40,21 @@ public class ProductService extends BaseService<EShopProduct> {
     @Autowired
     private VenderUserService venderUserService;
 
-    //缓存查询
+    @Resource
+    private ProductSkuAttrService productSkuAttrService;
+
+    //缓存查询 按照商家ID
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SPU_BY_VENDOR_ID, key = "#p0")
     public List<EShopProduct> selectByVendorId(int vendorId) {
         return this.select(new EShopProduct().withVendorUserId(vendorId));
     }
 
-
+    //按照商品ID缓存
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SPU_BY_ID, key = "#p0")
     public EShopProduct selectById(Integer productId) {
-        return this.selectOne(new EShopProduct().withId(productId));
+        EShopProduct product = this.selectOne(new EShopProduct().withId(productId));
+//        productSkuAttrService.selectByProductId(productId);
+        return product;
     }
     //该商家的基本商品数据信息列表，不包含单品信息
 ////    @Cacheable(key = "#appId+'_appId'")

@@ -25,4 +25,8 @@ public class FunctionTest {
     public String test2(String a) {
         return a + "_";
     }
+
+    @Test void test3() {
+        System.out.println("a".split("\\|"));
+    }
 }

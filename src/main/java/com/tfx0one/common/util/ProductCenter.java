@@ -158,10 +158,10 @@ public class ProductCenter {
 
     //这个函数依赖缓存中的属性数据  getProductSkuAttr
     private EShopProductSku injectProductSKU(EShopProductSku e) {
-        List<EShopProductSkuAttr> attrList = Arrays.asList(e.getAttrOption().split("\\|"))
-                .parallelStream()
-                .map(attr -> getProductSkuAttr(Integer.parseInt(attr)))
-                .collect(Collectors.toList());
+//        List<EShopProductSkuAttr> attrList = Arrays.asList(e.getAttrOption().split("\\|"))
+//                .parallelStream()
+//                .map(attr -> getProductSkuAttr(Integer.parseInt(attr)))
+//                .collect(Collectors.toList());
 
         //属性 properties [
         //  {name:"颜色","skuAttrs":[{红},{黄}]},

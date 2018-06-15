@@ -8,10 +8,13 @@ import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by 2fx0one on 2018/6/12.
@@ -62,15 +65,16 @@ public class ProductCenter {
     private ProductUtils productUtils;
 
     //============ 前台用户接口 ============
-    //获取一个商品基本信息
+    //获取一个商品基本信息 后台使用
     public EShopProduct getProductById(int productId) {
         return productService.selectById(productId);
     }
 
-    //获取一个单品的信息，包含属性
+    //获取一个单品的信息，包含属性 后台使用
     public EShopProductSku getProductSkuById(int skuId) {
         return productSkuService.selectById(skuId);
     }
+
 
     //根据商家id 获取商品列表 只是基本信息 首页使用
     public List<EShopProduct> getProductListByVendorId(int vendorId) {

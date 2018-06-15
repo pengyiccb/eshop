@@ -76,6 +76,12 @@ public class EShopProduct extends BaseEntity {
     private Integer vendorUserId;
 
     /**
+     * 属性列表
+     */
+    @Column(name = "attrs_sp_el")
+    private String attrsSpEl;
+
+    /**
      * 详情
      */
     @Column(name = "content_desc")
@@ -373,6 +379,29 @@ public class EShopProduct extends BaseEntity {
     }
 
     /**
+     * 获取属性列表
+     *
+     * @return attrs_sp_el - 属性列表
+     */
+    public String getAttrsSpEl() {
+        return attrsSpEl;
+    }
+
+    public EShopProduct withAttrsSpEl(String attrsSpEl) {
+        this.setAttrsSpEl(attrsSpEl);
+        return this;
+    }
+
+    /**
+     * 设置属性列表
+     *
+     * @param attrsSpEl 属性列表
+     */
+    public void setAttrsSpEl(String attrsSpEl) {
+        this.attrsSpEl = attrsSpEl == null ? null : attrsSpEl.trim();
+    }
+
+    /**
      * 获取详情
      *
      * @return content_desc - 详情
@@ -414,6 +443,7 @@ public class EShopProduct extends BaseEntity {
         sb.append(", imgListUrl=").append(imgListUrl);
         sb.append(", isDelete=").append(isDelete);
         sb.append(", vendorUserId=").append(vendorUserId);
+        sb.append(", attrsSpEl=").append(attrsSpEl);
         sb.append(", contentDesc=").append(contentDesc);
         sb.append("]");
         return sb.toString();

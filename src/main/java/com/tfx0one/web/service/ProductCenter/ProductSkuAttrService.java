@@ -7,6 +7,7 @@ import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,7 +26,13 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     private ProductUtils productUtils;
 
     @Resource
+    private ProductCenter productCenter;
+
+    @Resource
     private ProductSkuService productSkuService;
+
+    @Resource
+    private ProductService productService;
 
 //    public JSONResult getAllProductCategoryOption(int vendorId) {
 //        //TODO 分类应该缓存 vendorId 没有使用
@@ -40,8 +47,8 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 //        return JSONResult.ok().data(list);
 //    }
 
-    @Resource
-    private EShopProductSkuAttrMapper eShopProductSkuAttrMapper;
+//    @Resource
+//    private EShopProductSkuAttrMapper eShopProductSkuAttrMapper;
 
     @CachePut(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, key = "#p0.id")
     public EShopProductSkuAttr insertProductSkuAttr(EShopProductSkuAttr attr) {
@@ -64,15 +71,30 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     // ]
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_PRODUCT_ID, key = "#p0")
     public List<EShopProductSkuAttr> selectByProductId(Integer productId) {
+
+        //方案二
+//        Map<Integer, List<Integer>> attrs = (Map<Integer, List<Integer>>)new SpelExpressionParser().parseExpression(productService.selectById(productId).getAttrsSpEl()).getValue();
+//        List<EShopProductSkuAttr> list = attrs.entrySet().stream().map(
+//                root-> this.selectById(root.getKey())
+//                        .withChildren(
+//                                root.getValue().stream().map(
+//                                        e->this.selectById(e)
+//                                ).collect(Collectors.toList())
+//                        )
+//        ).collect(Collectors.toList());
+
         //获取所有单品。
         List<EShopProductSku> list = productSkuService.selectByProductId(productId);
 
         //创建根节点
         Map<Integer, EShopProductSkuAttr> root = productUtils.combinationRootAttr(list.get(0));
 
-        list.forEach(sku -> { //遍历所有单品
-            sku.getAttrs().forEach(attr -> { //遍历所有单品属性
-                List<EShopProductSkuAttr> children = root.get(attr.getParentId()).getChildren(); //找到属性的父节点保存位置。
+        list.forEach(sku -> {
+            //遍历所有单品
+            sku.getAttrs().forEach(attr -> {
+                //遍历所有单品属性
+                List<EShopProductSkuAttr> children = root.get(attr.getParentId()).getChildren();
+                //找到属性的父节点保存位置。
                 if (!children.contains(attr)) {
                     children.add(attr); //不包含就加入节点
                 }

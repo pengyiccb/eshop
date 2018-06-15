@@ -66,7 +66,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     }
 
 
-    //获取商品的属性
+    //获取改商品下所有单品的属性
     //格式为 [
     //  {name:"颜色","skuAttrs":[{红},{黄}]},
     //  {name:"尺码","skuAttrs":[{M},{X}]}
@@ -76,7 +76,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
         //获取所有单品。
         List<EShopProductSku> list = productSkuService.selectByProductId(productId);
 
-        //创建头
+        //创建根节点
         Map<Integer, EShopProductSkuAttr> root = productUtils.combinationRootAttr(list.get(0));
 
         list.forEach(sku -> { //遍历所有单品

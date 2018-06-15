@@ -36,7 +36,6 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     private ProductCategoryService productCategoryService;
 
 
-
 //    public JSONResult getAllProductCategoryOption(int vendorId) {
 //        //TODO 分类应该缓存 vendorId 没有使用
 //        List<EShopProductCategory> list = productCategoryService.select(null);
@@ -60,12 +59,18 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     }
 
 
+    //通过ID找到属性
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, key = "#p0")
-    public EShopProductSkuAttr selectById(int skuId){
+    public EShopProductSkuAttr selectById(int skuId) {
         return this.selectOne(new EShopProductSkuAttr().withId(skuId));
     }
 
+
     //获取商品的属性
+    //格式为 [
+    //  {name:"颜色","skuAttrs":[{红},{黄}]},
+    //  {name:"尺码","skuAttrs":[{M},{X}]}
+    // ]
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_PRODUCT_ID, key = "#p0")
     public List<EShopProductSkuAttr> selectByProductId(Integer productId) {
         //获取所有单品。
@@ -74,7 +79,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
         //创建头
         Map<Integer, EShopProductSkuAttr> root = productUtils.combinationRootAttr(list.get(0));
 
-        list.forEach(sku-> { //遍历所有单品
+        list.forEach(sku -> { //遍历所有单品
             sku.getAttrs().forEach(attr -> { //遍历所有单品属性
                 List<EShopProductSkuAttr> children = root.get(attr.getParentId()).getChildren(); //找到属性的父节点保存位置。
                 if (!children.contains(attr)) {
@@ -98,13 +103,9 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 //        return roots;
         //找到所有根节点 0 逻看上面
         return this.select(new EShopProductSkuAttr().withUserAccountId(userAccountId).withParentId(0)).parallelStream().map(
-            root -> root.withChildren(
-                    this.select(new EShopProductSkuAttr().withParentId(root.getId()))
-            )
+                root -> root.withChildren(
+                        this.select(new EShopProductSkuAttr().withParentId(root.getId()))
+                )
         ).collect(Collectors.toList());
-
-
-
-
     }
 }

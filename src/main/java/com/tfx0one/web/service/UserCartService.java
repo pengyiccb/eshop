@@ -10,17 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by wynn on 2018/6/9.
  */
 
 @Service
-public class UserCartService extends BaseService<UserCart>{
+public class UserCartService extends BaseService<UserCart> {
 
     @Resource
-    private  ProductSkuService productSkuService;
+    private ProductSkuService productSkuService;
 
     @Resource
     private ProductService productService;
@@ -32,28 +33,35 @@ public class UserCartService extends BaseService<UserCart>{
     public JSONResult cartList(Integer userid) {
 
         List<UserCart> list = this.select(new UserCart().withUserAccount(userid));
+        list.forEach(
+                cart -> {
+                    EShopProductSku productSku = productSkuService.selectById(cart.getProductSkuId());
+                    cart.setEShopProductSku(productSku);
+                    cart.setEShopProduct(productService.selectById(productSku.getProductId()));
+                }
+        );
 
-        List<UserCart> listdata = new ArrayList<UserCart>();
+//        List<UserCart> listdata = new ArrayList<UserCart>();
 
-        for (UserCart usercart: list) {
+//        for (UserCart usercart: list) {
 
-            //
-            EShopProductSku productsku = productSkuService.selectOne(new EShopProductSku().withId(usercart.getProductSkuId()));
-            if (productsku == null) {
-                continue;
-            }
-
-            EShopProduct product = productService.selectOne(new EShopProduct().withId(productsku.getProductId()));
-            if (product == null){// || product.getIsDelete()==1){
-                continue;
-            }
-
-            EShopProductSku productskuall = productUtils.getProductSKU(productsku.getProductId()).get(usercart.getProductSkuId());
-            //usercart.setEShopProduct(product);
-            usercart.setEShopProductSku(productskuall);
-            listdata.add(usercart);
-        }
-        return JSONResult.ok().data(listdata);
+        //
+//            EShopProductSku productsku = productSkuService.selectOne(new EShopProductSku().withId(usercart.getProductSkuId()));
+//            if (productsku == null) {
+//                continue;
+//            }
+//
+//            EShopProduct product = productService.selectOne(new EShopProduct().withId(productsku.getProductId()));
+//            if (product == null){// || product.getIsDelete()==1){
+//                continue;
+//            }
+//
+//            EShopProductSku productskuall = productSkuService.selectById(productsku.getProductId()).get(usercart.getProductSkuId());
+//            //usercart.setEShopProduct(product);
+//            usercart.setEShopProductSku(productskuall);
+//            listdata.add(usercart);
+//        }
+        return JSONResult.ok().data(list);
     }
 
     //添加购物车
@@ -61,12 +69,12 @@ public class UserCartService extends BaseService<UserCart>{
 
 
         EShopProductSku productsku = productSkuService.selectOne(new EShopProductSku().withId(productSkuId));
-        if (productsku == null){
+        if (productsku == null) {
             return JSONResult.error(500, "产品不存在");
         }
 
         EShopProduct product = productService.selectOne(new EShopProduct().withId(productsku.getProductId()));
-        if (product == null ) {//|| product.getIsDelete() == null || product.getIsDelete()==1) {
+        if (product == null) {//|| product.getIsDelete() == null || product.getIsDelete()==1) {
             return JSONResult.error(500, "产品不存在");
         }
 
@@ -84,7 +92,7 @@ public class UserCartService extends BaseService<UserCart>{
     public JSONResult modifycart(Integer userid, Integer cartid, Integer count) {
 
         UserCart cartone = this.selectOne(new UserCart().withUserAccount(userid).withId(cartid));
-        if (cartone == null || cartone.getCount().intValue() + count.intValue() < 0){
+        if (cartone == null || cartone.getCount().intValue() + count.intValue() < 0) {
             return JSONResult.error(500, "操作数量不正确");
         }
 
@@ -101,13 +109,13 @@ public class UserCartService extends BaseService<UserCart>{
         if (cartid.intValue() == -1) {
             List<UserCart> list = this.select(new UserCart().withUserAccount(userid));
 
-            for (UserCart usercart: list) {
+            for (UserCart usercart : list) {
                 this.deleteByPrimaryKey(usercart.getId());
             }
 
         } else {
             UserCart cartone = this.selectOne(new UserCart().withUserAccount(userid).withId(cartid));
-            if (cartone == null){
+            if (cartone == null) {
                 return JSONResult.error(500, "物品不存在");
             }
             this.deleteByPrimaryKey(cartid);

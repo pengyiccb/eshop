@@ -30,7 +30,7 @@ public class ProductUtilsTest {
         int times = 1000000;
 //        for (int i=0; i<times; ++i) {
 //            productCenter.getProductSPUListByVendorId(1);
-        productUtils.getProductSPU(1).values().forEach(System.out::println);
+//        productUtils.getProductSPU(1).values().forEach(System.out::println);
 //        }
 //        System.out.println( "=====time======" + (System.currentTimeMillis()-s)); //19991
     }

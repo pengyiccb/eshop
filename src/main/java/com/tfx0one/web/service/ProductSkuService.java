@@ -52,7 +52,7 @@ public class ProductSkuService extends BaseService<EShopProductSku> {
 
     @CachePut(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_BY_ID, key = "#p0")
     public EShopProductSku updateSku(EShopProductSku productSku) {
-        this.updateByPrimaryKey(productSku);
+        this.updateNotNull(productSku);
         return injectProductSKU(productSku);
     }
 

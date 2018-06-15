@@ -75,7 +75,7 @@ public class ProductService extends BaseService<EShopProduct> {
     //修改商品
     @CachePut(cacheNames = CacheConstant.CACHE_PRODUCT_SPU_BY_ID, key = "#p0.id")
     public EShopProduct modifyProduct(EShopProduct product, List<EShopProductSku> skuList) {
-        eShopProductMapper.updateEShopProductByID(product);
+        this.updateNotNull(product);
 
         //单品信息更新
         skuList.forEach(e -> productSkuService.updateSku(e));

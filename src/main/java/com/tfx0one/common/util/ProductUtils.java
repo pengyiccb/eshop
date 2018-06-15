@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -202,6 +199,25 @@ public class ProductUtils {
 //        });
 //        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE, String.valueOf(productCategoryId), map);
 //        return map;
+    }
+
+    //! 抽离出来， 方便缓存
+    //从一个单品中提取头信息 {"颜色": []}
+    //组合单品中的数据。
+//        格式为  [
+    //    //  {name:"颜色","skuAttrs":[{红},{黄}]},
+    //    //  {name:"尺码","skuAttrs":[{M},{X}]}
+    //    // ]
+    public Map<Integer, EShopProductSkuAttr> combinationRootAttr(EShopProductSku sku) {
+//        {1:red},{2:blue}
+        Map<Integer, EShopProductSkuAttr> root = new HashMap<>();
+        sku.getAttrs().forEach(attr->{
+//            EShopProductSkuAttr parent = this.selectOne(new EShopProductSkuAttr().withId(attr.getParentId()).withParentId(0));
+            EShopProductSkuAttr parent = productSkuAttrService.selectById(attr.getParentId());
+            parent.setChildren(new ArrayList<>());
+            root.put(parent.getId(), parent);
+        });
+        return root;
     }
 
 }

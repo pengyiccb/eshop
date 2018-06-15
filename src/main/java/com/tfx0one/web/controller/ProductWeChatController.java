@@ -51,7 +51,6 @@ public class ProductWeChatController {
             return JSONResult.error("商家的 appId 不存在！appId = " + appId);
         }
         return JSONResult.ok().data(new ArrayList<>(productService.selectByVendorId(vendorUser.getId())));
-//        return productService.productList(appId);
     }
 
     @ApiOperation(value = "获取商品详情", notes = "传递商品的Id")

@@ -14,8 +14,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -97,22 +95,6 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
         return this.selectOne(new EShopProductSkuAttr().withId(skuId));
     }
 
-    //从一个单品中提取头信息 {"颜色": []}
-    //组合单品中的数据。
-//        格式为  [
-    //    //  {name:"颜色","skuAttrs":[{红},{黄}]},
-    //    //  {name:"尺码","skuAttrs":[{M},{X}]}
-    //    // ]
-    private Map<Integer, EShopProductSkuAttr> combinationRootAttr(EShopProductSku sku) {
-//        {1:red},{2:blue}
-        Map<Integer, EShopProductSkuAttr> root = new HashMap<>();
-        sku.getAttrs().forEach(attr->{
-            EShopProductSkuAttr parent = this.selectOne(new EShopProductSkuAttr().withId(attr.getParentId()).withParentId(0));
-            parent.setChildren(new ArrayList<>());
-            root.put(parent.getId(), parent);
-        });
-        return root;
-    }
 
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE_BY_PRODUCT_ID, key = "#p0")
     public Map<Integer, EShopProductSkuAttr> selectByProductId(Integer productId) {
@@ -120,7 +102,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
         List<EShopProductSku> list = productSkuService.selectByProductId(productId);
 
         //创建头
-        Map<Integer, EShopProductSkuAttr>  root = combinationRootAttr(list.get(0));
+        Map<Integer, EShopProductSkuAttr>  root = productUtils.combinationRootAttr(list.get(0));
 
 
         list.forEach(sku-> { //遍历所有单品
@@ -134,11 +116,4 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
         return root;
     }
 
-
-
-//    public JSONResult setSkuAttrOptionTreeByProductCategoryId(int productCategoryId, String attrType, String attrContent) {
-//        return setSkuAttrOptionTreeByProductCategoryId(
-//                new EShopProductSkuAttr().withProductCategoryId(productCategoryId).withAttrType(attrType).withAttrContent(attrContent));
-//
-//    }
 }

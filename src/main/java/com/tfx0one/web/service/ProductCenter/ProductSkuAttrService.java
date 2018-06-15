@@ -2,7 +2,6 @@ package com.tfx0one.web.service.ProductCenter;
 
 import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.util.BaseService;
-import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.web.mapper.EShopProductSkuAttrMapper;
 import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
@@ -28,13 +27,6 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     @Resource
     private ProductSkuService productSkuService;
 
-    @Resource
-    private UserAccountUtils userAccountUtils;
-
-    @Resource
-    private ProductCategoryService productCategoryService;
-
-
 //    public JSONResult getAllProductCategoryOption(int vendorId) {
 //        //TODO 分类应该缓存 vendorId 没有使用
 //        List<EShopProductCategory> list = productCategoryService.select(null);
@@ -52,7 +44,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     private EShopProductSkuAttrMapper eShopProductSkuAttrMapper;
 
     @CachePut(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, key = "#p0.id")
-    public EShopProductSkuAttr insertEShopSKUAttrAndGetID(EShopProductSkuAttr attr) {
+    public EShopProductSkuAttr insertProductSkuAttr(EShopProductSkuAttr attr) {
         this.insert(attr);
         return attr;
     }

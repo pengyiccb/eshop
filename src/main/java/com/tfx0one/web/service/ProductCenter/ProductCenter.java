@@ -3,49 +3,21 @@ package com.tfx0one.web.service.ProductCenter;
 import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.util.EhCacheUtils;
 import com.tfx0one.web.model.EShopProduct;
+import com.tfx0one.web.model.EShopProductCategory;
 import com.tfx0one.web.model.EShopProductSku;
+import com.tfx0one.web.model.EShopProductSkuAttr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by 2fx0one on 2018/6/12.
  */
 @Component
 public class ProductCenter {
-    //    商品中心 模块
-    //缓存 商品 单品相关 按照ID
-    private final Logger logger = LoggerFactory.getLogger(ProductCenter.class);
-
-    //    //app内的缓存
-    @Resource
-    private EhCacheUtils ehCacheUtils;
-
-    @Resource
-    private ProductService productService;
-
-    @Resource
-    private ProductSkuService productSkuService;
-
-    @Resource
-    private ProductSkuAttrService productSkuAttrService;
-
-    @Resource
-    private ProductUtils productUtils;
-
-    //获取一个商品基本信息
-    public EShopProduct getProductById(int productId) {
-        return productService.selectById(productId);
-    }
-
-    //获取一个单品的信息，包含属性
-    public EShopProductSku getProductSkuById(int skuId) {
-        return productSkuService.selectById(skuId);
-    }
-
-
     private static boolean loadAllProductCacheOnce = false;
 
     //缓存预热，只能调用一次。 顺序要注意好
@@ -66,6 +38,77 @@ public class ProductCenter {
                     .forEach(e -> ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_BY_ID, String.valueOf(e.getId()), productUtils.injectAttrToProductSKU(e)));
         }
     }
+
+    //    商品中心 模块
+    //缓存 商品 单品相关 按照ID
+    private final Logger logger = LoggerFactory.getLogger(ProductCenter.class);
+
+    //    //app内的缓存
+    @Resource
+    private EhCacheUtils ehCacheUtils;
+
+    @Resource
+    private ProductService productService;
+
+    @Resource
+    private ProductSkuService productSkuService;
+
+    @Resource
+    private ProductSkuAttrService productSkuAttrService;
+
+    @Resource
+    ProductCategoryService productCategoryService;
+    @Resource
+    private ProductUtils productUtils;
+
+    //============ 前台用户接口 ============
+    //获取一个商品基本信息
+    public EShopProduct getProductById(int productId) {
+        return productService.selectById(productId);
+    }
+
+    //获取一个单品的信息，包含属性
+    public EShopProductSku getProductSkuById(int skuId) {
+        return productSkuService.selectById(skuId);
+    }
+
+    //根据商家id 获取商品列表 只是基本信息 首页使用
+    public List<EShopProduct> getProductListByVendorId(int vendorId) {
+        return productService.selectByVendorId(vendorId);
+    }
+
+    //根据商品的ID， 获取商品的属性。 商品详情页使用
+    public List<EShopProductSkuAttr> getProductAttrByProductId(int productId) {
+        return productSkuAttrService.selectByProductId(productId);
+    }
+
+    //============ 后台商户接口 ============
+    //或者商家可使用的分类 创建商品时使用
+    public List<EShopProductCategory> getCategoryByVendorId(int vendorId) {
+        //TODO: 默认所有分类都可以使用
+        return productCategoryService.select(null);
+    }
+
+    //新建一个单品的属性 创建商品页面
+    public EShopProductSkuAttr createProductSkuAttr(EShopProductSkuAttr attr) {
+        return productSkuAttrService.insertProductSkuAttr(attr);
+    }
+
+    //获取商家可选分类中的可选属性 创建商品页面
+    public List<EShopProductSkuAttr> getProductAttrOptionByUserId(int userAccountId) {
+        return productSkuAttrService.getProductAttrOptionByUserId(userAccountId);
+    }
+
+    //创建商品
+    public EShopProduct createProduct(EShopProduct product, List<EShopProductSku> skuList) {
+        return productService.createProduct(product, skuList);
+    }
+
+    //修改商品
+    public EShopProduct modifyProduct(EShopProduct product, List<EShopProductSku> skuList) {
+        return productService.modifyProduct(product, skuList);
+    }
+
 
 //
 //    public List<EShopProduct> getProductSPUListByVendorId(int vendorId) {

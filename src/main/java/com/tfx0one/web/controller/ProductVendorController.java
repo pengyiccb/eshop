@@ -6,13 +6,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.web.model.EShopProduct;
-import com.tfx0one.web.model.EShopProductCategory;
 import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
-import com.tfx0one.web.service.ProductCenter.ProductCategoryService;
-import com.tfx0one.web.service.ProductCenter.ProductService;
-import com.tfx0one.web.service.ProductCenter.ProductSkuAttrService;
-import com.tfx0one.web.service.ProductCenter.ProductSkuService;
+import com.tfx0one.web.service.ProductCenter.ProductCenter;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,25 +26,16 @@ public class ProductVendorController {
     //商户的后台web接口
 
     @Resource
-    private ProductSkuAttrService productSkuAttrService;
-
-    @Resource
-    private ProductSkuService productSkuService;
-
-    @Resource
-    private ProductService productService;
-
-    @Resource
     private UserAccountUtils userAccountUtils;
 
     @Resource
-    private ProductCategoryService productCategoryService;
+    private ProductCenter productCenter;
 
     @ApiOperation(value = "获取商家可用的商品分类", notes = "需要传递 vendorId 作为参数")
     @RequestMapping(value = "/api/v1/shop/ProductCategoryOption", method = RequestMethod.GET)
     public JSONResult ProductOption(@RequestParam int vendorId) {
-        List<EShopProductCategory> list = productCategoryService.select(null);
-        return JSONResult.ok().data(list);
+//        List<EShopProductCategory> list = productCenter.getCategoryByVendorId(vendorId);
+        return JSONResult.ok().data(productCenter.getCategoryByVendorId(vendorId));
     }
 
 
@@ -76,16 +63,16 @@ public class ProductVendorController {
         if (!userAccountUtils.getCacheLoginUser().getId().equals(attr.getUserAccountId())) {
             return JSONResult.error("属性参数错误 user_account_id 对应用户不存在");
         }
-        EShopProductSkuAttr e = productSkuAttrService.insertEShopSKUAttrAndGetID(attr);
-        return JSONResult.ok("添加成功").data(e);
+
+        productCenter.createProductSkuAttr(attr);
+        return JSONResult.ok("添加成功").data(attr);
     }
 
 
     @ApiOperation(value = "获取商家可选分类中的可选属性", notes = "需要传递 productCategroyId 作为参数")
     @RequestMapping(value = "/api/v1/shop/getProductAttrOptionByUserId", method = RequestMethod.GET)
     public JSONResult getProductAttrOptionByUserId(@RequestParam int userAccountId) {
-//        System.out.println(productCategoryId);
-        List<EShopProductSkuAttr> list = productSkuAttrService.getProductAttrOptionByUserId(userAccountId);
+        List<EShopProductSkuAttr> list = productCenter.getProductAttrOptionByUserId(userAccountId);
         return JSONResult.ok().data(list);
     }
 
@@ -105,7 +92,7 @@ public class ProductVendorController {
                 e -> JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class)
         ).collect(Collectors.toList());
 
-        productService.createProduct(product, skuList);
+        productCenter.createProduct(product, skuList);
         return JSONResult.ok().data(product);
 
     }
@@ -120,7 +107,7 @@ public class ProductVendorController {
                 e -> JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class)
         ).collect(Collectors.toList());
 
-        productService.modifyProduct(product, skuList);
+        productCenter.modifyProduct(product, skuList);
         return JSONResult.ok().data(product);
     }
 

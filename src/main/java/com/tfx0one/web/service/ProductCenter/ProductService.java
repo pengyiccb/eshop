@@ -24,9 +24,6 @@ import java.util.List;
 public class ProductService extends BaseService<EShopProduct> {
 
     @Resource
-    private ProductUtils productUtils;
-
-    @Resource
     private ProductSkuService productSkuService;
 
     //缓存查询 按照商家ID 上架新商品时需要刷新

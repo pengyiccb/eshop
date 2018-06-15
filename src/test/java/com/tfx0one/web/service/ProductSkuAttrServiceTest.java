@@ -1,7 +1,5 @@
 package com.tfx0one.web.service;
 
-import com.alibaba.fastjson.JSONObject;
-import com.tfx0one.common.util.JSONResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,19 +14,21 @@ import javax.annotation.Resource;
 @SpringBootTest
 public class ProductSkuAttrServiceTest {
 
-    @Resource private ProductSkuAttrService productSkuAttrService;
+    @Resource
+    private ProductSkuAttrService productSkuAttrService;
 
     @Test
     public void getSkuAttrByProductCategoryId() {
-        JSONResult o = productSkuAttrService.getSkuAttrOptionTreeByProductCategoryId(1);
-        System.out.println(JSONObject.toJSONString(o));
+//        JSONResult o = productSkuAttrService.getSkuAttrOptionTreeByProductCategoryId(1);
+//        System.out.println(JSONObject.toJSONString(o));
 //       System.out.println(productSkuAttrService.getSkuAttrOptionByProductCategoryId(1));
-       System.out.println(productSkuAttrService.getAllProductCategoryOption(123));
+//        System.out.println(productSkuAttrService.getAllProductCategoryOption(123));
 
     }
 
     @Test
     public void test2() {
-        productSkuAttrService.selectByProductId(1).values().forEach(System.out::println);
+        productSkuAttrService.selectByProductId(1).forEach(System.out::println);
+        productSkuAttrService.getProductAttrOptionByUserId(1).forEach(System.out::println);
     }
 }

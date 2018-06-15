@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,11 +62,11 @@ public class ProductWeChatController {
             return JSONResult.error("商品 product 不存在！productId = " + productId);
         }
 
-        Map<Integer, EShopProductSkuAttr> attrs = productSkuAttrService.selectByProductId(productId);
+        List<EShopProductSkuAttr> attrs = productSkuAttrService.selectByProductId(productId);
 
         Map<String, Object> map = new HashMap<>();
         map.put("product", product);
-        map.put("attrs", attrs.values());
+        map.put("attrs", attrs);
 
         return JSONResult.ok().data(map);
 

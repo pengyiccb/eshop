@@ -162,7 +162,7 @@ public class ProductUtils {
     //Map<Integer, Map<String, List<EShopProductSkuAttr>>>
     public List<EShopProductSkuAttr> getSkuAttrOptionTree(int userAccountId) {
         List<EShopProductSkuAttr> list =
-                ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE_BY_USER_ACCOUNT_ID, String.valueOf(userAccountId));
+                ehCacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_USER_ACCOUNT_ID, String.valueOf(userAccountId));
         return !CollectionUtils.isEmpty(list) ? list : refreshSkuAttrOptionTree(userAccountId);
     }
 
@@ -182,7 +182,7 @@ public class ProductUtils {
             );
         });
 
-        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE_BY_USER_ACCOUNT_ID, String.valueOf(userAccountId), skuAttrList);
+        ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_USER_ACCOUNT_ID, String.valueOf(userAccountId), skuAttrList);
         return skuAttrList;
 
 //        List<EShopProductSkuAttr> skuAttrList = new ArrayList<>(getProductAttr(productCategoryId).values());

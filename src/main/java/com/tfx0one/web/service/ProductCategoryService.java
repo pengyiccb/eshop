@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 //产品分类
-public class ProductCatagoryService extends BaseService<EShopProductCategory> {
+public class ProductCategoryService extends BaseService<EShopProductCategory> {
 
 //    @Resource
 //    private EShopProductCategoryMapper eshopProductCategoryMapper;

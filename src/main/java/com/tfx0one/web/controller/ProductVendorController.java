@@ -1,7 +1,10 @@
 package com.tfx0one.web.controller;
 
 import com.tfx0one.common.util.JSONResult;
+import com.tfx0one.common.util.UserAccountUtils;
+import com.tfx0one.web.model.EShopProductCategory;
 import com.tfx0one.web.model.EShopProductSkuAttr;
+import com.tfx0one.web.service.ProductCategoryService;
 import com.tfx0one.web.service.ProductService;
 import com.tfx0one.web.service.ProductSkuAttrService;
 import com.tfx0one.web.service.ProductSkuService;
@@ -9,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,25 +32,55 @@ public class ProductVendorController {
     @Resource
     private ProductService productService;
 
+    @Resource
+    private UserAccountUtils userAccountUtils;
+
+    @Resource
+    private ProductCategoryService productCategoryService;
+
     @ApiOperation(value = "获取商家可用的商品分类", notes = "需要传递 vendorId 作为参数")
     @RequestMapping(value = "/api/v1/shop/ProductCategoryOption", method = RequestMethod.GET)
     public JSONResult ProductOption(@RequestParam int vendorId) {
-        return productSkuAttrService.getAllProductCategoryOption(vendorId);
+        List<EShopProductCategory> list = productCategoryService.select(null);
+        return JSONResult.ok().data(list);
     }
 
 
     @ApiOperation(value = "设置商家可选分类中的可选属性", notes = "需要传递 productCategroyId 作为参数")
-    @RequestMapping(value = "/api/v1/shop/setProductAttrOption", method = RequestMethod.POST)
-    public JSONResult setProductAttrOption(@RequestBody EShopProductSkuAttr attr) {
-        return productSkuAttrService.setSkuAttrOptionTreeByProductCategoryId(attr);
+    @RequestMapping(value = "/api/v1/shop/addProductAttr", method = RequestMethod.POST)
+    public JSONResult addProductAttr(@RequestBody EShopProductSkuAttr attr) {
+
+        if (attr.getChildren() != null) {
+            return JSONResult.error("属性参数 children 暂时不支持");
+        }
+        if (attr.getUserAccountId() == null) {
+            return JSONResult.error("属性参数错误 userAccountId 不能为空");
+        }
+
+        if (attr.getSortOrder() == null) {
+            return JSONResult.error("属性参数错误 sortOrder 不能为空");
+        }
+
+        if (attr.getAttrName() == null) {
+            return JSONResult.error("属性参数错误 attrName 不能为空");
+        }
+
+        //TODO: 同parent Id 下， name 不能一样。
+
+        if (!userAccountUtils.getCacheLoginUser().getId().equals(attr.getUserAccountId())) {
+            return JSONResult.error("属性参数错误 user_account_id 对应用户不存在");
+        }
+        EShopProductSkuAttr e = productSkuAttrService.insertEShopSKUAttrAndGetID(attr);
+        return JSONResult.ok("添加成功").data(e);
     }
 
 
     @ApiOperation(value = "获取商家可选分类中的可选属性", notes = "需要传递 productCategroyId 作为参数")
-    @RequestMapping(value = "/api/v1/shop/getProductAttrOption", method = RequestMethod.GET)
-    public JSONResult getProductAttrOption(@RequestParam int productCategoryId) {
-        System.out.println(productCategoryId);
-        return productSkuAttrService.getSkuAttrOptionTreeByProductCategoryId(productCategoryId);
+    @RequestMapping(value = "/api/v1/shop/getProductAttrOptionByUserId", method = RequestMethod.GET)
+    public JSONResult getProductAttrOptionByUserId(@RequestParam int userAccountId) {
+//        System.out.println(productCategoryId);
+        List<EShopProductSkuAttr> list = productSkuAttrService.getProductAttrOptionByUserId(userAccountId);
+        return JSONResult.ok().data(list);
     }
 
 

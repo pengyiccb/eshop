@@ -13,7 +13,7 @@
   </resultMap>
 
   <insert id="insertEShopSKUAttrAndGetID" keyProperty="id" parameterType="com.tfx0one.web.model.EShopProductSkuAttr" useGeneratedKeys="true">
-    insert into e_shop_product_sku_attr(product_category_id, attr_type, attr_content, sort_order)
-    values(#{productCategoryId}, #{attrType}, #{attrContent}, #{sortOrder})
+    insert into e_shop_product_sku_attr(parent_id, user_account_id, attr_name, sort_order)
+    values(#{parentId}, #{userAccountId}, #{attrName}, #{sortOrder})
   </insert>
 </mapper>

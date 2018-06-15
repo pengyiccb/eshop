@@ -1,13 +1,13 @@
 package com.tfx0one.web.controller;
 
 import com.tfx0one.common.util.JSONResult;
-import com.tfx0one.common.util.ProductUtils;
+import com.tfx0one.web.service.ProductCenter.ProductUtils;
 import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductSkuAttr;
 import com.tfx0one.web.model.VendorUser;
-import com.tfx0one.web.service.ProductService;
-import com.tfx0one.web.service.ProductSkuAttrService;
-import com.tfx0one.web.service.ProductSkuService;
+import com.tfx0one.web.service.ProductCenter.ProductService;
+import com.tfx0one.web.service.ProductCenter.ProductSkuAttrService;
+import com.tfx0one.web.service.ProductCenter.ProductSkuService;
 import com.tfx0one.web.service.VenderUserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,8 +1,7 @@
-package com.tfx0one.web.service;
+package com.tfx0one.web.service.ProductCenter;
 
 import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.util.BaseService;
-import com.tfx0one.common.util.ProductUtils;
 import com.tfx0one.web.mapper.EShopProductMapper;
 import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductSku;

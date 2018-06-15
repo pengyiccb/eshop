@@ -9,10 +9,10 @@ import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductCategory;
 import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
-import com.tfx0one.web.service.ProductCategoryService;
-import com.tfx0one.web.service.ProductService;
-import com.tfx0one.web.service.ProductSkuAttrService;
-import com.tfx0one.web.service.ProductSkuService;
+import com.tfx0one.web.service.ProductCenter.ProductCategoryService;
+import com.tfx0one.web.service.ProductCenter.ProductService;
+import com.tfx0one.web.service.ProductCenter.ProductSkuAttrService;
+import com.tfx0one.web.service.ProductCenter.ProductSkuService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,16 +1,11 @@
 package com.tfx0one.web.service;
 
-import com.tfx0one.web.model.EShopProduct;
-import com.tfx0one.web.model.EShopProductSku;
+import com.tfx0one.web.service.ProductCenter.ProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by 2fx0one on 2018/6/8.

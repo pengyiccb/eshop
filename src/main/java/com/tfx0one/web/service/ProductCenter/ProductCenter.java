@@ -1,8 +1,8 @@
-package com.tfx0one.common.util;
+package com.tfx0one.web.service.ProductCenter;
 
-import com.tfx0one.web.service.ProductService;
-import com.tfx0one.web.service.ProductSkuAttrService;
-import com.tfx0one.web.service.ProductSkuService;
+import com.tfx0one.common.util.EhCacheUtils;
+import com.tfx0one.web.model.EShopProduct;
+import com.tfx0one.web.model.EShopProductSku;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +29,16 @@ public class ProductCenter {
 
     @Autowired
     private ProductSkuAttrService productSkuAttrService;
+
+    //获取一个商品基本信息
+    public EShopProduct getProductById(int productId){
+        return productService.selectById(productId);
+    }
+
+    //获取一个单品的信息，包含属性
+    public EShopProductSku getProductSkuById(int skuId){
+        return productSkuService.selectById(skuId);
+    }
 //
 //    public List<EShopProduct> getProductSPUListByVendorId(int vendorId) {
 //

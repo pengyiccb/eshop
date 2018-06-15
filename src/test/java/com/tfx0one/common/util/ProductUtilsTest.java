@@ -2,7 +2,8 @@ package com.tfx0one.common.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.web.model.EShopProductSkuAttr;
-import com.tfx0one.web.service.ProductSkuAttrService;
+import com.tfx0one.web.service.ProductCenter.ProductSkuAttrService;
+import com.tfx0one.web.service.ProductCenter.ProductUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

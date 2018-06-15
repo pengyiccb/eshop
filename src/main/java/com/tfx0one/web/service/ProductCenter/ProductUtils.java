@@ -1,10 +1,8 @@
-package com.tfx0one.common.util;
+package com.tfx0one.web.service.ProductCenter;
 
+import com.tfx0one.common.util.EhCacheUtils;
 import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
-import com.tfx0one.web.service.ProductService;
-import com.tfx0one.web.service.ProductSkuAttrService;
-import com.tfx0one.web.service.ProductSkuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

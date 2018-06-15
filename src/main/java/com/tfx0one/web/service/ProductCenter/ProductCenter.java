@@ -1,6 +1,5 @@
 package com.tfx0one.web.service.ProductCenter;
 
-import com.tfx0one.common.util.EhCacheUtils;
 import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductSku;
 import org.slf4j.Logger;
@@ -18,8 +17,8 @@ public class ProductCenter {
     private final Logger logger = LoggerFactory.getLogger(ProductCenter.class);
 
 //    //app内的缓存
-    @Autowired
-    private EhCacheUtils ehCacheUtils;
+//    @Autowired
+//    private EhCacheUtils ehCacheUtils;
 
     @Autowired
     private ProductService productService;
@@ -27,8 +26,8 @@ public class ProductCenter {
     @Autowired
     private ProductSkuService productSkuService;
 
-    @Autowired
-    private ProductSkuAttrService productSkuAttrService;
+//    @Autowired
+//    private ProductSkuAttrService productSkuAttrService;
 
     //获取一个商品基本信息
     public EShopProduct getProductById(int productId){

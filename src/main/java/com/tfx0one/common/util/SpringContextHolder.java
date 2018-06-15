@@ -1,11 +1,13 @@
 package com.tfx0one.common.util;
 
+import com.tfx0one.web.service.ProductCenter.ProductCenter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 
 /**
@@ -18,11 +20,15 @@ public class SpringContextHolder implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;
 
+    @Resource
+    private ProductCenter productCenter;
+
     /**
      * 实现ApplicationContextAware接口的context注入函数, 将其存入静态变量.
      */
     public void setApplicationContext(ApplicationContext applicationContext) {
         SpringContextHolder.applicationContext = applicationContext; // NOSONAR
+        productCenter.refreshAllProductCacheOnce();
     }
 
     /**

@@ -1,11 +1,14 @@
 package com.tfx0one.web.service.ProductCenter;
 
+import com.tfx0one.common.constant.CacheConstant;
+import com.tfx0one.common.util.EhCacheUtils;
 import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductSku;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * Created by 2fx0one on 2018/6/12.
@@ -16,28 +19,54 @@ public class ProductCenter {
     //缓存 商品 单品相关 按照ID
     private final Logger logger = LoggerFactory.getLogger(ProductCenter.class);
 
-//    //app内的缓存
-//    @Autowired
-//    private EhCacheUtils ehCacheUtils;
+    //    //app内的缓存
+    @Resource
+    private EhCacheUtils ehCacheUtils;
 
-    @Autowired
+    @Resource
     private ProductService productService;
 
-    @Autowired
+    @Resource
     private ProductSkuService productSkuService;
 
-//    @Autowired
-//    private ProductSkuAttrService productSkuAttrService;
+    @Resource
+    private ProductSkuAttrService productSkuAttrService;
+
+    @Resource
+    private ProductUtils productUtils;
 
     //获取一个商品基本信息
-    public EShopProduct getProductById(int productId){
+    public EShopProduct getProductById(int productId) {
         return productService.selectById(productId);
     }
 
     //获取一个单品的信息，包含属性
-    public EShopProductSku getProductSkuById(int skuId){
+    public EShopProductSku getProductSkuById(int skuId) {
         return productSkuService.selectById(skuId);
     }
+
+
+    private static boolean loadAllProductCacheOnce = false;
+
+    //缓存预热，只能调用一次。 顺序要注意好
+    public void refreshAllProductCacheOnce() {
+        if (!loadAllProductCacheOnce) {
+            loadAllProductCacheOnce = true;
+
+            //缓存所有商品
+            productService.select(null).parallelStream()
+                    .forEach(e -> ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SPU_BY_ID, String.valueOf(e.getId()), e));
+
+            //缓存所有属性 必须在单品之前
+            productSkuAttrService.select(null).parallelStream()
+                    .forEach(e -> ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, String.valueOf(e.getId()), e));
+
+            //缓存所有单品 (包含商品 和 属性） 缓存必须 在 属性和商品加载完成后再加载!!!
+            productSkuService.select(null).parallelStream()
+                    .forEach(e -> ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_BY_ID, String.valueOf(e.getId()), productUtils.injectAttrToProductSKU(e)));
+        }
+    }
+
 //
 //    public List<EShopProduct> getProductSPUListByVendorId(int vendorId) {
 //

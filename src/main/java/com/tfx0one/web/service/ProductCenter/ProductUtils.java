@@ -1,5 +1,6 @@
 package com.tfx0one.web.service.ProductCenter;
 
+import com.tfx0one.common.constant.StringConstant;
 import com.tfx0one.common.util.EhCacheUtils;
 import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
@@ -9,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by 2fx0one on 2018/6/7.
@@ -205,7 +208,7 @@ public class ProductUtils {
     //    //  {name:"颜色","skuAttrs":[{红},{黄}]},
     //    //  {name:"尺码","skuAttrs":[{M},{X}]}
     //    // ]
-    public Map<Integer, EShopProductSkuAttr> combinationRootAttr(EShopProductSku sku) {
+    Map<Integer, EShopProductSkuAttr> combinationRootAttr(EShopProductSku sku) {
 //        {1:red},{2:blue}
         Map<Integer, EShopProductSkuAttr> root = new HashMap<>();
         sku.getAttrs().forEach(attr -> {
@@ -215,6 +218,15 @@ public class ProductUtils {
             root.put(parent.getId(), parent);
         });
         return root;
+    }
+
+    //这个函数依赖缓存中的属性数据 productSkuAttrService::selectById 故而属性必须在这之前存在
+    EShopProductSku injectAttrToProductSKU(EShopProductSku sku) {
+        return sku.withAttrs(
+                Arrays.stream(sku.getAttrOption().split(StringConstant.SPLITTER))
+                        .map(Integer::parseInt)
+                        .map(productSkuAttrService::selectById)
+                        .collect(Collectors.toList()));
     }
 
 }

@@ -36,15 +36,6 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
-
-    <cache name="CACHE_PRODUCT_SPU_BY_VENDOR_ID"
-           maxEntriesLocalHeap="10000"
-           overflowToDisk="false"
-           eternal="false"
-           diskPersistent="false"
-           timeToLiveSeconds="0"
-           timeToIdleSeconds="0"
-           statistics="true"/>
     <cache name="CACHE_PRODUCT_SPU_BY_ID"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
@@ -53,9 +44,7 @@
            timeToLiveSeconds="0"
            timeToIdleSeconds="0"
            statistics="true"/>
-
-
-    <cache name="CACHE_PRODUCT_SKU_BY_PRODUCT_ID"
+    <cache name="CACHE_PRODUCT_SPU_BY_VENDOR_ID"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"
@@ -64,7 +53,16 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
+
     <cache name="CACHE_PRODUCT_SKU_BY_ID"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+    <cache name="CACHE_PRODUCT_SKU_BY_PRODUCT_ID"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"
@@ -82,8 +80,7 @@
            timeToLiveSeconds="0"
            timeToIdleSeconds="0"
            statistics="true"/>
-
-    <cache name="CACHE_PRODUCT_SKU_ATTR_BY_USER_ACCOUNT_ID"
+    <cache name="CACHE_PRODUCT_SKU_ATTR_BY_PRODUCT_ID"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"
@@ -91,8 +88,7 @@
            timeToLiveSeconds="0"
            timeToIdleSeconds="0"
            statistics="true"/>
-
-    <cache name="CACHE_PRODUCT_SKU_ATTR_BY_PRODUCT_ID"
+    <cache name="CACHE_PRODUCT_SKU_ATTR_BY_USER_ACCOUNT_ID"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"

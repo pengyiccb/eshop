@@ -42,7 +42,7 @@ public class OrderService extends BaseService<UserOrder> {
         order.setCreateTime(ordertime);
         order.setUpdateTime(ordertime);
         order.setRoderSn(randomOrderSnUtil.getRandomOrderSn(order.getProductSkuId()));
-        this.save(order);
+        this.insert(order);
         return JSONResult.ok();
     }
 
@@ -52,11 +52,11 @@ public class OrderService extends BaseService<UserOrder> {
             return JSONResult.error(500, "订单不存在");
         }
 
-        if (orderObject.getStatus().intValue() > 0) {
+        if (orderObject.getStatus() > 0) {
             return JSONResult.error(500, "不能修改地址");
         }
 
-        if (!userAddrService.checkUserAddr(userId, addrId)){
+        if (!userAddrService.checkUserAddr(userId, addrId)) {
             return JSONResult.error(500, "用户地址不存在");
         }
 
@@ -101,7 +101,6 @@ public class OrderService extends BaseService<UserOrder> {
         //check 订单
 
 
-
         return JSONResult.ok();
     }
 
@@ -134,8 +133,6 @@ public class OrderService extends BaseService<UserOrder> {
     }
 
 
-
-
     //暂时先屏蔽删除功能
     /*
     public JSONResult deleteOrder(Integer userId, Integer orderid) {
@@ -150,7 +147,6 @@ public class OrderService extends BaseService<UserOrder> {
 
 
     }*/
-
 
 
 }

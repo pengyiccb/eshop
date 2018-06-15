@@ -38,6 +38,6 @@ public class VenderUserService extends BaseService<VendorUser> {
 
     @CachePut(cacheNames = CacheConstant.CACHE_VENDOR_USER, key = "#p0.appId")
     public void testInsert(VendorUser user) {
-        this.save(user);
+        this.insert(user);
     }
 }

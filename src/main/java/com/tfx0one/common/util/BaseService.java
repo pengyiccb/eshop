@@ -12,20 +12,21 @@ public abstract class BaseService<T> implements IService<T> {
 
     @Autowired
     protected Mapper<T> mapper;
+
     public Mapper<T> getMapper() {
         return mapper;
     }
 
 
     @Override
-    public List<T> select(T entity){
+    public List<T> select(T entity) {
         //说明：根据实体类不为null的字段进行查询,条件全部使用=号and条件
         return mapper.select(entity);
 
     }
 
     @Override
-    public int selectCount(T entity){
+    public int selectCount(T entity) {
         //说明：根据实体类不为null的字段查询总数,条件全部使用=号and条件
         return mapper.selectCount(entity);
 
@@ -45,7 +46,7 @@ public abstract class BaseService<T> implements IService<T> {
     }
 
     @Override
-    public int save(T entity) {
+    public int insert(T entity) {
         //说明：保存一个实体，null的属性也会保存，不会使用数据库默认值
         return mapper.insert(entity);
     }

@@ -97,7 +97,7 @@ public class WeChatService {
 //            cacheUserAccount.setUnionId(unionId);
 //            cacheUserAccount.setHeadUrl(userInfo.getAvatarUrl());
 //            cacheUserAccount.setNickName(userInfo.getNickName());
-//            userAccountService.save(cacheUserAccount);
+//            userAccountService.insert(cacheUserAccount);
 //        }
 //
 //

@@ -55,7 +55,7 @@ public class AuthService {
             return JSONResult.error("用户已经存在！");
         }
 
-        int i = userAccountService.save(
+        int i = userAccountService.insert(
                 new UserAccount()
                 .withUsername(username)
                 .withPassword(new BCryptPasswordEncoder().encode(password))
@@ -154,7 +154,7 @@ public class AuthService {
                     .withUsername(appId+"_"+openId) //用openId 作为登录账号
                     .withPassword(new BCryptPasswordEncoder().encode("123456")); //默认密码
 
-            userAccountService.save(userAccount);
+            userAccountService.insert(userAccount);
         }
 
         return userAccount;

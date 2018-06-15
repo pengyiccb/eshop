@@ -1,8 +1,13 @@
 package com.tfx0one.web.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.UserAccountUtils;
+import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductCategory;
+import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
 import com.tfx0one.web.service.ProductCategoryService;
 import com.tfx0one.web.service.ProductService;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by 2fx0one on 2018/6/9.
@@ -92,13 +98,30 @@ public class ProductVendorController {
             "}")
     @RequestMapping(value = "/api/v1/shop/createProduct", method = RequestMethod.POST)
     public JSONResult createProduct(@RequestBody Map<String, Object> models) {
-        return productService.createProduct(models);
+        EShopProduct product = JSONObject.parseObject(JSON.toJSONString(models.get("product")), EShopProduct.class);
+
+        JSONArray array = JSONObject.parseArray(JSON.toJSONString(models.get("skuList")));
+        List<EShopProductSku> skuList = array.stream().map(
+                e -> JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class)
+        ).collect(Collectors.toList());
+
+        productService.createProduct(product, skuList);
+        return JSONResult.ok().data(product);
+
     }
 
     @ApiOperation(value = "修改商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
     @RequestMapping(value = "/api/v1/shop/modifyProduct", method = RequestMethod.POST)
     public JSONResult modifyProduct(@RequestBody Map<String, Object> models) {
-        return productService.modifyProduct(models);
+        EShopProduct product = JSONObject.parseObject(JSON.toJSONString(models.get("product")), EShopProduct.class);
+
+        JSONArray array = JSONObject.parseArray(JSON.toJSONString(models.get("skuList")));
+        List<EShopProductSku> skuList = array.stream().map(
+                e -> JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class)
+        ).collect(Collectors.toList());
+
+        productService.modifyProduct(product, skuList);
+        return JSONResult.ok().data(product);
     }
 
 }

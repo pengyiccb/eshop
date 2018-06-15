@@ -62,6 +62,7 @@ public class ProductWeChatController {
             return JSONResult.error("商品 product 不存在！productId = " + productId);
         }
 
+        //商品详情页的可选属性
         List<EShopProductSkuAttr> attrs = productSkuAttrService.selectByProductId(productId);
 
         Map<String, Object> map = new HashMap<>();

@@ -2,7 +2,6 @@ package com.tfx0one.web.service;
 
 import com.tfx0one.common.util.BaseService;
 import com.tfx0one.common.util.JSONResult;
-import com.tfx0one.web.mapper.UserAddrMapper;
 import com.tfx0one.web.model.UserAccount;
 import com.tfx0one.web.model.UserAddr;
 import org.springframework.stereotype.Service;
@@ -53,7 +52,7 @@ public class UserAddrService extends BaseService<UserAddr> {
     public JSONResult addrUserAddr(Integer userId, UserAddr addr, Integer isDefault) {
         addr.setUserAccount(userId);
         //int addrid =  userAddrMapper.add(addr);
-        this.save(addr);
+        this.insert(addr);
         if (isDefault.intValue()==1) {
             return modifyDefaultAddrId(userId, addr.getId());
         }

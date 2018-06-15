@@ -75,7 +75,7 @@ public class UserCartService extends BaseService<UserCart>{
             return JSONResult.error(500, "产品库存不足");
         }
 
-        this.save(new UserCart().withProductSkuId(productSkuId).withUserAccount(userid).withCount(count).withCreateTime(new Date()));
+        this.insert(new UserCart().withProductSkuId(productSkuId).withUserAccount(userid).withCount(count).withCreateTime(new Date()));
         //EShopProductSku productskuall = productUtils.getProductSKU(productsku.getProductId()).get(usercart.getProductSkuId());
 
         return JSONResult.ok();

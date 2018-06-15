@@ -5,5 +5,5 @@ import com.tfx0one.web.model.EShopProductSku;
 
 public interface EShopProductSkuMapper extends MyMapper<EShopProductSku> {
     public int insertEShopSKUAndGetID(EShopProductSku eShopProductSku);
-    public void updateEShopSKUByID(EShopProductSku eShopProductSku);
+    public int updateEShopSKUByID(EShopProductSku eShopProductSku);
 }

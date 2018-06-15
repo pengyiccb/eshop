@@ -103,6 +103,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setFeatures(Feature.AllowArbitraryCommas, Feature.AllowUnQuotedFieldNames, Feature.DisableCircularReferenceDetect);
+        fastJsonConfig.setSerializerFeatures();
 
         fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
         fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteNullStringAsEmpty);

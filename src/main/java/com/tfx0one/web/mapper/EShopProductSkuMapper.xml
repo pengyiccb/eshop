@@ -15,13 +15,13 @@
     <result column="attr_option" jdbcType="VARCHAR" property="attrOption" />
   </resultMap>
 
-  <insert id="insertEShopSKUAndGetID" useGeneratedKeys="true" keyProperty="id" parameterType="com.tfx0one.web.model.EShopProductSku">
-    insert into e_shop_product_sku(product_id, unit_price, cost_price, stock_amount, sale_amount, stock_sn, attr_option)
-    values(#{productId}, #{unitPrice}, #{costPrice}, #{stockAmount},#{saleAmount},#{stockSn},#{attrOption})
-  </insert>
+  <!--<insert id="insertEShopSKUAndGetID" useGeneratedKeys="true" keyProperty="id" parameterType="com.tfx0one.web.model.EShopProductSku">-->
+    <!--insert into e_shop_product_sku(product_id, unit_price, cost_price, stock_amount, sale_amount, stock_sn, attr_option)-->
+    <!--values(#{productId}, #{unitPrice}, #{costPrice}, #{stockAmount},#{saleAmount},#{stockSn},#{attrOption})-->
+  <!--</insert>-->
 
-  <update id="updateEShopSKUByID" parameterType="com.tfx0one.web.model.EShopProductSku">
-   update e_shop_product_sku product_id = #{productId}, unit_price = #{unitPrice}, cost_price = #{costPrice}, stock_amount = #{stockAmount},
-   sale_amount = #{saleAmount}, stock_sn = #{stockSn}, attr_option = #{attrOption} where id = #{id}
-  </update>
+  <!--<update id="updateEShopSKUByID" parameterType="com.tfx0one.web.model.EShopProductSku">-->
+   <!--update e_shop_product_sku product_id = #{productId}, unit_price = #{unitPrice}, cost_price = #{costPrice}, stock_amount = #{stockAmount},-->
+   <!--sale_amount = #{saleAmount}, stock_sn = #{stockSn}, attr_option = #{attrOption} where id = #{id}-->
+  <!--</update>-->
 </mapper>

@@ -46,7 +46,7 @@ public class ProductSkuService extends BaseService<EShopProductSku> {
 
     @CachePut(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_BY_ID, key = "#p0")
     public EShopProductSku insertSku(EShopProductSku productSku) {
-        eShopProductSkuMapper.insertEShopSKUAndGetID(productSku);
+        this.insert(productSku);
         return injectProductSKU(productSku);
     }
 

@@ -1,5 +1,6 @@
 package com.tfx0one.web.service;
 
+import com.tfx0one.web.model.EShopProductSkuAttr;
 import com.tfx0one.web.service.ProductCenter.ProductSkuAttrService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,9 @@ public class ProductSkuAttrServiceTest {
 
     @Test
     public void getSkuAttrByProductCategoryId() {
+        EShopProductSkuAttr e = new EShopProductSkuAttr().withParentId(1).withAttrName("a").withParentId(0).withSortOrder(0).withUserAccountId(1);
+        productSkuAttrService.insert(e);
+        System.out.println(e.getId());
 //        JSONResult o = productSkuAttrService.getSkuAttrOptionTreeByProductCategoryId(1);
 //        System.out.println(JSONObject.toJSONString(o));
 //       System.out.println(productSkuAttrService.getSkuAttrOptionByProductCategoryId(1));

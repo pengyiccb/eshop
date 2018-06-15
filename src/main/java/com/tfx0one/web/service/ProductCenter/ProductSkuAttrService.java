@@ -53,7 +53,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 
     @CachePut(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, key = "#p0.id")
     public EShopProductSkuAttr insertEShopSKUAttrAndGetID(EShopProductSkuAttr attr) {
-        eShopProductSkuAttrMapper.insertEShopSKUAttrAndGetID(attr);
+        this.insert(attr);
         return attr;
     }
 
@@ -100,7 +100,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 //                )
 //        );
 //        return roots;
-        //找到所有根节点 0 逻看上面
+        //找到所有根节点 0 逻辑可以看上面
         return this.select(new EShopProductSkuAttr().withUserAccountId(userAccountId).withParentId(0)).parallelStream().map(
                 root -> root.withChildren(
                         this.select(new EShopProductSkuAttr().withParentId(root.getId()))

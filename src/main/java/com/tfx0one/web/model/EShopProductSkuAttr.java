@@ -1,13 +1,11 @@
 package com.tfx0one.web.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tfx0one.common.util.BaseEntity;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Table(name = "e_shop_product_sku_attr")
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EShopProductSkuAttr extends BaseEntity {
     /**
      * sku属性id

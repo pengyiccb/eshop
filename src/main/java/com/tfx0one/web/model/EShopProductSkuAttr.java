@@ -178,6 +178,7 @@ public class EShopProductSkuAttr extends BaseEntity {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", parentId=").append(parentId);
+        sb.append(", children=").append(children);
         sb.append(", userAccountId=").append(userAccountId);
         sb.append(", attrName=").append(attrName);
         sb.append(", sortOrder=").append(sortOrder);

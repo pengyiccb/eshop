@@ -2,9 +2,7 @@ package com.tfx0one.web.controller;
 
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.ProductUtils;
-import com.tfx0one.web.mapper.VendorUserMapper;
 import com.tfx0one.web.model.EShopProduct;
-import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
 import com.tfx0one.web.model.VendorUser;
 import com.tfx0one.web.service.ProductService;
@@ -19,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -60,24 +57,18 @@ public class ProductWeChatController {
     @ApiOperation(value = "获取商品详情", notes = "传递商品的Id")
     @RequestMapping(value = "/api/v1/wechat/productDetail", method = RequestMethod.GET)
     public JSONResult productDetail(@RequestParam Integer productId) {
-        //获取商品的基本信息
-        //
-        //获取商品详情属性     格式为 properties [
-        //    //  {name:"颜色","skuAttrs":[{红},{黄}]},
-        //    //  {name:"尺码","skuAttrs":[{M},{X}]}
-        //    // ]
-        List<EShopProductSkuAttr> attrs = productSkuAttrService.selectByProductId(productId);
-//        List<EShopProductSku> list = productSkuService.selectByProductId(productId);
-//        list.parallelStream().forEach(e->{
-//            Arrays.asList(e.getAttrOption().split("\\|"))
-//                    .parallelStream()
-//                    .forEach();
-//        });
-        Map<Integer, EShopProductSku> map = productUtils.getProductSKU(productId);
-        if (map == null) {
-            return JSONResult.error("商品 productId 不存在！productId = " + productId);
+        EShopProduct product = productService.selectById(productId);
+        if (product == null) {
+            return JSONResult.error("商品 product 不存在！productId = " + productId);
         }
-        return JSONResult.ok().data(new ArrayList<>(map.values()));
+
+        Map<Integer, EShopProductSkuAttr> attrs = productSkuAttrService.selectByProductId(productId);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("product", product);
+        map.put("attrs", attrs.values());
+
+        return JSONResult.ok().data(map);
 
 //        return productService.productDetail(productId);
     }

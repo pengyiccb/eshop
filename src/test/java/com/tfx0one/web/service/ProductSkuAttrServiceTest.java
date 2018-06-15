@@ -26,4 +26,9 @@ public class ProductSkuAttrServiceTest {
        System.out.println(productSkuAttrService.getAllProductCategoryOption(123));
 
     }
+
+    @Test
+    public void test2() {
+        productSkuAttrService.selectByProductId(1).values().forEach(System.out::println);
+    }
 }

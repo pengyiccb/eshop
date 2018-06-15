@@ -93,7 +93,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     //fastjson
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-
+        System.out.println("+++++++++++++++ configureMessageConverters +++++++++++++++");
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
         List<MediaType> mediaTypeList = new ArrayList<MediaType>();
         mediaTypeList.add(new MediaType("application", "json", Charset.forName("UTF-8")));
@@ -103,9 +103,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setFeatures(Feature.AllowArbitraryCommas, Feature.AllowUnQuotedFieldNames, Feature.DisableCircularReferenceDetect);
+
         fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
         fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteNullStringAsEmpty);
         fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteDateUseDateFormat);
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteNullListAsEmpty);
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteMapNullValue);
         fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
         fastConverter.setFastJsonConfig(fastJsonConfig);
         converters.add(fastConverter);

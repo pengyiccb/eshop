@@ -2,7 +2,6 @@ package com.tfx0one.web.service;
 
 import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.constant.ProductSkuAttrConstant;
-import com.tfx0one.common.constant.StringConstant;
 import com.tfx0one.common.util.BaseService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.ProductUtils;
@@ -16,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 2fx0one on 2018/6/7.
@@ -96,30 +97,41 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
         return this.selectOne(new EShopProductSkuAttr().withId(skuId));
     }
 
+    //从一个单品中提取头信息 {"颜色": []}
+    //组合单品中的数据。
+//        格式为  [
+    //    //  {name:"颜色","skuAttrs":[{红},{黄}]},
+    //    //  {name:"尺码","skuAttrs":[{M},{X}]}
+    //    // ]
+    private Map<Integer, EShopProductSkuAttr> combinationRootAttr(EShopProductSku sku) {
+//        {1:red},{2:blue}
+        Map<Integer, EShopProductSkuAttr> root = new HashMap<>();
+        sku.getAttrs().forEach(attr->{
+            EShopProductSkuAttr parent = this.selectOne(new EShopProductSkuAttr().withId(attr.getParentId()).withParentId(0));
+            parent.setChildren(new ArrayList<>());
+            root.put(parent.getId(), parent);
+        });
+        return root;
+    }
 
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_TREE_BY_PRODUCT_ID, key = "#p0")
-    public List<EShopProductSkuAttr> selectByProductId(Integer productId) {
+    public Map<Integer, EShopProductSkuAttr> selectByProductId(Integer productId) {
         //获取所有单品。
         List<EShopProductSku> list = productSkuService.selectByProductId(productId);
+
         //创建头
-        EShopProductSkuAttr attr = list.get(0).getAttrs().get(0);
+        Map<Integer, EShopProductSkuAttr>  root = combinationRootAttr(list.get(0));
 
-        //组合单品中的数据。
-//        格式为  [
-        //    //  {name:"颜色","skuAttrs":[{红},{黄}]},
-        //    //  {name:"尺码","skuAttrs":[{M},{X}]}
-        //    // ]
 
-        List<EShopProductSkuAttr> children = new ArrayList<>();
-        list.stream().forEach(sku-> {
-//            sku.getAttrs().stream().forEach(attr -> {
-//                attr.getId();
-//                attr.getAttrName();
-//            });
-//            String[] attrId = e.getAttrOption().split(StringConstant.SPLITTER);
-//            EShopProductSkuAttr root = this.select(new EShopProductSkuAttr().withParentId());
+        list.forEach(sku-> { //遍历所有单品
+            sku.getAttrs().forEach(attr -> { //遍历所有单品属性
+                List<EShopProductSkuAttr> children = root.get(attr.getParentId()).getChildren(); //找到属性的父节点保存位置。
+                if (!children.contains(attr)) {
+                    children.add(attr); //不包含就加入节点
+                }
+            });
         });
-        return null;
+        return root;
     }
 
 

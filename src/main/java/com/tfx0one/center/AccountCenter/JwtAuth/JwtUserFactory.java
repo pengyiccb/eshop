@@ -1,4 +1,4 @@
-package com.tfx0one.center.AccountCenter.auth;
+package com.tfx0one.center.AccountCenter.JwtAuth;
 
 import com.tfx0one.center.AccountCenter.model.UserAccount;
 import org.springframework.security.core.GrantedAuthority;

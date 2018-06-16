@@ -1,4 +1,4 @@
-package com.tfx0one.center.AccountCenter.auth;
+package com.tfx0one.center.AccountCenter.JwtAuth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package com.tfx0one.center.AccountCenter.auth;
+package com.tfx0one.center.AccountCenter.JwtAuth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

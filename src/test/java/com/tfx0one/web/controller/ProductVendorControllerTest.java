@@ -50,7 +50,7 @@ public class ProductVendorControllerTest {
         String password = "123456";
         ResultActions actions = mockMvc.perform(
                 MockMvcRequestBuilders
-                        .post("/auth/login").param("username", username).param("password", password)
+                        .post("/JwtAuth/login").param("username", username).param("password", password)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8));
 
@@ -92,7 +92,7 @@ public class ProductVendorControllerTest {
         String password = "123456";
         ResultActions actions = mockMvc.perform(
                 MockMvcRequestBuilders
-                        .post("/auth/login").param("username", username).param("password", password)
+                        .post("/JwtAuth/login").param("username", username).param("password", password)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8));
 

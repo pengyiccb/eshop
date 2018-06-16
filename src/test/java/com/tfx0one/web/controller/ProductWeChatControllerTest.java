@@ -57,7 +57,7 @@ public class ProductWeChatControllerTest {
         String username = "test";
         String password = "123456";
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/auth/register").param("username", username).param("password", password)
+                MockMvcRequestBuilders.post("/JwtAuth/register").param("username", username).param("password", password)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8)
         )
@@ -71,7 +71,7 @@ public class ProductWeChatControllerTest {
         String password = "123456";
         ResultActions actions = mockMvc.perform(
                 MockMvcRequestBuilders
-                        .post("/auth/login").param("username", username).param("password", password)
+                        .post("/JwtAuth/login").param("username", username).param("password", password)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8));
 
@@ -164,7 +164,7 @@ public class ProductWeChatControllerTest {
         String password = "123456";
         ResultActions actions = mockMvc.perform(
                 MockMvcRequestBuilders
-                        .post("/auth/login").param("username", username).param("password", password)
+                        .post("/JwtAuth/login").param("username", username).param("password", password)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8));
 
@@ -239,7 +239,7 @@ public class ProductWeChatControllerTest {
         String password = "123456";
         ResultActions actions = mockMvc.perform(
                 MockMvcRequestBuilders
-                        .post("/auth/login").param("username", username).param("password", password)
+                        .post("/JwtAuth/login").param("username", username).param("password", password)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8));
 

@@ -1,4 +1,4 @@
-package com.tfx0one.center.PaymentCenter;
+package com.tfx0one.center.PaymentCenter.utils;
 
 import org.apache.commons.lang3.StringUtils;
 

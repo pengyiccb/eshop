@@ -1,4 +1,4 @@
-package com.tfx0one.center.PaymentCenter;
+package com.tfx0one.center.PaymentCenter.utils;
 
 /*
  * Create by 2fx0one on 2018/3/16
@@ -7,9 +7,10 @@ package com.tfx0one.center.PaymentCenter;
 
 import org.apache.commons.lang3.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
+import java.util.TreeMap;
 
 public class PaymentUtils {
     private static Random random = new Random(System.currentTimeMillis());
@@ -19,27 +20,6 @@ public class PaymentUtils {
     }
     public static boolean isNotSUCCESS(String returncode) {
         return !isSUCCESS(returncode);
-    }
-
-    public static String getClientIpAddr(HttpServletRequest request) {
-        System.out.println("X-Real-IP: " + request.getHeader("X-Real-IP"));
-        System.out.println("X-Forwarded-For: " + request.getHeader("X-Forwarded-For"));
-        String ip = null;
-        // 项目使用了 nginx 代理服务器 配置了 proxy_set_header  X-real-ip $remote_addr;
-        ip = request.getHeader("X-Forwarded-For");
-        if (ip != null) {
-            //System.out.println("getClientIpAddr X-Forwarded-For" + ip);
-            ip = ip.split(",")[0];
-            return ip;
-        }
-        ip = request.getRemoteAddr();
-        ip = request.getHeader("X-Real-IP");
-        if (ip != null) {
-//            System.out.println("getClientIpAddr X-Real-IP" + ip);
-            return ip;
-        }
-        ip = request.getRemoteAddr();
-        return ip;
     }
 
     /**

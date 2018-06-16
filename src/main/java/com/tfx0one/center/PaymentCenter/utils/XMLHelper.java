@@ -1,4 +1,4 @@
-package com.tfx0one.center.PaymentCenter;
+package com.tfx0one.center.PaymentCenter.utils;
 
 /*
  * Create by 2fx0one on 2018/3/16

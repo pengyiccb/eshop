@@ -1,8 +1,9 @@
-package com.tfx0one.web.model;
+package com.tfx0one.center.PaymentCenter.model;
 
 import com.tfx0one.common.util.BaseEntity;
-import java.util.Date;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "e_shop_payment")
 public class EShopPayment extends BaseEntity {

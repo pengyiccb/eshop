@@ -4,21 +4,18 @@ package com.tfx0one.common.interceptor;
  * Create by 2fx0one on 22/5/2018
  */
 
-import com.tfx0one.center.AccountCenter.utils.UserAccountUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AuthInterceptor implements HandlerInterceptor {
 
 
-
-    @Resource
-    private UserAccountUtils userAccountUtils;
+//    @Resource
+//    private UserAccountUtils userAccountUtils;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -58,7 +55,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    private void errorStrWriteToResponse(HttpServletResponse response, int code, String errorCode) throws Exception{
+    private void errorStrWriteToResponse(HttpServletResponse response, int code, String errorCode) throws Exception {
         String errStr = "{\"code\":" + code + ",\"msg\":\"" + errorCode + "\"}";
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");

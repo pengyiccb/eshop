@@ -12,7 +12,7 @@ public class OrderCenter {
 //    @Resource
 //    private OrderService orderService;
 
-    public UserOrder getUserOrderById(String tradeNo) {
+    public UserOrder getUserOrderById(int tradeNo) {
         return null;
     }
 }

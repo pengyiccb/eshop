@@ -23,7 +23,7 @@ public class PaymentController {
 
     @ApiOperation(value = "获取支付的预支付订单，发起预支付", notes = "需要传递订单号 tradeNo 作为参数")
     @RequestMapping("/api/v1/wechat/getPrepayOrderInfo")
-    public JSONResult getPrepayOrderInfo(@RequestParam String tradeNo, HttpServletRequest request) {
+    public JSONResult getPrepayOrderInfo(@RequestParam Integer tradeNo, HttpServletRequest request) {
 
         String ip = IPUtils.getClientIpAddr(request);
 

@@ -26,7 +26,7 @@ public class PaymentService extends BaseService<EShopPayment> {
     @Resource
     private OrderCenter orderCenter;
 
-    public Map<String, String> getPrepayOrderInfo(String tradeNo, String ip) {
+    public Map<String, String> getPrepayOrderInfo(int tradeNo, String ip) {
 
 
         UserAccount user = accountCenter.getCacheLoginUser();
@@ -37,10 +37,9 @@ public class PaymentService extends BaseService<EShopPayment> {
 
         return weChatPaymentService.prepayMiniPayToWeChat(
                 user.getOpenId(),
-                tradeNo,
+                String.valueOf(tradeNo),
                 total_fee,
-                ip
-        );
+                ip);
 
     }
 }

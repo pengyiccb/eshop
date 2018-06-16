@@ -45,8 +45,8 @@ public class EShopProductSku extends BaseEntity {
     /**
      * 商家自定义编号
      */
-    @Column(name = "stock_sn")
-    private Integer stockSn;
+    @Column(name = "stock_barcode")
+    private Integer stockBarcode;
 
     /**
      * sku属性ID串
@@ -60,22 +60,6 @@ public class EShopProductSku extends BaseEntity {
     public List<EShopProductSkuAttr> getAttrs() {
         return attrs;
     }
-
-//    @Transient
-//    private EShopProduct product;
-//
-//    public EShopProduct getProduct() {
-//        return product;
-//    }
-//
-//    public void setProduct(EShopProduct product) {
-//        this.product = product;
-//    }
-//
-//    public EShopProductSku withProduct(EShopProduct product) {
-//        this.setProduct(product);
-//        return this;
-//    }
 
     public void setAttrs(List<EShopProductSkuAttr> attrs) {
         this.attrs = attrs;
@@ -223,24 +207,24 @@ public class EShopProductSku extends BaseEntity {
     /**
      * 获取商家自定义编号
      *
-     * @return stock_sn - 商家自定义编号
+     * @return stock_barcode - 商家自定义编号
      */
-    public Integer getStockSn() {
-        return stockSn;
+    public Integer getStockBarcode() {
+        return stockBarcode;
     }
 
-    public EShopProductSku withStockSn(Integer stockSn) {
-        this.setStockSn(stockSn);
+    public EShopProductSku withStockBarcode(Integer stockBarcode) {
+        this.setStockBarcode(stockBarcode);
         return this;
     }
 
     /**
      * 设置商家自定义编号
      *
-     * @param stockSn 商家自定义编号
+     * @param stockBarcode 商家自定义编号
      */
-    public void setStockSn(Integer stockSn) {
-        this.stockSn = stockSn;
+    public void setStockBarcode(Integer stockBarcode) {
+        this.stockBarcode = stockBarcode;
     }
 
     /**
@@ -268,35 +252,20 @@ public class EShopProductSku extends BaseEntity {
 
     @Override
     public String toString() {
-        return "EShopProductSku{" +
-                "id=" + id +
-                ", productId=" + productId +
-                ", unitPrice=" + unitPrice +
-                ", costPrice=" + costPrice +
-                ", stockAmount=" + stockAmount +
-                ", saleAmount=" + saleAmount +
-                ", stockSn=" + stockSn +
-                ", attrOption='" + attrOption + '\'' +
-//                ", product=" + product +
-                ", attrs=" + attrs +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", productId=").append(productId);
+        sb.append(", attrs=").append(attrs);
+        sb.append(", unitPrice=").append(unitPrice);
+        sb.append(", costPrice=").append(costPrice);
+        sb.append(", stockAmount=").append(stockAmount);
+        sb.append(", saleAmount=").append(saleAmount);
+        sb.append(", stockBarcode=").append(stockBarcode);
+        sb.append(", attrOption=").append(attrOption);
+        sb.append("]");
+        return sb.toString();
     }
-
-    //    @Override
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(getClass().getSimpleName());
-//        sb.append(" [");
-//        sb.append("Hash = ").append(hashCode());
-//        sb.append(", id=").append(id);
-//        sb.append(", productId=").append(productId);
-//        sb.append(", unitPrice=").append(unitPrice);
-//        sb.append(", costPrice=").append(costPrice);
-//        sb.append(", stockAmount=").append(stockAmount);
-//        sb.append(", saleAmount=").append(saleAmount);
-//        sb.append(", stockSn=").append(stockSn);
-//        sb.append(", attrOption=").append(attrOption);
-//        sb.append("]");
-//        return sb.toString();
-//    }
 }

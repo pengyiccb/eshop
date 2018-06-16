@@ -29,32 +29,17 @@ public class WeChatPaymentService {
     private String mchId; //微信支付分配的商户号
 
     //微信小程序支付 生成预订单
-    public Map<String, String> prePayToWeChat(String openId,
+    public Map<String, String> prepayMiniPayToWeChat(String openId,
                                               String tradeNo, //商户自己维护的订单号
                                               String total_fee, //金额 分为单位
                                               String ip //客户端IP
     ) {
 
         //refer:  https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_1
-        //<xml>
-        //   <appid>wx2421b1c4370ec43b</appid>
-        //   <attach>支付测试</attach>
-        //   <body>JSAPI支付测试</body>
-        //   <mch_id>10000100</mch_id>
-        //   <detail><![CDATA[{ "goods_detail":[ { "goods_id":"iphone6s_16G", "wxpay_goods_id":"1001", "goods_name":"iPhone6s 16G", "quantity":1, "price":528800, "goods_category":"123456", "body":"苹果手机" }, { "goods_id":"iphone6s_32G", "wxpay_goods_id":"1002", "goods_name":"iPhone6s 32G", "quantity":1, "price":608800, "goods_category":"123789", "body":"苹果手机" } ] }]]></detail>
-        //   <nonce_str>1add1a30ac87aa2db72f57a2375d8fec</nonce_str>
-        //   <notify_url>http://wxpay.wxutil.com/pub_v2/pay/notify.v2.php</notify_url>
-        //   <openid>oUpF8uMuAJO_M2pxb1Q9zNjWeS6o</openid>
-        //   <out_trade_no>1415659990</out_trade_no>
-        //   <spbill_create_ip>14.23.150.211</spbill_create_ip>
-        //   <total_fee>1</total_fee>
-        //   <trade_type>JSAPI</trade_type>
-        //   <sign>0CB01533B8C1EF103065174F50BCA001</sign>
-        //</xml>
-        String appId = "wx5bb29e90935bb9c4";
+        String appId = "wxdda83d03c2d1521c";
         String mchId = "1485175642";
         String apiSecurityKey = "32ce932d22a3faf983faaa190ebd7e8a";
-        String notifyURL = "https://shop.jxxykj.cn/wechatNotify";
+        String notifyURL = "https://shop.jxxykj.cn/wechatPaymentNotify";
 
         Map<String, String> params = new HashMap<>();
         params.put("appid", appId);
@@ -71,10 +56,29 @@ public class WeChatPaymentService {
         params.put("trade_type", "JSAPI");
         params.put("sign", PaymentUtils.createSign(params, apiSecurityKey));
 
-
         logger.info("send " + " prepay_order ==to==>> wechat" + params.toString());
-        return PaymentUtils.xmlToMap(
+        Map<String, String> result = PaymentUtils.xmlToMap(
                 HttpUtils.post(UNIFIEDORDER_URL, PaymentUtils.mapToXml(params)));
+
+        //失败的情况
+        if (PaymentUtils.isNotSUCCESS(result.get("result_code"))) {
+            return result;
+        }
+        return generateMINIProgramParams(result, apiSecurityKey);
+    }
+
+    //小程序 客户端支付需要 nonceStr,timestamp,package,paySign  这四个参数
+    private Map<String, String> generateMINIProgramParams(Map<String, String> result, String apiSecurityKey) {
+//        {nonce_str=3dmlrYQjCaZLukpI, appid=wxdda83d03c2d1521c, trade_type=JSAPI, return_msg=OK, result_code=SUCCESS, mch_id=1485175642, return_code=SUCCESS, prepay_id=wx16163111464362c1ebdf16661648857742}
+        Map<String, String> params = new HashMap<>();
+        params.put("appId", result.get("appid"));
+        params.put("timeStamp", String.valueOf(System.currentTimeMillis()));
+        params.put("nonceStr", result.get("nonce_str"));
+        params.put("package", "prepay_id=" + result.get("prepay_id"));
+        params.put("signType", "MD5");
+        params.put("paySign", PaymentUtils.createSign(params, apiSecurityKey));
+        logger.info(" == generateMINIProgramParams == " + params.toString());
+        return params;
     }
 
 

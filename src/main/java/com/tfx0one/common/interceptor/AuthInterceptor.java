@@ -4,8 +4,7 @@ package com.tfx0one.common.interceptor;
  * Create by 2fx0one on 22/5/2018
  */
 
-import com.tfx0one.common.util.UserAccountUtils;
-import org.springframework.http.HttpStatus;
+import com.tfx0one.center.AccountCenter.utils.UserAccountUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 public class AuthInterceptor implements HandlerInterceptor {
 

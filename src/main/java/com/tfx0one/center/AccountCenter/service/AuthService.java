@@ -1,13 +1,13 @@
 package com.tfx0one.center.AccountCenter.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tfx0one.center.AccountCenter.AccountCenter;
 import com.tfx0one.center.AccountCenter.JwtAuth.JwtTokenUtils;
 import com.tfx0one.center.AccountCenter.JwtAuth.JwtUser;
 import com.tfx0one.center.AccountCenter.JwtAuth.JwtUserService;
-import com.tfx0one.common.util.JSONResult;
-import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.center.AccountCenter.model.UserAccount;
 import com.tfx0one.center.AccountCenter.model.WXUserInfo;
+import com.tfx0one.common.util.JSONResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,7 +42,7 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserAccountUtils userAccountUtils;
+    private AccountCenter accountCenter;
 
 
     //网页用户注册
@@ -86,8 +86,7 @@ public class AuthService {
         final String token = jwtTokenUtils.generateTokenThenCacheUser(userDetails);
 
         //用户缓存起来。
-        userAccountUtils.refreshLoginUser(username);
-//        userAccountUtils.putCacheLoginUser(userDetails.getUserAccount(), userDetails.getUsername(), expiredTimeOutSecond);
+        accountCenter.refreshLoginUser(username);
 
         System.out.println("token =  " + token);
         return JSONResult.ok("登录成功").put("token", token);

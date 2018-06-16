@@ -1,31 +1,19 @@
 package com.tfx0one.center.AccountCenter.controller;
 
-import com.tfx0one.common.util.JSONResult;
-import com.tfx0one.common.util.UserAccountUtils;
-import com.tfx0one.center.AccountCenter.model.UserAccount;
-import com.tfx0one.center.AccountCenter.service.UserAccountService;
-import com.tfx0one.center.AccountCenter.service.WeChatService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
-
 /**
  * Created by 2fx0one on 28/5/2018.
  */
-@RestController
+//@RestController
 public class WeChatAuthController {
 
-    @Resource
-    private WeChatService weChatService;
-
-    @Resource
-    private UserAccountService userAccountService;
-
-    @Resource
-    private UserAccountUtils userAccountUtils;
+//    @Resource
+//    private WeChatService weChatService;
+//
+//    @Resource
+//    private UserAccountService userAccountService;
+//
+//    @Resource
+//    private UserAccountUtils userAccountUtils;
 
 
 //    /**
@@ -78,32 +66,32 @@ public class WeChatAuthController {
 //        return JSONResult.ok("获取session成功").put("serverSessionKey", serverSessionKey);
 //    }
 
-    @RequestMapping(value = "/api/v1/wechat/checkSession", method = RequestMethod.GET)
-    public JSONResult checkSession() {
-
-        UserAccount account = userAccountUtils.getCacheLoginUser();
-//        System.out.println(account);
-        System.out.println("checkSession() : " + account.getNickName());
-        return JSONResult.ok("checkOk");
-
-    }
-
-    @RequestMapping(value = "/api/v1/wechat/testPost", method = RequestMethod.POST)
-    public JSONResult testPOST(@RequestParam String userInfo) {
-
-        System.out.println("s = " + userInfo);
-
-        return JSONResult.ok("checkOk");
-
-    }
-
-    @RequestMapping(value = "/api/v1/wechat/testGet", method = RequestMethod.GET)
-    public JSONResult testGet(@RequestParam String userInfo) {
-
-        System.out.println("s = " + userInfo);
-
-        return JSONResult.ok("checkOk");
-
-    }
+//    @RequestMapping(value = "/api/v1/wechat/checkSession", method = RequestMethod.GET)
+//    public JSONResult checkSession() {
+//
+//        UserAccount account = userAccountUtils.getCacheLoginUser();
+////        System.out.println(account);
+//        System.out.println("checkSession() : " + account.getNickName());
+//        return JSONResult.ok("checkOk");
+//
+//    }
+//
+//    @RequestMapping(value = "/api/v1/wechat/testPost", method = RequestMethod.POST)
+//    public JSONResult testPOST(@RequestParam String userInfo) {
+//
+//        System.out.println("s = " + userInfo);
+//
+//        return JSONResult.ok("checkOk");
+//
+//    }
+//
+//    @RequestMapping(value = "/api/v1/wechat/testGet", method = RequestMethod.GET)
+//    public JSONResult testGet(@RequestParam String userInfo) {
+//
+//        System.out.println("s = " + userInfo);
+//
+//        return JSONResult.ok("checkOk");
+//
+//    }
 
 }

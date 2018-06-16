@@ -9,11 +9,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Random;
 import java.util.TreeMap;
 
 public class PaymentUtils {
-    private static Random random = new Random(System.currentTimeMillis());
+//    private static Random random = new Random(System.currentTimeMillis());
 
     public static boolean isSUCCESS(String returncode) {
         return "SUCCESS".equals(returncode);
@@ -48,10 +47,6 @@ public class PaymentUtils {
 
     /**
      * 针对支付的xml，没有嵌套节点的简单处理
-     *
-     * @param xmlStr
-     *            xml字符串
-     * @return <Map<String, String>>
      */
     public static Map<String, String> xmlToMap(String xmlStr) {
         XMLHelper xmlHelper = XMLHelper.of(xmlStr);
@@ -64,8 +59,6 @@ public class PaymentUtils {
     /**
      * 组装签名的字段
      * 参考 微信支付安全规范 https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=4_3
-     * @param params
-     * @return {String}
      */
     public static String createSign(Map<String, String> params, String apiSecurityKey) {
         // 生成签名前先去除sign

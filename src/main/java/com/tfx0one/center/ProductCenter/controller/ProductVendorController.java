@@ -3,12 +3,12 @@ package com.tfx0one.center.ProductCenter.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.tfx0one.common.util.JSONResult;
-import com.tfx0one.common.util.UserAccountUtils;
+import com.tfx0one.center.AccountCenter.AccountCenter;
+import com.tfx0one.center.ProductCenter.ProductCenter;
 import com.tfx0one.center.ProductCenter.model.EShopProduct;
 import com.tfx0one.center.ProductCenter.model.EShopProductSku;
 import com.tfx0one.center.ProductCenter.model.EShopProductSkuAttr;
-import com.tfx0one.center.ProductCenter.ProductCenter;
+import com.tfx0one.common.util.JSONResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,22 +26,22 @@ public class ProductVendorController {
     //商户的后台web接口
 
     @Resource
-    private UserAccountUtils userAccountUtils;
+    private AccountCenter accountCenter;
 
     @Resource
     private ProductCenter productCenter;
 
     @ApiOperation(value = "获取商家可用的商品分类", notes = "需要传递 vendorId 作为参数")
-    @RequestMapping(value = "/api/v1/shop/ProductCategoryOption", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v1/shop/getProductCategoryOption", method = RequestMethod.GET)
     public JSONResult ProductOption(@RequestParam int vendorId) {
 //        List<EShopProductCategory> list = productCenter.getCategoryByVendorId(vendorId);
         return JSONResult.ok().data(productCenter.getCategoryByVendorId(vendorId));
     }
 
 
-    @ApiOperation(value = "设置商家可选分类中的可选属性", notes = "需要传递 productCategroyId 作为参数")
-    @RequestMapping(value = "/api/v1/shop/addProductAttr", method = RequestMethod.POST)
-    public JSONResult addProductAttr(@RequestBody EShopProductSkuAttr attr) {
+    @ApiOperation(value = "增加商家可选分类中的可选属性", notes = "需要传递 productCategroyId 作为参数")
+    @RequestMapping(value = "/api/v1/shop/ProductAttrCreate", method = RequestMethod.POST)
+    public JSONResult ProductAttrCreate(@RequestBody EShopProductSkuAttr attr) {
 
         if (attr.getChildren() != null) {
             return JSONResult.error("属性参数 children 暂时不支持");
@@ -60,7 +60,7 @@ public class ProductVendorController {
 
         //TODO: 同parent Id 下， name 不能一样。
 
-        if (!userAccountUtils.getCacheLoginUser().getId().equals(attr.getUserAccountId())) {
+        if (!accountCenter.getCacheLoginUser().getId().equals(attr.getUserAccountId())) {
             return JSONResult.error("属性参数错误 user_account_id 对应用户不存在");
         }
 
@@ -83,8 +83,8 @@ public class ProductVendorController {
             "  {\"attrOption\":\"1|3\",\"costPrice\":1.23,\"saleAmount\":0,\"stockAmount\":0,\"unitPrice\":1.23},\n" +
             "  {\"attrOption\":\"2|3\",\"costPrice\":1.23,\"saleAmount\":0,\"stockAmount\":0,\"unitPrice\":1.23}]\n" +
             "}")
-    @RequestMapping(value = "/api/v1/shop/createProduct", method = RequestMethod.POST)
-    public JSONResult createProduct(@RequestBody Map<String, Object> models) {
+    @RequestMapping(value = "/api/v1/shop/ProductCreate", method = RequestMethod.POST)
+    public JSONResult ProductCreate(@RequestBody Map<String, Object> models) {
         EShopProduct product = JSONObject.parseObject(JSON.toJSONString(models.get("product")), EShopProduct.class);
 
         JSONArray array = JSONObject.parseArray(JSON.toJSONString(models.get("skuList")));
@@ -98,8 +98,8 @@ public class ProductVendorController {
     }
 
     @ApiOperation(value = "修改商品", notes = "需要传递 JSON数据包装 EShopProduct EShopProductSku 作为参数")
-    @RequestMapping(value = "/api/v1/shop/modifyProduct", method = RequestMethod.POST)
-    public JSONResult modifyProduct(@RequestBody Map<String, Object> models) {
+    @RequestMapping(value = "/api/v1/shop/ProductModify", method = RequestMethod.POST)
+    public JSONResult ProductModify(@RequestBody Map<String, Object> models) {
         EShopProduct product = JSONObject.parseObject(JSON.toJSONString(models.get("product")), EShopProduct.class);
 
         JSONArray array = JSONObject.parseArray(JSON.toJSONString(models.get("skuList")));

@@ -1,6 +1,6 @@
 package com.tfx0one.center.AccountCenter.JwtAuth;
 
-import com.tfx0one.common.util.UserAccountUtils;
+import com.tfx0one.center.AccountCenter.AccountCenter;
 import com.tfx0one.center.AccountCenter.model.UserAccount;
 import com.tfx0one.center.AccountCenter.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class JwtUserService implements UserDetailsService {
     private UserAccountService userAccountService;
 
     @Autowired
-    private UserAccountUtils userAccountUtils;
+    private AccountCenter accountCenter;
 
 
     @Override
@@ -29,11 +29,11 @@ public class JwtUserService implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("No user found with username 'null' !"));
         }
         //缓存中拿 没有才到数据库拿
-        UserAccount userAccount = userAccountUtils.getCacheLoginUserByUsername(username);
+        UserAccount userAccount = accountCenter.getCacheLoginUserByUsername(username);
         if (userAccount == null) {
             System.out.println("====用户登录数据 第一次是从从数据库拿数据，会在一定时间内缓存!!!=======");
 //            userAccount = userAccountService.selectOne(new UserAccount().withUsername(username));
-            userAccount = userAccountUtils.refreshLoginUser(username);
+            userAccount = accountCenter.refreshLoginUser(username);
 //            userAccountUtils.putCacheLoginUser(userAccount, userAccount.getUsername(), expiredTimeOutSecond);
         }
 

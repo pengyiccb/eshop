@@ -31,7 +31,7 @@ public class ProductWeChatController {
 
 
     @ApiOperation(value = "获取主页的数据, 基本数据信息，不包含单品信息", notes = "需要传递appId 作为参数")
-    @RequestMapping(value = "/api/v1/wechat/productList", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v1/wechat/getProductList", method = RequestMethod.GET)
     public JSONResult productList(@RequestParam String appId) {
         VendorUser vendorUser = venderUserService.selectByAppId(appId);
         if (vendorUser == null) {
@@ -41,7 +41,7 @@ public class ProductWeChatController {
     }
 
     @ApiOperation(value = "获取商品详情", notes = "传递商品的Id")
-    @RequestMapping(value = "/api/v1/wechat/productDetail", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v1/wechat/getProductDetail", method = RequestMethod.GET)
     public JSONResult productDetail(@RequestParam Integer productId) {
         EShopProduct product = productCenter.getProductById(productId);
         if (product == null) {

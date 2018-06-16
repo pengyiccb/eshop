@@ -24,7 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProductVendorControllerTest {
+public class ProductVendorCenterControllerTest {
 
     @Autowired
     private WebApplicationContext wac;

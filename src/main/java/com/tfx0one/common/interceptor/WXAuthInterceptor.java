@@ -4,7 +4,7 @@ package com.tfx0one.common.interceptor;
  * Create by 2fx0one on 22/5/2018
  */
 
-import com.tfx0one.common.util.UserAccountUtils;
+import com.tfx0one.center.AccountCenter.AccountCenter;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,7 +23,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
     }
 
     @Resource
-    private UserAccountUtils userAccountUtils;
+    private AccountCenter accountCenter;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -65,7 +65,7 @@ public class WXAuthInterceptor implements HandlerInterceptor {
         System.out.println(content_type2);
 
         //serverSessionKey为空 || 不为空，检查redis中是否过期
-        if (null == userAccountUtils.getCacheLoginUser()) {
+        if (null == accountCenter.getCacheLoginUser()) {
             errorStrWriteToResponse(response, HttpStatus.UNAUTHORIZED.value(), "unauthorized required. 需要有效的 serverSessionKey ");
             return true;
         }

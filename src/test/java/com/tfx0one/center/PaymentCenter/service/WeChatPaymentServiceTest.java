@@ -13,9 +13,9 @@ public class WeChatPaymentServiceTest {
 
 
     @Test
-    public void prePayToWeChat() {
+    public void prepayMiniPayToWeChat() {
         String openId = "oUeJY5KR0bECG54dDD0trBqgzkDo";
-        Map<String, String> m = new WeChatPaymentService().prePayToWeChat(openId, "123", "1", "127.0.0.1");
+        Map<String, String> m = new WeChatPaymentService().prepayMiniPayToWeChat(openId, "12345", "1", "127.0.0.1");
         System.out.println(m);
 
     }

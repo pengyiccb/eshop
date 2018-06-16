@@ -1,5 +1,6 @@
 package com.tfx0one.center.OrderCenter;
 
+import com.tfx0one.center.OrderCenter.model.UserOrder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -7,4 +8,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class OrderCenter {
+
+//    @Resource
+//    private OrderService orderService;
+
+    public UserOrder getUserOrderById(String tradeNo) {
+        return null;
+    }
 }

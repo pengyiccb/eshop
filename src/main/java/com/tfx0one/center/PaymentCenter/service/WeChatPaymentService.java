@@ -34,7 +34,6 @@ public class WeChatPaymentService {
                                               String total_fee, //金额 分为单位
                                               String ip //客户端IP
     ) {
-
         //refer:  https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_1
         String appId = "wxdda83d03c2d1521c";
         String mchId = "1485175642";

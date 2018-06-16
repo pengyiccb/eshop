@@ -1,25 +1,20 @@
 package com.tfx0one.common.util;
 
 import com.tfx0one.common.constant.CacheConstant;
-import net.sf.ehcache.CacheManager;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by 2fx0one on 28/5/2018.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class EhCacheUtilsTest {
+public class CacheUtilsTest {
 
 //    @Autowired
 //    private RedisUtils redisUtils;
@@ -29,7 +24,7 @@ public class EhCacheUtilsTest {
 
 
     @Autowired
-    private EhCacheUtils ehCacheUtils;
+    private CacheUtils cacheUtils;
 //    CacheManager cacheManager;
 
 
@@ -52,10 +47,10 @@ public class EhCacheUtilsTest {
 
 
 
-        ehCacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, key, value);
-        Assert.assertEquals(value, ehCacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, key));
-        ehCacheUtils.clear(CacheConstant.CACHE_USER_ACCOUNT);
-        Assert.assertNull( ehCacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, key));
+        cacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, key, value);
+        Assert.assertEquals(value, cacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, key));
+        cacheUtils.clear(CacheConstant.CACHE_USER_ACCOUNT);
+        Assert.assertNull( cacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, key));
 
     }
 
@@ -64,7 +59,7 @@ public class EhCacheUtilsTest {
     public void test() {
         String key = "aa";
         String value = "xxxxvalxxxx";
-        ehCacheUtils.put("abc", key, value);
+        cacheUtils.put("abc", key, value);
 //        System.out.println(redisUtils);
 //        String key = "aa";
 //        String value = "xxxxvalxxxx";

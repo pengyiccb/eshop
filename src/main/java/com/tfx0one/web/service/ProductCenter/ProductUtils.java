@@ -1,19 +1,10 @@
 package com.tfx0one.web.service.ProductCenter;
 
-import com.tfx0one.common.constant.StringConstant;
-import com.tfx0one.common.util.EhCacheUtils;
-import com.tfx0one.web.model.EShopProductSku;
-import com.tfx0one.web.model.EShopProductSkuAttr;
+import com.tfx0one.common.util.CacheUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by 2fx0one on 2018/6/7.
@@ -26,7 +17,7 @@ public class ProductUtils {
 
     //app内的缓存
     @Autowired
-    private EhCacheUtils ehCacheUtils;
+    private CacheUtils cacheUtils;
 
     @Autowired
     private ProductService productService;
@@ -36,6 +27,11 @@ public class ProductUtils {
 
     @Autowired
     private ProductSkuAttrService productSkuAttrService;
+
+//    public EShopProductSkuAttr getSkuAttrById(int id) {
+//        return productSkuAttrService.selectById(id);
+//    }
+
 
 //    @Autowired
 //    public ProductUtils(EhCacheUtils ehCacheUtils, ProductService productService, ProductSkuService productSkuService, ProductSkuAttrService productSkuAttrService) {
@@ -208,25 +204,25 @@ public class ProductUtils {
     //    //  {name:"颜色","skuAttrs":[{红},{黄}]},
     //    //  {name:"尺码","skuAttrs":[{M},{X}]}
     //    // ]
-    Map<Integer, EShopProductSkuAttr> combinationRootAttr(EShopProductSku sku) {
-//        {1:red},{2:blue}
-        Map<Integer, EShopProductSkuAttr> root = new HashMap<>();
-        sku.getAttrs().forEach(attr -> {
-//            EShopProductSkuAttr parent = this.selectOne(new EShopProductSkuAttr().withId(attr.getParentId()).withParentId(0));
-            EShopProductSkuAttr parent = productSkuAttrService.selectById(attr.getParentId());
-            parent.setChildren(new ArrayList<>());
-            root.put(parent.getId(), parent);
-        });
-        return root;
-    }
+//    Map<Integer, EShopProductSkuAttr> combinationRootAttr(EShopProductSku sku) {
+////        {1:red},{2:blue}
+//        Map<Integer, EShopProductSkuAttr> root = new HashMap<>();
+//        sku.getAttrs().forEach(attr -> {
+////            EShopProductSkuAttr parent = this.selectOne(new EShopProductSkuAttr().withId(attr.getParentId()).withParentId(0));
+//            EShopProductSkuAttr parent = productSkuAttrService.selectById(attr.getParentId());
+//            parent.setChildren(new ArrayList<>());
+//            root.put(parent.getId(), parent);
+//        });
+//        return root;
+//    }
 
-    //这个函数依赖缓存中的属性数据 productSkuAttrService::selectById 故而属性必须在这之前存在
+/*    //这个函数依赖缓存中的属性数据 productSkuAttrService::selectById 故而属性必须在这之前存在
     EShopProductSku injectAttrToProductSKU(EShopProductSku sku) {
         return sku.withAttrs(
                 Arrays.stream(sku.getAttrOption().split(StringConstant.SPLITTER))
                         .map(Integer::parseInt)
                         .map(productSkuAttrService::selectById)
                         .collect(Collectors.toList()));
-    }
+    }*/
 
 }

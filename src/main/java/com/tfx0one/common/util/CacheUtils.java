@@ -1,6 +1,5 @@
 package com.tfx0one.common.util;
 
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +8,12 @@ import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
-
 /**
  * Created by 2fx0one on 28/5/2018.
  * TODE 需要重写缓存配置
  */
 @Component
-public class EhCacheUtils {
+public class CacheUtils {
 
    @Autowired
     private EhCacheCacheManager ehCacheCacheManager;

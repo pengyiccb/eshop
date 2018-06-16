@@ -1,20 +1,17 @@
 package com.tfx0one.web.service.ProductCenter;
 
 import com.tfx0one.common.constant.CacheConstant;
-import com.tfx0one.common.util.EhCacheUtils;
+import com.tfx0one.common.util.CacheUtils;
 import com.tfx0one.web.model.EShopProduct;
 import com.tfx0one.web.model.EShopProductCategory;
 import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by 2fx0one on 2018/6/12.
@@ -30,15 +27,15 @@ public class ProductCenter {
 
             //缓存所有商品
             productService.select(null).parallelStream()
-                    .forEach(e -> ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SPU_BY_ID, String.valueOf(e.getId()), e));
+                    .forEach(e -> cacheUtils.put(CacheConstant.CACHE_PRODUCT_SPU_BY_ID, String.valueOf(e.getId()), e));
 
             //缓存所有属性 必须在单品之前
             productSkuAttrService.select(null).parallelStream()
-                    .forEach(e -> ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, String.valueOf(e.getId()), e));
+                    .forEach(e -> cacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, String.valueOf(e.getId()), e));
 
             //缓存所有单品 (包含商品 和 属性） 缓存必须 在 属性和商品加载完成后再加载!!!
             productSkuService.select(null).parallelStream()
-                    .forEach(e -> ehCacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_BY_ID, String.valueOf(e.getId()), productUtils.injectAttrToProductSKU(e)));
+                    .forEach(e -> cacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_BY_ID, String.valueOf(e.getId()), productSkuService.injectAttrToProductSKU(e)));
         }
     }
 
@@ -48,7 +45,7 @@ public class ProductCenter {
 
     //    //app内的缓存
     @Resource
-    private EhCacheUtils ehCacheUtils;
+    private CacheUtils cacheUtils;
 
     @Resource
     private ProductService productService;
@@ -60,9 +57,8 @@ public class ProductCenter {
     private ProductSkuAttrService productSkuAttrService;
 
     @Resource
-    ProductCategoryService productCategoryService;
-    @Resource
-    private ProductUtils productUtils;
+    private ProductCategoryService productCategoryService;
+
 
     //============ 前台用户接口 ============
     //获取一个商品基本信息 后台使用

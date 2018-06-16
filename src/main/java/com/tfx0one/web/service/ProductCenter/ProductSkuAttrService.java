@@ -2,16 +2,16 @@ package com.tfx0one.web.service.ProductCenter;
 
 import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.util.BaseService;
-import com.tfx0one.web.mapper.EShopProductSkuAttrMapper;
+import com.tfx0one.common.util.CacheUtils;
 import com.tfx0one.web.model.EShopProductSku;
 import com.tfx0one.web.model.EShopProductSkuAttr;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,17 +22,20 @@ import java.util.stream.Collectors;
 @Service
 public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 
-    @Resource
-    private ProductUtils productUtils;
-
-    @Resource
-    private ProductCenter productCenter;
+//    @Resource
+//    private ProductUtils productUtils;
+//
+//    @Resource
+//    private ProductCenter productCenter;
 
     @Resource
     private ProductSkuService productSkuService;
 
+//    @Resource
+//    private ProductService productService;
+
     @Resource
-    private ProductService productService;
+    private CacheUtils cacheUtils;
 
 //    public JSONResult getAllProductCategoryOption(int vendorId) {
 //        //TODO 分类应该缓存 vendorId 没有使用
@@ -60,7 +63,11 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     //通过ID找到属性
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, key = "#p0")
     public EShopProductSkuAttr selectById(int skuId) {
-        return this.selectOne(new EShopProductSkuAttr().withId(skuId));
+        EShopProductSkuAttr attr = cacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, String.valueOf(skuId));
+        if (attr == null) {
+            attr = this.selectOne(new EShopProductSkuAttr().withId(skuId));
+        }
+        return attr;
     }
 
 
@@ -72,22 +79,26 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_PRODUCT_ID, key = "#p0")
     public List<EShopProductSkuAttr> selectByProductId(Integer productId) {
 
-        //方案二
-//        Map<Integer, List<Integer>> attrs = (Map<Integer, List<Integer>>)new SpelExpressionParser().parseExpression(productService.selectById(productId).getAttrsSpEl()).getValue();
-//        List<EShopProductSkuAttr> list = attrs.entrySet().stream().map(
-//                root-> this.selectById(root.getKey())
-//                        .withChildren(
-//                                root.getValue().stream().map(
-//                                        e->this.selectById(e)
-//                                ).collect(Collectors.toList())
-//                        )
-//        ).collect(Collectors.toList());
+//        final boolean B_PLAN = false;
+//        if (B_PLAN) { //8431ms
+//            //方案二
+//            Map<Integer, List<Integer>> attrs = (Map<Integer, List<Integer>>) new SpelExpressionParser().parseExpression(productService.selectById(productId).getAttrsSpEl()).getValue();
+//            List<EShopProductSkuAttr> list = attrs.entrySet().stream().map(
+//                    root -> productUtils.getSkuAttrById(root.getKey())
+//                            .withChildren(
+//                                    root.getValue().stream().map(
+//                                            e -> productUtils.getSkuAttrById(e)
+//                                    ).collect(Collectors.toList())
+//                            )
+//            ).collect(Collectors.toList());
+//            return list;
+//        } else { //3477ms
 
         //获取所有单品。
         List<EShopProductSku> list = productSkuService.selectByProductId(productId);
 
         //创建根节点
-        Map<Integer, EShopProductSkuAttr> root = productUtils.combinationRootAttr(list.get(0));
+        Map<Integer, EShopProductSkuAttr> root = this.combinationRootAttr(list.get(0));
 
         list.forEach(sku -> {
             //遍历所有单品
@@ -102,6 +113,19 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
         });
         return new ArrayList<>(root.values());
     }
+
+    private Map<Integer, EShopProductSkuAttr> combinationRootAttr(EShopProductSku sku) {
+//        {1:red},{2:blue}
+        Map<Integer, EShopProductSkuAttr> root = new HashMap<>();
+        sku.getAttrs().forEach(attr -> {
+//            EShopProductSkuAttr parent = this.selectOne(new EShopProductSkuAttr().withId(attr.getParentId()).withParentId(0));
+            EShopProductSkuAttr parent = this.selectById(attr.getParentId());
+            parent.setChildren(new ArrayList<>());
+            root.put(parent.getId(), parent);
+        });
+        return root;
+    }
+
 
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_USER_ACCOUNT_ID, key = "#p0")
     public List<EShopProductSkuAttr> getProductAttrOptionByUserId(int userAccountId) {

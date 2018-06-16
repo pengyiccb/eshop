@@ -18,22 +18,21 @@
     <result column="img_list_url" jdbcType="VARCHAR" property="imgListUrl" />
     <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
     <result column="vendor_user_id" jdbcType="INTEGER" property="vendorUserId" />
-    <result column="attrs_sp_el" jdbcType="VARCHAR" property="attrsSpEl" />
     <result column="content_desc" jdbcType="LONGVARCHAR" property="contentDesc" />
   </resultMap>
 
-  <!--&amp;lt;insert id="insertEShopProductAndGetID" useGeneratedKeys="true" keyProperty="id" parameterType="com.tfx0one.web.model.EShopProduct"&amp;gt;-->
+  <!--&amp;amp;lt;insert id="insertEShopProductAndGetID" useGeneratedKeys="true" keyProperty="id" parameterType="com.tfx0one.web.model.EShopProduct"&amp;amp;gt;-->
     <!--insert into e_shop_product-->
     <!--(title, subtitle, brief, content_desc, price_underline, keyword, product_category_id, sort_order, is_on_sale,-->
     <!--img_primary_url, img_list_url, vendor_user_id, is_delete)-->
     <!--values(#{title}, #{subtitle}, #{brief}, #{contentDesc},#{priceUnderline},#{keyword},#{productCategoryId}, #{sortOrder},#{isOnSale},-->
     <!--#{imgPrimaryUrl},#{imgListUrl},#{vendorUserId}, #{isDelete})-->
-  <!--&amp;lt;/insert&amp;gt;-->
+  <!--&amp;amp;lt;/insert&amp;amp;gt;-->
 
-  <!--&amp;lt;update id="updateEShopProductByID"  parameterType="com.tfx0one.web.model.EShopProduct"&amp;gt;-->
+  <!--&amp;amp;lt;update id="updateEShopProductByID"  parameterType="com.tfx0one.web.model.EShopProduct"&amp;amp;gt;-->
     <!--update e_shop_product-->
     <!--set title = #{title}, subtitle = #{subtitle}, brief = #{brief}, content_desc = #{contentDesc}, price_underline = #{priceUnderline},-->
     <!--keyword = #{keyword}, product_category_id = #{productCategoryId}, sort_order = #{sortOrder}, is_on_sale = #{isOnSale},-->
     <!--img_primary_url = #{imgPrimaryUrl}, img_list_url = #{imgListUrl}, vendor_user_id = #{vendorUserId}, is_delete = #{isDelete} where id = #{id}-->
-  <!--&amp;lt;/update&amp;gt;-->
+  <!--&amp;amp;lt;/update&amp;amp;gt;-->
 </mapper>

@@ -28,7 +28,7 @@ public class UserAccountUtils {
 
     @Resource
     //app内的缓存
-    private EhCacheUtils ehCacheUtils;
+    private CacheUtils cacheUtils;
 
     @Resource
     private UserAccountService userAccountService;
@@ -44,7 +44,7 @@ public class UserAccountUtils {
 
     //放入缓存 登录的用户信息
     private void putCacheLoginUser(UserAccount userAccount, String username, int timeToIdleSeconds) {
-        ehCacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, username, userAccount, timeToIdleSeconds);
+        cacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, username, userAccount, timeToIdleSeconds);
 
 //        if (hasWeChatMiniProgramFlag()) {
 //            ehCacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, username, userAccount, timeToIdleSeconds);
@@ -79,7 +79,7 @@ public class UserAccountUtils {
     }
 
     public UserAccount getCacheLoginUserByUsername(String username) {
-        return StringUtils.isEmpty(username) ? null : ehCacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, username);
+        return StringUtils.isEmpty(username) ? null : cacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, username);
     }
 
 //    //微信小程序的消息头 判断是否为微信用户

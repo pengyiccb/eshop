@@ -32,8 +32,19 @@ public class ProductSkuAttrServiceTest {
     }
 
     @Test
-    public void test2() {
+    public void test1() {
         productSkuAttrService.selectByProductId(1).forEach(System.out::println);
-        productSkuAttrService.getProductAttrOptionByUserId(1).forEach(System.out::println);
+        productSkuAttrService.selectByProductId(1).forEach(System.out::println);
+//        productSkuAttrService.getProductAttrOptionByUserId(1).forEach(System.out::println);
+    }
+
+    @Test
+    public void test2() {
+        long s = System.currentTimeMillis();
+        int times = 1000000;
+        for (int i=0; i<times; i++) {
+            productSkuAttrService.selectByProductId(1);
+        }
+        System.out.println("=====time======" + (System.currentTimeMillis() - s)); //1:3477ms
     }
 }

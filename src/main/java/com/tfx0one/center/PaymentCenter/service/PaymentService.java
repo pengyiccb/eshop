@@ -1,5 +1,6 @@
 package com.tfx0one.center.PaymentCenter.service;
 
+import com.alibaba.fastjson.JSON;
 import com.tfx0one.center.AccountCenter.AccountCenter;
 import com.tfx0one.center.AccountCenter.model.UserAccount;
 import com.tfx0one.center.OrderCenter.OrderCenter;
@@ -33,14 +34,13 @@ public class PaymentService extends BaseService<EShopPayment> {
     //微信内支付
     public JSONResult getPrepayOrderInfo(int tradeNo, String ip) {
         UserAccount user = accountCenter.getCacheLoginUser();
-
+        if (user.getOpenId()==null) {
+            return JSONResult.error("该用户的 openId为空");
+        }
         return getPrepayOrderInfo(user.getId(), user.getOpenId(), tradeNo, ip);
-
     }
 
     public JSONResult getPrepayOrderInfo(int userId, String openId, int tradeNo, String ip) {
-
-
         //需要从订单中心 获取订单数据，验证是否是该用户的订单。同时拿到金额
         UserOrder order = orderCenter.getUserOrderById(tradeNo);
 //        BigInteger total_fee = order.getRealMoney().toBigInteger();

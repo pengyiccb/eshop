@@ -1,9 +1,9 @@
 package com.tfx0one.center.AccountCenter.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.tfx0one.common.auth.JwtTokenUtils;
-import com.tfx0one.common.auth.JwtUser;
-import com.tfx0one.common.auth.JwtUserService;
+import com.tfx0one.center.AccountCenter.auth.JwtTokenUtils;
+import com.tfx0one.center.AccountCenter.auth.JwtUser;
+import com.tfx0one.center.AccountCenter.auth.JwtUserService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.common.util.UserAccountUtils;
 import com.tfx0one.center.AccountCenter.model.UserAccount;

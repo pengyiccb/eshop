@@ -1,4 +1,4 @@
-package com.tfx0one.common.auth;
+package com.tfx0one.center.AccountCenter.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tfx0one.center.AccountCenter.model.UserAccount;

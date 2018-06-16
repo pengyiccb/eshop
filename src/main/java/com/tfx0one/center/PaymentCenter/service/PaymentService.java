@@ -34,6 +34,13 @@ public class PaymentService extends BaseService<EShopPayment> {
     public JSONResult getPrepayOrderInfo(int tradeNo, String ip) {
         UserAccount user = accountCenter.getCacheLoginUser();
 
+        return getPrepayOrderInfo(user.getId(), user.getOpenId(), tradeNo, ip);
+
+    }
+
+    public JSONResult getPrepayOrderInfo(int userId, String openId, int tradeNo, String ip) {
+
+
         //需要从订单中心 获取订单数据，验证是否是该用户的订单。同时拿到金额
         UserOrder order = orderCenter.getUserOrderById(tradeNo);
 //        BigInteger total_fee = order.getRealMoney().toBigInteger();

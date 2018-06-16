@@ -1,7 +1,7 @@
 package com.tfx0one.common.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tfx0one.web.model.UserAccount;
+import com.tfx0one.center.AccountCenter.model.UserAccount;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

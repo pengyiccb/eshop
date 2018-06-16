@@ -1,6 +1,6 @@
 package com.tfx0one.web.service;
 
-import org.junit.Assert;
+import com.tfx0one.center.AccountCenter.service.WeChatService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,12 +1,10 @@
 package com.tfx0one.common.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.tfx0one.web.model.EShopProductSkuAttr;
-import com.tfx0one.web.service.ProductCenter.ProductSkuAttrService;
-import com.tfx0one.web.service.ProductCenter.ProductUtils;
+import com.tfx0one.center.ProductCenter.model.EShopProductSkuAttr;
+import com.tfx0one.center.ProductCenter.serivce.ProductSkuAttrService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -19,8 +17,8 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProductUtilsTest {
-    @Autowired
-    private ProductUtils productUtils;
+//    @Autowired
+//    private ProductUtils productUtils;
 
     @Resource
     private ProductSkuAttrService productSkuAttrService;

@@ -1,8 +1,8 @@
 package com.tfx0one.common.util;
 
 import com.tfx0one.common.constant.CacheConstant;
-import com.tfx0one.web.model.UserAccount;
-import com.tfx0one.web.service.UserAccountService;
+import com.tfx0one.center.AccountCenter.model.UserAccount;
+import com.tfx0one.center.AccountCenter.service.UserAccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

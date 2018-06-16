@@ -1,7 +1,7 @@
 package com.tfx0one.web.service;
 
-import com.tfx0one.web.model.EShopProductSkuAttr;
-import com.tfx0one.web.service.ProductCenter.ProductSkuAttrService;
+import com.tfx0one.center.ProductCenter.model.EShopProductSkuAttr;
+import com.tfx0one.center.ProductCenter.serivce.ProductSkuAttrService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tfx0one.center.OrderCenter.mapper.UserOrderMapper">
+  <resultMap id="BaseResultMap" type="com.tfx0one.center.OrderCenter.model.UserOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="roder_sn" jdbcType="VARCHAR" property="roderSn" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="product_sku_id" jdbcType="INTEGER" property="productSkuId" />
+    <result column="freight" jdbcType="DECIMAL" property="freight" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="addr_id" jdbcType="INTEGER" property="addrId" />
+    <result column="real_money" jdbcType="DECIMAL" property="realMoney" />
+    <result column="express_sn" jdbcType="VARCHAR" property="expressSn" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_account" jdbcType="INTEGER" property="userAccount" />
+    <result column="wechar_orderid" jdbcType="VARCHAR" property="wecharOrderid" />
+  </resultMap>
+</mapper>

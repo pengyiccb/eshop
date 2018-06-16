@@ -1,11 +1,10 @@
 package com.tfx0one.common.auth;
 
-import com.tfx0one.web.model.UserAccount;
+import com.tfx0one.center.AccountCenter.model.UserAccount;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -34,7 +34,7 @@ public class Swagger2Configuration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.tfx0one.web.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.tfx0one"))
 //                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()

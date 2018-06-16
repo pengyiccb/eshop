@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tfx0one.center.ProductCenter.mapper.EShopProductCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.tfx0one.center.ProductCenter.model.EShopProductCategory">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="name" jdbcType="CHAR" property="name" />
+    <result column="category_desc" jdbcType="VARCHAR" property="categoryDesc" />
+    <result column="sort_order" jdbcType="SMALLINT" property="sortOrder" />
+  </resultMap>
+
+  <!--<insert id="insertEShopCategoryAndGetID" useGeneratedKeys="true" keyProperty="id" parameterType="com.tfx0one.center.ProductCenter.model.EShopProductCategory">-->
+    <!--insert into e_shop_product_category(parent_id, name, category_desc, sort_order)-->
+    <!--values(#{parentId}, #{name}, #{categoryDesc},#{sortOrder})-->
+  <!--</insert>-->
+</mapper>

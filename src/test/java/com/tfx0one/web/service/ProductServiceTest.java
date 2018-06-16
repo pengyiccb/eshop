@@ -1,6 +1,6 @@
 package com.tfx0one.web.service;
 
-import com.tfx0one.web.service.ProductCenter.ProductService;
+import com.tfx0one.center.ProductCenter.serivce.ProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

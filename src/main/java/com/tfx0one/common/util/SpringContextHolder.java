@@ -1,6 +1,6 @@
 package com.tfx0one.common.util;
 
-import com.tfx0one.web.service.ProductCenter.ProductCenter;
+import com.tfx0one.center.ProductCenter.ProductCenter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;

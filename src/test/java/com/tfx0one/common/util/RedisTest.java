@@ -1,7 +1,7 @@
 package com.tfx0one.common.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.tfx0one.web.model.EShopProduct;
+import com.tfx0one.center.ProductCenter.model.EShopProduct;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

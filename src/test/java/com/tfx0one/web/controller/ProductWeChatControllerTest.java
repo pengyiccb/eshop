@@ -1,41 +1,30 @@
 package com.tfx0one.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.tfx0one.web.model.Demo;
-import com.tfx0one.web.model.EShopProductSkuAttr;
-import org.junit.Assert;
+import com.tfx0one.center.ProductCenter.model.EShopProduct;
+import com.tfx0one.center.ProductCenter.model.EShopProductSku;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import com.tfx0one.web.model.EShopProduct;
-import com.tfx0one.web.model.EShopProductSku;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by 2fx0one on 2018/5/31.
@@ -63,7 +52,8 @@ public class ProductWeChatControllerTest {
 
 
     //注册测试。 记得进数据库修改相关信息。比如appId
-    @Test public void testRegister() throws Exception {
+    @Test
+    public void testRegister() throws Exception {
         String username = "test";
         String password = "123456";
         mockMvc.perform(
@@ -73,7 +63,9 @@ public class ProductWeChatControllerTest {
         )
                 .andDo(MockMvcResultHandlers.print());
     }
-    @Test public void testLoginAndDo() throws Exception{
+
+    @Test
+    public void testLoginAndDo() throws Exception {
         //发登录请求
         String username = "test";
         String password = "123456";
@@ -90,7 +82,7 @@ public class ProductWeChatControllerTest {
         MvcResult result = actions.andReturn();
         String s = result.getResponse().getContentAsString();
         JSONObject json = JSONObject.parseObject(s);
-        String token = (String)json.get("token");
+        String token = (String) json.get("token");
 
         System.out.println(token);
 
@@ -98,7 +90,7 @@ public class ProductWeChatControllerTest {
         ResultActions actionsGet = mockMvc.perform(
                 MockMvcRequestBuilders
                         .get("/api/v1/wechat/productList").param("appId", "wxdda83d03c2d1521c")
-                        .header("Authorization", "Bearer "+ token)
+                        .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8));
 
@@ -109,7 +101,7 @@ public class ProductWeChatControllerTest {
         ResultActions actionsGet2 = mockMvc.perform(
                 MockMvcRequestBuilders
                         .get("/api/v1/wechat/productDetail").param("productId", "1")
-                        .header("Authorization", "Bearer "+ token)
+                        .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8));
 
@@ -151,21 +143,22 @@ public class ProductWeChatControllerTest {
 //        ResponseEntity<ActResult> result = testRestTemplate.exchange("/test/getHeader?username={username}", HttpMethod.GET,formEntity,ActResult.class,urlVariables);
 //        Assert.assertEquals(result.getBody().getCode(),0);
     }
+
     @Test
-    public void list() throws Exception{
+    public void list() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/v1/wechat/productList")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8)
                         .session(session).param("appId", "a")
-                )
+        )
                 .andExpect(MockMvcResultMatchers.status().isOk())
 //                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("abc"))
                 .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    public void testInsertPro() throws Exception{
+    public void testInsertPro() throws Exception {
         //发登录请求
         String username = "test";
         String password = "123456";
@@ -182,7 +175,7 @@ public class ProductWeChatControllerTest {
         MvcResult result = actions.andReturn();
         String s = result.getResponse().getContentAsString();
         JSONObject json = JSONObject.parseObject(s);
-        String token = (String)json.get("token");
+        String token = (String) json.get("token");
 
 
         EShopProduct eshopProduct = new EShopProduct();
@@ -205,7 +198,6 @@ public class ProductWeChatControllerTest {
         eshopProductSku.withUnitPrice(new BigDecimal(1.34));
         eshopProductSku.withCostPrice(new BigDecimal(1.34));
         eshopProductSku.withStockAmount(0);
-        eshopProductSku.withStockSn(1);
         eshopProductSku.withAttrOption("qqq");
         eshopProductSku.withSaleAmount(0);
         list.add(eshopProductSku);
@@ -214,7 +206,6 @@ public class ProductWeChatControllerTest {
         eshopProductSku1.withUnitPrice(new BigDecimal(1.34));
         eshopProductSku1.withCostPrice(new BigDecimal(1.34));
         eshopProductSku1.withStockAmount(0);
-        eshopProductSku1.withStockSn(1);
         eshopProductSku1.withAttrOption("qqq");
         eshopProductSku1.withSaleAmount(0);
         list.add(eshopProductSku1);
@@ -232,7 +223,7 @@ public class ProductWeChatControllerTest {
                 MockMvcRequestBuilders
                         .post("/api/v1/shop/createProduct")
 //                        .param("demo", o)
-                        .header("Authorization", "Bearer "+ token)
+                        .header("Authorization", "Bearer " + token)
                         .content(o) //post json数据放这里！！！！
                         .contentType(MediaType.APPLICATION_JSON_UTF8) //post json数据放这里！！！！
                         .accept(MediaType.APPLICATION_JSON_UTF8));
@@ -242,7 +233,7 @@ public class ProductWeChatControllerTest {
     }
 
     @Test
-    public void testUpdatePro() throws Exception{
+    public void testUpdatePro() throws Exception {
         //发登录请求
         String username = "test";
         String password = "123456";
@@ -259,7 +250,7 @@ public class ProductWeChatControllerTest {
         MvcResult result = actions.andReturn();
         String s = result.getResponse().getContentAsString();
         JSONObject json = JSONObject.parseObject(s);
-        String token = (String)json.get("token");
+        String token = (String) json.get("token");
 
 
         EShopProduct eshopProduct = new EShopProduct();
@@ -285,7 +276,6 @@ public class ProductWeChatControllerTest {
         eshopProductSku.withUnitPrice(new BigDecimal(2.34));
         eshopProductSku.withCostPrice(new BigDecimal(2.34));
         eshopProductSku.withStockAmount(10);
-        eshopProductSku.withStockSn(11);
         eshopProductSku.withAttrOption("rrr");
         eshopProductSku.withSaleAmount(100);
         list.add(eshopProductSku);
@@ -296,7 +286,6 @@ public class ProductWeChatControllerTest {
         eshopProductSku1.withUnitPrice(new BigDecimal(2.34));
         eshopProductSku1.withCostPrice(new BigDecimal(2.34));
         eshopProductSku1.withStockAmount(100);
-        eshopProductSku1.withStockSn(11);
         eshopProductSku1.withAttrOption("yyy");
         eshopProductSku1.withSaleAmount(200);
         list.add(eshopProductSku1);
@@ -314,7 +303,7 @@ public class ProductWeChatControllerTest {
                 MockMvcRequestBuilders
                         .post("/api/v1/shop/modifyProduct")
 //                        .param("demo", o)
-                        .header("Authorization", "Bearer "+ token)
+                        .header("Authorization", "Bearer " + token)
                         .content(o) //post json数据放这里！！！！
                         .contentType(MediaType.APPLICATION_JSON_UTF8) //post json数据放这里！！！！
                         .accept(MediaType.APPLICATION_JSON_UTF8));

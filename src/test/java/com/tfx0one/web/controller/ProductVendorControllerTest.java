@@ -1,7 +1,7 @@
 package com.tfx0one.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.tfx0one.web.model.EShopProductSkuAttr;
+import com.tfx0one.center.ProductCenter.model.EShopProductSkuAttr;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

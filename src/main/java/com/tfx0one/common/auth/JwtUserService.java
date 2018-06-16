@@ -1,8 +1,8 @@
 package com.tfx0one.common.auth;
 
 import com.tfx0one.common.util.UserAccountUtils;
-import com.tfx0one.web.model.UserAccount;
-import com.tfx0one.web.service.UserAccountService;
+import com.tfx0one.center.AccountCenter.model.UserAccount;
+import com.tfx0one.center.AccountCenter.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

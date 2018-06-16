@@ -27,9 +27,9 @@ public class PaymentController {
 
         String ip = IPUtils.getClientIpAddr(request);
 
-        paymentService.getPrepayOrderInfo(tradeNo, ip);
+        return paymentService.getPrepayOrderInfo(tradeNo, ip);
 
-        return JSONResult.ok();
+//        return JSONResult.ok();
 
     }
 

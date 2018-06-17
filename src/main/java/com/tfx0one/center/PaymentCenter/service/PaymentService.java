@@ -47,7 +47,7 @@ public class PaymentService extends BaseService<EShopPayment> {
         int total_fee = 1;
 
         Map<String, String> result = weChatPaymentService.prepayMiniPayToWeChat(
-                user.getOpenId(),
+                openId,
                 String.valueOf(tradeNo),
                 String.valueOf(total_fee),
                 ip);
@@ -60,7 +60,7 @@ public class PaymentService extends BaseService<EShopPayment> {
         //预支付生成成功，需要入库了。
         EShopPayment payment = new EShopPayment()
                 .withPaymentStatus(PaymentConstant.PAYMENT_STATUS_WAIT_FOR_PAY) //等待支付
-                .withUserAccountId(user.getId())
+                .withUserAccountId(userId)
                 .withCreateTime(new Date())
                 .withFee(total_fee)
                 .withChannelId(PaymentConstant.PAYMENT_CHANNEL_WECHAT)

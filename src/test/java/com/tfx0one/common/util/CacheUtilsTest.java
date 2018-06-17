@@ -1,5 +1,8 @@
 package com.tfx0one.common.util;
 
+import com.tfx0one.center.ProductCenter.ProductCenter;
+import com.tfx0one.center.VendorCenter.model.VendorUser;
+import com.tfx0one.center.VendorCenter.service.VenderUserService;
 import com.tfx0one.common.constant.CacheConstant;
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,7 +10,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.context.annotation.RequestScope;
+
+import javax.annotation.Resource;
 
 /**
  * Created by 2fx0one on 28/5/2018.
@@ -28,9 +36,28 @@ public class CacheUtilsTest {
 //    CacheManager cacheManager;
 
 
+    @Resource
+    private VenderUserService venderUserService;
 
     @Autowired
     private EhCacheCacheManager ehCacheCacheManager;
+
+    @Resource
+    private RedisCacheManager redisCacheManager;
+
+    @Resource
+    private RedisTemplate<Object, Object> redisTemplate;
+
+    @Resource
+    private ProductCenter productCenter;
+
+    @Test
+    public void testredis() {
+        System.out.println(redisTemplate.getValueSerializer().getClass());
+//        VendorUser user = venderUserService.selectByAppId("wxdda83d03c2d1521c");
+//        System.out.println(user);
+        productCenter.getProductById(1);
+    }
 
     @Test
     public void testehcache() {

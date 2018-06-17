@@ -30,7 +30,6 @@ public class EhCacheConfiguration {
      * ehcache 主要的管理器
      */
     @Bean(name = "ehCacheCacheManager")
-    @Primary
     public EhCacheCacheManager ehCacheCacheManager(EhCacheManagerFactoryBean bean) {
         System.out.println("==============  Initializing EhCache CacheManager ==============");
         return new EhCacheCacheManager(bean.getObject());

@@ -5,8 +5,11 @@ import net.sf.ehcache.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
 
 /**
  * Created by 2fx0one on 28/5/2018.
@@ -15,12 +18,16 @@ import org.springframework.util.StringUtils;
 @Component
 public class CacheUtils {
 
-   @Autowired
+    @Resource
     private EhCacheCacheManager ehCacheCacheManager;
     // = SpringContextHolder.getBean("ehCacheCacheManager");
 
+    @Resource
+    private RedisCacheManager redisCacheManager;
+
     private Ehcache getEhcache(String cacheName){
         if (ehCacheCacheManager == null) {
+            redisCacheManager.getCache("").clear();
             throw new NullPointerException("CacheManager == null");
         }
         return ehCacheCacheManager.getCacheManager().getEhcache(cacheName);
@@ -59,7 +66,7 @@ public class CacheUtils {
 //    //=============spring包装的缓存管理对象======================
 ////    //通过spring得到缓存管理对象
     private Cache getCache(String cacheName) {
-        return ehCacheCacheManager.getCache(cacheName);
+        return redisCacheManager.getCache(cacheName);
     }
 //
 //    public <T> void put(String cacheName,String key,T value) {

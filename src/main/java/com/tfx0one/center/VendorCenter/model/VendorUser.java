@@ -1,6 +1,8 @@
 package com.tfx0one.center.VendorCenter.model;
 
 import com.tfx0one.common.util.BaseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import javax.persistence.*;
 

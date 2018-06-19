@@ -1,6 +1,5 @@
 package com.tfx0one.center.PaymentCenter.service;
 
-import com.alibaba.fastjson.JSON;
 import com.tfx0one.center.AccountCenter.AccountCenter;
 import com.tfx0one.center.AccountCenter.model.UserAccount;
 import com.tfx0one.center.OrderCenter.OrderCenter;
@@ -13,6 +12,7 @@ import com.tfx0one.common.util.JSONResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 
@@ -43,7 +43,8 @@ public class PaymentService extends BaseService<EShopPayment> {
     public JSONResult getPrepayOrderInfo(int userId, String openId, int tradeNo, String ip) {
         //需要从订单中心 获取订单数据，验证是否是该用户的订单。同时拿到金额
         UserOrder order = orderCenter.getUserOrderById(tradeNo);
-//        BigInteger total_fee = order.getRealMoney().toBigInteger();
+        int fee = order.getRealMoney().multiply(new BigDecimal(100)).intValue();
+        System.out.println("==========fee from order " + fee);
         int total_fee = 1;
 
         Map<String, String> result = weChatPaymentService.prepayMiniPayToWeChat(

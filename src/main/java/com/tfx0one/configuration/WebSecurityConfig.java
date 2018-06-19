@@ -1,5 +1,7 @@
-package com.tfx0one.center.AccountCenter.JwtAuth;
+package com.tfx0one.configuration;
 
+import com.tfx0one.center.AccountCenter.JwtAuth.JwtAuthenticationTokenFilter;
+import com.tfx0one.center.AccountCenter.JwtAuth.JwtUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.annotation.Resource;
+
 /**
  * Created by 2fx0one on 2018/6/4.
  */
@@ -25,7 +29,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //springboot安全配置
+    //springboot安全配置 配合 JWT Token 使用
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
@@ -33,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Autowired
+    @Resource
     private JwtUserService jwtUserService;
 
     @Autowired
@@ -72,8 +76,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         HttpMethod.GET,
                         "/",
-                        "/api/v1/wechat/productList", //商品和商品详情
-                        "/api/v1/wechat/productDetail", //商品和商品详情
+                        "/api/v1/wechat/getProductList", //商品和商品详情
+                        "/api/v1/wechat/getProductDetail", //商品和商品详情
                         "/v2/api-docs",
                         "/swagger-resources/**",
                         "/*.html",

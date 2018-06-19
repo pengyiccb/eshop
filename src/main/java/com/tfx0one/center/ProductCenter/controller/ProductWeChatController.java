@@ -1,11 +1,13 @@
 package com.tfx0one.center.ProductCenter.controller;
 
-import com.tfx0one.common.util.JSONResult;
-import com.tfx0one.center.ProductCenter.model.EShopProduct;
-import com.tfx0one.center.ProductCenter.model.EShopProductSkuAttr;
-import com.tfx0one.center.VendorCenter.model.VendorUser;
 import com.tfx0one.center.ProductCenter.ProductCenter;
+import com.tfx0one.center.ProductCenter.model.EShopProduct;
+import com.tfx0one.center.ProductCenter.model.EShopProductSku;
+import com.tfx0one.center.ProductCenter.model.EShopProductSkuAttr;
+import com.tfx0one.center.ProductCenter.serivce.ProductSkuService;
+import com.tfx0one.center.VendorCenter.model.VendorUser;
 import com.tfx0one.center.VendorCenter.service.VenderUserService;
+import com.tfx0one.common.util.JSONResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +31,9 @@ public class ProductWeChatController {
     @Resource
     private ProductCenter productCenter;
 
+    @Resource
+    private ProductSkuService productSkuService;
+
 
     @ApiOperation(value = "获取主页的数据, 基本数据信息，不包含单品信息", notes = "需要传递appId 作为参数")
     @RequestMapping(value = "/api/v1/wechat/getProductList", method = RequestMethod.GET)
@@ -40,7 +45,7 @@ public class ProductWeChatController {
         return JSONResult.ok().data(productCenter.getProductListByVendorId(vendorUser.getId()));
     }
 
-    @ApiOperation(value = "获取商品详情", notes = "传递商品的Id")
+    @ApiOperation(value = "商品详情页需要的数据，整合多个单品数据", notes = "传递商品的Id即可")
     @RequestMapping(value = "/api/v1/wechat/getProductDetail", method = RequestMethod.GET)
     public JSONResult productDetail(@RequestParam Integer productId) {
         EShopProduct product = productCenter.getProductById(productId);
@@ -56,7 +61,17 @@ public class ProductWeChatController {
         map.put("attrs", attrs);
 
         return JSONResult.ok().data(map);
+    }
 
-//        return productService.productDetail(productId);
+    @ApiOperation(value = "商品详情页需要的价格", notes = "传递商品的Id和属性字符串")
+    @RequestMapping(value = "/api/v1/wechat/getProductDetailPrice", method = RequestMethod.GET)
+    public JSONResult getProductDetailPrice(@RequestParam Integer productId, @RequestParam String attrOption) {
+        List<EShopProductSku> skuList = productSkuService.selectByProductId(productId);
+        for (EShopProductSku e : skuList) {
+            if (e.getAttrOption().equals(attrOption)) {
+                return JSONResult.ok().data(e);
+            }
+        }
+        return JSONResult.error("未找到价格！");
     }
 }

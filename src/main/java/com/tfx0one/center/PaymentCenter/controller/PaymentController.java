@@ -42,7 +42,7 @@ public class PaymentController {
     @ApiOperation(value = "微信发来的 异步支付结果通知.",
             notes = "商户系统对于支付结果通知的内容一定要做签名验证,并校验返回的订单金额是否与商户侧的订单金额一致，" +
                     "防止数据泄漏导致出现“假通知”，造成资金损失。 参考： https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_7")
-    @RequestMapping(value = "/api/v1/wechat/notifyFromWeChat", method = RequestMethod.POST)
+    @RequestMapping(value = "/receiveNotifyFromWeChat", method = RequestMethod.POST)
     public void receiveNotifyFromWeChat(HttpServletRequest request, HttpServletResponse response) {
         weChatPaymentService.receiveNotifyFromWeChat(request, response);
     }

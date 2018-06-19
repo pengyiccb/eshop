@@ -6,6 +6,7 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_order_id" jdbcType="INTEGER" property="userOrderId" />
     <result column="payment_status" jdbcType="TINYINT" property="paymentStatus" />
     <result column="user_account_id" jdbcType="INTEGER" property="userAccountId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />

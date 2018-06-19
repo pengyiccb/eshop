@@ -3,16 +3,16 @@ package com.tfx0one.center.PaymentCenter.service;
 import com.tfx0one.center.AccountCenter.AccountCenter;
 import com.tfx0one.center.AccountCenter.model.UserAccount;
 import com.tfx0one.center.OrderCenter.OrderCenter;
-import com.tfx0one.center.OrderCenter.model.UserOrder;
 import com.tfx0one.center.PaymentCenter.model.EShopPayment;
 import com.tfx0one.center.PaymentCenter.utils.PaymentUtils;
 import com.tfx0one.common.constant.PaymentConstant;
 import com.tfx0one.common.util.BaseService;
 import com.tfx0one.common.util.JSONResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 
@@ -21,6 +21,8 @@ import java.util.Map;
  */
 @Service
 public class PaymentService extends BaseService<EShopPayment> {
+
+    private final Logger logger = LoggerFactory.getLogger(PaymentService.class);
 
     @Resource
     private WeChatPaymentService weChatPaymentService;
@@ -43,9 +45,9 @@ public class PaymentService extends BaseService<EShopPayment> {
     public JSONResult getPrepayOrderInfo(int userId, String openId, int tradeNo, String ip) {
         System.out.println(userId + " " + openId + " " + tradeNo + " " + ip);
         //需要从订单中心 获取订单数据，验证是否是该用户的订单。同时拿到金额
-        UserOrder order = orderCenter.getUserOrderById(tradeNo);
-        int fee = order.getRealMoney().multiply(new BigDecimal(100)).intValue();
-        System.out.println("==========fee from order " + fee);
+//        UserOrder order = orderCenter.getUserOrderById(tradeNo);
+//        int fee = order.getRealMoney().multiply(new BigDecimal(100)).intValue();
+//        System.out.println("==========fee from order " + fee);
         int total_fee = 1;
 
         Map<String, String> result = weChatPaymentService.prepayMiniPayToWeChat(
@@ -55,21 +57,28 @@ public class PaymentService extends BaseService<EShopPayment> {
                 ip);
 
         //生成订单 失败的情况
-        if (PaymentUtils.isNotSUCCESS(result.get("result_code"))) {
+        if (result.get("result_code")!=null && PaymentUtils.isNotSUCCESS(result.get("result_code"))) {
+            logger.info("预支付发起失败，请稍后重试！" + result.toString());
             return JSONResult.error("预支付发起失败，请稍后重试！");
         }
 
-        //预支付生成成功，需要入库了。
-        EShopPayment payment = new EShopPayment()
+        //预支付信息生成成功，需要入库了。
+        this.insert(new EShopPayment()
+                .withUserOrderId(tradeNo)
                 .withPaymentStatus(PaymentConstant.PAYMENT_STATUS_WAIT_FOR_PAY) //等待支付
                 .withUserAccountId(userId)
                 .withCreateTime(new Date())
                 .withFee(total_fee)
                 .withChannelId(PaymentConstant.PAYMENT_CHANNEL_WECHAT)
-                ;
-        insert(payment);
+        );
 
-        return JSONResult.ok().data(result);
+        //参考 https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=7_7&index=5
+        //生成 小程序需要的预支付参数
+        Map<String, String> miniProgramParams = weChatPaymentService.generateMINIProgramParams(result);
+
+
+        System.out.println(miniProgramParams);
+        return JSONResult.ok().data(miniProgramParams);
 
     }
 }

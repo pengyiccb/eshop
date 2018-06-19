@@ -32,8 +32,10 @@ public class WeChatPaymentService {
     private final String ORDERQUERY_URL = "https://api.mch.weixin.qq.com/pay/orderquery";
 
     // 参考: https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=9_20&index=1
-    private String appId; //公众号id
-    private String mchId; //微信支付分配的商户号
+    private String appId = "wxdda83d03c2d1521c"; //公众号id
+    private String mchId = "1485175642"; //微信支付分配的商户号
+    private String apiSecurityKey = "32ce932d22a3faf983faaa190ebd7e8a";
+    private String notifyURL = "https://shop.jxxykj.cn/receiveNotifyFromWeChat";
 
     //微信小程序支付 生成预订单
     public Map<String, String> prepayMiniPayToWeChat(String openId,
@@ -42,10 +44,7 @@ public class WeChatPaymentService {
                                               String ip //客户端IP
     ) {
         //refer:  https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_1
-        String appId = "wxdda83d03c2d1521c";
-        String mchId = "1485175642";
-        String apiSecurityKey = "32ce932d22a3faf983faaa190ebd7e8a";
-        String notifyURL = "https://shop.jxxykj.cn/wechatPaymentNotify";
+
 
         Map<String, String> params = new HashMap<>();
         params.put("appid", appId);
@@ -66,15 +65,11 @@ public class WeChatPaymentService {
         Map<String, String> result = PaymentUtils.xmlToMap(
                 HttpUtils.post(UNIFIEDORDER_URL, PaymentUtils.mapToXml(params)));
 
-        //失败的情况
-        if (PaymentUtils.isNotSUCCESS(result.get("result_code"))) {
-            return result;
-        }
-        return generateMINIProgramParams(result, apiSecurityKey);
+        return result;
     }
 
     //小程序 客户端支付需要 nonceStr,timestamp,package,paySign  这四个参数
-    private Map<String, String> generateMINIProgramParams(Map<String, String> result, String apiSecurityKey) {
+    public Map<String, String> generateMINIProgramParams(Map<String, String> result) {
 //        {nonce_str=3dmlrYQjCaZLukpI, appid=wxdda83d03c2d1521c, trade_type=JSAPI, return_msg=OK, result_code=SUCCESS, mch_id=1485175642, return_code=SUCCESS, prepay_id=wx16163111464362c1ebdf16661648857742}
         Map<String, String> params = new HashMap<>();
         params.put("appId", result.get("appid"));

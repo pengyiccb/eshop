@@ -12,6 +12,12 @@ public class EShopPayment extends BaseEntity {
     private Integer id;
 
     /**
+     * 对应的订单id
+     */
+    @Column(name = "user_order_id")
+    private Integer userOrderId;
+
+    /**
      * 状态 0表示成功 1表示等待支付
      */
     @Column(name = "payment_status")
@@ -63,6 +69,29 @@ public class EShopPayment extends BaseEntity {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * 获取对应的订单id
+     *
+     * @return user_order_id - 对应的订单id
+     */
+    public Integer getUserOrderId() {
+        return userOrderId;
+    }
+
+    public EShopPayment withUserOrderId(Integer userOrderId) {
+        this.setUserOrderId(userOrderId);
+        return this;
+    }
+
+    /**
+     * 设置对应的订单id
+     *
+     * @param userOrderId 对应的订单id
+     */
+    public void setUserOrderId(Integer userOrderId) {
+        this.userOrderId = userOrderId;
     }
 
     /**
@@ -210,6 +239,7 @@ public class EShopPayment extends BaseEntity {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", userOrderId=").append(userOrderId);
         sb.append(", paymentStatus=").append(paymentStatus);
         sb.append(", userAccountId=").append(userAccountId);
         sb.append(", createTime=").append(createTime);

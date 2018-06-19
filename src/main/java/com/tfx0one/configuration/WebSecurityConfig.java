@@ -76,6 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         HttpMethod.GET,
                         "/",
+                        "/receiveNotifyFromWeChat", //微信需要的支付通知
                         "/api/v1/wechat/getProductList", //商品和商品详情
                         "/api/v1/wechat/getProductDetail", //商品和商品详情
                         "/v2/api-docs",

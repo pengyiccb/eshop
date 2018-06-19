@@ -62,9 +62,9 @@ public class WeChatAPIConfig {
 
         m.put("scene_info", getSceneInfo());
 
-        if (this.getTradeType().equals(WeChatAPI.TRADE_JSAPI)){
-            m.put("openid", getOpenId());
-        }
+//        if (this.getTradeType().equals(WeChatAPI.TRADE_JSAPI)){
+//            m.put("openid", getOpenId());
+//        }
 
         m.put("sign", PaymentUtils.createSign(m, getApiSecurityKey()));
         return m;

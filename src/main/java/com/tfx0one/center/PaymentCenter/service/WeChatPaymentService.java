@@ -2,10 +2,17 @@ package com.tfx0one.center.PaymentCenter.service;
 
 import com.tfx0one.center.PaymentCenter.utils.PaymentUtils;
 import com.tfx0one.common.util.HttpUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,5 +87,102 @@ public class WeChatPaymentService {
         return params;
     }
 
+    //解析微信发来的通知
+    private Map<String, String> receiveNotifyFromWeChat(HttpServletRequest request) {
+        StringBuilder sReqData = null;
+        try {
+            InputStream in = request.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            sReqData = new StringBuilder();
+            String itemStr = null;//作为输出字符串的临时串，用于判断是否读取完毕
+            while (null != (itemStr = reader.readLine())) {
+                sReqData.append(itemStr);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        assert sReqData != null;
+        String xml = sReqData.toString();
+
+        return PaymentUtils.xmlToMap(xml);
+    }
+
+    public void receiveNotifyFromWeChat(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, String> notifyResult = receiveNotifyFromWeChat(request);
+        logger.info("receive notify <<==from== wechat " + notifyResult);
+
+        Map<String, String> returnMsg = new HashMap<>(); //返回msg
+        returnMsg.put("return_code", "SUCCESS");
+        returnMsg.put("return_msg", "OK");
+
+        //返回码不是SUCCESS 不处理
+        if (PaymentUtils.isNotSUCCESS(notifyResult.get("return_code"))) {
+            logger.info("!!!ERROR!!! notify return_code is NOT SUCCESS !!!!");
+            responseWriteXML(response, returnMsg);
+            return;
+        }
+
+        //订单号空 不处理
+        String transactionId = notifyResult.get("transaction_id");
+        if (StringUtils.isBlank(transactionId)) {
+            logger.info("!!!ERROR!!! transaction_id is NULL !!!!");
+            responseWriteXML(response, returnMsg);
+            return;
+        }
+
+        //发起查询
+//        Map<String, String> queryResult = WeChatAPI.sendQueryInfoToWeChat(transactionId);
+//        LogUtils.logSysPay("receive query msg <<==form== wechat  | msg = " + queryResult.toString());
+//        if (PaymentUtils.isNotSUCCESS(queryResult.get("trade_state"))) { //订单状态无效有效 不处理
+//            logger.logSysPay("!!!ERROR!!! trade_state is NOT SUCCESS!!!!");
+//            responseWriteXML(response, returnMsg);
+//            return;
+//        }
+
+        //数据库的订单数据
+//        OrderInfo order = weChatOrderService.queryOrderByTradeNo(queryResult.get("out_trade_no"));
+//        if (order == null) {
+//            LogUtils.logSysPay("!!!ERROR!!! query order info <<==from== DB  NO ORDER FOUND!!!!");
+//            responseWriteXML(response, returnMsg);
+//            return;
+//        }
+//
+//        if (order.getStatus() != Constant.ORDER_PAY_WAIT) { //如果不是支付等待的订单。表示已经处理过了。
+//            LogUtils.logSysPay("order was Handled orderId="+order.getId() + "  order Status="+order.getStatus());
+//            responseWriteXML(response, returnMsg);
+//            return;
+//        }
+//
+//        if (order.getTotalPrice() != Double.parseDouble(queryResult.get("total_fee"))) { //微信查询结果金额不一致
+//            LogUtils.logSysPay("!!!ERROR!!! orderId="+order.getId() + "  order getTotalPrice NOT MATCH totalPrice="+ order.getTotalPrice() + "  queryResult total_fee="+ queryResult.get("total_fee"));
+//            responseWriteXML(response, returnMsg);
+//            return;
+//        }
+
+        //开始处理订单
+        //设定状态， 订单支付完成，还未发货
+//        order.setStatus(Constant.ORDER_DELIVER_WAIT);
+//        weChatOrderService.updateOrderStatusAndTime(order);
+//
+//        //开始发货流程，发货到游戏服
+//        LogUtils.logSysPay("send Order To Game Server UserId ==>> " + order.getUserId() + "  gameId = " + order.getGameId());
+//        int errno = weChatOrderService.sendOrderToGameServer(order);
+//        if (errno != 0) { //发货不成功
+//            LogUtils.logSysPay("!!!ERROR!!! orderId="+order.getId() +"  send Order To Game Server FAILURE");
+//            responseWriteXML(response, returnMsg);
+//            return;
+//        }
+        responseWriteXML(response, returnMsg);
+    }
+
+
+    private void responseWriteXML(HttpServletResponse response,  Map<String, String> returnMsg) {
+        try {
+            response.getWriter().print(PaymentUtils.mapToXml(returnMsg));
+        } catch (Exception e) {
+            logger.info("response Write XML error xml = " + returnMsg, e);
+        }
+    }
 
 }

@@ -101,7 +101,7 @@ public class WeChatPaymentService {
         params.put("sign", PaymentUtils.createSign(params, apiSecurityKey));
 
         Map<String, String> result = PaymentUtils.xmlToMap(
-                HttpUtils.post(UNIFIEDORDER_URL, PaymentUtils.mapToXml(params)));
+                HttpUtils.post(ORDERQUERY_URL, PaymentUtils.mapToXml(params)));
 
         return result;
     }
@@ -130,6 +130,8 @@ public class WeChatPaymentService {
     public void receiveNotifyFromWeChat(HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> notifyResult = receiveNotifyFromWeChat(request);
         logger.info("receive notify <<==from== wechat " + notifyResult);
+//        wechat {transaction_id=4200000135201806206847706119, nonce_str=1529479853735, bank_type=CFT, openid=oUeJY5KR0bECG54dDD0trBqgzkDo, sign=0A05BBE0A847B0719E6A4C58FDEB8CF5, fee_type=CNY, mch_id=1485175642, cash_fee=1, out_trade_no=7654324, appid=wxdda83d03c2d1521c, total_fee=1, trade_type=JSAPI, result_code=SUCCESS, attach=支付测试, time_end=20180620153115, is_subscribe=N, return_code=SUCCESS}
+
 
         Map<String, String> returnMsg = new HashMap<>(); //返回msg
         returnMsg.put("return_code", "SUCCESS");
@@ -151,15 +153,15 @@ public class WeChatPaymentService {
         }
 
         //发起查询
-//        Map<String, String> queryResult = WeChatAPI.sendQueryInfoToWeChat(transactionId);
-//        LogUtils.logSysPay("receive query msg <<==form== wechat  | msg = " + queryResult.toString());
-//        if (PaymentUtils.isNotSUCCESS(queryResult.get("trade_state"))) { //订单状态无效有效 不处理
-//            logger.logSysPay("!!!ERROR!!! trade_state is NOT SUCCESS!!!!");
-//            responseWriteXML(response, returnMsg);
-//            return;
-//        }
+        Map<String, String> queryResult = this.sendQueryInfoToWeChat(transactionId, "");
+        logger.info("receive query msg <<==form== wechat  | msg = " + queryResult.toString());
+        if (PaymentUtils.isNotSUCCESS(queryResult.get("trade_state"))) { //订单状态无效有效 不处理
+            logger.info("!!!ERROR!!! trade_state is NOT SUCCESS!!!!");
+            responseWriteXML(response, returnMsg);
+            return;
+        }
 
-        //数据库的订单数据
+        //查询数据库支付订单的数据
 //        OrderInfo order = weChatOrderService.queryOrderByTradeNo(queryResult.get("out_trade_no"));
 //        if (order == null) {
 //            LogUtils.logSysPay("!!!ERROR!!! query order info <<==from== DB  NO ORDER FOUND!!!!");

@@ -49,6 +49,84 @@ LOCK TABLES `demo` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `e_shop_marketing`
+--
+
+DROP TABLE IF EXISTS `e_shop_marketing`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_marketing` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL COMMENT '活动名称',
+  `tag` varchar(64) NOT NULL COMMENT '活动标签：限时折扣，满减送等',
+  `begin_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '开始时间',
+  `end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '结束时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='营销主表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_marketing`
+--
+
+LOCK TABLES `e_shop_marketing` WRITE;
+/*!40000 ALTER TABLE `e_shop_marketing` DISABLE KEYS */;
+INSERT INTO `e_shop_marketing` VALUES (1,'活动一','限时折扣','2018-01-01 01:37:39','2018-12-01 01:37:39');
+/*!40000 ALTER TABLE `e_shop_marketing` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_shop_marketing_detail`
+--
+
+DROP TABLE IF EXISTS `e_shop_marketing_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_marketing_detail` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `marketing_id` int(10) unsigned NOT NULL COMMENT '主表ID',
+  `strategy` tinyint(4) NOT NULL COMMENT '促销策略',
+  `parameter` varchar(255) NOT NULL COMMENT '促销参数',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='营销详情表 多个';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_marketing_detail`
+--
+
+LOCK TABLES `e_shop_marketing_detail` WRITE;
+/*!40000 ALTER TABLE `e_shop_marketing_detail` DISABLE KEYS */;
+INSERT INTO `e_shop_marketing_detail` VALUES (1,1,0,'0.9');
+/*!40000 ALTER TABLE `e_shop_marketing_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_shop_marketing_product_relation`
+--
+
+DROP TABLE IF EXISTS `e_shop_marketing_product_relation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_marketing_product_relation` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `marketing_detail_id` int(10) unsigned NOT NULL COMMENT '营销活动详情ID',
+  `product_id` int(10) unsigned NOT NULL COMMENT '商品ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='营销和商品关系表 多对多';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_marketing_product_relation`
+--
+
+LOCK TABLES `e_shop_marketing_product_relation` WRITE;
+/*!40000 ALTER TABLE `e_shop_marketing_product_relation` DISABLE KEYS */;
+INSERT INTO `e_shop_marketing_product_relation` VALUES (1,1,1);
+/*!40000 ALTER TABLE `e_shop_marketing_product_relation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `e_shop_payment`
 --
 
@@ -57,6 +135,7 @@ DROP TABLE IF EXISTS `e_shop_payment`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `e_shop_payment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_order_id` int(10) unsigned NOT NULL COMMENT '对应的订单id',
   `payment_status` tinyint(4) NOT NULL COMMENT '状态 0表示成功 1表示等待支付',
   `user_account_id` int(10) unsigned NOT NULL COMMENT '用户ID',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
@@ -64,7 +143,7 @@ CREATE TABLE `e_shop_payment` (
   `fee` int(11) NOT NULL COMMENT '金额(分为单位)',
   `channel_id` tinyint(4) NOT NULL COMMENT '支付渠道ID。',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='支付模块';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='支付模块';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,6 +152,7 @@ CREATE TABLE `e_shop_payment` (
 
 LOCK TABLES `e_shop_payment` WRITE;
 /*!40000 ALTER TABLE `e_shop_payment` DISABLE KEYS */;
+INSERT INTO `e_shop_payment` VALUES (5,7654321,1,7,'2018-06-20 07:07:36','2018-06-20 07:07:35',1,0),(6,7654322,1,7,'2018-06-20 07:08:54','2018-06-20 07:08:53',1,0),(7,7654323,1,7,'2018-06-20 07:13:53','2018-06-20 07:13:53',1,0),(8,1,1,7,'2018-06-20 07:28:53','2018-06-20 07:28:52',1,0),(9,7654324,1,7,'2018-06-20 07:30:54','2018-06-20 07:30:54',1,0);
 /*!40000 ALTER TABLE `e_shop_payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,7 +354,7 @@ CREATE TABLE `user_cart` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `count` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -283,6 +363,7 @@ CREATE TABLE `user_cart` (
 
 LOCK TABLES `user_cart` WRITE;
 /*!40000 ALTER TABLE `user_cart` DISABLE KEYS */;
+INSERT INTO `user_cart` VALUES (1,1,7,'2018-06-20 09:59:30',1),(2,1,7,'2018-06-20 10:08:09',1),(3,1,7,'2018-06-20 11:11:20',1);
 /*!40000 ALTER TABLE `user_cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -438,4 +519,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-16 15:34:17
+-- Dump completed on 2018-06-20 15:58:06

@@ -97,6 +97,23 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
+    <cache name="CACHE_MARKETING_BY_ID"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+
+    <cache name="CACHE_MARKETING_DETAIL_BY_PRODUCT_ID"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
 
     <!--
     name：Cache的唯一标识

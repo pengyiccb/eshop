@@ -1,5 +1,6 @@
 package com.tfx0one.center.ProductCenter.controller;
 
+import com.tfx0one.center.MarketingCenter.MarketingCenter;
 import com.tfx0one.center.ProductCenter.ProductCenter;
 import com.tfx0one.center.ProductCenter.model.EShopProduct;
 import com.tfx0one.center.ProductCenter.model.EShopProductSku;
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by 2fx0one on 2018/5/31.
@@ -34,6 +36,8 @@ public class ProductWeChatController {
     @Resource
     private ProductSkuService productSkuService;
 
+    @Resource
+    private MarketingCenter marketingCenter;
 
     @ApiOperation(value = "获取主页的数据, 基本数据信息，不包含单品信息", notes = "需要传递appId 作为参数")
     @RequestMapping(value = "/api/v1/wechat/getProductList", method = RequestMethod.GET)
@@ -67,6 +71,8 @@ public class ProductWeChatController {
     @RequestMapping(value = "/api/v1/wechat/getProductDetailPrice", method = RequestMethod.GET)
     public JSONResult getProductDetailPrice(@RequestParam Integer productId/*, @RequestParam String attrOption*/) {
         List<EShopProductSku> skuList = productSkuService.selectByProductId(productId);
+        skuList = skuList.stream().map(e -> e.withUnitPrice(marketingCenter.getSalesPriceBySkuId(e.getId()))
+        ).collect(Collectors.toList());
         return JSONResult.ok().data(skuList);
 //        for (EShopProductSku e : skuList) {
 //            if (e.getAttrOption().equals(attrOption)) {

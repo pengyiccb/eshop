@@ -66,6 +66,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
         EShopProductSkuAttr attr = cacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, String.valueOf(skuId));
         if (attr == null) {
             attr = this.selectOne(new EShopProductSkuAttr().withId(skuId));
+            cacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, String.valueOf(skuId), attr);
         }
         return attr;
     }

@@ -10,4 +10,15 @@
     <result column="strategy" jdbcType="TINYINT" property="strategy" />
     <result column="parameter" jdbcType="VARCHAR" property="parameter" />
   </resultMap>
+
+  <select id="selectDetailByProductId" resultMap="BaseResultMap" >
+    SELECT
+      d.id, marketing_id, strategy, parameter
+    FROM
+      e_shop_marketing_detail d, e_shop_marketing_product_relation r
+    WHERE
+      d.id = r.marketing_detail_id
+      and
+      r.product_id = #{productId}
+  </select>
 </mapper>

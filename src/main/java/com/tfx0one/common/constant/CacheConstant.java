@@ -29,6 +29,13 @@ public class CacheConstant {
     public static final String CACHE_PRODUCT_SKU_ATTR_BY_USER_ACCOUNT_ID = "CACHE_PRODUCT_SKU_ATTR_BY_USER_ACCOUNT_ID"; //单品SKU属性 按照 用户ID 缓存
 
 
+    //促销缓存
+    public static final String CACHE_MARKETING_BY_ID = "CACHE_MARKETING_BY_ID"; //促销活动 按照 ID 缓存
+    public static final String CACHE_MARKETING_DETAIL_BY_PRODUCT_ID = "CACHE_MARKETING_DETAIL_BY_PRODUCT_ID"; //促销活动详情 按照 商品ID 缓存
+
+
+
+
 
 
 

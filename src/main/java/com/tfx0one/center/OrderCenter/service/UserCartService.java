@@ -38,8 +38,8 @@ public class UserCartService extends BaseService<UserCart> {
         list.forEach(
                 cart -> {
                     EShopProductSku productSku = productCenter.getProductSkuById(cart.getProductSkuId());
-                    cart.setEShopProductSku(productSku);
-                    cart.setEShopProduct(productCenter.getProductById(productSku.getProductId()));
+                    cart.setProductSku(productSku);
+                    cart.setProduct(productCenter.getProductById(productSku.getProductId()));
                 }
         );
 

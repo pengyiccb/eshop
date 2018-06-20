@@ -3,8 +3,9 @@ package com.tfx0one.center.OrderCenter.model;
 import com.tfx0one.center.ProductCenter.model.EShopProduct;
 import com.tfx0one.center.ProductCenter.model.EShopProductSku;
 import com.tfx0one.common.util.BaseEntity;
-import java.util.Date;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "user_cart")
 public class UserCart extends BaseEntity {
@@ -36,10 +37,10 @@ public class UserCart extends BaseEntity {
     private Integer count;
 
     @Transient
-    private EShopProduct eShopProduct;
+    private EShopProduct product;
 
     @Transient
-    private EShopProductSku eShopProductSku;
+    private EShopProductSku productSku;
 
 
     /**
@@ -154,37 +155,21 @@ public class UserCart extends BaseEntity {
     }
 
 
-    /**
-     * @return EShopProduct
-     */
-    public EShopProduct getEShopProduct() {
-        return eShopProduct;
+    public EShopProduct getProduct() {
+        return product;
     }
 
-
-    /**
-     * @param eShopProduct
-     */
-    public void setEShopProduct(EShopProduct eShopProduct) {
-        this.eShopProduct = eShopProduct;
+    public void setProduct(EShopProduct product) {
+        this.product = product;
     }
 
-
-    /**
-     * @return EShopProductSku
-     */
-    public EShopProductSku getEShopProducSkut() {
-        return eShopProductSku;
+    public EShopProductSku getProductSku() {
+        return productSku;
     }
 
-
-    /**
-     * @param eShopProductSku
-     */
-    public void setEShopProductSku(EShopProductSku eShopProductSku) {
-        this.eShopProductSku = eShopProductSku;
+    public void setProductSku(EShopProductSku productSku) {
+        this.productSku = productSku;
     }
-
 
     @Override
     public String toString() {

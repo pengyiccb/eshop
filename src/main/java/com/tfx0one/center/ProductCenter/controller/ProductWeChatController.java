@@ -65,13 +65,14 @@ public class ProductWeChatController {
 
     @ApiOperation(value = "商品详情页需要的价格", notes = "传递商品的Id和属性字符串")
     @RequestMapping(value = "/api/v1/wechat/getProductDetailPrice", method = RequestMethod.GET)
-    public JSONResult getProductDetailPrice(@RequestParam Integer productId, @RequestParam String attrOption) {
+    public JSONResult getProductDetailPrice(@RequestParam Integer productId/*, @RequestParam String attrOption*/) {
         List<EShopProductSku> skuList = productSkuService.selectByProductId(productId);
-        for (EShopProductSku e : skuList) {
-            if (e.getAttrOption().equals(attrOption)) {
-                return JSONResult.ok().data(e);
-            }
-        }
-        return JSONResult.error("未找到价格！");
+        return JSONResult.ok().data(skuList);
+//        for (EShopProductSku e : skuList) {
+//            if (e.getAttrOption().equals(attrOption)) {
+//                return JSONResult.ok().data(e);
+//            }
+//        }
+//        return JSONResult.error("未找到价格！");
     }
 }

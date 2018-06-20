@@ -3,6 +3,7 @@ package com.tfx0one.center.PaymentCenter.service;
 import com.tfx0one.center.AccountCenter.AccountCenter;
 import com.tfx0one.center.AccountCenter.model.UserAccount;
 import com.tfx0one.center.OrderCenter.OrderCenter;
+import com.tfx0one.center.OrderCenter.model.UserOrder;
 import com.tfx0one.center.PaymentCenter.model.EShopPayment;
 import com.tfx0one.center.PaymentCenter.utils.PaymentUtils;
 import com.tfx0one.common.constant.PaymentConstant;
@@ -48,7 +49,8 @@ public class PaymentService extends BaseService<EShopPayment> {
     public JSONResult getPrepayOrderInfo(int userId, String openId, int tradeNo, String ip) {
         System.out.println(userId + " " + openId + " " + tradeNo + " " + ip);
         //需要从订单中心 获取订单数据，验证是否是该用户的订单。同时拿到金额
-//        UserOrder order = orderCenter.getUserOrderById(tradeNo);
+        UserOrder order = orderCenter.getUserOrderById(tradeNo);
+        logger.info("从订单中心 获取订单数据: " + order);
 //        int fee = order.getRealMoney().multiply(new BigDecimal(100)).intValue();
 //        System.out.println("==========fee from order " + fee);
         int total_fee = 1;

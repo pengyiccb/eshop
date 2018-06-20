@@ -32,7 +32,7 @@ public class ProductSkuService extends BaseService<EShopProductSku> {
         return injectAttrToProductSKU(sku);
     }
 
-    //单品列表 带有属性信息。后台使用
+    //单品列表 带有属性信息
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_BY_PRODUCT_ID, key = "#p0")
     public List<EShopProductSku> selectByProductId(Integer productId) {
         List<EShopProductSku> list = this.select(new EShopProductSku().withProductId(productId));

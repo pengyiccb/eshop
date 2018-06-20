@@ -76,10 +76,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         HttpMethod.GET,
                         "/",
-                        "/receiveNotifyFromWeChat", //微信需要的支付通知
+
                         "/api/v1/wechat/getProductList", //商品和商品详情
                         "/api/v1/wechat/getProductDetail", //商品和商品详情
                         "/api/v1/wechat/getProductDetailPrice", //商品和商品详情
+
+                        //swagger2需要的
                         "/v2/api-docs",
                         "/swagger-resources/**",
                         "/*.html",
@@ -89,6 +91,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js"
                 ).permitAll()
+                .antMatchers(
+                        HttpMethod.POST,
+                        "/notifyFromWeChat").permitAll() //微信需要的支付通知
                 // 对于获取token的rest api要允许匿名访问
                 .antMatchers("/auth/**").permitAll()
                 // 除上面外的所有请求全部需要鉴权认证

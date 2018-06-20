@@ -35,7 +35,7 @@ public class WeChatPaymentService {
     private String appId = "wxdda83d03c2d1521c"; //公众号id
     private String mchId = "1485175642"; //微信支付分配的商户号
     private String apiSecurityKey = "32ce932d22a3faf983faaa190ebd7e8a";
-    private String notifyURL = "https://shop.jxxykj.cn/receiveNotifyFromWeChat";
+    private String notifyURL = "https://shop.jxxykj.cn/notifyFromWeChat";
 
     //微信小程序支付 生成预订单
     public Map<String, String> prepayMiniPayToWeChat(String openId,
@@ -80,6 +80,30 @@ public class WeChatPaymentService {
         params.put("paySign", PaymentUtils.createSign(params, apiSecurityKey));
         logger.info(" == generateMINIProgramParams == " + params.toString());
         return params;
+    }
+
+    //微信订单号	transaction_id    商户订单号	out_trade_no  二选一即可
+    public Map<String, String> sendQueryInfoToWeChat(String transactionId, String outTradeNo) {
+        Map<String, String> params = new HashMap<>();
+
+        params.put("appid", appId);
+        params.put("mch_id", mchId);
+
+        if (StringUtils.isNotBlank(transactionId)) {
+            params.put("transaction_id", transactionId);
+        } else {
+            if (StringUtils.isBlank(outTradeNo)) {
+                throw new IllegalArgumentException("out_trade_no,transaction_id 不能同时为空");
+            }
+            params.put("out_trade_no", outTradeNo);
+        }
+        params.put("nonce_str", String.valueOf(System.currentTimeMillis()));
+        params.put("sign", PaymentUtils.createSign(params, apiSecurityKey));
+
+        Map<String, String> result = PaymentUtils.xmlToMap(
+                HttpUtils.post(UNIFIEDORDER_URL, PaymentUtils.mapToXml(params)));
+
+        return result;
     }
 
     //解析微信发来的通知

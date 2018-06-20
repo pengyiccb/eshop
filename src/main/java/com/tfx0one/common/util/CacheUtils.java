@@ -2,7 +2,6 @@ package com.tfx0one.common.util;
 
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -27,7 +26,7 @@ public class CacheUtils {
 
     private Ehcache getEhcache(String cacheName){
         if (ehCacheCacheManager == null) {
-            redisCacheManager.getCache("").clear();
+//            redisCacheManager
             throw new NullPointerException("CacheManager == null");
         }
         return ehCacheCacheManager.getCacheManager().getEhcache(cacheName);

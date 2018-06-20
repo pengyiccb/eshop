@@ -22,12 +22,13 @@ public class VenderUserService extends BaseService<VendorUser> {
 
     @Cacheable(cacheNames = CacheConstant.CACHE_VENDOR_USER, key = "#p0")
     public VendorUser selectByAppId(String appId) {
-        VendorUser vendorUser = cacheUtils.get(CacheConstant.CACHE_VENDOR_USER, appId);
-        if (vendorUser == null) {
-            vendorUser = this.selectOne(new VendorUser().withAppId(appId));
-            cacheUtils.put(CacheConstant.CACHE_VENDOR_USER, vendorUser.getAppId(), vendorUser);
-        }
-        return vendorUser;
+//        VendorUser vendorUser = cacheUtils.get(CacheConstant.CACHE_VENDOR_USER, appId);
+//        if (vendorUser == null) {
+//            vendorUser = this.selectOne(new VendorUser().withAppId(appId));
+//            cacheUtils.put(CacheConstant.CACHE_VENDOR_USER, vendorUser.getAppId(), vendorUser);
+//        }
+//        return vendorUser;
+        return this.selectOne(new VendorUser().withAppId(appId));
     }
 
 //    @Cacheable(cacheNames = {CacheConstant.CACHE_VENDOR_USER, CacheConstant.CACHE_USER_ACCOUNT}, key = "#p0")

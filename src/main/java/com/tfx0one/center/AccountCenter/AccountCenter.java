@@ -6,7 +6,6 @@ import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.util.CacheUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -28,18 +27,15 @@ public class AccountCenter {
     @Resource
     private UserAccountService userAccountService;
 
-    @Value("${jwt.expiredTimeOutSecond}")
-    private int expiredTimeOutSecond;
-
     public UserAccount refreshLoginUser(String username) {
         UserAccount userAccount = userAccountService.selectOne(new UserAccount().withUsername(username));
-        this.putCacheLoginUser(userAccount, userAccount.getUsername(), expiredTimeOutSecond);
+        this.putCacheLoginUser(userAccount, userAccount.getUsername());
         return userAccount;
     }
 
-    //放入缓存 登录的用户信息
-    private void putCacheLoginUser(UserAccount userAccount, String username, int timeToIdleSeconds) {
-        cacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, username, userAccount, timeToIdleSeconds);
+    //放入缓存 用户信息
+    private void putCacheLoginUser(UserAccount userAccount, String username) {
+        cacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, username, userAccount);
     }
 
     //获取缓存 登录的用户信息 不要在 security 的拦截器中调用。

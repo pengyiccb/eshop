@@ -2,7 +2,6 @@ package com.tfx0one.center.PaymentCenter.controller;
 
 import com.tfx0one.center.PaymentCenter.service.PaymentService;
 import com.tfx0one.center.PaymentCenter.service.WeChatPaymentService;
-import com.tfx0one.common.util.IPUtils;
 import com.tfx0one.common.util.JSONResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,9 +32,9 @@ public class PaymentController {
     //发起预支付订单 获取到有效的支付的参数
     public JSONResult getPrepayOrderInfo(@RequestParam Integer tradeNo, HttpServletRequest request) {
 
-        String ip = IPUtils.getClientIpAddr(request);
 
-        return paymentService.getPrepayOrderInfo(tradeNo, ip);
+
+        return paymentService.getPrepayOrderInfo(tradeNo, request);
     }
 
     //接受微信异步通知

@@ -7,12 +7,14 @@ import com.tfx0one.center.PaymentCenter.model.EShopPayment;
 import com.tfx0one.center.PaymentCenter.utils.PaymentUtils;
 import com.tfx0one.common.constant.PaymentConstant;
 import com.tfx0one.common.util.BaseService;
+import com.tfx0one.common.util.IPUtils;
 import com.tfx0one.common.util.JSONResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Map;
 
@@ -34,11 +36,12 @@ public class PaymentService extends BaseService<EShopPayment> {
     private OrderCenter orderCenter;
 
     //微信内支付 发起预支付订单 获取到有效的支付的参数
-    public JSONResult getPrepayOrderInfo(int tradeNo, String ip) {
+    public JSONResult getPrepayOrderInfo(int tradeNo, HttpServletRequest request) {
         UserAccount user = accountCenter.getCacheLoginUser();
         if (user.getOpenId()==null) {
             return JSONResult.error("该用户的 openId为空");
         }
+        String ip = IPUtils.getClientIpAddr(request);
         return getPrepayOrderInfo(user.getId(), user.getOpenId(), tradeNo, ip);
     }
 

@@ -1,9 +1,14 @@
 package com.tfx0one.common.constant;
 
+import java.util.Map;
+
 /**
  * Created by 2fx0one on 28/5/2018.
  */
 public class CacheConstant {
+
+    private static Map<String, String> map;
+
     // 缓存key
 //    public static final String CACHE_DEMO= "CACHE_DEMO"; // 测试用缓存
 //    public static final String CACHE_WX_SESSION = "CACHE_WX_SESSION";
@@ -14,8 +19,6 @@ public class CacheConstant {
 //    public static final String CACHE_PRODUCT_SPU = "CACHE_PRODUCT_SPU";
 //    public static final String CACHE_PRODUCT_SKU = "CACHE_PRODUCT_SKU";
 //    public static final String CACHE_PRODUCT_SKU_ATTR = "CACHE_PRODUCT_SKU_ATTR";
-
-
 
 
     public static final String CACHE_PRODUCT_SPU_BY_ID = "CACHE_PRODUCT_SPU_BY_ID"; //商品SPU 按照商品ID缓存
@@ -32,16 +35,4 @@ public class CacheConstant {
     //促销缓存
     public static final String CACHE_MARKETING_BY_ID = "CACHE_MARKETING_BY_ID"; //促销活动 按照 ID 缓存
     public static final String CACHE_MARKETING_DETAIL_BY_PRODUCT_ID = "CACHE_MARKETING_DETAIL_BY_PRODUCT_ID"; //促销活动详情 按照 商品ID 缓存
-
-
-
-
-
-
-
-    //Session的key
-    // 把User对象绑定到session
-//    public static final String SESSION_LOGIN_USER = "SESSION_LOGIN_USER";
-
-
 }

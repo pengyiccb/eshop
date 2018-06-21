@@ -1,14 +1,17 @@
 package com.tfx0one.common.util;
 
 import com.tfx0one.center.ProductCenter.ProductCenter;
+import com.tfx0one.common.constant.CacheConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 /**
  * Created by 2fx0one on 28/5/2018.
@@ -23,11 +26,22 @@ public class SpringContextHolder implements ApplicationContextAware {
     @Resource
     private ProductCenter productCenter;
 
+    @Resource
+    private CacheUtils cacheUtils;
+
+    @Value("${is_clear_all_cache_at_startup}")
+    private boolean isClearAllCache;
     /**
      * 实现ApplicationContextAware接口的context注入函数, 将其存入静态变量.
      */
     public void setApplicationContext(ApplicationContext applicationContext) {
         SpringContextHolder.applicationContext = applicationContext; // NOSONAR
+        if (isClearAllCache) {
+            for (Field field : CacheConstant.class.getFields()) {
+                logger.info("************* Clear Cache ********** " + field.getName());
+                cacheUtils.clear(field.getName());
+            }
+        }
         productCenter.refreshAllProductCacheOnce();
     }
 

@@ -3,7 +3,6 @@ package com.tfx0one.center.AccountCenter.service;
 import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.center.AccountCenter.AccountCenter;
 import com.tfx0one.center.AccountCenter.JwtAuth.JwtTokenUtils;
-import com.tfx0one.center.AccountCenter.JwtAuth.JwtUser;
 import com.tfx0one.center.AccountCenter.JwtAuth.JwtUserService;
 import com.tfx0one.center.AccountCenter.model.UserAccount;
 import com.tfx0one.center.AccountCenter.model.WXUserInfo;
@@ -18,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by 2fx0one on 2018/6/4.
@@ -51,23 +52,31 @@ public class AuthService {
         if(StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             return JSONResult.error("不能传空！");
         }
-        if(userAccountService.selectOne(new UserAccount().withUsername(username))!=null) {
+        if(userAccountService.selectByUsername(username) != null) {
             return JSONResult.error("用户已经存在！");
         }
 
-        int i = userAccountService.insert(
-                new UserAccount()
+        UserAccount userAccount =  new UserAccount()
                 .withUsername(username)
                 .withPassword(new BCryptPasswordEncoder().encode(password))
-                .withLastResetPasswordTime(new Date())
-        );
+                .withLastResetPasswordTime(new Date());
+        userAccountService.insertUserAccount(userAccount);
 
-        return JSONResult.ok("注册成功").data(username);
+        Map<String,Object> map = new HashMap<>();
+        map.put("username", userAccount.getUsername());
+        map.put("id", userAccount.getId());
+
+        return JSONResult.ok("注册成功").data(map);
     }
 
 
-//    @Value("${jwt.expiredTimeOutSecond}")
-//    private int expiredTimeOutSecond;
+    private void authenticateUsernameAndPassword(String username, String password) {
+        //密码验证: authentication 会调用配置好的 UserDetailsService.loadUserByUsername(username)
+        //如果密码不正确。会直接throw new RuntimeException. 不再进行接下来的流程。
+        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(username, password);
+        final Authentication authentication = authenticationManager.authenticate(upToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
 
     //网页登录 返回 token
     public JSONResult login(String username, String password){
@@ -76,17 +85,18 @@ public class AuthService {
             return JSONResult.error(-1, "用户或密码为空！");
         }
 
-        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(username, password);
-        final Authentication authentication = authenticationManager.authenticate(upToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        //账号和密码验证
+        authenticateUsernameAndPassword(username, password);
 
-        final JwtUser userDetails = (JwtUser)jwtUserService.loadUserByUsername(username);
+        //验证成功后才能继续的逻辑
+        UserAccount user = userAccountService.selectByUsername(username);
+//        final JwtUser userDetails = jwtUserService.loadUserByUsername(username);
 
         //登录完成。生成token
-        final String token = jwtTokenUtils.generateTokenThenCacheUser(userDetails);
+        final String token = jwtTokenUtils.generateToken(user);
 
         //用户缓存起来。
-        accountCenter.refreshLoginUser(username);
+//        accountCenter.refreshLoginUser(username);
 
         System.out.println("token =  " + token);
         return JSONResult.ok("登录成功").put("token", token);

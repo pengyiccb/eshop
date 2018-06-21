@@ -18,7 +18,7 @@
     <!--timeToIdleSeconds="0"-->
     <!--statistics="true"/>-->
 
-    <cache name="CACHE_USER_ACCOUNT"
+    <cache name="CACHE_USER_ACCOUNT_BY_USERNAME"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"
@@ -27,7 +27,7 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
-    <cache name="CACHE_VENDOR_USER"
+    <cache name="CACHE_VENDOR_USER_BY_APP_ID"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"

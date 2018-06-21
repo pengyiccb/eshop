@@ -1,7 +1,5 @@
-package com.tfx0one.configuration;
+package com.tfx0one.center.AccountCenter.JwtAuth;
 
-import com.tfx0one.center.AccountCenter.JwtAuth.JwtAuthenticationTokenFilter;
-import com.tfx0one.center.AccountCenter.JwtAuth.JwtUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,14 +29,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     //springboot安全配置 配合 JWT Token 使用
 
-    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
+    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
     @Resource
     private JwtUserService jwtUserService;
+
+    @Resource
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -55,10 +56,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public JwtAuthenticationTokenFilter authenticationTokenFilter() throws Exception {
-        return new JwtAuthenticationTokenFilter();
-    }
+//    @Bean
+//    public JwtAuthenticationTokenFilter authenticationTokenFilter() throws Exception {
+//        return new JwtAuthenticationTokenFilter();
+//    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -102,6 +103,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 禁用缓存
         httpSecurity.headers().cacheControl();
 
-        httpSecurity.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

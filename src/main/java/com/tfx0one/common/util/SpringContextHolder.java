@@ -38,7 +38,7 @@ public class SpringContextHolder implements ApplicationContextAware {
         SpringContextHolder.applicationContext = applicationContext; // NOSONAR
         if (isClearAllCache) {
             for (Field field : CacheConstant.class.getFields()) {
-                logger.info("************* Clear Cache ********** " + field.getName());
+                System.out.println("************* Clear Cache ********** " + field.getName());
                 cacheUtils.clear(field.getName());
             }
         }

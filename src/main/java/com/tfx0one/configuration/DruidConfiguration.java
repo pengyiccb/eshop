@@ -13,8 +13,8 @@ import javax.sql.DataSource;
 public class DruidConfiguration {
     private Logger logger = LoggerFactory.getLogger(DruidConfiguration.class);
 
-    @Primary
     @Bean
+    @Primary
     public DataSource dataSource() {
         return DruidDataSourceBuilder.create().build();
     }

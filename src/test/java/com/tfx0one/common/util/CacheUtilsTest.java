@@ -1,7 +1,6 @@
 package com.tfx0one.common.util;
 
 import com.tfx0one.center.ProductCenter.ProductCenter;
-import com.tfx0one.center.VendorCenter.model.VendorUser;
 import com.tfx0one.center.VendorCenter.service.VenderUserService;
 import com.tfx0one.common.constant.CacheConstant;
 import org.junit.Assert;
@@ -13,7 +12,6 @@ import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.context.annotation.RequestScope;
 
 import javax.annotation.Resource;
 
@@ -74,10 +72,10 @@ public class CacheUtilsTest {
 
 
 
-        cacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT, key, value);
-        Assert.assertEquals(value, cacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, key));
-        cacheUtils.clear(CacheConstant.CACHE_USER_ACCOUNT);
-        Assert.assertNull( cacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, key));
+        cacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME, key, value);
+        Assert.assertEquals(value, cacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME, key));
+        cacheUtils.clear(CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME);
+        Assert.assertNull( cacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME, key));
 
     }
 
@@ -96,6 +94,6 @@ public class CacheUtilsTest {
 
 //        System.out.println(cacheManager);
 //        System.out.println(cacheManager.getClass());
-//        System.out.println(cacheManager.getCache("CACHE_USER_ACCOUNT"));
+//        System.out.println(cacheManager.getCache("CACHE_USER_ACCOUNT_BY_USERNAME"));
     }
 }

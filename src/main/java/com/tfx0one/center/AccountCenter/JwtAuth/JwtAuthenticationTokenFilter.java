@@ -1,5 +1,6 @@
 package com.tfx0one.center.AccountCenter.JwtAuth;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +14,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by 2fx0one on 2018/6/4.
@@ -38,21 +42,23 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        //拿到token 进行验证
         String authHeader = request.getHeader(this.tokenHeader);
-        if (authHeader != null && authHeader.startsWith(tokenHead) && authHeader.length()>tokenHead.length() + 1) {
+        logger.info(" 收到 request= " + request.getRequestURL() + "  authHeader = " + authHeader);
+
+        //对于所有的请求， 如果包含token 都需要嵌入 进行验证 然后再走原来的请求链。filterChain.doFilter
+        if (authHeader != null && authHeader.startsWith(tokenHead) && authHeader.length() > tokenHead.length() + 1) {
 //            logger.info("authentication authHeader = [ " + authHeader + " ]");
             final String authToken = authHeader.substring(tokenHead.length() + 1); // The part after "Bearer " 用空格
             String username = jwtTokenUtils.getUsernameFromToken(authToken);
 
             logger.info("authentication username = " + username);
-            //TODO 验证失败时。需要返回信息
+//            //TODO 验证失败时。需要返回信息
             if (username == null) {
-                errorStrWriteToResponse(response, -1, "失效的 Token");
+                errorStrWriteToResponse(response, -1, "失效的 Token， username == null");
                 return;
             }
 
-            //加入到授权上下文
+            //需要验证的页面，加入到授权上下文
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 logger.info("checking authentication ===== " + username);
 
@@ -60,15 +66,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
                 //验证token 和 userDetail 是否一致
                 if (jwtTokenUtils.validateToken(authToken, userDetails)) {
+                    logger.info("checking authentication =====  authenticated user " + username + " setting security context");
                     UsernamePasswordAuthenticationToken authentication
                             = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                    logger.info("checking authentication =====  authenticated user " + username + " setting security context");
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 } else {
-                    errorStrWriteToResponse(response, -1, "validateToken 无法验证 Token");
+                    errorStrWriteToResponse(response, -2, "validateToken 无法验证 Token");
                     return;
                 }
             }
@@ -77,10 +83,16 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     }
 
     private void errorStrWriteToResponse(HttpServletResponse response, int code, String errorCode) throws IOException {
-        String errStr = "{\"code\":" + code + ",\"msg\":\"" + errorCode + "\"}";
+//        String errStr = "{\"code\":" + code + "" + new Date().toString() + ",\"msg\":\"" + errorCode + "\"}";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("code", code);
+        map.put("timestamp", new Date().toString());
+        map.put("msg", errorCode);
+
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
-        response.getWriter().println(errStr);
+        response.getWriter().println(JSONObject.toJSONString(map));
     }
 
 }

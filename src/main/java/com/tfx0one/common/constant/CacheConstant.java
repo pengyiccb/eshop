@@ -12,8 +12,8 @@ public class CacheConstant {
     // 缓存key
 //    public static final String CACHE_DEMO= "CACHE_DEMO"; // 测试用缓存
 //    public static final String CACHE_WX_SESSION = "CACHE_WX_SESSION";
-    public static final String CACHE_USER_ACCOUNT = "CACHE_USER_ACCOUNT";
-    public static final String CACHE_VENDOR_USER = "CACHE_VENDOR_USER";
+    public static final String CACHE_USER_ACCOUNT_BY_USERNAME = "CACHE_USER_ACCOUNT_BY_USERNAME";
+    public static final String CACHE_VENDOR_USER_BY_APP_ID = "CACHE_VENDOR_USER_BY_APP_ID";
 
 
 //    public static final String CACHE_PRODUCT_SPU = "CACHE_PRODUCT_SPU";

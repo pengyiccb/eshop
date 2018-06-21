@@ -27,7 +27,7 @@ public class VenderUserServiceTest {
     public void selectByAppId() {
 //        VendorUser vendorUser = venderUserService.test("wxdda83d03c2d1521c");
 //        VendorUser vendorUser2 = venderUserService.test("wxdda83d03c2d1521c");
-//        VendorUser vendorUser3 = cacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT, "wxdda83d03c2d1521c");
+//        VendorUser vendorUser3 = cacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME, "wxdda83d03c2d1521c");
 //        System.out.println(vendorUser);
 //        System.out.println(vendorUser2);
 //        System.out.println(vendorUser3);

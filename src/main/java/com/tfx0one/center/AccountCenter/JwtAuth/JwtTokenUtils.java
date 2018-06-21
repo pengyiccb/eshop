@@ -1,5 +1,6 @@
 package com.tfx0one.center.AccountCenter.JwtAuth;
 
+import com.tfx0one.center.AccountCenter.model.UserAccount;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -26,11 +27,11 @@ public class JwtTokenUtils {
     private static final String KEY_ID = "id";
 
     //过期时间
-    public Date generateExpirationDate(int expiredTimeSecond) {
+    private Date generateExpirationDate(int expiredTimeSecond) {
         return new Date(System.currentTimeMillis() + expiredTimeSecond*1000);
     }
 
-    public String generateTokenThenCacheUser(Map<String, Object> claims, String secret, int expiredTimeOutSecond) {
+    private String generateToken(Map<String, Object> claims, String secret, int expiredTimeOutSecond) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate(expiredTimeOutSecond))
@@ -38,7 +39,14 @@ public class JwtTokenUtils {
                 .compact();
     }
 
-    public Claims getClaimsFromToken(String token, String secret) {
+    public String generateToken(UserAccount user) {
+        Map<String, Object> data = new HashMap<>();
+        data.put(KEY_USERNAME, user.getUsername());
+        data.put(KEY_ID, user.getId().toString());
+        return this.generateToken(data, this.secret, this.expiredTimeOutSecond);
+    }
+
+    private Claims getClaimsFromToken(String token, String secret) {
         Claims claims;
         try {
             claims = Jwts.parser()
@@ -51,6 +59,13 @@ public class JwtTokenUtils {
         return claims;
     }
 
+    private String getValueFromToken(String authToken, String key) {
+//        System.out.println("getUsernameFromToken() " + authToken);
+        Claims claims = this.getClaimsFromToken(authToken, this.secret);
+
+        return (null != claims) ? claims.get(key, String.class) : null;
+    }
+
     public String getUsernameFromToken(String token) {
         return getValueFromToken(token, KEY_USERNAME);
     }
@@ -59,13 +74,6 @@ public class JwtTokenUtils {
         return getValueFromToken(token, KEY_ID);
     }
 
-
-    private String getValueFromToken(String authToken, String key) {
-//        System.out.println("getUsernameFromToken() " + authToken);
-        Claims claims = this.getClaimsFromToken(authToken, this.secret);
-
-        return (null != claims) ? claims.get(key, String.class) : null;
-    }
 
     public boolean validateToken(String authToken, JwtUser userDetails) {
         if (authToken == null || userDetails == null) {
@@ -81,15 +89,15 @@ public class JwtTokenUtils {
             return false;
         }
 
-
         //TODO 验证需要完成更多逻辑
-        return false;
+        return true;
     }
 
-    public String generateTokenThenCacheUser(JwtUser userDetails) {
-        Map<String, Object> data = new HashMap<>();
-        data.put(KEY_USERNAME, userDetails.getUsername());
-        data.put(KEY_ID, userDetails.getId());
-        return this.generateTokenThenCacheUser(data, this.secret, this.expiredTimeOutSecond);
-    }
+//    public String generateTokenThenCacheUser(JwtUser userDetails) {
+//        Map<String, Object> data = new HashMap<>();
+//        data.put(KEY_USERNAME, userDetails.getUsername());
+//        data.put(KEY_ID, userDetails.getId());
+//        return this.generateTokenThenCacheUser(data, this.secret, this.expiredTimeOutSecond);
+//    }
+
 }

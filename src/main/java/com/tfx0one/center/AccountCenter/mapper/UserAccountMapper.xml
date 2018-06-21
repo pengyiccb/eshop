@@ -7,12 +7,12 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="status" jdbcType="BIT" property="status" />
+    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="last_reset_password_time" jdbcType="TIMESTAMP" property="lastResetPasswordTime" />
     <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="sex" jdbcType="BIT" property="sex" />
+    <result column="sex" jdbcType="TINYINT" property="sex" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="head_url" jdbcType="VARCHAR" property="headUrl" />
     <result column="app_id" jdbcType="VARCHAR" property="appId" />

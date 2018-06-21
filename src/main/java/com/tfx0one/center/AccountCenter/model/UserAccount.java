@@ -1,8 +1,9 @@
 package com.tfx0one.center.AccountCenter.model;
 
 import com.tfx0one.common.util.BaseEntity;
-import java.util.Date;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "user_account")
 public class UserAccount extends BaseEntity {
@@ -12,7 +13,7 @@ public class UserAccount extends BaseEntity {
 
     private String phone;
 
-    private Boolean status;
+    private Byte status;
 
     private String username;
 
@@ -24,7 +25,7 @@ public class UserAccount extends BaseEntity {
     @Column(name = "role_id")
     private Integer roleId;
 
-    private Boolean sex;
+    private Byte sex;
 
     @Column(name = "nick_name")
     private String nickName;
@@ -85,11 +86,11 @@ public class UserAccount extends BaseEntity {
     /**
      * @return status
      */
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public UserAccount withStatus(Boolean status) {
+    public UserAccount withStatus(Byte status) {
         this.setStatus(status);
         return this;
     }
@@ -97,7 +98,7 @@ public class UserAccount extends BaseEntity {
     /**
      * @param status
      */
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
@@ -180,11 +181,11 @@ public class UserAccount extends BaseEntity {
     /**
      * @return sex
      */
-    public Boolean getSex() {
+    public Byte getSex() {
         return sex;
     }
 
-    public UserAccount withSex(Boolean sex) {
+    public UserAccount withSex(Byte sex) {
         this.setSex(sex);
         return this;
     }
@@ -192,7 +193,7 @@ public class UserAccount extends BaseEntity {
     /**
      * @param sex
      */
-    public void setSex(Boolean sex) {
+    public void setSex(Byte sex) {
         this.sex = sex;
     }
 

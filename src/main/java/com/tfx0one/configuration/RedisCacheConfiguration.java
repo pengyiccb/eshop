@@ -18,8 +18,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableCaching
 @Configuration
 public class RedisCacheConfiguration extends CachingConfigurerSupport {
-    @Bean(name = "redisTemplate")
     @SuppressWarnings("unchecked")
+    @Bean(name = "redisTemplate")
     @ConditionalOnMissingBean(name = "redisTemplate") //仅仅在当前上下文中不存在某个对象时，才会实例化一个Bean
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();

@@ -36,15 +36,7 @@ public class MarketingDetailService extends BaseService<EShopMarketingDetail> {
     @Resource
     private CacheUtils cacheUtils;
 
-    @Cacheable(cacheNames = CacheConstant.CACHE_MARKETING_DETAIL_BY_PRODUCT_ID, key = "#p0")
-    public List<EShopMarketingDetail> selectDetailByProductId(int productId) {
-        List<EShopMarketingDetail> list = cacheUtils.get(CacheConstant.CACHE_MARKETING_DETAIL_BY_PRODUCT_ID, String.valueOf(productId));
-        if (CollectionUtils.isEmpty(list)) {
-            list = eShopMarketingDetailMapper.selectDetailByProductId(productId);
-            cacheUtils.put(CacheConstant.CACHE_MARKETING_DETAIL_BY_PRODUCT_ID, String.valueOf(productId), list);
-        }
-        return list;
-    }
+
 
     public BigDecimal getSalesPriceBySkuId(int skuId) {
         EShopProductSku sku = productCenter.getProductSkuById(skuId);
@@ -69,6 +61,16 @@ public class MarketingDetailService extends BaseService<EShopMarketingDetail> {
             EShopMarketing marketing = marketingService.selectByMarketingId(e.getMarketingId());
             return now.after(marketing.getBeginTime()) && now.before(marketing.getEndTime());
         }).collect(Collectors.toList());
+    }
+
+    @Cacheable(cacheNames = CacheConstant.CACHE_MARKETING_DETAIL_BY_PRODUCT_ID, key = "#p0")
+    public List<EShopMarketingDetail> selectDetailByProductId(int productId) {
+        List<EShopMarketingDetail> list = cacheUtils.get(CacheConstant.CACHE_MARKETING_DETAIL_BY_PRODUCT_ID, String.valueOf(productId));
+        if (CollectionUtils.isEmpty(list)) {
+            list = eShopMarketingDetailMapper.selectDetailByProductId(productId);
+            cacheUtils.put(CacheConstant.CACHE_MARKETING_DETAIL_BY_PRODUCT_ID, String.valueOf(productId), list);
+        }
+        return list;
     }
 
     //打折

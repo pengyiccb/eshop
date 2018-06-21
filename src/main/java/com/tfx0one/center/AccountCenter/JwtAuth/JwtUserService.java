@@ -4,7 +4,6 @@ import com.tfx0one.center.AccountCenter.AccountCenter;
 import com.tfx0one.center.AccountCenter.model.UserAccount;
 import com.tfx0one.center.AccountCenter.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ public class JwtUserService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public JwtUser loadUserByUsername(String username) throws UsernameNotFoundException {
 
         if (username == null) {
             throw new UsernameNotFoundException(String.format("No user found with username 'null' !"));
@@ -32,15 +31,9 @@ public class JwtUserService implements UserDetailsService {
         UserAccount userAccount = accountCenter.getCacheLoginUserByUsername(username);
         if (userAccount == null) {
             System.out.println("====用户登录数据 第一次是从从数据库拿数据，会在一定时间内缓存!!!=======");
-//            userAccount = userAccountService.selectOne(new UserAccount().withUsername(username));
             userAccount = accountCenter.refreshLoginUser(username);
-//            userAccountUtils.putCacheLoginUser(userAccount, userAccount.getUsername(), expiredTimeOutSecond);
         }
 
-//        if (userAccount == null) {
-//            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
-//        } else {
         return JwtUserFactory.create(userAccount);
-//        }
     }
 }

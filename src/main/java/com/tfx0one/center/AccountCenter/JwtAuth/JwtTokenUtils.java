@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -23,9 +22,11 @@ public class JwtTokenUtils {
     @Value("${jwt.expiredTimeOutSecond}")
     private int expiredTimeOutSecond;
 
+    private static final String KEY_USERNAME = "username";
+    private static final String KEY_ID = "id";
 
+    //过期时间
     public Date generateExpirationDate(int expiredTimeSecond) {
-//        expiredTimeSecond
         return new Date(System.currentTimeMillis() + expiredTimeSecond*1000);
     }
 
@@ -50,24 +51,45 @@ public class JwtTokenUtils {
         return claims;
     }
 
-    public String getUsernameFromToken(String authToken) {
+    public String getUsernameFromToken(String token) {
+        return getValueFromToken(token, KEY_USERNAME);
+    }
+
+    public String getIdFromToken(String token) {
+        return getValueFromToken(token, KEY_ID);
+    }
+
+
+    private String getValueFromToken(String authToken, String key) {
 //        System.out.println("getUsernameFromToken() " + authToken);
         Claims claims = this.getClaimsFromToken(authToken, this.secret);
-//        System.out.println("getUsernameFromToken() " + claims);
-//        if (claims != null) {
-//            return claims.get("username", String.class);
-//        }
-        return (null != claims) ? claims.get("username", String.class) : null;
+
+        return (null != claims) ? claims.get(key, String.class) : null;
     }
 
-    public boolean validateToken(String authToken, UserDetails userDetails) {
+    public boolean validateToken(String authToken, JwtUser userDetails) {
+        if (authToken == null || userDetails == null) {
+            return false;
+        }
+
+        if(getIdFromToken(authToken) == null || userDetails.getId() ==null) {
+            return false;
+        }
+
+        //id必须一致
+        if (!getIdFromToken(authToken).equals(userDetails.getId())) {
+            return false;
+        }
+
+
         //TODO 验证需要完成更多逻辑
-        return authToken != null && userDetails != null;
+        return false;
     }
 
-    public String generateTokenThenCacheUser(UserDetails userDetails) {
+    public String generateTokenThenCacheUser(JwtUser userDetails) {
         Map<String, Object> data = new HashMap<>();
-        data.put("username", userDetails.getUsername());
+        data.put(KEY_USERNAME, userDetails.getUsername());
+        data.put(KEY_ID, userDetails.getId());
         return this.generateTokenThenCacheUser(data, this.secret, this.expiredTimeOutSecond);
     }
 }

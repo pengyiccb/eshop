@@ -13,6 +13,7 @@ import java.util.Collection;
 
 //包装 JWT 的 User
 public class JwtUser implements UserDetails {
+//    private final String id;
     private final String username;
     private final String password;
 
@@ -26,6 +27,7 @@ public class JwtUser implements UserDetails {
             String password,
             Collection<? extends GrantedAuthority> authorities
             ) {
+//        this.id = String.valueOf(userAccount.getId());
         this.username = username;
         this.password = password; //new BCryptPasswordEncoder().encode(passwd) 加密
 //        this.email = email;
@@ -39,6 +41,12 @@ public class JwtUser implements UserDetails {
         return authorities;
     }
 
+
+    @JsonIgnore
+    public String getId() {
+        return this.userAccount.getId().toString();
+    }
+
     @JsonIgnore
     @Override
     public String getPassword() {
@@ -49,24 +57,28 @@ public class JwtUser implements UserDetails {
     public String getUsername() {
         return username;
     }
+
     // 账户是否未过期
     @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
     // 账户是否未锁定
     @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     // 密码是否未过期
     @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
     // 账户是否激活
     @JsonIgnore
     @Override
@@ -74,6 +86,7 @@ public class JwtUser implements UserDetails {
         System.out.println("isEnabled()  用户状态： " + userAccount.getStatus());
         return true;
     }
+
     // 这个是自定义的，返回上次密码重置日期
     @JsonIgnore
     public UserAccount getUserAccount() {

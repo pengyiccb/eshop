@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -49,7 +48,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             logger.info("authentication username = " + username);
             //TODO 验证失败时。需要返回信息
             if (username == null) {
-                errorStrWriteToResponse(response, -1, "无效的 Token");
+                errorStrWriteToResponse(response, -1, "失效的 Token");
                 return;
             }
 
@@ -57,8 +56,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 logger.info("checking authentication ===== " + username);
 
-                UserDetails userDetails = jwtUserService.loadUserByUsername(username);
+                JwtUser userDetails = jwtUserService.loadUserByUsername(username);
 
+                //验证token 和 userDetail 是否一致
                 if (jwtTokenUtils.validateToken(authToken, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication
                             = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -67,6 +67,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
                     logger.info("checking authentication =====  authenticated user " + username + " setting security context");
                     SecurityContextHolder.getContext().setAuthentication(authentication);
+                } else {
+                    errorStrWriteToResponse(response, -1, "validateToken 无法验证 Token");
+                    return;
                 }
             }
         }

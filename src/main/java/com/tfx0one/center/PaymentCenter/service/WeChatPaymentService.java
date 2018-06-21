@@ -32,6 +32,7 @@ public class WeChatPaymentService {
     private final String ORDERQUERY_URL = "https://api.mch.weixin.qq.com/pay/orderquery";
 
     // 参考: https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=9_20&index=1
+    //mch_id为和appid成对绑定的支付商户号，收款资金会进入该商户号
     private String appId = "wxdda83d03c2d1521c"; //公众号id
     private String mchId = "1485175642"; //微信支付分配的商户号
     private String apiSecurityKey = "32ce932d22a3faf983faaa190ebd7e8a";

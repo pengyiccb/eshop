@@ -46,6 +46,8 @@ public class AuthService {
     private AccountCenter accountCenter;
 
 
+    private static final String wxDefalutPassword = "123456";
+
     //网页用户注册
     public JSONResult register(String username, String password){
 //        final String username = userToAdd.getUsername();
@@ -139,31 +141,34 @@ public class AuthService {
 
         //登录 获取token
         //appId_openid 作为UserName
-        return this.login(userAccount.getUsername(), "123456"); //默认密码
+        return this.login(userAccount.getUsername(), wxDefalutPassword); //默认密码
 //        return JSONResult.ok("获取session成功");
     }
 
 
     private UserAccount createUserAccount(WXUserInfo userInfo, String appId, String openId, String unionId) {
-        UserAccount userAccount = userAccountService.selectOne(new UserAccount().withOpenId(openId));
+        String username = appId+"_"+openId;
+        UserAccount userAccount = userAccountService.selectByUsername(username);
+//        UserAccount userAccount = userAccountService.selectOne(new UserAccount().withOpenId(openId));
 
+        //账户为空时， 相当于是在注册
         if (userAccount == null) {
             userAccount = new UserAccount()
                     .withAppId(appId)
-                    .withStatus(true)
-                    .withSex("1".equals(userInfo.getGender()))
+                    .withStatus((byte)0)
+                    .withSex(Byte.parseByte(userInfo.getGender()))
                     .withOpenId(openId)
                     .withUnionId(unionId)
                     .withHeadUrl(userInfo.getAvatarUrl())
                     .withNickName(userInfo.getNickName())
-                    .withLastResetPasswordTime(new Date()); //相当于注册
+                    .withLastResetPasswordTime(new Date());
 
             //为方便调试设置的账号和密码，微信账号可以使用web接口调试
             userAccount
-                    .withUsername(appId+"_"+openId) //用openId 作为登录账号
-                    .withPassword(new BCryptPasswordEncoder().encode("123456")); //默认密码
+                    .withUsername(username) //用openId 作为登录账号
+                    .withPassword(new BCryptPasswordEncoder().encode(wxDefalutPassword)); //默认密码
 
-            userAccountService.insert(userAccount);
+            userAccountService.insertUserAccount(userAccount);
         }
 
         return userAccount;

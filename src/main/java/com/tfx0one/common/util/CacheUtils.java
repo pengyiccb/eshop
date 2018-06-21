@@ -1,6 +1,7 @@
 package com.tfx0one.common.util;
 
 import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.Element;
 import org.springframework.cache.Cache;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -16,7 +17,7 @@ import javax.annotation.Resource;
 @Component
 public class CacheUtils {
 
-    private boolean isUseRedis = true;
+    private boolean isUseRedis = false;
 
     @Resource
     private EhCacheCacheManager ehCacheCacheManager;
@@ -43,13 +44,10 @@ public class CacheUtils {
 
 //    public <T> void put(String cacheName, String key, T value) {
 //        this.getEhcache(cacheName).put(new Element(key, value));
-//        this.getRedisCache(cacheName).put(key, value);
 //    }
 
 //    @SuppressWarnings("unchecked")
 //    public <T> T get(String cacheName, String key) {
-//        return StringUtils.isEmpty(key) ? null : (T) getRedisCache(cacheName).get(key);
-//    }
 //        if (!StringUtils.isEmpty(key)) {
 //            Element e = getEhcache(cacheName).get(key);
 //            if (e != null) {
@@ -60,10 +58,9 @@ public class CacheUtils {
 //    }
 
     //删除一个缓冲
-    public boolean remove(String cacheName, String key) {
-        return getEhcache(cacheName).remove(key);
-    }
-
+//    public boolean remove(String cacheName, String key) {
+//        return getEhcache(cacheName).remove(key);
+//    }
     //
 //
 //    //=============spring包装的缓存管理对象======================
@@ -75,32 +72,58 @@ public class CacheUtils {
 
     public void put(String cacheName, String key, Object value) {
         if (!StringUtils.isEmpty(key)) {
-            getRedisCache(cacheName).put(key, value);
+            if (isUseRedis) {
+                getRedisCache(cacheName).put(key, value);
+            } else {
+                getEhcache(cacheName).put(new Element(key, value));
+            }
+
         }
     }
 
     @SuppressWarnings("unchecked")
     public <T> T get(String cacheName, String key) {
-//        return StringUtils.isEmpty(key) ? null : (T) getRedisCache(cacheName).get(key).get();
         T value = null;
         if (!StringUtils.isEmpty(key)) {
-            Cache.ValueWrapper val = getRedisCache(cacheName).get(key);
-            if (val != null) {
-                value = (T) val.get();
+            if (isUseRedis) {
+                Cache.ValueWrapper val = getRedisCache(cacheName).get(key);
+                if (val != null) {
+                    value = (T) val.get();
+                }
+            } else {
+                Element e = getEhcache(cacheName).get(key);
+                if (e != null) {
+                    value = (T) e.getObjectValue();
+                }
             }
         }
         return value;
     }
 
-    //
-//
-//    /**
-//     * 清空某一个缓存，全部清除
-//     * @param cacheName
-//     */
+
+    //    删除一个key对应的缓存
+    public boolean remove(String cacheName, String key) {
+        if (isUseRedis) {
+            getRedisCache(cacheName).evict(key);
+            //redis 先返回空。兼容
+            return true;
+        } else {
+            return getEhcache(cacheName).remove(key);
+        }
+    }
+
+    /**
+     * 清空某一个缓存，全部清除
+     *
+     * @param cacheName
+     */
     public void clear(String cacheName) {
 //        if (getCache(cacheName) != null) {
-        getRedisCache(cacheName).clear();
+        if (isUseRedis) {
+            getRedisCache(cacheName).clear();
+        } else {
+            getEhcache(cacheName).removeAll();
+        }
 //        }
     }
 //

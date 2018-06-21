@@ -5,6 +5,7 @@ import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 
 /**
@@ -28,7 +29,7 @@ public class EhCacheConfiguration {
     /*
      * ehcache 主要的管理器
      */
-//    @Primary
+    @Primary
     @Bean(name = "ehCacheCacheManager")
     public EhCacheCacheManager ehCacheCacheManager(EhCacheManagerFactoryBean bean) {
         System.out.println("==============  Initializing EhCache CacheManager ==============");

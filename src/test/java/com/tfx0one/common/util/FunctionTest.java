@@ -1,8 +1,8 @@
 package com.tfx0one.common.util;
 
-import io.swagger.models.auth.In;
 import org.junit.Test;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,5 +43,13 @@ public class FunctionTest {
         Map<String, List<Integer>> map = (Map<String, List<Integer>>)parser.parseExpression("{1:{1,2,3},2:{2,3,4}}").getValue();
         System.out.println(map);
 
+    }
+
+    @Test
+    public void test5() {
+        System.out.println(new BCryptPasswordEncoder().encode("123456"));
+        System.out.println(new BCryptPasswordEncoder().encode("123456"));
+        System.out.println(new BCryptPasswordEncoder().matches("123456", "$2a$10$6Zh4dkX/vP1oTT6OzB4rWumibl33weSJcVXN6JGghxtzWasP/aSm2"));
+        System.out.println(new BCryptPasswordEncoder().matches("123456", "$2a$10$BQqD/iGEiQeyCfHoDvx1xO0jU5TpPGkoP84r50oq1FD8EqJp3a3EW"));
     }
 }

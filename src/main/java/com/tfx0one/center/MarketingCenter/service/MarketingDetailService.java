@@ -44,11 +44,25 @@ public class MarketingDetailService extends BaseService<EShopMarketingDetail> {
         //获取有效的价格
         List<EShopMarketingDetail> list = getActiveDetailByProductId(sku.getProductId());
 
-        //遍历该商品的所有促销方案
-        list.forEach(e -> processSkuWithStrategy(sku, e));
-        return sku.getUnitPrice();
+        //无促销，原价
+        if (CollectionUtils.isEmpty(list)) {
+            return sku.getUnitPrice();
+        }
 
+        EShopProductSku target = new EShopProductSku().withUnitPrice(sku.getUnitPrice());
+
+        //遍历该商品的所有促销方案
+        list.forEach(e -> processSkuWithStrategy(target, e));
+//        list.stream().reduce(sku.getUnitPrice().doubleValue(), (acc, detail)->{
+//            acc = processSkuWithStrategy(detail, acc);
+//            return acc;
+//        });
+        return target.getUnitPrice();
     }
+
+//    private double processSkuWithStrategy(EShopMarketingDetail detail, EShopMarketingDetail acc){
+//
+//    }
 
     //获取未过期的
     private List<EShopMarketingDetail> getActiveDetailByProductId(int productId) {

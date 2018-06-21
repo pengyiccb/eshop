@@ -43,7 +43,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String authHeader = request.getHeader(this.tokenHeader);
-        logger.info(" 收到 request= " + request.getRequestURL() + "  authHeader = " + authHeader);
+        logger.info(" 收到 request url = " + request.getRequestURL() + "  authHeader = " + authHeader);
 
         //对于所有的请求， 如果包含token 都需要嵌入 进行验证 然后再走原来的请求链。filterChain.doFilter
         if (authHeader != null && authHeader.startsWith(tokenHead) && authHeader.length() > tokenHead.length() + 1) {

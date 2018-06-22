@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tfx0one.center.AccountCenter.mapper.EShopUserRoleMapper">
-  <resultMap id="BaseResultMap" type="com.tfx0one.center.AccountCenter.model.EShopUserRole">
+<mapper namespace="com.tfx0one.center.AccountCenter.mapper.EShopRoleMapper">
+  <resultMap id="BaseResultMap" type="com.tfx0one.center.AccountCenter.model.EShopRole">
     <!--
       WARNING - @mbg.generated
     -->
@@ -15,7 +15,7 @@
 
   <!--<insert id="insertUserRoleWithID" >-->
     <!--INSERT INTO-->
-      <!--e_shop_user_role(id, title, permission_str)-->
+      <!--e_shop_role(id, title, permission_str)-->
     <!--VALUE-->
     <!--(#{id}, #{title}, #{permissionStr})-->
   <!--</insert>-->

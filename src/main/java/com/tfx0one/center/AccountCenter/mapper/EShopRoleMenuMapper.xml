@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tfx0one.center.AccountCenter.mapper.EShopUserRoleMenuMapper">
-  <resultMap id="BaseResultMap" type="com.tfx0one.center.AccountCenter.model.EShopUserRoleMenu">
+<mapper namespace="com.tfx0one.center.AccountCenter.mapper.EShopRoleMenuMapper">
+  <resultMap id="BaseResultMap" type="com.tfx0one.center.AccountCenter.model.EShopRoleMenu">
     <!--
       WARNING - @mbg.generated
     -->

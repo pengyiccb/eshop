@@ -1,7 +1,7 @@
 package com.tfx0one.center.AccountCenter;
 
 import com.tfx0one.center.AccountCenter.model.EShopUser;
-import com.tfx0one.center.AccountCenter.service.UserRoleService;
+import com.tfx0one.center.AccountCenter.service.RoleService;
 import com.tfx0one.center.AccountCenter.service.UserService;
 import com.tfx0one.common.cache.CacheUtils;
 import com.tfx0one.common.constant.CacheConstant;
@@ -29,7 +29,7 @@ public class AccountCenter {
     private UserService userService;
 
     @Resource
-    private UserRoleService userRoleService;
+    private RoleService roleService;
 
     public EShopUser refreshLoginUser(String username) {
         EShopUser EShopUser = userService.selectOne(new EShopUser().withUsername(username));
@@ -59,7 +59,7 @@ public class AccountCenter {
 
     //检查数据库 role 表是否配置正确
     public void checkDatabaseRole() {
-        userRoleService.checkDatabaseRole();
+        roleService.checkDatabaseRole();
         userService.checkDatabaseAdmin();
     }
 

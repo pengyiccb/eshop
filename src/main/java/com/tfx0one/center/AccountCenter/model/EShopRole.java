@@ -1,11 +1,12 @@
 package com.tfx0one.center.AccountCenter.model;
 
 import com.tfx0one.common.util.BaseEntity;
-import java.util.Date;
-import javax.persistence.*;
 
-@Table(name = "e_shop_user_role")
-public class EShopUserRole extends BaseEntity {
+import javax.persistence.*;
+import java.util.Date;
+
+@Table(name = "e_shop_role")
+public class EShopRole extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -46,7 +47,7 @@ public class EShopUserRole extends BaseEntity {
         return id;
     }
 
-    public EShopUserRole withId(Integer id) {
+    public EShopRole withId(Integer id) {
         this.setId(id);
         return this;
     }
@@ -67,7 +68,7 @@ public class EShopUserRole extends BaseEntity {
         return title;
     }
 
-    public EShopUserRole withTitle(String title) {
+    public EShopRole withTitle(String title) {
         this.setTitle(title);
         return this;
     }
@@ -90,7 +91,7 @@ public class EShopUserRole extends BaseEntity {
         return createTime;
     }
 
-    public EShopUserRole withCreateTime(Date createTime) {
+    public EShopRole withCreateTime(Date createTime) {
         this.setCreateTime(createTime);
         return this;
     }
@@ -113,7 +114,7 @@ public class EShopUserRole extends BaseEntity {
         return updateTime;
     }
 
-    public EShopUserRole withUpdateTime(Date updateTime) {
+    public EShopRole withUpdateTime(Date updateTime) {
         this.setUpdateTime(updateTime);
         return this;
     }
@@ -136,7 +137,7 @@ public class EShopUserRole extends BaseEntity {
         return updateBy;
     }
 
-    public EShopUserRole withUpdateBy(String updateBy) {
+    public EShopRole withUpdateBy(String updateBy) {
         this.setUpdateBy(updateBy);
         return this;
     }
@@ -159,7 +160,7 @@ public class EShopUserRole extends BaseEntity {
         return permissionStr;
     }
 
-    public EShopUserRole withPermissionStr(String permissionStr) {
+    public EShopRole withPermissionStr(String permissionStr) {
         this.setPermissionStr(permissionStr);
         return this;
     }

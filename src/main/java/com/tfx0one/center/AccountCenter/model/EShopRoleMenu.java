@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "e_shop_user_role_menu")
-public class EShopUserRoleMenu extends BaseEntity {
+public class EShopRoleMenu extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -63,7 +63,7 @@ public class EShopUserRoleMenu extends BaseEntity {
         return id;
     }
 
-    public EShopUserRoleMenu withId(Integer id) {
+    public EShopRoleMenu withId(Integer id) {
         this.setId(id);
         return this;
     }
@@ -84,7 +84,7 @@ public class EShopUserRoleMenu extends BaseEntity {
         return parentId;
     }
 
-    public EShopUserRoleMenu withParentId(Integer parentId) {
+    public EShopRoleMenu withParentId(Integer parentId) {
         this.setParentId(parentId);
         return this;
     }
@@ -107,7 +107,7 @@ public class EShopUserRoleMenu extends BaseEntity {
         return title;
     }
 
-    public EShopUserRoleMenu withTitle(String title) {
+    public EShopRoleMenu withTitle(String title) {
         this.setTitle(title);
         return this;
     }
@@ -130,7 +130,7 @@ public class EShopUserRoleMenu extends BaseEntity {
         return icon;
     }
 
-    public EShopUserRoleMenu withIcon(String icon) {
+    public EShopRoleMenu withIcon(String icon) {
         this.setIcon(icon);
         return this;
     }
@@ -153,7 +153,7 @@ public class EShopUserRoleMenu extends BaseEntity {
         return description;
     }
 
-    public EShopUserRoleMenu withDescription(String description) {
+    public EShopRoleMenu withDescription(String description) {
         this.setDescription(description);
         return this;
     }
@@ -176,7 +176,7 @@ public class EShopUserRoleMenu extends BaseEntity {
         return createTime;
     }
 
-    public EShopUserRoleMenu withCreateTime(Date createTime) {
+    public EShopRoleMenu withCreateTime(Date createTime) {
         this.setCreateTime(createTime);
         return this;
     }
@@ -199,7 +199,7 @@ public class EShopUserRoleMenu extends BaseEntity {
         return updateTime;
     }
 
-    public EShopUserRoleMenu withUpdateTime(Date updateTime) {
+    public EShopRoleMenu withUpdateTime(Date updateTime) {
         this.setUpdateTime(updateTime);
         return this;
     }
@@ -222,7 +222,7 @@ public class EShopUserRoleMenu extends BaseEntity {
         return createBy;
     }
 
-    public EShopUserRoleMenu withCreateBy(String createBy) {
+    public EShopRoleMenu withCreateBy(String createBy) {
         this.setCreateBy(createBy);
         return this;
     }
@@ -245,7 +245,7 @@ public class EShopUserRoleMenu extends BaseEntity {
         return updateBy;
     }
 
-    public EShopUserRoleMenu withUpdateBy(String updateBy) {
+    public EShopRoleMenu withUpdateBy(String updateBy) {
         this.setUpdateBy(updateBy);
         return this;
     }

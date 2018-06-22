@@ -276,6 +276,64 @@ INSERT INTO `e_shop_product_sku_attr` VALUES (1,0,1,'颜色',0),(2,1,1,'红色',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `e_shop_role`
+--
+
+DROP TABLE IF EXISTS `e_shop_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_role` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL COMMENT '角色的显示名字',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
+  `permission_str` varchar(64) NOT NULL COMMENT '权限字符串',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_role`
+--
+
+LOCK TABLES `e_shop_role` WRITE;
+/*!40000 ALTER TABLE `e_shop_role` DISABLE KEYS */;
+INSERT INTO `e_shop_role` VALUES (1,'超级管理员',NULL,NULL,NULL,'ADMMIN'),(2,'商家',NULL,NULL,NULL,'VENDOR'),(3,'消费者',NULL,NULL,NULL,'CONSUMER');
+/*!40000 ALTER TABLE `e_shop_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_shop_role_menu`
+--
+
+DROP TABLE IF EXISTS `e_shop_role_menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_role_menu` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) unsigned NOT NULL COMMENT '父级ID',
+  `title` varchar(64) NOT NULL COMMENT '菜单名字',
+  `icon` varchar(255) DEFAULT NULL COMMENT '菜单图片',
+  `description` varchar(255) DEFAULT NULL COMMENT '菜单描述',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `create_by` varchar(64) NOT NULL COMMENT '更新者',
+  `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户资源（菜单）表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_role_menu`
+--
+
+LOCK TABLES `e_shop_role_menu` WRITE;
+/*!40000 ALTER TABLE `e_shop_role_menu` DISABLE KEYS */;
+/*!40000 ALTER TABLE `e_shop_role_menu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `e_shop_user`
 --
 
@@ -350,64 +408,6 @@ CREATE TABLE `e_shop_user_address` (
 LOCK TABLES `e_shop_user_address` WRITE;
 /*!40000 ALTER TABLE `e_shop_user_address` DISABLE KEYS */;
 /*!40000 ALTER TABLE `e_shop_user_address` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `e_shop_user_role`
---
-
-DROP TABLE IF EXISTS `e_shop_user_role`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `e_shop_user_role` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL COMMENT '角色的显示名字',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
-  `permission_str` varchar(64) NOT NULL COMMENT '权限字符串',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `e_shop_user_role`
---
-
-LOCK TABLES `e_shop_user_role` WRITE;
-/*!40000 ALTER TABLE `e_shop_user_role` DISABLE KEYS */;
-INSERT INTO `e_shop_user_role` VALUES (1,'超级管理员',NULL,NULL,NULL,'ADMMIN'),(2,'商家',NULL,NULL,NULL,'VENDOR'),(3,'消费者',NULL,NULL,NULL,'CONSUMER');
-/*!40000 ALTER TABLE `e_shop_user_role` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `e_shop_user_role_menu`
---
-
-DROP TABLE IF EXISTS `e_shop_user_role_menu`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `e_shop_user_role_menu` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` int(10) unsigned NOT NULL COMMENT '父级ID',
-  `title` varchar(64) NOT NULL COMMENT '菜单名字',
-  `icon` varchar(255) DEFAULT NULL COMMENT '菜单图片',
-  `description` varchar(255) DEFAULT NULL COMMENT '菜单描述',
-  `create_time` datetime NOT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `create_by` varchar(64) NOT NULL COMMENT '更新者',
-  `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户资源（菜单）表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `e_shop_user_role_menu`
---
-
-LOCK TABLES `e_shop_user_role_menu` WRITE;
-/*!40000 ALTER TABLE `e_shop_user_role_menu` DISABLE KEYS */;
-/*!40000 ALTER TABLE `e_shop_user_role_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -589,4 +589,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-22 15:47:27
+-- Dump completed on 2018-06-22 15:55:49

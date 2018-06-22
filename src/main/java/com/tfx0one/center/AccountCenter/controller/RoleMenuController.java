@@ -39,18 +39,23 @@ public class RoleMenuController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
-    @RequestMapping(value = "addRoleMenu", method = RequestMethod.POST)
+    @RequestMapping(value = "roleMenuAdd", method = RequestMethod.POST)
     public JSONResult addRoleMenu(@RequestBody EShopRoleMenu menu) {
         roleMenuService.insertRoleMenu(menu);
         return JSONResult.ok().data(menu);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
-    @RequestMapping(value = "delRoleMenu", method = RequestMethod.POST)
-    public JSONResult delRoleMenu(@RequestParam int menuId) {
-        EShopRoleMenu menu = new EShopRoleMenu().withId(menuId);
-        //TODO 删除标记
-        roleMenuService.updateRoleMenu(new EShopRoleMenu().withId(menuId));
+    @RequestMapping(value = "roleMenuDelete", method = RequestMethod.POST)
+    public JSONResult roleMenuDelete(@RequestParam int menuId) {
+        roleMenuService.deleteRoleMenu(menuId);
+        return JSONResult.ok().data("删除成功");
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
+    @RequestMapping(value = "roleMenuModify", method = RequestMethod.POST)
+    public JSONResult roleMenuModify(@RequestBody EShopRoleMenu menu) {
+        roleMenuService.updateRoleMenu(menu);
         return JSONResult.ok().data("删除成功");
     }
 

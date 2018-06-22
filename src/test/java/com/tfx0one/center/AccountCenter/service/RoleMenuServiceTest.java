@@ -7,8 +7,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by 2fx0one on 2018/6/22.
  */
@@ -21,6 +19,6 @@ public class RoleMenuServiceTest {
     @Test
     public void selectRoleMenuByRoleId() {
         roleMenuService.selectRoleMenuByRoleId(1).forEach(System.out::println);
-        roleMenuService.selectRoleMenu().forEach(System.out::println);
+        roleMenuService.selectAllRoleMenu().forEach(System.out::println);
     }
 }

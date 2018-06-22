@@ -64,9 +64,11 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     //通过ID找到属性
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, key = "#p0")
     public EShopProductSkuAttr selectById(int skuId) {
+        //保证类内部调用也可以启动缓存
         EShopProductSkuAttr attr = cacheUtils.get(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, String.valueOf(skuId));
         if (attr == null) {
-            attr = this.selectOne(new EShopProductSkuAttr().withId(skuId));
+//            attr = this.selectOne(new EShopProductSkuAttr().withId(skuId));
+            attr = this.selectByPrimaryKey(skuId);
             cacheUtils.put(CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, String.valueOf(skuId), attr);
         }
         return attr;

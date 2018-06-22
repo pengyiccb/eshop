@@ -63,6 +63,14 @@ public class EShopRoleMenu extends BaseEntity {
     @Column(name = "sort_order")
     private Byte sortOrder;
 
+
+    /**
+     * 删除标记 0：正常， 1：删除
+     */
+    @Column(name = "del_flag")
+    private Byte delFlag;
+
+
     @Transient
     private List<EShopRoleMenu> children;
 
@@ -304,6 +312,29 @@ public class EShopRoleMenu extends BaseEntity {
         this.sortOrder = sortOrder;
     }
 
+    /**
+     * 获取删除标记 0：正常， 1：删除
+     *
+     * @return del_flag - 删除标记 0：正常， 1：删除
+     */
+    public Byte getDelFlag() {
+        return delFlag;
+    }
+
+    public EShopRoleMenu withDelFlag(Byte delFlag) {
+        this.setDelFlag(delFlag);
+        return this;
+    }
+
+    /**
+     * 设置删除标记 0：正常， 1：删除
+     *
+     * @param delFlag 删除标记 0：正常， 1：删除
+     */
+    public void setDelFlag(Byte delFlag) {
+        this.delFlag = delFlag;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -321,6 +352,7 @@ public class EShopRoleMenu extends BaseEntity {
         sb.append(", createBy=").append(createBy);
         sb.append(", updateBy=").append(updateBy);
         sb.append(", sortOrder=").append(sortOrder);
+        sb.append(", delFlag=").append(delFlag);
         sb.append("]");
         return sb.toString();
     }

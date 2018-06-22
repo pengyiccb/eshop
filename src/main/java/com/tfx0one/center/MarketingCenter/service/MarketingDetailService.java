@@ -68,6 +68,7 @@ public class MarketingDetailService extends BaseService<EShopMarketingDetail> {
     private List<EShopMarketingDetail> getActiveDetailByProductId(int productId) {
         List<EShopMarketingDetail> list = selectDetailByProductId(productId);
 
+        //时间 故而该方法 这里不能缓存
         final Date now = new Date();
 
         //过期过滤
@@ -77,8 +78,10 @@ public class MarketingDetailService extends BaseService<EShopMarketingDetail> {
         }).collect(Collectors.toList());
     }
 
+    //缓存产品对应的促销方案
     @Cacheable(cacheNames = CacheConstant.CACHE_MARKETING_DETAIL_BY_PRODUCT_ID, key = "#p0")
     public List<EShopMarketingDetail> selectDetailByProductId(int productId) {
+
         List<EShopMarketingDetail> list = cacheUtils.get(CacheConstant.CACHE_MARKETING_DETAIL_BY_PRODUCT_ID, String.valueOf(productId));
         if (CollectionUtils.isEmpty(list)) {
             list = eShopMarketingDetailMapper.selectDetailByProductId(productId);

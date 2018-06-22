@@ -409,70 +409,6 @@ LOCK TABLES `e_shop_user_role_menu` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `user_account`
---
-
-DROP TABLE IF EXISTS `user_account`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_account` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `phone` varchar(21) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT '0',
-  `username` varchar(100) DEFAULT NULL,
-  `password` varchar(100) DEFAULT NULL,
-  `last_reset_password_time` datetime DEFAULT NULL,
-  `role_id` mediumint(8) DEFAULT NULL,
-  `sex` tinyint(1) DEFAULT NULL,
-  `nick_name` varchar(1024) DEFAULT NULL,
-  `head_url` varchar(200) DEFAULT '',
-  `app_id` varchar(200) DEFAULT '',
-  `open_id` varchar(200) DEFAULT '',
-  `union_id` varchar(200) DEFAULT NULL,
-  `default_addr_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_account`
---
-
-LOCK TABLES `user_account` WRITE;
-/*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` VALUES (6,NULL,1,'oUeJY5P0SfCNrJnlLtYTJiKm57yM','$2a$10$e9AKQm3Hygi5o78JWXrAeOufCSTYtI.K72A9mdxHvRtJHUE6Hajfa','2018-06-11 10:15:09',NULL,1,'Yang','https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKcq5xY5euQmIBBzlGuwUJibxFHFNia83YXwianUprszUmDOoxZYEMq4IRNdicgDmpyUtkZpmkr86QkGA/132','wxdda83d03c2d1521c','oUeJY5P0SfCNrJnlLtYTJiKm57yM',NULL,NULL),(7,NULL,1,'oUeJY5KR0bECG54dDD0trBqgzkDo','$2a$10$8XkOelVXt922cdBTEzIuaOmYLKawrr9ilqpQ49uCGbYxrey5W15rK','2018-06-11 17:13:13',NULL,1,'机车王小二','https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqxPKde5h68XULD7URQm4g2p9xlDTlMJhV4BNJeeboInKhqvqB475fiaJoYlsLF9y8M6jXddmKRG5g/132','wxdda83d03c2d1521c','oUeJY5KR0bECG54dDD0trBqgzkDo','oJ6K-1eZqk8pv1Lvae7zfd-MaVfw',NULL),(10,NULL,NULL,'test','$2a$10$gFMLCQysxHBdQ5F1QdkpkOtArmjLXW.VJBqFXSoERRIDxz1q0CH2a','2018-06-21 15:34:32',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(11,NULL,1,'wxdda83d03c2d1521c_oUeJY5KR0bECG54dDD0trBqgzkDo','$2a$10$DyUuvjxuPDXx31XsSzUF/.Ob3lHgijk1crwi2wR6m8mDQ7LehxWq6','2018-06-21 16:35:44',NULL,1,'机车王小二','https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqxPKde5h68XULD7URQm4g2p9xlDTlMJhV4BNJeeboInKhqvqB475fiaJoYlsLF9y8M6jXddmKRG5g/132','wxdda83d03c2d1521c','oUeJY5KR0bECG54dDD0trBqgzkDo','oJ6K-1eZqk8pv1Lvae7zfd-MaVfw',NULL);
-/*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `user_addr`
---
-
-DROP TABLE IF EXISTS `user_addr`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_addr` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_account` mediumint(8) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `areaaddr` varchar(50) NOT NULL,
-  `addr_desc` varchar(255) NOT NULL,
-  `area_code` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_addr`
---
-
-LOCK TABLES `user_addr` WRITE;
-/*!40000 ALTER TABLE `user_addr` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_addr` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `user_cart`
 --
 
@@ -651,4 +587,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-22 12:57:27
+-- Dump completed on 2018-06-22 13:00:19

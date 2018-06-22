@@ -137,7 +137,7 @@ CREATE TABLE `e_shop_payment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_order_id` int(10) unsigned NOT NULL COMMENT '对应的订单id',
   `payment_status` tinyint(4) NOT NULL COMMENT '状态 0表示成功 1表示等待支付',
-  `user_account_id` int(10) unsigned NOT NULL COMMENT '用户ID',
+  `user_id` int(10) unsigned NOT NULL COMMENT '用户ID',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `fee` int(11) NOT NULL COMMENT '金额(分为单位)',
@@ -258,7 +258,7 @@ DROP TABLE IF EXISTS `e_shop_product_sku_attr`;
 CREATE TABLE `e_shop_product_sku_attr` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'sku属性id',
   `parent_id` int(11) NOT NULL COMMENT '属性的父级ID',
-  `user_account_id` int(10) unsigned NOT NULL COMMENT '属性对应的用户',
+  `user_id` int(10) unsigned NOT NULL COMMENT '属性对应的用户',
   `attr_name` varchar(255) NOT NULL COMMENT '属性的值',
   `sort_order` int(11) NOT NULL COMMENT '属性的排序',
   PRIMARY KEY (`id`)
@@ -303,7 +303,7 @@ CREATE TABLE `e_shop_user` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `last_reset_password_time` datetime DEFAULT NULL COMMENT '最后修改密码时间',
-  `email` char(10) DEFAULT NULL COMMENT '电子邮件',
+  `email` varchar(255) DEFAULT NULL COMMENT '电子邮件',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -315,6 +315,40 @@ CREATE TABLE `e_shop_user` (
 LOCK TABLES `e_shop_user` WRITE;
 /*!40000 ALTER TABLE `e_shop_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `e_shop_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_shop_user_address`
+--
+
+DROP TABLE IF EXISTS `e_shop_user_address`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_user_address` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL COMMENT '用户id',
+  `user_name` varchar(20) NOT NULL COMMENT '收件人',
+  `mobile_phone` varchar(20) NOT NULL COMMENT '手机号',
+  `area_addr1` varchar(50) NOT NULL COMMENT '区域地址1 省',
+  `area_addr2` varchar(50) NOT NULL COMMENT '区域地址2 市',
+  `area_addr3` varchar(50) NOT NULL COMMENT '区域地址3 区县',
+  `addr_desc` varchar(255) NOT NULL COMMENT '详细地址',
+  `area_code` varchar(20) DEFAULT NULL COMMENT '区域码',
+  `is_default` tinyint(4) NOT NULL COMMENT '默认地址 0:否  1:是',
+  `telphone` varchar(21) DEFAULT NULL COMMENT '电话号码',
+  `post_code` char(6) DEFAULT NULL COMMENT '邮编',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_user_address`
+--
+
+LOCK TABLES `e_shop_user_address` WRITE;
+/*!40000 ALTER TABLE `e_shop_user_address` DISABLE KEYS */;
+/*!40000 ALTER TABLE `e_shop_user_address` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -617,4 +651,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-22 11:08:12
+-- Dump completed on 2018-06-22 12:57:27

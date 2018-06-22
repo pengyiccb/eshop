@@ -1,6 +1,7 @@
 package com.tfx0one.common.util;
 
 import com.tfx0one.center.ProductCenter.ProductCenter;
+import com.tfx0one.common.cache.CacheUtils;
 import com.tfx0one.common.constant.CacheConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

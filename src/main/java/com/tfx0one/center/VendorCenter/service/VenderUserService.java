@@ -3,7 +3,7 @@ package com.tfx0one.center.VendorCenter.service;
 import com.tfx0one.center.VendorCenter.model.VendorUser;
 import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.util.BaseService;
-import com.tfx0one.common.util.CacheUtils;
+import com.tfx0one.common.cache.CacheUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 

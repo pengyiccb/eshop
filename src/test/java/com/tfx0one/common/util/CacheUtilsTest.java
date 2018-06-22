@@ -2,6 +2,7 @@ package com.tfx0one.common.util;
 
 import com.tfx0one.center.ProductCenter.ProductCenter;
 import com.tfx0one.center.VendorCenter.service.VenderUserService;
+import com.tfx0one.common.cache.CacheUtils;
 import com.tfx0one.common.constant.CacheConstant;
 import org.junit.Assert;
 import org.junit.Test;

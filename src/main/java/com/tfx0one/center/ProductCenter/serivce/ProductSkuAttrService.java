@@ -2,7 +2,7 @@ package com.tfx0one.center.ProductCenter.serivce;
 
 import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.util.BaseService;
-import com.tfx0one.common.util.CacheUtils;
+import com.tfx0one.common.cache.CacheUtils;
 import com.tfx0one.center.ProductCenter.model.EShopProductSku;
 import com.tfx0one.center.ProductCenter.model.EShopProductSkuAttr;
 import org.springframework.cache.annotation.CachePut;

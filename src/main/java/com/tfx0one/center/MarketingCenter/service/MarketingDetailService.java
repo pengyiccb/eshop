@@ -7,7 +7,7 @@ import com.tfx0one.center.ProductCenter.ProductCenter;
 import com.tfx0one.center.ProductCenter.model.EShopProductSku;
 import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.util.BaseService;
-import com.tfx0one.common.util.CacheUtils;
+import com.tfx0one.common.cache.CacheUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

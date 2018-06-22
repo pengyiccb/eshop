@@ -1,4 +1,4 @@
-package com.tfx0one.configuration;
+package com.tfx0one.common.cache;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

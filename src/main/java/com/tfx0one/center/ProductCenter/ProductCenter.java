@@ -1,7 +1,7 @@
 package com.tfx0one.center.ProductCenter;
 
 import com.tfx0one.common.constant.CacheConstant;
-import com.tfx0one.common.util.CacheUtils;
+import com.tfx0one.common.cache.CacheUtils;
 import com.tfx0one.center.ProductCenter.model.EShopProduct;
 import com.tfx0one.center.ProductCenter.model.EShopProductCategory;
 import com.tfx0one.center.ProductCenter.model.EShopProductSku;

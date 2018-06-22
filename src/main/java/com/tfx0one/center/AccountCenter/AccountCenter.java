@@ -3,7 +3,7 @@ package com.tfx0one.center.AccountCenter;
 import com.tfx0one.center.AccountCenter.model.UserAccount;
 import com.tfx0one.center.AccountCenter.service.UserAccountService;
 import com.tfx0one.common.constant.CacheConstant;
-import com.tfx0one.common.util.CacheUtils;
+import com.tfx0one.common.cache.CacheUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;

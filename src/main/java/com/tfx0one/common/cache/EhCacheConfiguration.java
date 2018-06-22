@@ -1,4 +1,4 @@
-package com.tfx0one.configuration;
+package com.tfx0one.common.cache;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;

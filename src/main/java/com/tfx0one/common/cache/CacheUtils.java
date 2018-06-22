@@ -1,4 +1,4 @@
-package com.tfx0one.common.util;
+package com.tfx0one.common.cache;
 
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;

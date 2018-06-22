@@ -6,7 +6,6 @@ import com.tfx0one.center.OrderCenter.model.EShopUserAddress;
 import com.tfx0one.center.OrderCenter.service.UserAddressService;
 import com.tfx0one.common.util.JSONResult;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -16,7 +15,6 @@ import javax.annotation.Resource;
  */
 
 @RestController
-@PreAuthorize("hasRole('USER')")
 public class UserAddrController {
     @Resource
     private UserAddressService userAddressService;

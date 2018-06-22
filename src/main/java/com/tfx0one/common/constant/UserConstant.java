@@ -1,5 +1,8 @@
 package com.tfx0one.common.constant;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by 2fx0one on 2018/6/1.
  */
@@ -29,6 +32,14 @@ public class UserConstant {
     public static final String USER_ROLE_TITLE_ADMIN = "超级管理员";
     public static final String USER_ROLE_TITLE_VENDOR = "商家";
     public static final String USER_ROLE_TITLE_CONSUMER = "消费者";
+
+    public static Map<Integer, String> rolePermission;
+    static {
+        rolePermission = new HashMap<>();
+        rolePermission.put(USER_ROLE_ID_ADMIN, USER_ROLE_PERMISSION_ADMIN);
+        rolePermission.put(USER_ROLE_ID_VENDOR, USER_ROLE_PERMISSION_VENDOR);
+        rolePermission.put(USER_ROLE_ID_CONSUMER, USER_ROLE_PERMISSION_CONSUMER);
+    }
 
 
 

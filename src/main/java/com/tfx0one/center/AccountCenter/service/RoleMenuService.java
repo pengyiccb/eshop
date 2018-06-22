@@ -4,6 +4,8 @@ import com.tfx0one.center.AccountCenter.mapper.EShopRoleMenuMapper;
 import com.tfx0one.center.AccountCenter.model.EShopRoleMenu;
 import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.util.BaseService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,19 @@ public class RoleMenuService extends BaseService<EShopRoleMenu> {
                    this.select(new EShopRoleMenu().withParentId(root.getId()))
            )
         ).collect(Collectors.toList());
+    }
+
+    @CacheEvict(cacheNames = CacheConstant.CACHE_ROLE_MENU_BY_ROLE_ID, allEntries = true) //删除用户的缓存
+    @CachePut(cacheNames = CacheConstant.CACHE_ROLE_MENU_BY_ID, key = "#p0")
+    public EShopRoleMenu insertRoleMenu(EShopRoleMenu menu) {
+        this.insert(menu);
+        return menu;
+    }
+
+    @CacheEvict(cacheNames = CacheConstant.CACHE_ROLE_MENU_BY_ROLE_ID, allEntries = true) //删除用户的缓存
+    @CachePut(cacheNames = CacheConstant.CACHE_ROLE_MENU_BY_ID, key = "#p0")
+    public void updateRoleMenu(EShopRoleMenu menu) {
+        this.updateNotNull(menu);
     }
 
 
@@ -75,6 +90,8 @@ public class RoleMenuService extends BaseService<EShopRoleMenu> {
 //        return null;
 
     }
+
+
 
 //    private EShopRoleMenu addChild(EShopRoleMenu root, EShopRoleMenu child) {
 ////        root.getChildren()

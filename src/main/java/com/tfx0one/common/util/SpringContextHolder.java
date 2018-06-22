@@ -1,5 +1,6 @@
 package com.tfx0one.common.util;
 
+import com.tfx0one.center.AccountCenter.AccountCenter;
 import com.tfx0one.center.ProductCenter.ProductCenter;
 import com.tfx0one.common.cache.CacheUtils;
 import com.tfx0one.common.constant.CacheConstant;
@@ -30,8 +31,12 @@ public class SpringContextHolder implements ApplicationContextAware {
     @Resource
     private CacheUtils cacheUtils;
 
+    @Resource
+    private AccountCenter accountCenter;
+
     @Value("${is_clear_all_cache_at_startup}")
     private boolean isClearAllCache;
+
     /**
      * 实现ApplicationContextAware接口的context注入函数, 将其存入静态变量.
      */
@@ -44,6 +49,7 @@ public class SpringContextHolder implements ApplicationContextAware {
             }
         }
         productCenter.refreshAllProductCacheOnce();
+        accountCenter.checkDatabaseRole();
     }
 
     /**

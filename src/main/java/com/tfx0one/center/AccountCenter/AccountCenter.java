@@ -1,9 +1,10 @@
 package com.tfx0one.center.AccountCenter;
 
 import com.tfx0one.center.AccountCenter.model.EShopUser;
+import com.tfx0one.center.AccountCenter.service.UserRoleService;
 import com.tfx0one.center.AccountCenter.service.UserService;
-import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.cache.CacheUtils;
+import com.tfx0one.common.constant.CacheConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +28,9 @@ public class AccountCenter {
     @Resource
     private UserService userService;
 
+    @Resource
+    private UserRoleService userRoleService;
+
     public EShopUser refreshLoginUser(String username) {
         EShopUser EShopUser = userService.selectOne(new EShopUser().withUsername(username));
         this.putCacheLoginUser(EShopUser, EShopUser.getUsername());
@@ -35,7 +39,7 @@ public class AccountCenter {
 
     //放入缓存 用户信息
     private void putCacheLoginUser(EShopUser EShopUser, String username) {
-        cacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME, username, EShopUser);
+        cacheUtils.put(CacheConstant.CACHE_USER_BY_USERNAME, username, EShopUser);
     }
 
     //获取缓存 登录的用户信息
@@ -50,6 +54,13 @@ public class AccountCenter {
     }
 
     public EShopUser getCacheLoginUserByUsername(String username) {
-        return StringUtils.isEmpty(username) ? null : cacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME, username);
+        return StringUtils.isEmpty(username) ? null : cacheUtils.get(CacheConstant.CACHE_USER_BY_USERNAME, username);
     }
+
+    //检查数据库 role 表是否配置正确
+    public void checkDatabaseRole() {
+        userRoleService.checkDatabaseRole();
+        userService.checkDatabaseAdmin();
+    }
+
 }

@@ -6,6 +6,7 @@ import com.tfx0one.center.AccountCenter.JwtAuth.JwtTokenUtils;
 import com.tfx0one.center.AccountCenter.JwtAuth.JwtUserService;
 import com.tfx0one.center.AccountCenter.model.EShopUser;
 import com.tfx0one.center.AccountCenter.model.WXUserInfo;
+import com.tfx0one.common.constant.UserConstant;
 import com.tfx0one.common.util.JSONResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +48,7 @@ public class AuthService {
 
     private static final String wxDefalutPassword = "123456";
 
-    //网页用户注册
+    //网页注册 商户注册功能
     public JSONResult register(String username, String password) {
 //        final String username = userToAdd.getUsername();
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
@@ -59,10 +59,12 @@ public class AuthService {
         }
 
         EShopUser user = new EShopUser()
+                .withRoleId(UserConstant.USER_ROLE_ID_VENDOR)
                 .withUsername(username)
                 .withPassword(new BCryptPasswordEncoder().encode(password))
-                .withLastResetPasswordTime(new Date());
-        userService.insertUserAccount(user);
+                .withStatus(UserConstant.USER_STATUS_NORMAL);
+
+        userService.insertUser(user);
 
         Map<String, Object> map = new HashMap<>();
         map.put("username", user.getUsername());
@@ -137,7 +139,7 @@ public class AuthService {
         System.out.println(wxSessionKey);
 
         //2 创建账户 返回一个账户
-        EShopUser userAccount = this.createUser(user, appId, wxOpenId, wxUnionId);
+        EShopUser userAccount = this.createWeChatUser(user, appId, wxOpenId, wxUnionId);
 
         //登录 获取token
         //appId_openid 作为UserName
@@ -146,31 +148,29 @@ public class AuthService {
     }
 
 
-    private EShopUser createUser(WXUserInfo userInfo, String appId, String openId, String unionId) {
+    private EShopUser createWeChatUser(WXUserInfo userInfo, String appId, String openId, String unionId) {
+
+        //为方便调试设置的账号和密码，微信账号可以使用web接口调试
         String username = appId + "_" + openId;
-        EShopUser userAccount = userService.selectByUsername(username);
-//        UserAccount userAccount = userAccountService.selectOne(new UserAccount().withOpenId(openId));
+        EShopUser user = userService.selectByUsername(username);
 
         //账户为空时， 相当于是在注册
-        if (userAccount == null) {
-            userAccount = new EShopUser()
+        if (user == null) {
+            user = new EShopUser()
+                    .withRoleId(UserConstant.USER_ROLE_ID_CONSUMER)
+                    .withUsername(username)
+                    .withPassword(new BCryptPasswordEncoder().encode(wxDefalutPassword))
                     .withWxMiniAppId(appId)
-                    .withStatus((byte) 0)
+                    .withStatus(UserConstant.USER_STATUS_NORMAL)
                     .withGender(Byte.parseByte(userInfo.getGender()))
                     .withWxOpenId(openId)
-                    .withWxOpenId(unionId)
+                    .withWxUnionId(unionId)
                     .withAvatarUrl(userInfo.getAvatarUrl())
-                    .withWxNickName(userInfo.getNickName())
-                    .withUserType((byte) 0);
+                    .withWxNickName(userInfo.getNickName());
 
-            //为方便调试设置的账号和密码，微信账号可以使用web接口调试
-            userAccount
-                    .withUsername(username) //用openId 作为登录账号
-                    .withPassword(new BCryptPasswordEncoder().encode(wxDefalutPassword)); //默认密码
-
-            userService.insertUserAccount(userAccount);
+            userService.insertUser(user);
         }
 
-        return userAccount;
+        return user;
     }
 }

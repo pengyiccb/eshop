@@ -12,7 +12,13 @@ public class CacheConstant {
     // 缓存key
 //    public static final String CACHE_DEMO= "CACHE_DEMO"; // 测试用缓存
 //    public static final String CACHE_WX_SESSION = "CACHE_WX_SESSION";
-    public static final String CACHE_USER_ACCOUNT_BY_USERNAME = "CACHE_USER_ACCOUNT_BY_USERNAME";
+    //用户相关
+    public static final String CACHE_USER_BY_USERNAME = "CACHE_USER_BY_USERNAME";
+
+    //缓存角色
+    public static final String CACHE_USER_ROLE_BY_ID = "CACHE_USER_ROLE_BY_ID"; //角色 按照 ID 缓存
+
+    //商家
     public static final String CACHE_VENDOR_USER_BY_APP_ID = "CACHE_VENDOR_USER_BY_APP_ID";
 
 
@@ -20,7 +26,7 @@ public class CacheConstant {
 //    public static final String CACHE_PRODUCT_SKU = "CACHE_PRODUCT_SKU";
 //    public static final String CACHE_PRODUCT_SKU_ATTR = "CACHE_PRODUCT_SKU_ATTR";
 
-
+    //商品中心相关
     public static final String CACHE_PRODUCT_SPU_BY_ID = "CACHE_PRODUCT_SPU_BY_ID"; //商品SPU 按照商品ID缓存
     public static final String CACHE_PRODUCT_SPU_BY_VENDOR_ID = "CACHE_PRODUCT_SPU_BY_VENDOR_ID"; //商品SPU 按照 商家ID 缓存
 
@@ -35,4 +41,8 @@ public class CacheConstant {
     //促销缓存
     public static final String CACHE_MARKETING_BY_ID = "CACHE_MARKETING_BY_ID"; //促销活动 按照 ID 缓存
     public static final String CACHE_MARKETING_DETAIL_BY_PRODUCT_ID = "CACHE_MARKETING_DETAIL_BY_PRODUCT_ID"; //促销活动详情 按照 商品ID 缓存
+
+
+
+    //缓存菜单
 }

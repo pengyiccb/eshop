@@ -12,4 +12,11 @@
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="permission_str" jdbcType="VARCHAR" property="permissionStr" />
   </resultMap>
+
+  <!--<insert id="insertUserRoleWithID" >-->
+    <!--INSERT INTO-->
+      <!--e_shop_user_role(id, title, permission_str)-->
+    <!--VALUE-->
+    <!--(#{id}, #{title}, #{permissionStr})-->
+  <!--</insert>-->
 </mapper>

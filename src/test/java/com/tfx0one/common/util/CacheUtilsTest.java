@@ -73,10 +73,10 @@ public class CacheUtilsTest {
 
 
 
-        cacheUtils.put(CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME, key, value);
-        Assert.assertEquals(value, cacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME, key));
-        cacheUtils.clear(CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME);
-        Assert.assertNull( cacheUtils.get(CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME, key));
+        cacheUtils.put(CacheConstant.CACHE_USER_BY_USERNAME, key, value);
+        Assert.assertEquals(value, cacheUtils.get(CacheConstant.CACHE_USER_BY_USERNAME, key));
+        cacheUtils.clear(CacheConstant.CACHE_USER_BY_USERNAME);
+        Assert.assertNull( cacheUtils.get(CacheConstant.CACHE_USER_BY_USERNAME, key));
 
     }
 
@@ -95,6 +95,6 @@ public class CacheUtilsTest {
 
 //        System.out.println(cacheManager);
 //        System.out.println(cacheManager.getClass());
-//        System.out.println(cacheManager.getCache("CACHE_USER_ACCOUNT_BY_USERNAME"));
+//        System.out.println(cacheManager.getCache("CACHE_USER_BY_USERNAME"));
     }
 }

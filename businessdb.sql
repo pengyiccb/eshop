@@ -287,10 +287,10 @@ CREATE TABLE `e_shop_user` (
   `role_id` int(10) unsigned NOT NULL COMMENT '角色ID',
   `username` varchar(255) NOT NULL COMMENT '登录账号',
   `password` varchar(255) NOT NULL COMMENT '登录密码',
-  `status` tinyint(4) NOT NULL COMMENT '状态',
-  `login_ip` varchar(255) NOT NULL COMMENT '登录地址',
-  `login_date` datetime NOT NULL COMMENT '登录时间',
-  `user_type` tinyint(4) NOT NULL COMMENT '用户类型',
+  `status` tinyint(4) NOT NULL COMMENT '状态 0：可用',
+  `user_type` tinyint(4) DEFAULT NULL COMMENT '用户类型（管理员， 普通用户）',
+  `login_ip` varchar(255) DEFAULT NULL COMMENT '登录地址',
+  `login_date` datetime DEFAULT NULL COMMENT '登录时间',
   `title` varchar(64) DEFAULT NULL COMMENT '前端展示名字',
   `telphone` varchar(21) DEFAULT NULL COMMENT '电话',
   `mobile_phone` varchar(21) DEFAULT NULL COMMENT '手机号',
@@ -305,7 +305,7 @@ CREATE TABLE `e_shop_user` (
   `last_reset_password_time` datetime DEFAULT NULL COMMENT '最后修改密码时间',
   `email` varchar(255) DEFAULT NULL COMMENT '电子邮件',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,6 +314,7 @@ CREATE TABLE `e_shop_user` (
 
 LOCK TABLES `e_shop_user` WRITE;
 /*!40000 ALTER TABLE `e_shop_user` DISABLE KEYS */;
+INSERT INTO `e_shop_user` VALUES (1,1,'admin','$2a$10$kjaBIAnT8CF74aB4NCTdseoSmvOigmYeRoMkVQGoW3LTaQkIhSBO.',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `e_shop_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -366,7 +367,7 @@ CREATE TABLE `e_shop_user_role` (
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `permission_str` varchar(64) NOT NULL COMMENT '权限字符串',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -375,6 +376,7 @@ CREATE TABLE `e_shop_user_role` (
 
 LOCK TABLES `e_shop_user_role` WRITE;
 /*!40000 ALTER TABLE `e_shop_user_role` DISABLE KEYS */;
+INSERT INTO `e_shop_user_role` VALUES (1,'超级管理员',NULL,NULL,NULL,'ADMMIN'),(2,'商家',NULL,NULL,NULL,'VENDOR'),(3,'消费者',NULL,NULL,NULL,'CONSUMER');
 /*!40000 ALTER TABLE `e_shop_user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -587,4 +589,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-22 13:00:19
+-- Dump completed on 2018-06-22 15:47:27

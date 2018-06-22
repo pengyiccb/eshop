@@ -31,7 +31,7 @@ public class VenderUserService extends BaseService<VendorUser> {
         return this.selectOne(new VendorUser().withAppId(appId));
     }
 
-//    @Cacheable(cacheNames = {CacheConstant.CACHE_VENDOR_USER_BY_APP_ID, CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME}, key = "#p0")
+//    @Cacheable(cacheNames = {CacheConstant.CACHE_VENDOR_USER_BY_APP_ID, CacheConstant.CACHE_USER_BY_USERNAME}, key = "#p0")
 //    public VendorUser test(String appId) {
 //        return this.selectOne(new VendorUser().withAppId(appId));
 //    }

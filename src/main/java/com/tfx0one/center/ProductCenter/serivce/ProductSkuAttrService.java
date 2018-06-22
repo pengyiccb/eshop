@@ -8,6 +8,7 @@ import com.tfx0one.center.ProductCenter.model.EShopProductSkuAttr;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -97,6 +98,9 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 
         //获取所有单品。
         List<EShopProductSku> list = productSkuService.selectByProductId(productId);
+        if (CollectionUtils.isEmpty(list)){
+            return null;
+        }
 
         //创建根节点
         Map<Integer, EShopProductSkuAttr> root = this.combinationRootAttr(list.get(0));

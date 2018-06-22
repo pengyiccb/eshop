@@ -35,6 +35,4 @@ public class EhCacheConfiguration {
         System.out.println("==============  Initializing EhCache CacheManager ==============");
         return new EhCacheCacheManager(bean.getObject());
     }
-
-
 }

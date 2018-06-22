@@ -59,8 +59,8 @@ CREATE TABLE `e_shop_marketing` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL COMMENT '活动名称',
   `tag` varchar(64) NOT NULL COMMENT '活动标签：限时折扣，满减送等',
-  `begin_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '开始时间',
-  `end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '结束时间',
+  `begin_time` datetime DEFAULT NULL COMMENT '开始时间',
+  `end_time` datetime DEFAULT NULL COMMENT '结束时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='营销主表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -71,7 +71,7 @@ CREATE TABLE `e_shop_marketing` (
 
 LOCK TABLES `e_shop_marketing` WRITE;
 /*!40000 ALTER TABLE `e_shop_marketing` DISABLE KEYS */;
-INSERT INTO `e_shop_marketing` VALUES (1,'活动一','限时折扣','2018-01-01 01:37:39','2018-12-01 01:37:39');
+INSERT INTO `e_shop_marketing` VALUES (1,'活动1','限制折扣','2018-01-01 00:00:00','2018-12-01 00:00:00');
 /*!40000 ALTER TABLE `e_shop_marketing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,12 +138,12 @@ CREATE TABLE `e_shop_payment` (
   `user_order_id` int(10) unsigned NOT NULL COMMENT '对应的订单id',
   `payment_status` tinyint(4) NOT NULL COMMENT '状态 0表示成功 1表示等待支付',
   `user_account_id` int(10) unsigned NOT NULL COMMENT '用户ID',
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
-  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `fee` int(11) NOT NULL COMMENT '金额(分为单位)',
   `channel_id` tinyint(4) NOT NULL COMMENT '支付渠道ID。',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='支付模块';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='支付模块';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +152,6 @@ CREATE TABLE `e_shop_payment` (
 
 LOCK TABLES `e_shop_payment` WRITE;
 /*!40000 ALTER TABLE `e_shop_payment` DISABLE KEYS */;
-INSERT INTO `e_shop_payment` VALUES (5,7654321,1,7,'2018-06-20 07:07:36','2018-06-20 07:07:35',1,0),(6,7654322,1,7,'2018-06-20 07:08:54','2018-06-20 07:08:53',1,0),(7,7654323,1,7,'2018-06-20 07:13:53','2018-06-20 07:13:53',1,0),(8,1,1,7,'2018-06-20 07:28:53','2018-06-20 07:28:52',1,0),(9,7654324,1,7,'2018-06-20 07:30:54','2018-06-20 07:30:54',1,0);
 /*!40000 ALTER TABLE `e_shop_payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,7 +298,7 @@ CREATE TABLE `user_account` (
   `union_id` varchar(200) DEFAULT NULL,
   `default_addr_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +307,7 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` VALUES (1,NULL,NULL,'test','$2a$10$9TBnSUPfsTg6anyDF5DI2OtFSDky9u9fZntSXkM/nWQe8gGCgyU6K','2018-06-09 11:16:38',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,NULL,1,'oUeJY5P0SfCNrJnlLtYTJiKm57yM','$2a$10$e9AKQm3Hygi5o78JWXrAeOufCSTYtI.K72A9mdxHvRtJHUE6Hajfa','2018-06-11 10:15:09',NULL,1,'Yang','https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKcq5xY5euQmIBBzlGuwUJibxFHFNia83YXwianUprszUmDOoxZYEMq4IRNdicgDmpyUtkZpmkr86QkGA/132','wxdda83d03c2d1521c','oUeJY5P0SfCNrJnlLtYTJiKm57yM',NULL,NULL),(7,NULL,1,'oUeJY5KR0bECG54dDD0trBqgzkDo','$2a$10$8XkOelVXt922cdBTEzIuaOmYLKawrr9ilqpQ49uCGbYxrey5W15rK','2018-06-11 17:13:13',NULL,1,'机车王小二','https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqxPKde5h68XULD7URQm4g2p9xlDTlMJhV4BNJeeboInKhqvqB475fiaJoYlsLF9y8M6jXddmKRG5g/132','wxdda83d03c2d1521c','oUeJY5KR0bECG54dDD0trBqgzkDo','oJ6K-1eZqk8pv1Lvae7zfd-MaVfw',NULL);
+INSERT INTO `user_account` VALUES (6,NULL,1,'oUeJY5P0SfCNrJnlLtYTJiKm57yM','$2a$10$e9AKQm3Hygi5o78JWXrAeOufCSTYtI.K72A9mdxHvRtJHUE6Hajfa','2018-06-11 10:15:09',NULL,1,'Yang','https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKcq5xY5euQmIBBzlGuwUJibxFHFNia83YXwianUprszUmDOoxZYEMq4IRNdicgDmpyUtkZpmkr86QkGA/132','wxdda83d03c2d1521c','oUeJY5P0SfCNrJnlLtYTJiKm57yM',NULL,NULL),(7,NULL,1,'oUeJY5KR0bECG54dDD0trBqgzkDo','$2a$10$8XkOelVXt922cdBTEzIuaOmYLKawrr9ilqpQ49uCGbYxrey5W15rK','2018-06-11 17:13:13',NULL,1,'机车王小二','https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqxPKde5h68XULD7URQm4g2p9xlDTlMJhV4BNJeeboInKhqvqB475fiaJoYlsLF9y8M6jXddmKRG5g/132','wxdda83d03c2d1521c','oUeJY5KR0bECG54dDD0trBqgzkDo','oJ6K-1eZqk8pv1Lvae7zfd-MaVfw',NULL),(10,NULL,NULL,'test','$2a$10$gFMLCQysxHBdQ5F1QdkpkOtArmjLXW.VJBqFXSoERRIDxz1q0CH2a','2018-06-21 15:34:32',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(11,NULL,1,'wxdda83d03c2d1521c_oUeJY5KR0bECG54dDD0trBqgzkDo','$2a$10$DyUuvjxuPDXx31XsSzUF/.Ob3lHgijk1crwi2wR6m8mDQ7LehxWq6','2018-06-21 16:35:44',NULL,1,'机车王小二','https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqxPKde5h68XULD7URQm4g2p9xlDTlMJhV4BNJeeboInKhqvqB475fiaJoYlsLF9y8M6jXddmKRG5g/132','wxdda83d03c2d1521c','oUeJY5KR0bECG54dDD0trBqgzkDo','oJ6K-1eZqk8pv1Lvae7zfd-MaVfw',NULL);
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -519,4 +518,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-20 15:58:06
+-- Dump completed on 2018-06-21 17:08:00

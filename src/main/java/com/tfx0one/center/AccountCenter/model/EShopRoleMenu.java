@@ -4,8 +4,9 @@ import com.tfx0one.common.util.BaseEntity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
-@Table(name = "e_shop_user_role_menu")
+@Table(name = "e_shop_role_menu")
 public class EShopRoleMenu extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +56,26 @@ public class EShopRoleMenu extends BaseEntity {
      */
     @Column(name = "update_by")
     private String updateBy;
+
+    /**
+     * 排序
+     */
+    @Column(name = "sort_order")
+    private Byte sortOrder;
+
+    @Transient
+    private List<EShopRoleMenu> children;
+
+    public List<EShopRoleMenu> getChildren() {
+        return children;
+    }
+    public EShopRoleMenu withChildren(List<EShopRoleMenu> children) {
+        this.setChildren(children);
+        return this;
+    }
+    public void setChildren(List<EShopRoleMenu> children) {
+        this.children = children;
+    }
 
     /**
      * @return id
@@ -259,6 +280,30 @@ public class EShopRoleMenu extends BaseEntity {
         this.updateBy = updateBy == null ? null : updateBy.trim();
     }
 
+
+    /**
+     * 获取排序
+     *
+     * @return sort_order - 排序
+     */
+    public Byte getSortOrder() {
+        return sortOrder;
+    }
+
+    public EShopRoleMenu withSortOrder(Byte sortOrder) {
+        this.setSortOrder(sortOrder);
+        return this;
+    }
+
+    /**
+     * 设置排序
+     *
+     * @param sortOrder 排序
+     */
+    public void setSortOrder(Byte sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -268,12 +313,14 @@ public class EShopRoleMenu extends BaseEntity {
         sb.append(", id=").append(id);
         sb.append(", parentId=").append(parentId);
         sb.append(", title=").append(title);
+        sb.append(", children=").append(children);
         sb.append(", icon=").append(icon);
         sb.append(", description=").append(description);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", createBy=").append(createBy);
         sb.append(", updateBy=").append(updateBy);
+        sb.append(", sortOrder=").append(sortOrder);
         sb.append("]");
         return sb.toString();
     }

@@ -124,6 +124,23 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
+    <cache name="CACHE_ROLE_MENU_BY_ID"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+
+    <cache name="CACHE_ROLE_MENU_BY_ROLE_ID"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
     <!--
     name：Cache的唯一标识
     maxElementsInMemory：内存中最大缓存对象数

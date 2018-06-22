@@ -5,7 +5,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id     column="id" jdbcType="INTEGER" property="id" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
@@ -14,5 +14,27 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="sort_order" jdbcType="TINYINT" property="sortOrder" />
   </resultMap>
+
+  <select id="selectRoleMenuByRoleId" resultMap="BaseResultMap">
+    SELECT
+      menu.id,
+      parent_id,
+      menu.title,
+      icon,
+      description,
+      menu.create_time,
+      menu.update_time,
+      menu.create_by,
+      menu.update_by,
+      sort_order
+    FROM
+      e_shop_role_menu menu
+        LEFT JOIN e_shop_role_menu_relation ralation ON menu.id = ralation.menu_id
+        LEFT JOIN e_shop_role role ON ralation.role_id = role.id
+    WHERE
+      role.id = #{roleId}
+
+  </select>
 </mapper>

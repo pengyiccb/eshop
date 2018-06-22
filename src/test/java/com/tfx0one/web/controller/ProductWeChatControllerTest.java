@@ -158,6 +158,7 @@ public class ProductWeChatControllerTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testInsertPro() throws Exception {
         //发登录请求
         String username = "test";
@@ -233,6 +234,7 @@ public class ProductWeChatControllerTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testUpdatePro() throws Exception {
         //发登录请求
         String username = "test";

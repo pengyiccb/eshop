@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tfx0one.center.AccountCenter.mapper.EShopUserMapper">
+  <resultMap id="BaseResultMap" type="com.tfx0one.center.AccountCenter.model.EShopUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="telphone" jdbcType="VARCHAR" property="telphone" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="gender" jdbcType="TINYINT" property="gender" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="wx_nick_name" jdbcType="VARCHAR" property="wxNickName" />
+    <result column="wx_mini_app_id" jdbcType="VARCHAR" property="wxMiniAppId" />
+    <result column="wx_open_id" jdbcType="VARCHAR" property="wxOpenId" />
+    <result column="wx_union_id" jdbcType="VARCHAR" property="wxUnionId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="last_reset_password_time" jdbcType="TIMESTAMP" property="lastResetPasswordTime" />
+    <result column="email" jdbcType="CHAR" property="email" />
+  </resultMap>
+</mapper>

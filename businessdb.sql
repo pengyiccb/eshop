@@ -276,6 +276,105 @@ INSERT INTO `e_shop_product_sku_attr` VALUES (1,0,1,'颜色',0),(2,1,1,'红色',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `e_shop_user`
+--
+
+DROP TABLE IF EXISTS `e_shop_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` int(10) unsigned NOT NULL COMMENT '角色ID',
+  `username` varchar(255) NOT NULL COMMENT '登录账号',
+  `password` varchar(255) NOT NULL COMMENT '登录密码',
+  `status` tinyint(4) NOT NULL COMMENT '状态',
+  `login_ip` varchar(255) NOT NULL COMMENT '登录地址',
+  `login_date` datetime NOT NULL COMMENT '登录时间',
+  `user_type` tinyint(4) NOT NULL COMMENT '用户类型',
+  `title` varchar(64) DEFAULT NULL COMMENT '前端展示名字',
+  `telphone` varchar(21) DEFAULT NULL COMMENT '电话',
+  `mobile_phone` varchar(21) DEFAULT NULL COMMENT '手机号',
+  `gender` tinyint(4) DEFAULT NULL COMMENT '性别',
+  `avatar_url` varchar(255) DEFAULT NULL COMMENT '头像地址',
+  `wx_nick_name` varchar(255) DEFAULT NULL COMMENT '微信昵称',
+  `wx_mini_app_id` varchar(255) DEFAULT NULL COMMENT '微信用户使用的小程序ID',
+  `wx_open_id` varchar(255) DEFAULT NULL COMMENT '微信openid',
+  `wx_union_id` varchar(255) DEFAULT NULL COMMENT '微信uuid',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `last_reset_password_time` datetime DEFAULT NULL COMMENT '最后修改密码时间',
+  `email` char(10) DEFAULT NULL COMMENT '电子邮件',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_user`
+--
+
+LOCK TABLES `e_shop_user` WRITE;
+/*!40000 ALTER TABLE `e_shop_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `e_shop_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_shop_user_role`
+--
+
+DROP TABLE IF EXISTS `e_shop_user_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_user_role` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL COMMENT '角色的显示名字',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
+  `permission_str` varchar(64) NOT NULL COMMENT '权限字符串',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_user_role`
+--
+
+LOCK TABLES `e_shop_user_role` WRITE;
+/*!40000 ALTER TABLE `e_shop_user_role` DISABLE KEYS */;
+/*!40000 ALTER TABLE `e_shop_user_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_shop_user_role_menu`
+--
+
+DROP TABLE IF EXISTS `e_shop_user_role_menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_user_role_menu` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) unsigned NOT NULL COMMENT '父级ID',
+  `title` varchar(64) NOT NULL COMMENT '菜单名字',
+  `icon` varchar(255) DEFAULT NULL COMMENT '菜单图片',
+  `description` varchar(255) DEFAULT NULL COMMENT '菜单描述',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `create_by` varchar(64) NOT NULL COMMENT '更新者',
+  `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户资源（菜单）表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_user_role_menu`
+--
+
+LOCK TABLES `e_shop_user_role_menu` WRITE;
+/*!40000 ALTER TABLE `e_shop_user_role_menu` DISABLE KEYS */;
+/*!40000 ALTER TABLE `e_shop_user_role_menu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_account`
 --
 
@@ -518,4 +617,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-21 17:08:00
+-- Dump completed on 2018-06-22 11:08:12

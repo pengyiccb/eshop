@@ -46,7 +46,6 @@ public class WeChatPaymentService {
     ) {
         //refer:  https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_1
 
-
         Map<String, String> params = new HashMap<>();
         params.put("appid", appId);
         params.put("attach", "支付测试");

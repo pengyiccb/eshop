@@ -46,7 +46,7 @@ public class ProductVendorController {
         if (attr.getChildren() != null) {
             return JSONResult.error("属性参数 children 暂时不支持");
         }
-        if (attr.getUserAccountId() == null) {
+        if (attr.getUserId() == null) {
             return JSONResult.error("属性参数错误 userAccountId 不能为空");
         }
 
@@ -60,7 +60,7 @@ public class ProductVendorController {
 
         //TODO: 同parent Id 下， name 不能一样。
 
-        if (!accountCenter.getCacheLoginUser().getId().equals(attr.getUserAccountId())) {
+        if (!accountCenter.getCacheLoginUser().getId().equals(attr.getUserId())) {
             return JSONResult.error("属性参数错误 user_account_id 对应用户不存在");
         }
 

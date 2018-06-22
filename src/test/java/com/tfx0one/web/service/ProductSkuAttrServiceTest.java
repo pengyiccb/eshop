@@ -21,7 +21,7 @@ public class ProductSkuAttrServiceTest {
 
     @Test
     public void getSkuAttrByProductCategoryId() {
-        EShopProductSkuAttr e = new EShopProductSkuAttr().withParentId(1).withAttrName("a").withParentId(0).withSortOrder(0).withUserAccountId(1);
+        EShopProductSkuAttr e = new EShopProductSkuAttr().withParentId(1).withAttrName("a").withParentId(0).withSortOrder(0).withUserId(1);
         productSkuAttrService.insert(e);
         System.out.println(e.getId());
 //        JSONResult o = productSkuAttrService.getSkuAttrOptionTreeByProductCategoryId(1);

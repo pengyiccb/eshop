@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.center.AccountCenter.AccountCenter;
 import com.tfx0one.center.AccountCenter.JwtAuth.JwtTokenUtils;
 import com.tfx0one.center.AccountCenter.JwtAuth.JwtUserService;
-import com.tfx0one.center.AccountCenter.model.UserAccount;
+import com.tfx0one.center.AccountCenter.model.EShopUser;
 import com.tfx0one.center.AccountCenter.model.WXUserInfo;
 import com.tfx0one.common.util.JSONResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class AuthService {
     private WeChatService weChatService;
 
     @Autowired
-    private UserAccountService userAccountService;
+    private UserService userService;
 
     @Autowired
     private JwtUserService jwtUserService;
@@ -49,24 +49,24 @@ public class AuthService {
     private static final String wxDefalutPassword = "123456";
 
     //网页用户注册
-    public JSONResult register(String username, String password){
+    public JSONResult register(String username, String password) {
 //        final String username = userToAdd.getUsername();
-        if(StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             return JSONResult.error("不能传空！");
         }
-        if(userAccountService.selectByUsername(username) != null) {
+        if (userService.selectByUsername(username) != null) {
             return JSONResult.error("用户已经存在！");
         }
 
-        UserAccount userAccount =  new UserAccount()
+        EShopUser user = new EShopUser()
                 .withUsername(username)
                 .withPassword(new BCryptPasswordEncoder().encode(password))
                 .withLastResetPasswordTime(new Date());
-        userAccountService.insertUserAccount(userAccount);
+        userService.insertUserAccount(user);
 
-        Map<String,Object> map = new HashMap<>();
-        map.put("username", userAccount.getUsername());
-        map.put("id", userAccount.getId());
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", user.getUsername());
+        map.put("id", user.getId());
 
         return JSONResult.ok("注册成功").data(map);
     }
@@ -81,7 +81,7 @@ public class AuthService {
     }
 
     //网页登录 返回 token
-    public JSONResult login(String username, String password){
+    public JSONResult login(String username, String password) {
 
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             return JSONResult.error(-1, "用户或密码为空！");
@@ -91,8 +91,8 @@ public class AuthService {
         authenticateUsernameAndPassword(username, password);
 
         //验证成功后才能继续的逻辑
-        UserAccount user = userAccountService.selectByUsername(username);
-//        final JwtUser userDetails = jwtUserService.loadUserByUsername(username);
+        EShopUser user = userService.selectByUsername(username);
+//        final JWTokenUser userDetails = jwtUserService.loadUserByUsername(username);
 
         //登录完成。生成token
         final String token = jwtTokenUtils.generateToken(user);
@@ -127,17 +127,17 @@ public class AuthService {
         }
 
         //获取异常
-        if(wxSession.containsKey("errcode")){
+        if (wxSession.containsKey("errcode")) {
             return JSONResult.error("授权失败！wxSession获取错误！");
         }
 
-        String wxOpenId = (String)wxSession.get("openid");
-        String wxUnionId = (String)wxSession.get("unionid");
-        String wxSessionKey = (String)wxSession.get("session_key");
+        String wxOpenId = (String) wxSession.get("openid");
+        String wxUnionId = (String) wxSession.get("unionid");
+        String wxSessionKey = (String) wxSession.get("session_key");
         System.out.println(wxSessionKey);
 
         //2 创建账户 返回一个账户
-        UserAccount userAccount = this.createUserAccount(user, appId, wxOpenId, wxUnionId);
+        EShopUser userAccount = this.createUser(user, appId, wxOpenId, wxUnionId);
 
         //登录 获取token
         //appId_openid 作为UserName
@@ -146,29 +146,29 @@ public class AuthService {
     }
 
 
-    private UserAccount createUserAccount(WXUserInfo userInfo, String appId, String openId, String unionId) {
-        String username = appId+"_"+openId;
-        UserAccount userAccount = userAccountService.selectByUsername(username);
+    private EShopUser createUser(WXUserInfo userInfo, String appId, String openId, String unionId) {
+        String username = appId + "_" + openId;
+        EShopUser userAccount = userService.selectByUsername(username);
 //        UserAccount userAccount = userAccountService.selectOne(new UserAccount().withOpenId(openId));
 
         //账户为空时， 相当于是在注册
         if (userAccount == null) {
-            userAccount = new UserAccount()
-                    .withAppId(appId)
-                    .withStatus((byte)0)
-                    .withSex(Byte.parseByte(userInfo.getGender()))
-                    .withOpenId(openId)
-                    .withUnionId(unionId)
-                    .withHeadUrl(userInfo.getAvatarUrl())
-                    .withNickName(userInfo.getNickName())
-                    .withLastResetPasswordTime(new Date());
+            userAccount = new EShopUser()
+                    .withWxMiniAppId(appId)
+                    .withStatus((byte) 0)
+                    .withGender(Byte.parseByte(userInfo.getGender()))
+                    .withWxOpenId(openId)
+                    .withWxOpenId(unionId)
+                    .withAvatarUrl(userInfo.getAvatarUrl())
+                    .withWxNickName(userInfo.getNickName())
+                    .withUserType((byte) 0);
 
             //为方便调试设置的账号和密码，微信账号可以使用web接口调试
             userAccount
                     .withUsername(username) //用openId 作为登录账号
                     .withPassword(new BCryptPasswordEncoder().encode(wxDefalutPassword)); //默认密码
 
-            userAccountService.insertUserAccount(userAccount);
+            userService.insertUserAccount(userAccount);
         }
 
         return userAccount;

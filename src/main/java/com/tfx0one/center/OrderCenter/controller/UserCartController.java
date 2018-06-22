@@ -1,7 +1,7 @@
 package com.tfx0one.center.OrderCenter.controller;
 
 import com.tfx0one.center.AccountCenter.AccountCenter;
-import com.tfx0one.center.AccountCenter.model.UserAccount;
+import com.tfx0one.center.AccountCenter.model.EShopUser;
 import com.tfx0one.center.OrderCenter.service.UserCartService;
 import com.tfx0one.center.VendorCenter.model.VendorUser;
 import com.tfx0one.center.VendorCenter.service.VenderUserService;
@@ -44,8 +44,8 @@ public class UserCartController {
         }
 
         //校验用户
-        UserAccount user = accountCenter.getCacheLoginUser();
-        if (!appId.equals(user.getAppId())) {
+        EShopUser user = accountCenter.getCacheLoginUser();
+        if (!appId.equals(user.getWxMiniAppId())) {
             return JSONResult.error(500, "校验用户失败");
         }
 
@@ -58,12 +58,12 @@ public class UserCartController {
     public JSONResult addCart(@RequestParam Integer cartId,
                               @RequestParam Integer count) {
 
-        if (count.intValue() <= 0) {
+        if (count <= 0) {
             return JSONResult.error(500, "count must > 0");
         }
 
         //校验用户
-        UserAccount user = accountCenter.getCacheLoginUser();
+        EShopUser user = accountCenter.getCacheLoginUser();
         if (user == null) {
             return JSONResult.error(500, "get user error.");
         }
@@ -77,7 +77,7 @@ public class UserCartController {
     public JSONResult modifyCart(@RequestParam Integer cartId,
                                  @RequestParam Integer count) {
         //校验用户
-        UserAccount user = accountCenter.getCacheLoginUser();
+        EShopUser user = accountCenter.getCacheLoginUser();
         if (user == null) {
             return JSONResult.error(500, "get user error.");
         }
@@ -90,7 +90,7 @@ public class UserCartController {
     @RequestMapping(value = "/api/v1/wechat/deleteCart", method = RequestMethod.POST)
     public JSONResult deleteCart(@RequestParam Integer cartId) {
         //校验用户
-        UserAccount user = accountCenter.getCacheLoginUser();
+        EShopUser user = accountCenter.getCacheLoginUser();
         if (user == null) {
             return JSONResult.error(500, "get user error.");
         }

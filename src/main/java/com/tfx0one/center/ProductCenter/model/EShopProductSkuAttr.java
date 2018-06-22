@@ -23,8 +23,8 @@ public class EShopProductSkuAttr extends BaseEntity {
     /**
      * 属性对应的用户
      */
-    @Column(name = "user_account_id")
-    private Integer userAccountId;
+    @Column(name = "user_id")
+    private Integer userId;
 
     /**
      * 属性的值
@@ -106,22 +106,27 @@ public class EShopProductSkuAttr extends BaseEntity {
      *
      * @return user_account_id - 属性对应的用户
      */
-    public Integer getUserAccountId() {
-        return userAccountId;
+    /**
+     * 获取属性对应的用户
+     *
+     * @return user_id - 属性对应的用户
+     */
+    public Integer getUserId() {
+        return userId;
     }
 
-    public EShopProductSkuAttr withUserAccountId(Integer userAccountId) {
-        this.setUserAccountId(userAccountId);
+    public EShopProductSkuAttr withUserId(Integer userId) {
+        this.setUserId(userId);
         return this;
     }
 
     /**
      * 设置属性对应的用户
      *
-     * @param userAccountId 属性对应的用户
+     * @param userId 属性对应的用户
      */
-    public void setUserAccountId(Integer userAccountId) {
-        this.userAccountId = userAccountId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     /**
@@ -179,7 +184,7 @@ public class EShopProductSkuAttr extends BaseEntity {
         sb.append(", id=").append(id);
         sb.append(", parentId=").append(parentId);
         sb.append(", children=").append(children);
-        sb.append(", userAccountId=").append(userAccountId);
+        sb.append(", userAccountId=").append(userId);
         sb.append(", attrName=").append(attrName);
         sb.append(", sortOrder=").append(sortOrder);
         sb.append("]");

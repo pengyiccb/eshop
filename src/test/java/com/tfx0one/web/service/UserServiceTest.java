@@ -1,7 +1,6 @@
 package com.tfx0one.web.service;
 
-import com.tfx0one.center.AccountCenter.service.UserAccountService;
-import com.tfx0one.center.AccountCenter.model.UserAccount;
+import com.tfx0one.center.AccountCenter.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,15 +14,14 @@ import javax.annotation.Resource;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserAccountServiceTest {
+public class UserServiceTest {
 
     @Resource
-    private UserAccountService userAccountService;
+    private UserService userService;
 
     @Test
     public void test1() {
-        UserAccount cacheUserAccount = userAccountService.selectOne(new UserAccount().withOpenId(""));
-        System.out.println(cacheUserAccount);
+        System.out.println("");
     }
 
 }

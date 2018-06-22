@@ -23,7 +23,7 @@ public class OrderService extends BaseService<UserOrder> {
     private RandomOrderSnUtil randomOrderSnUtil;
 
     @Resource
-    private UserAddrService userAddrService;
+    private UserAddressService userAddressService;
 
     //获取订单列表
     public JSONResult orderList(Integer userId, Integer type) {
@@ -56,7 +56,7 @@ public class OrderService extends BaseService<UserOrder> {
             return JSONResult.error(500, "不能修改地址");
         }
 
-        if (!userAddrService.checkUserAddr(userId, addrId)) {
+        if (!userAddressService.checkUserAddress(userId, addrId)) {
             return JSONResult.error(500, "用户地址不存在");
         }
 

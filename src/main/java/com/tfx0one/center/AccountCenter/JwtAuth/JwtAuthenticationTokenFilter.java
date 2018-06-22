@@ -62,7 +62,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 logger.info("checking authentication ===== " + username);
 
-                JwtUser userDetails = jwtUserService.loadUserByUsername(username);
+                JWTokenUser userDetails = jwtUserService.loadUserByUsername(username);
 
                 //验证token 和 userDetail 是否一致
                 if (jwtTokenUtils.validateToken(authToken, userDetails)) {

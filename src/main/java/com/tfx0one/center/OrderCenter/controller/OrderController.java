@@ -1,7 +1,7 @@
 package com.tfx0one.center.OrderCenter.controller;
 
 import com.tfx0one.center.AccountCenter.AccountCenter;
-import com.tfx0one.center.AccountCenter.model.UserAccount;
+import com.tfx0one.center.AccountCenter.model.EShopUser;
 import com.tfx0one.center.OrderCenter.model.UserOrder;
 import com.tfx0one.center.OrderCenter.service.OrderService;
 import com.tfx0one.common.util.JSONResult;
@@ -31,7 +31,7 @@ public class OrderController {
     @RequestMapping(value = "/api/v1/wechat/orderList", method = RequestMethod.GET)
     public JSONResult orderList(@RequestParam Integer orderType) {
         //校验用户
-        UserAccount user = accountCenter.getCacheLoginUser();
+        EShopUser user = accountCenter.getCacheLoginUser();
         if (user == null) {
             return JSONResult.error(500, "获取用户失败.");
         }
@@ -51,7 +51,7 @@ public class OrderController {
                                 @RequestParam String wechatOrderId) {
 
         //校验用户
-        UserAccount user = accountCenter.getCacheLoginUser();
+        EShopUser user = accountCenter.getCacheLoginUser();
         if (user == null) {
             return JSONResult.error(500, "获取用户失败.");
         }

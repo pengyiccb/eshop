@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tfx0one.center.OrderCenter.mapper.EShopUserAddressMapper">
+  <resultMap id="BaseResultMap" type="com.tfx0one.center.OrderCenter.model.EShopUserAddress">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="area_addr1" jdbcType="VARCHAR" property="areaAddr1" />
+    <result column="area_addr2" jdbcType="VARCHAR" property="areaAddr2" />
+    <result column="area_addr3" jdbcType="VARCHAR" property="areaAddr3" />
+    <result column="addr_desc" jdbcType="VARCHAR" property="addrDesc" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="is_default" jdbcType="TINYINT" property="isDefault" />
+    <result column="telphone" jdbcType="VARCHAR" property="telphone" />
+    <result column="post_code" jdbcType="CHAR" property="postCode" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+</mapper>

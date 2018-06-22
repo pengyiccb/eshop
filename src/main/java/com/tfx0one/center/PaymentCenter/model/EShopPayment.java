@@ -5,6 +5,7 @@ import com.tfx0one.common.util.BaseEntity;
 import javax.persistence.*;
 import java.util.Date;
 
+
 @Table(name = "e_shop_payment")
 public class EShopPayment extends BaseEntity {
     @Id
@@ -26,8 +27,8 @@ public class EShopPayment extends BaseEntity {
     /**
      * 用户ID
      */
-    @Column(name = "user_account_id")
-    private Integer userAccountId;
+    @Column(name = "user_id")
+    private Integer userId;
 
     /**
      * 创建时间
@@ -120,24 +121,24 @@ public class EShopPayment extends BaseEntity {
     /**
      * 获取用户ID
      *
-     * @return user_account_id - 用户ID
+     * @return user_id - 用户ID
      */
-    public Integer getUserAccountId() {
-        return userAccountId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public EShopPayment withUserAccountId(Integer userAccountId) {
-        this.setUserAccountId(userAccountId);
+    public EShopPayment withUserId(Integer userId) {
+        this.setUserId(userId);
         return this;
     }
 
     /**
      * 设置用户ID
      *
-     * @param userAccountId 用户ID
+     * @param userId 用户ID
      */
-    public void setUserAccountId(Integer userAccountId) {
-        this.userAccountId = userAccountId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     /**
@@ -241,7 +242,7 @@ public class EShopPayment extends BaseEntity {
         sb.append(", id=").append(id);
         sb.append(", userOrderId=").append(userOrderId);
         sb.append(", paymentStatus=").append(paymentStatus);
-        sb.append(", userAccountId=").append(userAccountId);
+        sb.append(", userId=").append(userId);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", fee=").append(fee);

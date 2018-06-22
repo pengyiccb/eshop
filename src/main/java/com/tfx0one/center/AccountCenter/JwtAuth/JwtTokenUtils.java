@@ -1,6 +1,6 @@
 package com.tfx0one.center.AccountCenter.JwtAuth;
 
-import com.tfx0one.center.AccountCenter.model.UserAccount;
+import com.tfx0one.center.AccountCenter.model.EShopUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -39,7 +39,7 @@ public class JwtTokenUtils {
                 .compact();
     }
 
-    public String generateToken(UserAccount user) {
+    public String generateToken(EShopUser user) {
         Map<String, Object> data = new HashMap<>();
         data.put(KEY_USERNAME, user.getUsername());
         data.put(KEY_ID, user.getId().toString());
@@ -75,7 +75,7 @@ public class JwtTokenUtils {
     }
 
 
-    public boolean validateToken(String authToken, JwtUser userDetails) {
+    public boolean validateToken(String authToken, JWTokenUser userDetails) {
         if (authToken == null || userDetails == null) {
             return false;
         }
@@ -93,7 +93,7 @@ public class JwtTokenUtils {
         return true;
     }
 
-//    public String generateTokenThenCacheUser(JwtUser userDetails) {
+//    public String generateTokenThenCacheUser(JWTokenUser userDetails) {
 //        Map<String, Object> data = new HashMap<>();
 //        data.put(KEY_USERNAME, userDetails.getUsername());
 //        data.put(KEY_ID, userDetails.getId());

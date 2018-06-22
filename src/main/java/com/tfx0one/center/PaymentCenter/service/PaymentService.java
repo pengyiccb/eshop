@@ -1,7 +1,7 @@
 package com.tfx0one.center.PaymentCenter.service;
 
 import com.tfx0one.center.AccountCenter.AccountCenter;
-import com.tfx0one.center.AccountCenter.model.UserAccount;
+import com.tfx0one.center.AccountCenter.model.EShopUser;
 import com.tfx0one.center.OrderCenter.OrderCenter;
 import com.tfx0one.center.OrderCenter.model.UserOrder;
 import com.tfx0one.center.PaymentCenter.model.EShopPayment;
@@ -38,12 +38,12 @@ public class PaymentService extends BaseService<EShopPayment> {
 
     //微信内支付 发起预支付订单 获取到有效的支付的参数
     public JSONResult getPrepayOrderInfo(int tradeNo, HttpServletRequest request) {
-        UserAccount user = accountCenter.getCacheLoginUser();
-        if (user.getOpenId()==null) {
+        EShopUser user = accountCenter.getCacheLoginUser();
+        if (user.getWxOpenId()==null) {
             return JSONResult.error("该用户的 openId为空");
         }
         String ip = IPUtils.getClientIpAddr(request);
-        return getPrepayOrderInfo(user.getId(), user.getOpenId(), tradeNo, ip);
+        return getPrepayOrderInfo(user.getId(), user.getWxOpenId(), tradeNo, ip);
     }
 
     public JSONResult getPrepayOrderInfo(int userId, String openId, int tradeNo, String ip) {
@@ -71,7 +71,7 @@ public class PaymentService extends BaseService<EShopPayment> {
         this.insert(new EShopPayment()
                 .withUserOrderId(tradeNo)
                 .withPaymentStatus(PaymentConstant.PAYMENT_STATUS_WAIT_FOR_PAY) //等待支付
-                .withUserAccountId(userId)
+                .withUserId(userId)
                 .withCreateTime(new Date())
                 .withFee(total_fee)
                 .withChannelId(PaymentConstant.PAYMENT_CHANNEL_WECHAT)

@@ -1,6 +1,6 @@
 package com.tfx0one.center.AccountCenter.JwtAuth;
 
-import com.tfx0one.center.AccountCenter.model.UserAccount;
+import com.tfx0one.center.AccountCenter.model.EShopUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -18,8 +18,8 @@ public class JwtUserFactory {
     }
 
 
-    public static JwtUser create(UserAccount user) {
-        return new JwtUser(user,
+    public static JWTokenUser create(EShopUser user) {
+        return new JWTokenUser(user,
                 user.getUsername(),
                 user.getPassword(),
                 mapToGrantedAuthorities(Arrays.asList("ROLE_USER"))

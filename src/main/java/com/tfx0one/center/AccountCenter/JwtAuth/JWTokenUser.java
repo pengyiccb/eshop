@@ -1,28 +1,28 @@
 package com.tfx0one.center.AccountCenter.JwtAuth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tfx0one.center.AccountCenter.model.UserAccount;
+import com.tfx0one.center.AccountCenter.model.EShopUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created by 2fx0one on 2018/6/4.
  */
 
 //包装 JWT 的 User
-public class JwtUser implements UserDetails {
-//    private final String id;
+public class JWTokenUser implements UserDetails {
     private final String username;
     private final String password;
 
-    private final UserAccount userAccount;
+    private final EShopUser user;
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public JwtUser(
-            UserAccount userAccount,
+    public JWTokenUser(
+            EShopUser user,
             String username,
             String password,
             Collection<? extends GrantedAuthority> authorities
@@ -31,7 +31,7 @@ public class JwtUser implements UserDetails {
         this.username = username;
         this.password = password; //new BCryptPasswordEncoder().encode(passwd) 加密
 //        this.email = email;
-        this.userAccount = userAccount;
+        this.user = user;
         this.authorities = authorities;
 //        this.lastPasswordResetDate = lastPasswordResetDate;
     }
@@ -44,7 +44,7 @@ public class JwtUser implements UserDetails {
 
     @JsonIgnore
     public String getId() {
-        return this.userAccount.getId().toString();
+        return this.user.getId().toString();
     }
 
     @JsonIgnore
@@ -83,13 +83,13 @@ public class JwtUser implements UserDetails {
     @JsonIgnore
     @Override
     public boolean isEnabled() {
-        System.out.println("isEnabled()  用户状态： " + userAccount.getStatus());
+        System.out.println("isEnabled()  用户状态： " + user.getStatus());
         return true;
     }
 
     // 这个是自定义的，返回上次密码重置日期
     @JsonIgnore
-    public UserAccount getUserAccount() {
-        return userAccount;
+    public Date getLastPasswordResetDate() {
+        return this.user.getLastResetPasswordTime();
     }
 }

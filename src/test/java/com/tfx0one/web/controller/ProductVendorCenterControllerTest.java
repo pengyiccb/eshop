@@ -68,7 +68,7 @@ public class ProductVendorCenterControllerTest {
 
         // 发送post请求 注意 json数据放在 content 中
         String o = JSONObject.toJSONString(
-                new EShopProductSkuAttr().withAttrName("COLOR").withUserAccountId(1).withSortOrder(3)
+                new EShopProductSkuAttr().withAttrName("COLOR").withUserId(1).withSortOrder(3)
         );
         System.out.println("@TEST" + o);
 

@@ -2,7 +2,7 @@ package com.tfx0one.center.AccountCenter.service;
 
 import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.util.BaseService;
-import com.tfx0one.center.AccountCenter.model.UserAccount;
+import com.tfx0one.center.AccountCenter.model.EShopUser;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -12,15 +12,15 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class UserAccountService extends BaseService<UserAccount> {
+public class UserService extends BaseService<EShopUser> {
 
     @Cacheable(cacheNames = CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME, key = "#p0")
-    public UserAccount selectByUsername(String username) {
-        return this.selectOne(new UserAccount().withUsername(username));
+    public EShopUser selectByUsername(String username) {
+        return this.selectOne(new EShopUser().withUsername(username));
     }
 
     @CachePut(cacheNames = CacheConstant.CACHE_USER_ACCOUNT_BY_USERNAME, key = "#p0.username")
-    public UserAccount insertUserAccount(UserAccount userAccount) {
+    public EShopUser insertUserAccount(EShopUser userAccount) {
         this.insert(userAccount);
         return userAccount;
     }

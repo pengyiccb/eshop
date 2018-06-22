@@ -8,7 +8,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_order_id" jdbcType="INTEGER" property="userOrderId" />
     <result column="payment_status" jdbcType="TINYINT" property="paymentStatus" />
-    <result column="user_account_id" jdbcType="INTEGER" property="userAccountId" />
+    <result column="user_id" jdbcType="INTEGER" property="userAccountId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="fee" jdbcType="INTEGER" property="fee" />

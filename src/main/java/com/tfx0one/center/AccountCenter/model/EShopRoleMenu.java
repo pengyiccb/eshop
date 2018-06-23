@@ -34,6 +34,11 @@ public class EShopRoleMenu extends BaseEntity {
     private String description;
 
     /**
+     * 菜单链接
+     */
+    private String url;
+
+    /**
      * 创建时间
      */
     @Column(name = "create_time")
@@ -195,6 +200,31 @@ public class EShopRoleMenu extends BaseEntity {
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
     }
+
+    /**
+     * 获取菜单链接
+     *
+     * @return url - 菜单链接
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    public EShopRoleMenu withUrl(String url) {
+        this.setUrl(url);
+        return this;
+    }
+
+    /**
+     * 设置菜单链接
+     *
+     * @param url 菜单链接
+     */
+    public void setUrl(String url) {
+        this.url = url == null ? null : url.trim();
+    }
+
+
 
     /**
      * 获取创建时间

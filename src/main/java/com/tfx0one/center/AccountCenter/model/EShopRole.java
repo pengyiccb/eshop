@@ -41,6 +41,12 @@ public class EShopRole extends BaseEntity {
     private String permissionStr;
 
     /**
+     * 删除标记 0：正常， 1：删除
+     */
+    @Column(name = "del_flag")
+    private Byte delFlag;
+
+    /**
      * @return id
      */
     public Integer getId() {
@@ -174,6 +180,29 @@ public class EShopRole extends BaseEntity {
         this.permissionStr = permissionStr == null ? null : permissionStr.trim();
     }
 
+    /**
+     * 获取删除标记 0：正常， 1：删除
+     *
+     * @return del_flag - 删除标记 0：正常， 1：删除
+     */
+    public Byte getDelFlag() {
+        return delFlag;
+    }
+
+    public EShopRole withDelFlag(Byte delFlag) {
+        this.setDelFlag(delFlag);
+        return this;
+    }
+
+    /**
+     * 设置删除标记 0：正常， 1：删除
+     *
+     * @param delFlag 删除标记 0：正常， 1：删除
+     */
+    public void setDelFlag(Byte delFlag) {
+        this.delFlag = delFlag;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -186,6 +215,7 @@ public class EShopRole extends BaseEntity {
         sb.append(", updateTime=").append(updateTime);
         sb.append(", updateBy=").append(updateBy);
         sb.append(", permissionStr=").append(permissionStr);
+        sb.append(", delFlag=").append(delFlag);
         sb.append("]");
         return sb.toString();
     }

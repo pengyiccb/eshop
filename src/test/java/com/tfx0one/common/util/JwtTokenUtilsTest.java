@@ -18,9 +18,9 @@ public class JwtTokenUtilsTest {
     public void test_token() {
         JwtTokenUtils jwtTokenUtils = new JwtTokenUtils();
 
-        String autToken = "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE1MjgwOTY4NTQsInVzZXJuYW1lIjoid2FuZ2t1biJ9.s6vMZNUAbsmZ9TWqFEIXN05OI5IAs3Qg_SVBxR3-eXT21HHDqDCMHSRaBPfgr3TcXE606pwRYna38yH57y1xGQ";
-        String u = jwtTokenUtils.getUsernameFromToken(autToken);
-        System.out.println(u);
+//        String autToken = "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE1MjgwOTY4NTQsInVzZXJuYW1lIjoid2FuZ2t1biJ9.s6vMZNUAbsmZ9TWqFEIXN05OI5IAs3Qg_SVBxR3-eXT21HHDqDCMHSRaBPfgr3TcXE606pwRYna38yH57y1xGQ";
+//        String u = jwtTokenUtils.getUsernameFromToken(autToken);
+//        System.out.println(u);
 //        Map<String, Object> c = new HashMap<>();
 //        c.put("a", 1);
 //        String secret = "a2Vsdmlu";

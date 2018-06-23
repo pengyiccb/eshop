@@ -103,7 +103,7 @@ public class AuthService {
 //        accountCenter.refreshLoginUser(username);
 
         System.out.println("token =  " + token);
-        System.out.println(JSONObject.toJSONString(user));
+//        System.out.println(JSONObject.toJSONString(user));
 
         return JSONResult.ok("登录成功").put("token", token).put("userInfo", user);
     }

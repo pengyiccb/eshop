@@ -34,17 +34,17 @@ public class RoleService extends BaseService<EShopRole> {
         roleList.add(new EShopRole()
                 .withId(UserConstant.USER_ROLE_ID_ADMIN)
                 .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_ADMIN)
-                .withTitle(UserConstant.USER_ROLE_TITLE_ADMIN));
+                .withTitle(UserConstant.USER_ROLE_TITLE_ADMIN).withDelFlag((byte)0));
 
         roleList.add(new EShopRole()
                 .withId(UserConstant.USER_ROLE_ID_VENDOR)
                 .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_VENDOR)
-                .withTitle(UserConstant.USER_ROLE_TITLE_VENDOR));
+                .withTitle(UserConstant.USER_ROLE_TITLE_VENDOR).withDelFlag((byte)0));
 
         roleList.add(new EShopRole()
                 .withId(UserConstant.USER_ROLE_ID_CONSUMER)
                 .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_CONSUMER)
-                .withTitle(UserConstant.USER_ROLE_TITLE_CONSUMER));
+                .withTitle(UserConstant.USER_ROLE_TITLE_CONSUMER).withDelFlag((byte)0));
 
         roleList.stream().filter(role -> this.selectOne(role) == null).forEach(this::insert);
     }

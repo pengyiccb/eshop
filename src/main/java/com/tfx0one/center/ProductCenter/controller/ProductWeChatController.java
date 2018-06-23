@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  */
 
 @RestController
-@PreAuthorize("hasAuthority('CONSUMER')") //用户还没有登录 有些接口需要直接访问。 使用 @PreAuthorize("permitAll()")
+//@PreAuthorize("hasAuthority('CONSUMER')") //用户还没有登录 有些接口需要直接访问。 使用 @PreAuthorize("permitAll()")
 public class ProductWeChatController {
     @Resource
     private VenderUserService venderUserService;
@@ -54,7 +54,7 @@ public class ProductWeChatController {
     }
 
     @ApiOperation(value = "商品详情页需要的数据，整合多个单品数据", notes = "传递商品的Id即可")
-    @PreAuthorize("permitAll()")
+//    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/api/v1/wechat/getProductDetail", method = RequestMethod.GET)
     public JSONResult productDetail(@RequestParam Integer productId) {
         EShopProduct product = productCenter.getProductById(productId);
@@ -73,7 +73,7 @@ public class ProductWeChatController {
     }
 
     @ApiOperation(value = "商品详情页需要的价格", notes = "传递商品的Id和属性字符串")
-    @PreAuthorize("permitAll()")
+//    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/api/v1/wechat/getProductDetailPrice", method = RequestMethod.GET)
     public JSONResult getProductDetailPrice(@RequestParam Integer productId/*, @RequestParam String attrOption*/) {
         List<EShopProductSku> skuList = productSkuService.selectByProductId(productId);

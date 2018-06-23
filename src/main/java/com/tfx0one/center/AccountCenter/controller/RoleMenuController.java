@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  */
 
 @RestController
-@PreAuthorize("hasAuthority('ADMIN')") //管理员权限
+//@PreAuthorize("hasAuthority('ADMIN')") //管理员权限
 public class RoleMenuController {
 
     @Resource
@@ -26,7 +26,7 @@ public class RoleMenuController {
 
 
     @ApiOperation("获取用户的菜单列表")
-    @PreAuthorize("hasAnyAuthority('VENDOR', 'ADMIN')") //管理员和用户都可以使用的接口
+//    @PreAuthorize("hasAnyAuthority('VENDOR', 'ADMIN')") //管理员和用户都可以使用的接口
     @RequestMapping(value = "/api/v1/shop/getRoleMenu", method = RequestMethod.GET)
     public JSONResult getRoleMenu() {
 
@@ -40,7 +40,7 @@ public class RoleMenuController {
     }
 
     @ApiOperation("添加菜单")
-    @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
+//    @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
     @RequestMapping(value = "/api/v1/shop/roleMenuAdd", method = RequestMethod.POST)
     public JSONResult addRoleMenu(@RequestBody EShopRoleMenu menu) {
         roleMenuService.insertRoleMenu(menu);
@@ -50,7 +50,7 @@ public class RoleMenuController {
     }
 
     @ApiOperation("删除菜单")
-    @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
+//    @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
     @RequestMapping(value = "/api/v1/shop/roleMenuDelete", method = RequestMethod.POST)
     public JSONResult roleMenuDelete(@RequestParam int id) {
         EShopRoleMenu menu = roleMenuService.deleteRoleMenu(id);
@@ -58,7 +58,7 @@ public class RoleMenuController {
     }
 
     @ApiOperation("修改菜单")
-    @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
+//    @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
     @RequestMapping(value = "/api/v1/shop/roleMenuModify", method = RequestMethod.POST)
     public JSONResult roleMenuModify(@RequestBody EShopRoleMenu menu) {
         roleMenuService.updateRoleMenu(menu);

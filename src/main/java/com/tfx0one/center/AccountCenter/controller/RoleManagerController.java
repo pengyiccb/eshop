@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  * Created by 2fx0one on 2018/6/23.
  */
 @RestController
-@PreAuthorize("hasAuthority('ADMIN')")  //必须是管理员才能操作！
+//@PreAuthorize("hasAuthority('ADMIN')")  //必须是管理员才能操作！
 //只有超级管理员才有权限管理角色
 public class RoleManagerController {
 

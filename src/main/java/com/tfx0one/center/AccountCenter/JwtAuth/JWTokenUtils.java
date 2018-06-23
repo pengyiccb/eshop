@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by 2fx0one on 2018/6/4.
  */
 @Component
-public class JwtTokenUtils {
+public class JWTokenUtils {
 
     @Value("${jwt.secret}")
     private String secret;

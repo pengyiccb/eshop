@@ -1,6 +1,7 @@
 package com.tfx0one.center.AccountCenter.JwtAuth;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tfx0one.common.constant.APIConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -54,7 +55,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             logger.info("authentication username = " + username);
 //            //TODO 验证失败时。需要返回信息
             if (username == null) {
-                errorStrWriteToResponse(response, -1, "失效的 Token， username == null");
+                errorStrWriteToResponse(response, APIConstant.TOKEN_ILLEGAL, "失效的 Token， username == null");
                 return;
             }
 
@@ -74,7 +75,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 } else {
-                    errorStrWriteToResponse(response, -2, "validateToken 无法验证 Token");
+                    errorStrWriteToResponse(response, APIConstant.TOKEN_ILLEGAL, "validateToken 验证失败 Token");
                     return;
                 }
             }

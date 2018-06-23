@@ -83,9 +83,9 @@ public class CacheUtilsTest {
 
     @Test
     public void test() {
-        String key = "aa";
-        String value = "xxxxvalxxxx";
-        cacheUtils.put("abc", key, value);
+//        String key = "aa";
+//        String value = "xxxxvalxxxx";
+//        cacheUtils.put("abc", key, value);
 //        System.out.println(redisUtils);
 //        String key = "aa";
 //        String value = "xxxxvalxxxx";

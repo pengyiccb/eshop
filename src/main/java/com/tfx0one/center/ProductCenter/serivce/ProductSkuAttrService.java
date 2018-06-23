@@ -1,10 +1,10 @@
 package com.tfx0one.center.ProductCenter.serivce;
 
-import com.tfx0one.common.constant.CacheConstant;
-import com.tfx0one.common.util.BaseService;
-import com.tfx0one.common.cache.CacheUtils;
 import com.tfx0one.center.ProductCenter.model.EShopProductSku;
 import com.tfx0one.center.ProductCenter.model.EShopProductSkuAttr;
+import com.tfx0one.common.cache.CacheUtils;
+import com.tfx0one.common.constant.CacheConstant;
+import com.tfx0one.common.util.BaseService;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -38,22 +38,10 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     @Resource
     private CacheUtils cacheUtils;
 
-//    public JSONResult getAllProductCategoryOption(int vendorId) {
-//        //TODO 分类应该缓存 vendorId 没有使用
-//        List<EShopProductCategory> list = productCategoryService.select(null);
-//        return JSONResult.ok().data(list);
-//    }
 
-//    //获取改分类下的所有选择
-//    public JSONResult getSkuAttrOptionTreeByProductCategoryId(int productCategoryId) {
-//        List<EShopProductSkuAttr> list = productUtils.getSkuAttrOptionTree(productCategoryId);
-//
-//        return JSONResult.ok().data(list);
-//    }
-
-//    @Resource
-//    private EShopProductSkuAttrMapper eShopProductSkuAttrMapper;
-
+//    @Caching({
+//            @CacheEvict(cacheNames = )
+//    })
     @CachePut(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_ID, key = "#p0.id")
     public EShopProductSkuAttr insertProductSkuAttr(EShopProductSkuAttr attr) {
         this.insert(attr);
@@ -134,7 +122,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     }
 
 
-    @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_USER_ACCOUNT_ID, key = "#p0")
+    @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_USER_ID, key = "#p0")
     public List<EShopProductSkuAttr> getProductAttrOptionByUserId(int userId) {
 //        //找到所有根节点 0
 //        List<EShopProductSkuAttr> roots = this.select(new EShopProductSkuAttr().withUserAccountId(userId).withParentId(0));
@@ -145,7 +133,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 //                )
 //        );
 //        return roots;
-        //找到所有根节点 0 逻辑可以看上面
+        //找到所有根节点 0 逻辑可以看上面 只有两级！！！
         return this.select(new EShopProductSkuAttr().withUserId(userId).withParentId(0)).parallelStream().map(
                 root -> root.withChildren(
                         this.select(new EShopProductSkuAttr().withParentId(root.getId()))

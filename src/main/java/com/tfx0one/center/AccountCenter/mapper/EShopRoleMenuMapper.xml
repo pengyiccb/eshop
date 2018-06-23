@@ -32,13 +32,13 @@
       menu.create_by,
       menu.update_by,
       sort_order,
-      del_flag
+      menu.del_flag
     FROM
       e_shop_role_menu menu
         LEFT JOIN e_shop_role_menu_relation ralation ON menu.id = ralation.menu_id
         LEFT JOIN e_shop_role role ON ralation.role_id = role.id
     WHERE
-      del_flag = 0 AND role.id = #{roleId}
+      menu.del_flag = 0 AND role.id = #{roleId}
 
   </select>
 </mapper>

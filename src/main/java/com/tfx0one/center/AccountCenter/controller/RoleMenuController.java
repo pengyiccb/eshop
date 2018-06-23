@@ -5,6 +5,7 @@ import com.tfx0one.center.AccountCenter.model.EShopRoleMenu;
 import com.tfx0one.center.AccountCenter.service.RoleMenuService;
 import com.tfx0one.common.constant.UserConstant;
 import com.tfx0one.common.util.JSONResult;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class RoleMenuController {
     private AccountCenter accountCenter;
 
 
-    //获取用户的菜单列表
+    @ApiOperation("获取用户的菜单列表")
     @RequestMapping(value = "/api/v1/shop/getRoleMenu", method = RequestMethod.GET)
     public JSONResult getRoleMenu() {
 
@@ -39,7 +40,7 @@ public class RoleMenuController {
         );
     }
 
-    //添加菜单
+    @ApiOperation("添加菜单")
     @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
     @RequestMapping(value = "/api/v1/shop/roleMenuAdd", method = RequestMethod.POST)
     public JSONResult addRoleMenu(@RequestBody EShopRoleMenu menu) {
@@ -47,7 +48,7 @@ public class RoleMenuController {
         return JSONResult.ok().data(menu);
     }
 
-    //删除菜单
+    @ApiOperation("删除菜单")
     @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
     @RequestMapping(value = "/api/v1/shop/roleMenuDelete", method = RequestMethod.POST)
     public JSONResult roleMenuDelete(@RequestParam int menuId) {
@@ -55,7 +56,7 @@ public class RoleMenuController {
         return JSONResult.ok("删除成功").data(menu);
     }
 
-    //修改菜单
+    @ApiOperation("修改菜单")
     @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
     @RequestMapping(value = "/api/v1/shop/roleMenuModify", method = RequestMethod.POST)
     public JSONResult roleMenuModify(@RequestBody EShopRoleMenu menu) {

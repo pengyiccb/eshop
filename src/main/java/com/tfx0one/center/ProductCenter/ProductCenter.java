@@ -93,25 +93,35 @@ public class ProductCenter {
         return productCategoryService.select(null);
     }
 
-    //新建一个单品的属性 创建商品页面
-    public EShopProductSkuAttr createProductSkuAttr(EShopProductSkuAttr attr) {
-        return productSkuAttrService.insertProductSkuAttr(attr);
-    }
+//    //新建一个单品的属性 创建商品页面
+//    public EShopProductSkuAttr createProductSkuAttr(EShopProductSkuAttr attr) {
+//        return productSkuAttrService.insertProductSkuAttr(attr);
+//    }
+//
+//    //获取商家可选分类中的可选属性 创建商品页面
+//    public List<EShopProductSkuAttr> getProductAttrOptionByUserId(int userAccountId) {
+//        return productSkuAttrService.getProductAttrOptionByUserId(userAccountId);
+//    }
+//
+//    //创建商品
+//    public EShopProduct createProduct(EShopProduct product, List<EShopProductSku> skuList) {
+//        return productService.createProduct(product, skuList);
+//    }
+//
+//    //修改商品
+//    public EShopProduct modifyProduct(EShopProduct product, List<EShopProductSku> skuList) {
+//        return productService.modifyProduct(product, skuList);
+//    }
 
-    //获取商家可选分类中的可选属性 创建商品页面
-    public List<EShopProductSkuAttr> getProductAttrOptionByUserId(int userAccountId) {
-        return productSkuAttrService.getProductAttrOptionByUserId(userAccountId);
-    }
 
-    //创建商品
-    public EShopProduct createProduct(EShopProduct product, List<EShopProductSku> skuList) {
-        return productService.createProduct(product, skuList);
-    }
 
-    //修改商品
-    public EShopProduct modifyProduct(EShopProduct product, List<EShopProductSku> skuList) {
-        return productService.modifyProduct(product, skuList);
-    }
+
+
+
+
+
+
+
 
 
 //

@@ -5,6 +5,8 @@ import com.tfx0one.center.ProductCenter.ProductCenter;
 import com.tfx0one.center.ProductCenter.model.EShopProduct;
 import com.tfx0one.center.ProductCenter.model.EShopProductSku;
 import com.tfx0one.center.ProductCenter.model.EShopProductSkuAttr;
+import com.tfx0one.center.ProductCenter.serivce.ProductService;
+import com.tfx0one.center.ProductCenter.serivce.ProductSkuAttrService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.frontEndModels.FrontEndProduct;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +28,12 @@ public class ProductVendorController {
 
     @Resource
     private ProductCenter productCenter;
+
+    @Resource
+    private ProductSkuAttrService productSkuAttrService;
+
+    @Resource
+    private ProductService productService;
 
     @ApiOperation(value = "获取商家可用的商品分类", notes = "需要传递 vendorId 作为参数")
     @RequestMapping(value = "/api/v1/shop/getProductCategoryOptionByVendorId", method = RequestMethod.GET)
@@ -54,13 +62,18 @@ public class ProductVendorController {
             return JSONResult.error("属性参数错误 attrName 不能为空");
         }
 
-        //TODO: 同parent Id 下， name 不能一样。
+        List<EShopProductSkuAttr> list = productSkuAttrService.select(new EShopProductSkuAttr().withParentId(attr.getParentId()));
+        for (EShopProductSkuAttr e : list) {
+            if (attr.getAttrName().equals(e.getAttrName())) {
+                return JSONResult.error("属性参数错误 attrName 不能相同");
+            }
+        }
 
         if (!accountCenter.getCacheLoginUser().getId().equals(attr.getUserId())) {
             return JSONResult.error("属性参数错误 user_account_id 对应用户不存在");
         }
 
-        productCenter.createProductSkuAttr(attr);
+        productSkuAttrService.insertProductSkuAttr(attr);
         return JSONResult.ok("添加成功").data(attr);
     }
 
@@ -68,7 +81,7 @@ public class ProductVendorController {
     @ApiOperation(value = "获取商家可选分类中的可选属性", notes = "需要传递 productCategroyId 作为参数")
     @RequestMapping(value = "/api/v1/shop/getProductAttrOptionByUserId", method = RequestMethod.GET)
     public JSONResult getProductAttrOptionByUserId(@RequestParam int userAccountId) {
-        List<EShopProductSkuAttr> list = productCenter.getProductAttrOptionByUserId(userAccountId);
+        List<EShopProductSkuAttr> list = productSkuAttrService.getProductAttrOptionByUserId(userAccountId);
         return JSONResult.ok().data(list);
     }
 
@@ -84,7 +97,7 @@ public class ProductVendorController {
 //                e -> JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class)
 //        ).collect(Collectors.toList());
 
-        productCenter.createProduct(product, skuList);
+        productService.createProduct(product, skuList);
         return JSONResult.ok().data(product);
 
     }
@@ -101,7 +114,7 @@ public class ProductVendorController {
 //                e -> JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class)
 //        ).collect(Collectors.toList());
 
-        productCenter.modifyProduct(product, skuList);
+        productService.modifyProduct(product, skuList);
         return JSONResult.ok().data(product);
     }
 

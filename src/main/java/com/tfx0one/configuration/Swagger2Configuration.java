@@ -28,7 +28,7 @@ public class Swagger2Configuration {
     public Docket createRestApi() {
         ParameterBuilder tokenPar = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<Parameter>();
-        tokenPar.name("Authorization").description("不要删除 Bearer !").modelRef(new ModelRef("string")).parameterType("header").required(false).defaultValue("Bearer ").build();
+        tokenPar.name("Authorization").description("请把token拼接在 Bearer 后!").modelRef(new ModelRef("string")).parameterType("header").required(false).defaultValue("Bearer ").build();
         pars.add(tokenPar.build());
 
         return new Docket(DocumentationType.SWAGGER_2)

@@ -2,6 +2,8 @@ package com.tfx0one.center.AccountCenter.controller;
 
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.center.AccountCenter.service.AuthService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
@@ -33,6 +35,11 @@ public class AuthController {
         return authService.register(username, password);
     }
 
+    @ApiOperation("后台网页登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", name = "username", dataType = "String", value = "用户名", defaultValue = "admin"),
+            @ApiImplicitParam(paramType = "query", name = "password", dataType = "String", value = "密码", defaultValue = "123456")
+    })
     @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
     public JSONResult login(@RequestParam String username, @RequestParam String password) {
         return authService.login(username, password);

@@ -1,15 +1,14 @@
 package com.tfx0one.center.AccountCenter.service;
 
 import com.tfx0one.center.AccountCenter.model.EShopRole;
+import com.tfx0one.common.cache.CacheUtils;
 import com.tfx0one.common.constant.CacheConstant;
-import com.tfx0one.common.constant.UserConstant;
 import com.tfx0one.common.util.BaseService;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.Resource;
 
 /**
  * Created by 2fx0one on 2018/6/22.
@@ -17,35 +16,45 @@ import java.util.List;
 @Service
 public class RoleService extends BaseService<EShopRole> {
 
+    @Resource
+    private CacheUtils cacheUtils;
+
+
     @Cacheable(cacheNames = CacheConstant.CACHE_USER_ROLE_BY_ID, key = "#p0")
     public EShopRole selectUserRoleById(int roleId) {
-        return this.selectByPrimaryKey(roleId);
+        //保证类内部调用也可以启动缓存
+        EShopRole role = cacheUtils.get(CacheConstant.CACHE_USER_ROLE_BY_ID, String.valueOf(roleId));
+        if (role == null) {
+            role = this.selectByPrimaryKey(roleId);
+            cacheUtils.put(CacheConstant.CACHE_USER_ROLE_BY_ID, String.valueOf(roleId), role);
+        }
+        return role;
     }
 
     @CachePut(cacheNames = CacheConstant.CACHE_USER_ROLE_BY_ID, key = "#p0.id")
     public EShopRole insertRole(EShopRole role) {
-        this.insert(role);
+        this.insert(role.withDelFlag((byte)0));//表示有效
         return role;
     }
 
-    public void checkDatabaseRole() {
-        //数据库中 必须包含的三个基本管理员。 id固定
-        List<EShopRole> roleList = new ArrayList<>();
-        roleList.add(new EShopRole()
-                .withId(UserConstant.USER_ROLE_ID_ADMIN)
-                .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_ADMIN)
-                .withTitle(UserConstant.USER_ROLE_TITLE_ADMIN).withDelFlag((byte)0));
-
-        roleList.add(new EShopRole()
-                .withId(UserConstant.USER_ROLE_ID_VENDOR)
-                .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_VENDOR)
-                .withTitle(UserConstant.USER_ROLE_TITLE_VENDOR).withDelFlag((byte)0));
-
-        roleList.add(new EShopRole()
-                .withId(UserConstant.USER_ROLE_ID_CONSUMER)
-                .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_CONSUMER)
-                .withTitle(UserConstant.USER_ROLE_TITLE_CONSUMER).withDelFlag((byte)0));
-
-        roleList.stream().filter(role -> this.selectOne(role) == null).forEach(this::insert);
+    //删除
+//    @CacheEvict(cacheNames = CacheConstant.CACHE_ROLE_MENU_BY_ROLE_ID, allEntries = true) //删除所有用户的缓存
+    @CachePut(cacheNames = CacheConstant.CACHE_USER_ROLE_BY_ID, key = "#p0")
+    public EShopRole deleteRole(int id) {
+        EShopRole role = this.selectUserRoleById(id);
+        role.setDelFlag((byte)1);//表示删除
+        this.updateNotNull(role);
+        return role;
     }
+
+    //改
+    @CachePut(cacheNames = CacheConstant.CACHE_USER_ROLE_BY_ID, key = "#p0")
+    public EShopRole updateRole(EShopRole role) {
+        this.updateNotNull(role);
+        return role;
+    }
+
+
+
+
 }

@@ -20,6 +20,7 @@ public class JwtUserFactory {
 
 
     public static JWTokenUser create(EShopUser user) {
+        System.out.println("JwtUserFactory create " + UserConstant.rolePermission.get(user.getRoleId()));
         return new JWTokenUser(user,
                 user.getUsername(),
                 user.getPassword(),

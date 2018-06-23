@@ -19,6 +19,6 @@ public class RoleMenuServiceTest {
     @Test
     public void selectRoleMenuByRoleId() {
 //        roleMenuService.selectRoleMenuByRoleId(1).forEach(System.out::println);
-//        roleMenuService.selectAllRoleMenu().forEach(System.out::println);
+//        roleMenuService.selectAllActiveRoleMenu().forEach(System.out::println);
     }
 }

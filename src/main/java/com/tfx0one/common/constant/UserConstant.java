@@ -24,7 +24,7 @@ public class UserConstant {
     public static final int USER_ROLE_ID_CONSUMER = 3; //消费者
 
     //role permission string 注意！！！ 必须和数据库对应
-    public static final String USER_ROLE_PERMISSION_ADMIN = "ADMMIN"; //超级管理员
+    public static final String USER_ROLE_PERMISSION_ADMIN = "ADMIN"; //超级管理员
     public static final String USER_ROLE_PERMISSION_VENDOR = "VENDOR"; //商家
     public static final String USER_ROLE_PERMISSION_CONSUMER = "CONSUMER"; //消费者
 

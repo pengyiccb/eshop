@@ -1,6 +1,5 @@
 package com.tfx0one.center.AccountCenter;
 
-import com.tfx0one.center.AccountCenter.model.EShopRole;
 import com.tfx0one.center.AccountCenter.model.EShopRoleMenu;
 import com.tfx0one.center.AccountCenter.model.EShopUser;
 import com.tfx0one.center.AccountCenter.service.RoleMenuService;
@@ -68,23 +67,23 @@ public class AccountCenter {
     public void checkDatabaseRole() {
 //        roleService.checkDatabaseRole();
         //=====1 数据库中 必须包含的三个基本管理员。 id固定=====
-        List<EShopRole> roleList = new ArrayList<>();
-        roleList.add(new EShopRole()
-                .withId(UserConstant.USER_ROLE_ID_ADMIN)
-                .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_ADMIN)
-                .withTitle(UserConstant.USER_ROLE_TITLE_ADMIN).withDelFlag((byte)0));
-
-        roleList.add(new EShopRole()
-                .withId(UserConstant.USER_ROLE_ID_VENDOR)
-                .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_VENDOR)
-                .withTitle(UserConstant.USER_ROLE_TITLE_VENDOR).withDelFlag((byte)0));
-
-        roleList.add(new EShopRole()
-                .withId(UserConstant.USER_ROLE_ID_CONSUMER)
-                .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_CONSUMER)
-                .withTitle(UserConstant.USER_ROLE_TITLE_CONSUMER).withDelFlag((byte)0));
-
-        roleList.stream().filter(role -> roleService.selectOne(role) == null).forEach(roleService::insert);
+//        List<EShopRole> roleList = new ArrayList<>();
+//        roleList.add(new EShopRole()
+//                .withId(UserConstant.USER_ROLE_ID_ADMIN)
+//                .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_ADMIN)
+//                .withTitle(UserConstant.USER_ROLE_TITLE_ADMIN).withDelFlag((byte)0));
+//
+//        roleList.add(new EShopRole()
+//                .withId(UserConstant.USER_ROLE_ID_VENDOR)
+//                .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_VENDOR)
+//                .withTitle(UserConstant.USER_ROLE_TITLE_VENDOR).withDelFlag((byte)0));
+//
+//        roleList.add(new EShopRole()
+//                .withId(UserConstant.USER_ROLE_ID_CONSUMER)
+//                .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_CONSUMER)
+//                .withTitle(UserConstant.USER_ROLE_TITLE_CONSUMER).withDelFlag((byte)0));
+//
+//        roleList.stream().filter(role -> roleService.selectOne(role) == null).forEach(roleService::insert);
 
 //        userService.checkDatabaseAdmin();
 

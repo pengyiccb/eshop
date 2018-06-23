@@ -284,14 +284,15 @@ DROP TABLE IF EXISTS `e_shop_role`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `e_shop_role` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL COMMENT '角色的显示名字',
+  `title` varchar(64) NOT NULL COMMENT '角色的显示名字',
+  `description` varchar(255) NOT NULL COMMENT '角色描述',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `create_by` varchar(64) DEFAULT NULL COMMENT '创建者',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
-  `permission_str` varchar(64) NOT NULL COMMENT '权限字符串',
   `del_flag` tinyint(4) NOT NULL COMMENT '删除标记 0：正常， 1：删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -300,7 +301,6 @@ CREATE TABLE `e_shop_role` (
 
 LOCK TABLES `e_shop_role` WRITE;
 /*!40000 ALTER TABLE `e_shop_role` DISABLE KEYS */;
-INSERT INTO `e_shop_role` VALUES (1,'超级管理员',NULL,NULL,NULL,'ADMIN',0),(2,'商家',NULL,NULL,NULL,'VENDOR',0),(3,'消费者',NULL,NULL,NULL,'CONSUMER',0);
 /*!40000 ALTER TABLE `e_shop_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,7 +325,7 @@ CREATE TABLE `e_shop_role_menu` (
   `sort_order` tinyint(4) DEFAULT NULL COMMENT '排序',
   `del_flag` tinyint(4) NOT NULL COMMENT '删除标记',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户资源（菜单）表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='用户资源（菜单）表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -334,7 +334,7 @@ CREATE TABLE `e_shop_role_menu` (
 
 LOCK TABLES `e_shop_role_menu` WRITE;
 /*!40000 ALTER TABLE `e_shop_role_menu` DISABLE KEYS */;
-INSERT INTO `e_shop_role_menu` VALUES (1,0,'系统管理','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(2,1,'菜单配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(3,0,'用户管理','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(4,3,'角色配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(5,3,'用户配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO `e_shop_role_menu` VALUES (1,0,'系统管理','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(2,1,'菜单配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(3,0,'用户管理','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(4,3,'角色配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(5,3,'用户配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(10,3,'离散数学','icon','离散数学历史小说','lssx',NULL,NULL,NULL,NULL,NULL,0),(11,3,'嘻嘻嘻嘻','icon','嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻','xxxx',NULL,NULL,NULL,NULL,NULL,0),(12,3,'大家好','icon','多个地方','safvcsafcv',NULL,NULL,NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `e_shop_role_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -618,4 +618,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-23 16:36:05
+-- Dump completed on 2018-06-23 17:49:59

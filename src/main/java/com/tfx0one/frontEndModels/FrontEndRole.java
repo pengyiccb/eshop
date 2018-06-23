@@ -6,5 +6,6 @@ package com.tfx0one.frontEndModels;
 public class FrontEndRole {
 
     private String title; //用户显示的名字
-    private String 
+    private String permission; //权限字符串
+
 }

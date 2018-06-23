@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * Created by wynn on 2018/6/9.
  */
 @RestController
-@PreAuthorize("hasAuthority('CONSUMER')")
+//@PreAuthorize("hasAuthority('CONSUMER')")
 public class UserCartController {
 
     @Resource

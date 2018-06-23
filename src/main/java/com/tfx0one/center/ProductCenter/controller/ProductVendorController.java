@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @RestController
-@PreAuthorize("hasAuthority('VENDOR')") //商家权限
+//@PreAuthorize("hasAuthority('VENDOR')") //商家权限
 public class ProductVendorController {
     //商户的后台web接口
 

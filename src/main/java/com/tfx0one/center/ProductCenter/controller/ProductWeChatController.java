@@ -43,7 +43,7 @@ public class ProductWeChatController {
     private MarketingCenter marketingCenter;
 
     @ApiOperation(value = "获取主页的数据, 基本数据信息，不包含单品信息", notes = "需要传递appId 作为参数")
-    @PreAuthorize("permitAll()")
+//    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/api/v1/wechat/getProductList", method = RequestMethod.GET)
     public JSONResult productList(@RequestParam String appId) {
         VendorUser vendorUser = venderUserService.selectByAppId(appId);

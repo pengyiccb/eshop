@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  */
 
 @RestController
-@PreAuthorize("hasAuthority('CONSUMER')")
+//@PreAuthorize("hasAuthority('CONSUMER')")
 public class UserAddrController {
     @Resource
     private UserAddressService userAddressService;

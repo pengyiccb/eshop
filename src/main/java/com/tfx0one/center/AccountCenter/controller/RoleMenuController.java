@@ -3,7 +3,6 @@ package com.tfx0one.center.AccountCenter.controller;
 import com.tfx0one.center.AccountCenter.AccountCenter;
 import com.tfx0one.center.AccountCenter.model.EShopRoleMenu;
 import com.tfx0one.center.AccountCenter.service.RoleMenuService;
-import com.tfx0one.common.constant.UserConstant;
 import com.tfx0one.common.util.JSONResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +15,7 @@ import javax.annotation.Resource;
  */
 
 @RestController
+@PreAuthorize("hasAuthority('ADMIN')") //管理员权限
 public class RoleMenuController {
 
     @Resource
@@ -26,18 +26,17 @@ public class RoleMenuController {
 
 
     @ApiOperation("获取用户的菜单列表")
+    @PreAuthorize("hasAnyAuthority('VENDOR', 'ADMIN')") //管理员和用户都可以使用的接口
     @RequestMapping(value = "/api/v1/shop/getRoleMenu", method = RequestMethod.GET)
     public JSONResult getRoleMenu() {
 
-        int roleId = accountCenter.getCacheLoginUser().getRoleId();
+//        int roleId = accountCenter.getCacheLoginUser().getRoleId();
 
-        if (roleId == UserConstant.USER_ROLE_ID_CONSUMER) {
-            return JSONResult.error("微信用户无菜单");
-        }
+//        if (roleId == UserConstant.USER_ROLE_ID_CONSUMER) {
+//            return JSONResult.error("微信用户无菜单权限");  PreAuthorize已经配置！
+//        }
 
-        return JSONResult.ok().data(
-                roleMenuService.selectRoleMenuByRoleId(roleId)
-        );
+        return JSONResult.ok().data(roleMenuService.selectRoleMenuByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
     }
 
     @ApiOperation("添加菜单")
@@ -45,15 +44,17 @@ public class RoleMenuController {
     @RequestMapping(value = "/api/v1/shop/roleMenuAdd", method = RequestMethod.POST)
     public JSONResult addRoleMenu(@RequestBody EShopRoleMenu menu) {
         roleMenuService.insertRoleMenu(menu);
-        return JSONResult.ok().data(menu);
+
+        //把整个数据菜单给管理员
+        return JSONResult.ok().data(roleMenuService.selectRoleMenuByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
     }
 
     @ApiOperation("删除菜单")
     @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
     @RequestMapping(value = "/api/v1/shop/roleMenuDelete", method = RequestMethod.POST)
-    public JSONResult roleMenuDelete(@RequestParam int menuId) {
-        EShopRoleMenu menu = roleMenuService.deleteRoleMenu(menuId);
-        return JSONResult.ok("删除成功").data(menu);
+    public JSONResult roleMenuDelete(@RequestParam int id) {
+        EShopRoleMenu menu = roleMenuService.deleteRoleMenu(id);
+        return JSONResult.ok("删除成功").data(roleMenuService.selectRoleMenuByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
     }
 
     @ApiOperation("修改菜单")
@@ -61,7 +62,7 @@ public class RoleMenuController {
     @RequestMapping(value = "/api/v1/shop/roleMenuModify", method = RequestMethod.POST)
     public JSONResult roleMenuModify(@RequestBody EShopRoleMenu menu) {
         roleMenuService.updateRoleMenu(menu);
-        return JSONResult.ok("修改成功").data(menu);
+        return JSONResult.ok("修改成功").data(roleMenuService.selectRoleMenuByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
     }
 
 }

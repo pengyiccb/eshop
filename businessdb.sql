@@ -300,7 +300,7 @@ CREATE TABLE `e_shop_role` (
 
 LOCK TABLES `e_shop_role` WRITE;
 /*!40000 ALTER TABLE `e_shop_role` DISABLE KEYS */;
-INSERT INTO `e_shop_role` VALUES (1,'超级管理员',NULL,NULL,NULL,'ADMMIN',0),(2,'商家',NULL,NULL,NULL,'VENDOR',0),(3,'消费者',NULL,NULL,NULL,'CONSUMER',0);
+INSERT INTO `e_shop_role` VALUES (1,'超级管理员',NULL,NULL,NULL,'ADMIN',0),(2,'商家',NULL,NULL,NULL,'VENDOR',0),(3,'消费者',NULL,NULL,NULL,'CONSUMER',0);
 /*!40000 ALTER TABLE `e_shop_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,7 +325,7 @@ CREATE TABLE `e_shop_role_menu` (
   `sort_order` tinyint(4) DEFAULT NULL COMMENT '排序',
   `del_flag` tinyint(4) NOT NULL COMMENT '删除标记',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='用户资源（菜单）表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户资源（菜单）表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -334,7 +334,7 @@ CREATE TABLE `e_shop_role_menu` (
 
 LOCK TABLES `e_shop_role_menu` WRITE;
 /*!40000 ALTER TABLE `e_shop_role_menu` DISABLE KEYS */;
-INSERT INTO `e_shop_role_menu` VALUES (1,0,'系统','系统','系统','系统',NULL,NULL,NULL,NULL,NULL,0),(2,1,'菜单配置','菜单配置','菜单配置','菜单配置',NULL,NULL,NULL,NULL,NULL,0),(3,0,'用户和角色','用户和角色','用户和角色','用户和角色',NULL,NULL,NULL,NULL,NULL,0),(4,3,'角色设置','角色设置','角色设置','角色设置',NULL,NULL,NULL,NULL,NULL,0),(5,3,'用户设置','用户设置','用户设置','用户设置',NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO `e_shop_role_menu` VALUES (1,0,'系统管理','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(2,1,'菜单配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(3,0,'用户管理','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(4,3,'角色配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(5,3,'用户配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `e_shop_role_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,7 +359,6 @@ CREATE TABLE `e_shop_role_menu_relation` (
 
 LOCK TABLES `e_shop_role_menu_relation` WRITE;
 /*!40000 ALTER TABLE `e_shop_role_menu_relation` DISABLE KEYS */;
-INSERT INTO `e_shop_role_menu_relation` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,2,1),(7,2,2);
 /*!40000 ALTER TABLE `e_shop_role_menu_relation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -619,4 +618,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-23 14:51:54
+-- Dump completed on 2018-06-23 16:36:05

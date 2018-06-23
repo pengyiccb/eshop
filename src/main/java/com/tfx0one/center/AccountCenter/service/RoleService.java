@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by 2fx0one on 2018/6/22.
@@ -55,6 +56,7 @@ public class RoleService extends BaseService<EShopRole> {
     }
 
 
-
-
+    public List<EShopRole> selectAllActiveRole() {
+        return this.select(new EShopRole().withDelFlag((byte)0));
+    }
 }

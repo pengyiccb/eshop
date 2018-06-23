@@ -50,11 +50,11 @@ public class RoleMenuService extends BaseService<EShopRoleMenu> {
 
         //由于只有两级 故而先构建根节点 再遍历子节点
         return menus.stream()
-                .filter(e -> e.getParentId()==0)
-                .map(root -> //遍历根节点 第一级
+                .filter(e -> e.getParentId().equals(0) && e.getDelFlag()==0
+                ).map(root -> //遍历根节点 第一级
                         root.withChildren(
                                 menus.stream() //找到所有是这个父节点的子节点 第二级
-                                        .filter(child -> child.getParentId().equals(root.getId())
+                                        .filter(child -> child.getParentId().equals(root.getId()) && child.getDelFlag()==0
                                         ).collect(Collectors.toList())
                         )
                 ).collect(Collectors.toList());

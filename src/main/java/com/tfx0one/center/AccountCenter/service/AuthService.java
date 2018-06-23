@@ -103,7 +103,9 @@ public class AuthService {
 //        accountCenter.refreshLoginUser(username);
 
         System.out.println("token =  " + token);
-        return JSONResult.ok("登录成功").put("token", token);
+        System.out.println(JSONObject.toJSONString(user));
+
+        return JSONResult.ok("登录成功").put("token", token).put("userInfo", user);
     }
 
     //微信

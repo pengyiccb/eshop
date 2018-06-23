@@ -24,7 +24,7 @@ public class RoleMenuController {
     private AccountCenter accountCenter;
 
 
-    @RequestMapping(value = "getRoleMenu", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v1/shop/getRoleMenu", method = RequestMethod.GET)
     public JSONResult getRoleMenu() {
 
         int roleId = accountCenter.getCacheLoginUser().getRoleId();
@@ -39,21 +39,21 @@ public class RoleMenuController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
-    @RequestMapping(value = "roleMenuAdd", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/v1/shop/roleMenuAdd", method = RequestMethod.POST)
     public JSONResult addRoleMenu(@RequestBody EShopRoleMenu menu) {
         roleMenuService.insertRoleMenu(menu);
         return JSONResult.ok().data(menu);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
-    @RequestMapping(value = "roleMenuDelete", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/v1/shop/roleMenuDelete", method = RequestMethod.POST)
     public JSONResult roleMenuDelete(@RequestParam int menuId) {
         roleMenuService.deleteRoleMenu(menuId);
         return JSONResult.ok().data("删除成功");
     }
 
     @PreAuthorize("hasAuthority('ADMIN')") //必须是管理员才能操作！
-    @RequestMapping(value = "roleMenuModify", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/v1/shop/roleMenuModify", method = RequestMethod.POST)
     public JSONResult roleMenuModify(@RequestBody EShopRoleMenu menu) {
         roleMenuService.updateRoleMenu(menu);
         return JSONResult.ok().data("删除成功");

@@ -1,10 +1,13 @@
 package com.tfx0one.center.AccountCenter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tfx0one.common.util.BaseEntity;
-import java.util.Date;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "e_shop_user")
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EShopUser extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +27,7 @@ public class EShopUser extends BaseEntity {
     /**
      * 登录密码
      */
+    @JsonIgnore
     private String password;
 
     /**

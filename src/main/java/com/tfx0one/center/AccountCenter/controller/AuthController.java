@@ -1,16 +1,12 @@
 package com.tfx0one.center.AccountCenter.controller;
 
-import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.center.AccountCenter.service.AuthService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
+import com.tfx0one.common.util.JSONResult;
+import com.tfx0one.frontEndModels.FrontEndLoginUser;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 ;
 
@@ -36,13 +32,21 @@ public class AuthController {
     }
 
     @ApiOperation("后台网页登录")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query", name = "username", dataType = "String", value = "用户名", defaultValue = "admin"),
-            @ApiImplicitParam(paramType = "query", name = "password", dataType = "String", value = "密码", defaultValue = "123456")
-    })
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(paramType = "body", name = "json", dataType = "string", value = "用户名和密码", example = "{username:admin, passowrd:123456}", defaultValue = "{username:admin, passowrd:123456}"),
+//    })
+//    @ApiModel(value = "json")
+//    private Map<String, String> map;
+////        @ApiModelProperty(name = "json")
+////    )
     @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
-    public JSONResult login(@RequestParam String username, @RequestParam String password) {
-        return authService.login(username, password);
+    public JSONResult login(@RequestBody FrontEndLoginUser user) {
+//        System.out.println(user);
+//        System.out.println(user.getUsername());
+//        System.out.println(user.getPassword());
+//        String username = json.get("username");
+//        String password = json.get("password");
+        return authService.login(user.getUsername(), user.getPassword());
     }
 
     /**
@@ -60,6 +64,8 @@ public class AuthController {
     ) {
         return authService.wxlogin(code, appId, userInfo);
     }
+
+
 
 
 }

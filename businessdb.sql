@@ -290,7 +290,7 @@ CREATE TABLE `e_shop_role` (
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `permission_str` varchar(64) NOT NULL COMMENT '权限字符串',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,14 +314,16 @@ CREATE TABLE `e_shop_role_menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) unsigned NOT NULL COMMENT '父级ID',
   `title` varchar(64) NOT NULL COMMENT '菜单名字',
-  `icon` varchar(255) DEFAULT NULL COMMENT '菜单图片',
-  `description` varchar(255) DEFAULT NULL COMMENT '菜单描述',
-  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `icon` varchar(255) NOT NULL COMMENT '菜单图片',
+  `description` varchar(255) NOT NULL COMMENT '菜单描述',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `create_by` varchar(64) NOT NULL COMMENT '更新者',
+  `create_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
+  `sort_order` tinyint(4) DEFAULT NULL COMMENT '排序',
+  `del_flag` tinyint(4) NOT NULL COMMENT '删除标记 0：正常， 1：删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户资源（菜单）表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='用户资源（菜单）表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -330,7 +332,33 @@ CREATE TABLE `e_shop_role_menu` (
 
 LOCK TABLES `e_shop_role_menu` WRITE;
 /*!40000 ALTER TABLE `e_shop_role_menu` DISABLE KEYS */;
+INSERT INTO `e_shop_role_menu` VALUES (1,0,'系统设置','system_setting','system_setting',NULL,NULL,NULL,NULL,1,0),(2,1,'菜单配置','system_menu','菜单设置功能',NULL,NULL,NULL,NULL,1,0),(3,1,'系统子菜单1','系统子菜单1','系统子菜单1',NULL,NULL,NULL,NULL,2,0),(4,0,'商品中心','商品中心','商品中心',NULL,NULL,NULL,NULL,2,0),(5,4,'创建商品','创建商品','创建商品',NULL,NULL,NULL,NULL,1,0);
 /*!40000 ALTER TABLE `e_shop_role_menu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `e_shop_role_menu_relation`
+--
+
+DROP TABLE IF EXISTS `e_shop_role_menu_relation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `e_shop_role_menu_relation` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` int(10) unsigned NOT NULL COMMENT '营销活动详情ID',
+  `menu_id` int(10) unsigned NOT NULL COMMENT '商品ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='角色和菜单 关系表 多对多';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `e_shop_role_menu_relation`
+--
+
+LOCK TABLES `e_shop_role_menu_relation` WRITE;
+/*!40000 ALTER TABLE `e_shop_role_menu_relation` DISABLE KEYS */;
+INSERT INTO `e_shop_role_menu_relation` VALUES (1,1,1),(2,1,2),(3,1,4),(4,1,5),(5,2,4),(6,2,5),(7,1,3);
+/*!40000 ALTER TABLE `e_shop_role_menu_relation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -363,7 +391,7 @@ CREATE TABLE `e_shop_user` (
   `last_reset_password_time` datetime DEFAULT NULL COMMENT '最后修改密码时间',
   `email` varchar(255) DEFAULT NULL COMMENT '电子邮件',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -589,4 +617,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-22 15:55:49
+-- Dump completed on 2018-06-23 11:14:01

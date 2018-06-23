@@ -6,6 +6,7 @@ import com.tfx0one.center.OrderCenter.model.UserOrder;
 import com.tfx0one.center.OrderCenter.service.OrderService;
 import com.tfx0one.common.util.JSONResult;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,6 +16,7 @@ import javax.annotation.Resource;
  */
 
 @RestController
+@PreAuthorize("hasAuthority('CONSUMER')")
 public class OrderController {
 
     @Resource

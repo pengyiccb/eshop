@@ -7,6 +7,7 @@ import com.tfx0one.center.VendorCenter.model.VendorUser;
 import com.tfx0one.center.VendorCenter.service.VenderUserService;
 import com.tfx0one.common.util.JSONResult;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
  * Created by wynn on 2018/6/9.
  */
 @RestController
+@PreAuthorize("hasAuthority('CONSUMER')")
 public class UserCartController {
 
     @Resource

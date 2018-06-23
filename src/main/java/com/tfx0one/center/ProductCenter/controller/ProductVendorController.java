@@ -10,6 +10,7 @@ import com.tfx0one.center.ProductCenter.serivce.ProductSkuAttrService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.frontEndModels.FrontEndProduct;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 
 @RestController
+@PreAuthorize("hasAuthority('VENDOR')") //商家权限
 public class ProductVendorController {
     //商户的后台web接口
 

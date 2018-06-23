@@ -24,9 +24,10 @@ public class RoleManagerController {
     private RoleService roleService;
 
     @ApiOperation("获取角色列表")
-    @RequestMapping(value = "/api/v1/shop/roleList", method = RequestMethod.POST)
-    public JSONResult roleList(@RequestBody EShopRole role) {
-        return JSONResult.ok();
+    @RequestMapping(value = "/api/v1/shop/getRoleList", method = RequestMethod.GET)
+    public JSONResult roleList() {
+        roleService.select(new EShopRole().withDelFlag((byte)0));
+        return JSONResult.ok("获取角色列表成功").data(roleService.select(null));
     }
 
 

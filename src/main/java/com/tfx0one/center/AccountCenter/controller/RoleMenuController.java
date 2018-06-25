@@ -1,8 +1,8 @@
 package com.tfx0one.center.AccountCenter.controller;
 
 import com.tfx0one.center.AccountCenter.AccountCenter;
-import com.tfx0one.center.AccountCenter.model.EShopRoleMenu;
-import com.tfx0one.center.AccountCenter.service.RoleMenuService;
+import com.tfx0one.center.AccountCenter.model.EShopRolePermission;
+import com.tfx0one.center.AccountCenter.service.RolePermissionService;
 import com.tfx0one.common.util.JSONResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 public class RoleMenuController {
 
     @Resource
-    private RoleMenuService roleMenuService;
+    private RolePermissionService rolePermissionService;
 
     @Resource
     private AccountCenter accountCenter;
@@ -33,30 +33,30 @@ public class RoleMenuController {
 //            return JSONResult.error("微信用户无菜单权限");  PreAuthorize已经配置！
 //        }
 
-        return JSONResult.ok().data(roleMenuService.selectRoleMenuByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
+        return JSONResult.ok().data(rolePermissionService.selectRolePermissionByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
     }
 
     @ApiOperation("添加菜单")
     @RequestMapping(value = "/api/v1/shop/roleMenuAdd", method = RequestMethod.POST)
-    public JSONResult addRoleMenu(@RequestBody EShopRoleMenu menu) {
-        roleMenuService.insertRoleMenu(menu);
+    public JSONResult addRoleMenu(@RequestBody EShopRolePermission menu) {
+        rolePermissionService.insertRolePermission(menu);
 
         //把整个数据菜单给管理员
-        return JSONResult.ok().data(roleMenuService.selectRoleMenuByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
+        return JSONResult.ok().data(rolePermissionService.selectRolePermissionByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
     }
 
     @ApiOperation("删除菜单")
     @RequestMapping(value = "/api/v1/shop/roleMenuDelete", method = RequestMethod.POST)
     public JSONResult roleMenuDelete(@RequestParam int id) {
-        EShopRoleMenu menu = roleMenuService.deleteRoleMenu(id);
-        return JSONResult.ok("删除成功").data(roleMenuService.selectRoleMenuByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
+        EShopRolePermission menu = rolePermissionService.deleteRolePermission(id);
+        return JSONResult.ok("删除成功").data(rolePermissionService.selectRolePermissionByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
     }
 
     @ApiOperation("修改菜单")
     @RequestMapping(value = "/api/v1/shop/roleMenuModify", method = RequestMethod.POST)
-    public JSONResult roleMenuModify(@RequestBody EShopRoleMenu menu) {
-        roleMenuService.updateRoleMenu(menu);
-        return JSONResult.ok("修改成功").data(roleMenuService.selectRoleMenuByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
+    public JSONResult roleMenuModify(@RequestBody EShopRolePermission menu) {
+        rolePermissionService.updateRolePermission(menu);
+        return JSONResult.ok("修改成功").data(rolePermissionService.selectRolePermissionByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
     }
 
 }

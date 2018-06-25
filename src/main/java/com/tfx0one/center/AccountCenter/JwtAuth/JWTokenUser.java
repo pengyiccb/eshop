@@ -48,6 +48,11 @@ public class JWTokenUser implements UserDetails {
     }
 
     @JsonIgnore
+    public int getRoleId() {
+        return this.user.getRoleId();
+    }
+
+    @JsonIgnore
     @Override
     public String getPassword() {
         return password;

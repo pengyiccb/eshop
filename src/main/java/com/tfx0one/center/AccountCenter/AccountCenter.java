@@ -1,8 +1,8 @@
 package com.tfx0one.center.AccountCenter;
 
-import com.tfx0one.center.AccountCenter.model.EShopRoleMenu;
+import com.tfx0one.center.AccountCenter.model.EShopRolePermission;
 import com.tfx0one.center.AccountCenter.model.EShopUser;
-import com.tfx0one.center.AccountCenter.service.RoleMenuService;
+import com.tfx0one.center.AccountCenter.service.RolePermissionService;
 import com.tfx0one.center.AccountCenter.service.RoleService;
 import com.tfx0one.center.AccountCenter.service.UserService;
 import com.tfx0one.common.constant.UserConstant;
@@ -35,7 +35,8 @@ public class AccountCenter {
     private RoleService roleService;
 
     @Resource
-    private RoleMenuService roleMenuService;
+    private RolePermissionService rolePermissionService;
+
 //    public EShopUser refreshLoginUser(String username) {
 //        EShopUser EShopUser = userService.selectOne(new EShopUser().withUsername(username));
 //        this.putCacheLoginUser(EShopUser, EShopUser.getUsername());
@@ -105,21 +106,21 @@ public class AccountCenter {
 //            4角色配置
 //            5用户配置
 
-        List<EShopRoleMenu> menuList = new ArrayList<>();
+        List<EShopRolePermission> menuList = new ArrayList<>();
 
-        EShopRoleMenu a = new EShopRoleMenu().withId(1).withParentId(0).withTitle("系统管理").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
-        EShopRoleMenu a1 = new EShopRoleMenu().withId(2).withParentId(1).withTitle("菜单配置").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
+        EShopRolePermission a = new EShopRolePermission().withId(1).withParentId(0).withTitle("系统管理").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
+        EShopRolePermission a1 = new EShopRolePermission().withId(2).withParentId(1).withTitle("菜单配置").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
 
-        EShopRoleMenu b = new EShopRoleMenu().withId(3).withParentId(0).withTitle("用户管理").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
-        EShopRoleMenu b1 = new EShopRoleMenu().withId(4).withParentId(3).withTitle("角色配置").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
-        EShopRoleMenu b2 = new EShopRoleMenu().withId(5).withParentId(3).withTitle("用户配置").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
+        EShopRolePermission b = new EShopRolePermission().withId(3).withParentId(0).withTitle("用户管理").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
+        EShopRolePermission b1 = new EShopRolePermission().withId(4).withParentId(3).withTitle("角色配置").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
+        EShopRolePermission b2 = new EShopRolePermission().withId(5).withParentId(3).withTitle("用户配置").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
         menuList.add(a);
         menuList.add(a1);
 
         menuList.add(b);
         menuList.add(b1);
         menuList.add(b2);
-        menuList.stream().filter(menu -> roleMenuService.selectOne(menu) == null).forEach(roleMenuService::insert);
+        menuList.stream().filter(menu -> rolePermissionService.selectOne(menu) == null).forEach(rolePermissionService::insert);
     }
 
 }

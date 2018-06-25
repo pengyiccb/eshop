@@ -292,7 +292,7 @@ CREATE TABLE `e_shop_role` (
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `del_flag` tinyint(4) NOT NULL COMMENT '删除标记 0：正常， 1：删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,17 +301,18 @@ CREATE TABLE `e_shop_role` (
 
 LOCK TABLES `e_shop_role` WRITE;
 /*!40000 ALTER TABLE `e_shop_role` DISABLE KEYS */;
+INSERT INTO `e_shop_role` VALUES (1,'商户','商家',NULL,NULL,NULL,NULL,0),(2,'消费者','消费者',NULL,NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `e_shop_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `e_shop_role_menu`
+-- Table structure for table `e_shop_role_permission`
 --
 
-DROP TABLE IF EXISTS `e_shop_role_menu`;
+DROP TABLE IF EXISTS `e_shop_role_permission`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `e_shop_role_menu` (
+CREATE TABLE `e_shop_role_permission` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) unsigned NOT NULL COMMENT '父级ID',
   `title` varchar(64) NOT NULL COMMENT '菜单名字',
@@ -329,37 +330,38 @@ CREATE TABLE `e_shop_role_menu` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `e_shop_role_menu`
+-- Dumping data for table `e_shop_role_permission`
 --
 
-LOCK TABLES `e_shop_role_menu` WRITE;
-/*!40000 ALTER TABLE `e_shop_role_menu` DISABLE KEYS */;
-INSERT INTO `e_shop_role_menu` VALUES (1,0,'系统管理','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(2,1,'菜单配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(3,0,'用户管理','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(4,3,'角色配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(5,3,'用户配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(10,3,'离散数学','icon','离散数学历史小说','lssx',NULL,NULL,NULL,NULL,NULL,0),(11,3,'嘻嘻嘻嘻','icon','嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻','xxxx',NULL,NULL,NULL,NULL,NULL,0),(12,3,'大家好','icon','多个地方','safvcsafcv',NULL,NULL,NULL,NULL,NULL,0);
-/*!40000 ALTER TABLE `e_shop_role_menu` ENABLE KEYS */;
+LOCK TABLES `e_shop_role_permission` WRITE;
+/*!40000 ALTER TABLE `e_shop_role_permission` DISABLE KEYS */;
+INSERT INTO `e_shop_role_permission` VALUES (1,0,'系统管理','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(2,1,'菜单配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(3,0,'用户管理','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(4,3,'角色配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(5,3,'用户配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(10,3,'离散数学','icon','离散数学历史小说','lssx',NULL,NULL,NULL,NULL,NULL,0),(11,3,'嘻嘻嘻嘻','icon','嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻','xxxx',NULL,NULL,NULL,NULL,NULL,0),(12,3,'大家好','icon','多个地方','safvcsafcv',NULL,NULL,NULL,NULL,NULL,0);
+/*!40000 ALTER TABLE `e_shop_role_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `e_shop_role_menu_relation`
+-- Table structure for table `e_shop_role_permission_relation`
 --
 
-DROP TABLE IF EXISTS `e_shop_role_menu_relation`;
+DROP TABLE IF EXISTS `e_shop_role_permission_relation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `e_shop_role_menu_relation` (
+CREATE TABLE `e_shop_role_permission_relation` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `role_id` int(10) unsigned NOT NULL COMMENT '营销活动详情ID',
-  `menu_id` int(10) unsigned NOT NULL COMMENT '商品ID',
+  `permission_id` int(10) unsigned NOT NULL COMMENT '商品ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='角色和菜单 关系表 多对多';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='角色和菜单 关系表 多对多';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `e_shop_role_menu_relation`
+-- Dumping data for table `e_shop_role_permission_relation`
 --
 
-LOCK TABLES `e_shop_role_menu_relation` WRITE;
-/*!40000 ALTER TABLE `e_shop_role_menu_relation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `e_shop_role_menu_relation` ENABLE KEYS */;
+LOCK TABLES `e_shop_role_permission_relation` WRITE;
+/*!40000 ALTER TABLE `e_shop_role_permission_relation` DISABLE KEYS */;
+INSERT INTO `e_shop_role_permission_relation` VALUES (1,1,1),(2,1,2);
+/*!40000 ALTER TABLE `e_shop_role_permission_relation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -618,4 +620,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-23 17:49:59
+-- Dump completed on 2018-06-25 17:07:50

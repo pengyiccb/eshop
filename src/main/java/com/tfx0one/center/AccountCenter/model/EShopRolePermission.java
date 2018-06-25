@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "e_shop_role_menu")
-public class EShopRoleMenu extends BaseEntity {
+@Table(name = "e_shop_role_permission")
+public class EShopRolePermission extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -68,26 +68,36 @@ public class EShopRoleMenu extends BaseEntity {
     @Column(name = "sort_order")
     private Byte sortOrder;
 
-
     /**
-     * 删除标记 0：正常， 1：删除
+     * 删除标记
      */
     @Column(name = "del_flag")
     private Byte delFlag;
 
 
     @Transient
-    private List<EShopRoleMenu> children;
+    private List<EShopRolePermission> children;
 
-    public List<EShopRoleMenu> getChildren() {
+    public List<EShopRolePermission> getChildren() {
         return children;
     }
-    public EShopRoleMenu withChildren(List<EShopRoleMenu> children) {
+    public EShopRolePermission withChildren(List<EShopRolePermission> children) {
         this.setChildren(children);
         return this;
     }
-    public void setChildren(List<EShopRoleMenu> children) {
+    public void setChildren(List<EShopRolePermission> children) {
         this.children = children;
+    }
+
+    @Transient
+    private int roleId;
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     /**
@@ -97,7 +107,7 @@ public class EShopRoleMenu extends BaseEntity {
         return id;
     }
 
-    public EShopRoleMenu withId(Integer id) {
+    public EShopRolePermission withId(Integer id) {
         this.setId(id);
         return this;
     }
@@ -118,7 +128,7 @@ public class EShopRoleMenu extends BaseEntity {
         return parentId;
     }
 
-    public EShopRoleMenu withParentId(Integer parentId) {
+    public EShopRolePermission withParentId(Integer parentId) {
         this.setParentId(parentId);
         return this;
     }
@@ -141,7 +151,7 @@ public class EShopRoleMenu extends BaseEntity {
         return title;
     }
 
-    public EShopRoleMenu withTitle(String title) {
+    public EShopRolePermission withTitle(String title) {
         this.setTitle(title);
         return this;
     }
@@ -164,7 +174,7 @@ public class EShopRoleMenu extends BaseEntity {
         return icon;
     }
 
-    public EShopRoleMenu withIcon(String icon) {
+    public EShopRolePermission withIcon(String icon) {
         this.setIcon(icon);
         return this;
     }
@@ -187,7 +197,7 @@ public class EShopRoleMenu extends BaseEntity {
         return description;
     }
 
-    public EShopRoleMenu withDescription(String description) {
+    public EShopRolePermission withDescription(String description) {
         this.setDescription(description);
         return this;
     }
@@ -210,7 +220,7 @@ public class EShopRoleMenu extends BaseEntity {
         return url;
     }
 
-    public EShopRoleMenu withUrl(String url) {
+    public EShopRolePermission withUrl(String url) {
         this.setUrl(url);
         return this;
     }
@@ -224,8 +234,6 @@ public class EShopRoleMenu extends BaseEntity {
         this.url = url == null ? null : url.trim();
     }
 
-
-
     /**
      * 获取创建时间
      *
@@ -235,7 +243,7 @@ public class EShopRoleMenu extends BaseEntity {
         return createTime;
     }
 
-    public EShopRoleMenu withCreateTime(Date createTime) {
+    public EShopRolePermission withCreateTime(Date createTime) {
         this.setCreateTime(createTime);
         return this;
     }
@@ -258,7 +266,7 @@ public class EShopRoleMenu extends BaseEntity {
         return updateTime;
     }
 
-    public EShopRoleMenu withUpdateTime(Date updateTime) {
+    public EShopRolePermission withUpdateTime(Date updateTime) {
         this.setUpdateTime(updateTime);
         return this;
     }
@@ -281,7 +289,7 @@ public class EShopRoleMenu extends BaseEntity {
         return createBy;
     }
 
-    public EShopRoleMenu withCreateBy(String createBy) {
+    public EShopRolePermission withCreateBy(String createBy) {
         this.setCreateBy(createBy);
         return this;
     }
@@ -304,7 +312,7 @@ public class EShopRoleMenu extends BaseEntity {
         return updateBy;
     }
 
-    public EShopRoleMenu withUpdateBy(String updateBy) {
+    public EShopRolePermission withUpdateBy(String updateBy) {
         this.setUpdateBy(updateBy);
         return this;
     }
@@ -318,7 +326,6 @@ public class EShopRoleMenu extends BaseEntity {
         this.updateBy = updateBy == null ? null : updateBy.trim();
     }
 
-
     /**
      * 获取排序
      *
@@ -328,7 +335,7 @@ public class EShopRoleMenu extends BaseEntity {
         return sortOrder;
     }
 
-    public EShopRoleMenu withSortOrder(Byte sortOrder) {
+    public EShopRolePermission withSortOrder(Byte sortOrder) {
         this.setSortOrder(sortOrder);
         return this;
     }
@@ -343,23 +350,23 @@ public class EShopRoleMenu extends BaseEntity {
     }
 
     /**
-     * 获取删除标记 0：正常， 1：删除
+     * 获取删除标记
      *
-     * @return del_flag - 删除标记 0：正常， 1：删除
+     * @return del_flag - 删除标记
      */
     public Byte getDelFlag() {
         return delFlag;
     }
 
-    public EShopRoleMenu withDelFlag(Byte delFlag) {
+    public EShopRolePermission withDelFlag(Byte delFlag) {
         this.setDelFlag(delFlag);
         return this;
     }
 
     /**
-     * 设置删除标记 0：正常， 1：删除
+     * 设置删除标记
      *
-     * @param delFlag 删除标记 0：正常， 1：删除
+     * @param delFlag 删除标记
      */
     public void setDelFlag(Byte delFlag) {
         this.delFlag = delFlag;
@@ -374,9 +381,9 @@ public class EShopRoleMenu extends BaseEntity {
         sb.append(", id=").append(id);
         sb.append(", parentId=").append(parentId);
         sb.append(", title=").append(title);
-        sb.append(", children=").append(children);
         sb.append(", icon=").append(icon);
         sb.append(", description=").append(description);
+        sb.append(", url=").append(url);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", createBy=").append(createBy);

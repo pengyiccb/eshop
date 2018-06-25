@@ -7,6 +7,6 @@ public class APIConstant {
     //非法 token
     public static int TOKEN_ILLEGAL = 50001;
 
-//    //验证失败 Token
-//    public static int TOKEN_VERIFY_FAIL = 50002;
+    //URL Access Denied 无权访问该链接！
+    public static int TOKEN_ACCESS_DENIED = 50002;
 }

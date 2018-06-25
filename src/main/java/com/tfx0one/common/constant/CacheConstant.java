@@ -45,6 +45,6 @@ public class CacheConstant {
 
 
     //缓存菜单
-    public static final String CACHE_ROLE_MENU_BY_ID = "CACHE_ROLE_MENU_BY_ID"; //促销活动 按照 ID 缓存
-    public static final String CACHE_ROLE_MENU_BY_ROLE_ID = "CACHE_ROLE_MENU_BY_ROLE_ID"; //促销活动 按照 ID 缓存
+    public static final String CACHE_ROLE_PERMISSION_BY_ID = "CACHE_ROLE_PERMISSION_BY_ID"; //促销活动 按照 ID 缓存
+    public static final String CACHE_ROLE_PERMISSION_BY_ROLE_ID = "CACHE_ROLE_PERMISSION_BY_ROLE_ID"; //促销活动 按照 ID 缓存
 }

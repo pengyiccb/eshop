@@ -124,7 +124,7 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
-    <cache name="CACHE_ROLE_MENU_BY_ID"
+    <cache name="CACHE_ROLE_PERMISSION_BY_ID"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"
@@ -133,7 +133,7 @@
            timeToIdleSeconds="0"
            statistics="true"/>
 
-    <cache name="CACHE_ROLE_MENU_BY_ROLE_ID"
+    <cache name="CACHE_ROLE_PERMISSION_BY_ROLE_ID"
            maxEntriesLocalHeap="10000"
            overflowToDisk="false"
            eternal="false"

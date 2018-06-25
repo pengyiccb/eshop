@@ -4,7 +4,6 @@ import com.tfx0one.center.AccountCenter.model.EShopRole;
 import com.tfx0one.center.AccountCenter.service.RoleService;
 import com.tfx0one.common.util.JSONResult;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -13,7 +12,6 @@ import javax.annotation.Resource;
  * Created by 2fx0one on 2018/6/23.
  */
 @RestController
-//@PreAuthorize("hasAuthority('ADMIN')")  //必须是管理员才能操作！
 //只有超级管理员才有权限管理角色
 public class RoleManagerController {
 

@@ -19,6 +19,12 @@ public class ShopProductStockService extends BaseService<EShopProductStock> {
     //把这个对象的属性整理放进去
 
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_STORAGE_BY_ID, key = "#p0")
+    public EShopProductStock selectBySkuId(Integer SkuId) {
+        EShopProductStock productStorage = this.selectOne(new EShopProductStock().withProductSkuid(SkuId));
+        return productStorage;
+    }
+
+    @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_STORAGE_BY_ID, key = "#p0")
     public EShopProductStock selectById(Integer storageId) {
         EShopProductStock productStorage = this.selectOne(new EShopProductStock().withId(storageId));
         return productStorage;

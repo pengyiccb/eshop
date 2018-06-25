@@ -17,6 +17,11 @@ public class EShopRole extends BaseEntity {
     private String title;
 
     /**
+     * 角色描述
+     */
+    private String description;
+
+    /**
      * 创建时间
      */
     @Column(name = "create_time")
@@ -29,16 +34,16 @@ public class EShopRole extends BaseEntity {
     private Date updateTime;
 
     /**
+     * 创建者
+     */
+    @Column(name = "create_by")
+    private String createBy;
+
+    /**
      * 更新者
      */
     @Column(name = "update_by")
     private String updateBy;
-
-    /**
-     * 权限字符串
-     */
-    @Column(name = "permission_str")
-    private String permissionStr;
 
     /**
      * 删除标记 0：正常， 1：删除
@@ -89,6 +94,29 @@ public class EShopRole extends BaseEntity {
     }
 
     /**
+     * 获取角色描述
+     *
+     * @return description - 角色描述
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    public EShopRole withDescription(String description) {
+        this.setDescription(description);
+        return this;
+    }
+
+    /**
+     * 设置角色描述
+     *
+     * @param description 角色描述
+     */
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    /**
      * 获取创建时间
      *
      * @return create_time - 创建时间
@@ -135,6 +163,29 @@ public class EShopRole extends BaseEntity {
     }
 
     /**
+     * 获取创建者
+     *
+     * @return create_by - 创建者
+     */
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public EShopRole withCreateBy(String createBy) {
+        this.setCreateBy(createBy);
+        return this;
+    }
+
+    /**
+     * 设置创建者
+     *
+     * @param createBy 创建者
+     */
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy == null ? null : createBy.trim();
+    }
+
+    /**
      * 获取更新者
      *
      * @return update_by - 更新者
@@ -155,29 +206,6 @@ public class EShopRole extends BaseEntity {
      */
     public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy == null ? null : updateBy.trim();
-    }
-
-    /**
-     * 获取权限字符串
-     *
-     * @return permission_str - 权限字符串
-     */
-    public String getPermissionStr() {
-        return permissionStr;
-    }
-
-    public EShopRole withPermissionStr(String permissionStr) {
-        this.setPermissionStr(permissionStr);
-        return this;
-    }
-
-    /**
-     * 设置权限字符串
-     *
-     * @param permissionStr 权限字符串
-     */
-    public void setPermissionStr(String permissionStr) {
-        this.permissionStr = permissionStr == null ? null : permissionStr.trim();
     }
 
     /**
@@ -211,10 +239,11 @@ public class EShopRole extends BaseEntity {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", title=").append(title);
+        sb.append(", description=").append(description);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
+        sb.append(", createBy=").append(createBy);
         sb.append(", updateBy=").append(updateBy);
-        sb.append(", permissionStr=").append(permissionStr);
         sb.append(", delFlag=").append(delFlag);
         sb.append("]");
         return sb.toString();

@@ -31,7 +31,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private JwtUserService jwtUserService;
 
     @Autowired
-    private JwtTokenUtils jwtTokenUtils;
+    private JWTokenUtils JWTokenUtils;
 
     @Value("${jwt.header}")
     private String tokenHeader;
@@ -50,7 +50,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith(tokenHead) && authHeader.length() > tokenHead.length() + 1) {
 //            logger.info("authentication authHeader = [ " + authHeader + " ]");
             final String authToken = authHeader.substring(tokenHead.length() + 1); // The part after "Bearer " 用空格
-            String username = jwtTokenUtils.getUsernameFromToken(authToken);
+            String username = JWTokenUtils.getUsernameFromToken(authToken);
 
             logger.info("authentication username = " + username);
 //            //TODO 验证失败时。需要返回信息
@@ -66,7 +66,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 JWTokenUser userDetails = jwtUserService.loadUserByUsername(username);
 
                 //验证token 和 userDetail 是否一致
-                if (jwtTokenUtils.validateToken(authToken, userDetails)) {
+                if (JWTokenUtils.validateToken(authToken, userDetails)) {
                     logger.info("checking authentication =====  authenticated user " + username + " setting security context");
                     UsernamePasswordAuthenticationToken authentication
                             = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

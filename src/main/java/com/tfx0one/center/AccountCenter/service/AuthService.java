@@ -2,7 +2,7 @@ package com.tfx0one.center.AccountCenter.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.center.AccountCenter.AccountCenter;
-import com.tfx0one.center.AccountCenter.JwtAuth.JwtTokenUtils;
+import com.tfx0one.center.AccountCenter.JwtAuth.JWTokenUtils;
 import com.tfx0one.center.AccountCenter.JwtAuth.JwtUserService;
 import com.tfx0one.center.AccountCenter.model.EShopUser;
 import com.tfx0one.center.AccountCenter.model.WXUserInfo;
@@ -37,7 +37,7 @@ public class AuthService {
     private JwtUserService jwtUserService;
 
     @Autowired
-    private JwtTokenUtils jwtTokenUtils;
+    private JWTokenUtils JWTokenUtils;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -97,7 +97,7 @@ public class AuthService {
 //        final JWTokenUser userDetails = jwtUserService.loadUserByUsername(username);
 
         //登录完成。生成token
-        final String token = jwtTokenUtils.generateToken(user);
+        final String token = JWTokenUtils.generateToken(user);
 
         //用户缓存起来。
 //        accountCenter.refreshLoginUser(username);

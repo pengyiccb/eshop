@@ -10,7 +10,6 @@ import com.tfx0one.center.VendorCenter.model.VendorUser;
 import com.tfx0one.center.VendorCenter.service.VenderUserService;
 import com.tfx0one.common.util.JSONResult;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +27,6 @@ import java.util.stream.Collectors;
  */
 
 @RestController
-@PreAuthorize("hasAuthority('CONSUMER')") //用户还没有登录 有些接口需要直接访问。 使用 @PreAuthorize("permitAll()")
 public class ProductWeChatController {
     @Resource
     private VenderUserService venderUserService;
@@ -43,7 +41,6 @@ public class ProductWeChatController {
     private MarketingCenter marketingCenter;
 
     @ApiOperation(value = "获取主页的数据, 基本数据信息，不包含单品信息", notes = "需要传递appId 作为参数")
-    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/api/v1/wechat/getProductList", method = RequestMethod.GET)
     public JSONResult productList(@RequestParam String appId) {
         VendorUser vendorUser = venderUserService.selectByAppId(appId);
@@ -54,7 +51,6 @@ public class ProductWeChatController {
     }
 
     @ApiOperation(value = "商品详情页需要的数据，整合多个单品数据", notes = "传递商品的Id即可")
-    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/api/v1/wechat/getProductDetail", method = RequestMethod.GET)
     public JSONResult productDetail(@RequestParam Integer productId) {
         EShopProduct product = productCenter.getProductById(productId);
@@ -73,7 +69,6 @@ public class ProductWeChatController {
     }
 
     @ApiOperation(value = "商品详情页需要的价格", notes = "传递商品的Id和属性字符串")
-    @PreAuthorize("permitAll()")
     @RequestMapping(value = "/api/v1/wechat/getProductDetailPrice", method = RequestMethod.GET)
     public JSONResult getProductDetailPrice(@RequestParam Integer productId/*, @RequestParam String attrOption*/) {
         List<EShopProductSku> skuList = productSkuService.selectByProductId(productId);

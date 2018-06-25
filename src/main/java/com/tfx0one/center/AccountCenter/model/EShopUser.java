@@ -1,13 +1,11 @@
 package com.tfx0one.center.AccountCenter.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tfx0one.common.util.BaseEntity;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "e_shop_user")
-//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EShopUser extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +25,18 @@ public class EShopUser extends BaseEntity {
     /**
      * 登录密码
      */
-    @JsonIgnore
     private String password;
 
     /**
-     * 状态
+     * 状态 0：可用
      */
     private Byte status;
+
+    /**
+     * 用户类型（管理员， 普通用户）
+     */
+    @Column(name = "user_type")
+    private Byte userType;
 
     /**
      * 登录地址
@@ -46,12 +49,6 @@ public class EShopUser extends BaseEntity {
      */
     @Column(name = "login_date")
     private Date loginDate;
-
-    /**
-     * 用户类型
-     */
-    @Column(name = "user_type")
-    private Byte userType;
 
     /**
      * 前端展示名字
@@ -216,9 +213,9 @@ public class EShopUser extends BaseEntity {
     }
 
     /**
-     * 获取状态
+     * 获取状态 0：可用
      *
-     * @return status - 状态
+     * @return status - 状态 0：可用
      */
     public Byte getStatus() {
         return status;
@@ -230,12 +227,35 @@ public class EShopUser extends BaseEntity {
     }
 
     /**
-     * 设置状态
+     * 设置状态 0：可用
      *
-     * @param status 状态
+     * @param status 状态 0：可用
      */
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    /**
+     * 获取用户类型（管理员， 普通用户）
+     *
+     * @return user_type - 用户类型（管理员， 普通用户）
+     */
+    public Byte getUserType() {
+        return userType;
+    }
+
+    public EShopUser withUserType(Byte userType) {
+        this.setUserType(userType);
+        return this;
+    }
+
+    /**
+     * 设置用户类型（管理员， 普通用户）
+     *
+     * @param userType 用户类型（管理员， 普通用户）
+     */
+    public void setUserType(Byte userType) {
+        this.userType = userType;
     }
 
     /**
@@ -282,29 +302,6 @@ public class EShopUser extends BaseEntity {
      */
     public void setLoginDate(Date loginDate) {
         this.loginDate = loginDate;
-    }
-
-    /**
-     * 获取用户类型
-     *
-     * @return user_type - 用户类型
-     */
-    public Byte getUserType() {
-        return userType;
-    }
-
-    public EShopUser withUserType(Byte userType) {
-        this.setUserType(userType);
-        return this;
-    }
-
-    /**
-     * 设置用户类型
-     *
-     * @param userType 用户类型
-     */
-    public void setUserType(Byte userType) {
-        this.userType = userType;
     }
 
     /**
@@ -617,9 +614,9 @@ public class EShopUser extends BaseEntity {
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
         sb.append(", status=").append(status);
+        sb.append(", userType=").append(userType);
         sb.append(", loginIp=").append(loginIp);
         sb.append(", loginDate=").append(loginDate);
-        sb.append(", userType=").append(userType);
         sb.append(", title=").append(title);
         sb.append(", telphone=").append(telphone);
         sb.append(", mobilePhone=").append(mobilePhone);

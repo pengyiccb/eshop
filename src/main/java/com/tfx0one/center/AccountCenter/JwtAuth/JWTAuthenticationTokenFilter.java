@@ -1,15 +1,19 @@
 package com.tfx0one.center.AccountCenter.JwtAuth;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tfx0one.center.AccountCenter.model.EShopRole;
 import com.tfx0one.center.AccountCenter.model.EShopRolePermission;
 import com.tfx0one.center.AccountCenter.service.RolePermissionService;
+import com.tfx0one.center.AccountCenter.service.RoleService;
 import com.tfx0one.common.constant.APIConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.annotation.Resource;
@@ -18,9 +22,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 2fx0one on 2018/6/4.
@@ -35,6 +40,9 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Resource
     private RolePermissionService rolePermissionService;
+
+    @Resource
+    private RoleService roleService;
 
     @Autowired
     private JWTUtils JWTUtils;
@@ -65,7 +73,7 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
                 return;
             }
 
-            //需要验证的页面，加入到授权上下文
+            //需要验证，加入到授权上下文
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 logger.info("checking authentication ===== " + username);
 
@@ -87,27 +95,57 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
                     return;
                 }
 
+                //权限已经注入 SecurityContextHolder。接下来需要验证用户是否可以访问url的权限。
                 String uri = request.getRequestURI();
                 String ctx = request.getContextPath();
                 String path = uri.replace(ctx, ""); //请求路径
-                //权限已经注入 SecurityContextHolder。接下来需要验证用户是否可以访问url的权限。
 
                 //所有的权限数据
                 Map<String, EShopRolePermission> all = rolePermissionService.selectAllActiveRolePermission();// .select(new EShopRolePermission().withDelFlag((byte)0));
 
-                //判断如果url不在数据库中，则默认都有权限访问。
-                if (all.containsKey(path)) {
-                    //只有在权限里面的, 才做进一步权限判断
+                //过滤出匹配的权限
+                for (EShopRolePermission permission : all.values()) {
+                    if (!StringUtils.isEmpty(permission.getUrl())) {
+                        AntPathRequestMatcher matcher = new AntPathRequestMatcher(permission.getUrl());
 
-                    //用户权限数据
-                    List<EShopRolePermission> permissions = rolePermissionService.selectRolePermissionTreeByRoleId(userDetails.getRoleId());
+                        //判断如果url不在数据库中，则默认都有权限访问。
+                        if (matcher.matches(request)) {
+                            //匹配到权限，找到角色
+                            List<EShopRole> roles = roleService.selectUserRoleByPermissionId(permission.getId());
 
-                    Set<String> urlSet = permissions.stream().map(EShopRolePermission::getUrl).collect(Collectors.toSet());
-                    if (! urlSet.contains(path)) { //不包含。无权限
-                        throw new AccessDeniedException("URL Access Denied 无权访问该链接！ path = " + path);
+                            //检查用户是否在这些这个角色中
+                            EShopRole role = roleService.selectUserRoleById(userDetails.getRoleId());
+
+                            //如果用户不在列表。表示无权限。
+                            if (roles.stream().noneMatch(e -> e.getId().equals(role.getId()))) {
+                                errorStrWriteToResponse(response, APIConstant.TOKEN_ACCESS_DENIED, "URL Access Denied 无权访问该链接！ path = " + path);
+//                                throw new AccessDeniedException("URL Access Denied 无权访问该链接！ path = " + path);
+                                return;
+                            }
+
+                        }
                     }
-
                 }
+
+
+                //判断如果url不在数据库中，则默认都有权限访问。
+//                AntPathRequestMatcher matcher = new AntPathRequestMatcher(path); // /path/to/**
+//                if(matcher.matches(request)) {
+//                    //
+//                }
+//                if (all.containsKey(path)) {
+//                    //只有在权限里面的, 才做进一步权限判断
+//                    System.out.println(" path " + path);
+//
+//                    //用户权限数据
+//                    List<EShopRolePermission> permissions = rolePermissionService.selectRolePermissionTreeByRoleId(userDetails.getRoleId());
+//
+//                    Set<String> urlSet = permissions.stream().map(EShopRolePermission::getUrl).collect(Collectors.toSet());
+//                    if (! urlSet.contains(path)) { //不包含。无权限
+//                        throw new AccessDeniedException("URL Access Denied 无权访问该链接！ path = " + path);
+//                    }
+//
+//                }
 
 
             }
@@ -117,13 +155,13 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private void errorStrWriteToResponse(HttpServletResponse response, int code, String errorCode) throws IOException {
+    private void errorStrWriteToResponse(HttpServletResponse response, int code, String errorStr) throws IOException {
 //        String errStr = "{\"code\":" + code + "" + new Date().toString() + ",\"msg\":\"" + errorCode + "\"}";
 
         Map<String, Object> map = new HashMap<>();
         map.put("code", code);
         map.put("timestamp", new Date().toString());
-        map.put("msg", errorCode);
+        map.put("msg", errorStr);
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");

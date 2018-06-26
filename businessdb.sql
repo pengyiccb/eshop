@@ -326,7 +326,7 @@ CREATE TABLE `e_shop_role_permission` (
   `sort_order` tinyint(4) DEFAULT NULL COMMENT '排序',
   `del_flag` tinyint(4) NOT NULL COMMENT '删除标记',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='用户资源（菜单）表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='用户资源（菜单）表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -335,7 +335,7 @@ CREATE TABLE `e_shop_role_permission` (
 
 LOCK TABLES `e_shop_role_permission` WRITE;
 /*!40000 ALTER TABLE `e_shop_role_permission` DISABLE KEYS */;
-INSERT INTO `e_shop_role_permission` VALUES (1,0,'系统管理','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(2,1,'菜单配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(3,0,'用户管理','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(4,3,'角色配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(5,3,'用户配置','icon','desc','url',NULL,NULL,NULL,NULL,NULL,0),(10,3,'离散数学','icon','离散数学历史小说','lssx',NULL,NULL,NULL,NULL,NULL,0),(11,3,'嘻嘻嘻嘻','icon','嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻','xxxx',NULL,NULL,NULL,NULL,NULL,0),(12,3,'大家好','icon','多个地方','safvcsafcv',NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO `e_shop_role_permission` VALUES (1,0,'系统管理','icon','desc','',NULL,NULL,NULL,NULL,NULL,0),(2,1,'菜单配置','icon','desc','url2',NULL,NULL,NULL,NULL,NULL,0),(3,0,'用户管理','icon','desc','',NULL,NULL,NULL,NULL,NULL,0),(4,3,'角色配置','icon','desc','/api/v1/shop/getRoleMenu',NULL,NULL,NULL,NULL,NULL,0),(5,3,'用户配置','icon','desc','url5',NULL,NULL,NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `e_shop_role_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,7 +351,7 @@ CREATE TABLE `e_shop_role_permission_relation` (
   `role_id` int(10) unsigned NOT NULL COMMENT '营销活动详情ID',
   `permission_id` int(10) unsigned NOT NULL COMMENT '商品ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='角色和菜单 关系表 多对多';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='角色和菜单 关系表 多对多';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -620,4 +620,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-26 10:23:46
+-- Dump completed on 2018-06-26 15:49:46

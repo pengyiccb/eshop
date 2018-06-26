@@ -7,10 +7,15 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by 2fx0one on 2018/6/25.
@@ -34,14 +39,24 @@ public class AuthInvocationSecurityMetadataSourceService implements FilterInvoca
     //加载权限表中所有权限
     public void loadResourceDefine(){
         map = new HashMap<>();
-
-        List<EShopRolePermission> list = permissionService.select(new EShopRolePermission().withDelFlag((byte)0));
-        list.forEach(p -> {
-            if(!map.containsKey(p.getUrl())) {
-                map.put(p.getUrl(), new ArrayList<>());
-            }
-            map.get(p.getUrl()).add(new SecurityConfig(String.valueOf(p.getId())));
-        });
+        List<EShopRolePermission> list = new ArrayList<>(permissionService.selectAllActiveRolePermission().values());
+        for (EShopRolePermission permission : list) {
+            List<ConfigAttribute> roles = roleService.selectUserRoleByPermissionId(permission.getId())
+                    .stream().map(e->new SecurityConfig(String.valueOf(e.getId()))).collect(Collectors.toList());
+            map.put(permission.getUrl(), roles);
+        }
+//        map = list.stream().collect(Collectors.toMap(EShopRolePermission::getUrl,
+//                p -> roleService.selectUserRoleByPermissionId(p.getId()).stream()
+//                        .map(role->new SecurityConfig(String.valueOf(role.getId()))).collect(Collectors.toList())));
+//        list.forEach(p->{
+//            map.put(p.getUrl(), roleService.selectUserRoleByPermissionId(p.getId()).stream().map(role->new SecurityConfig(String.valueOf(role.getId()))).collect(Collectors.toList()));
+//        });
+//        list.forEach(p -> {
+//            if(!map.containsKey(p.getUrl())) {
+//                map.put(p.getUrl(), new ArrayList<>());
+//            }
+//            map.get(p.getUrl()).add(new SecurityConfig(String.valueOf(p.getId())));
+//        });
 
 //        Collection<ConfigAttribute> array;
 //        ConfigAttribute cfg;
@@ -64,37 +79,54 @@ public class AuthInvocationSecurityMetadataSourceService implements FilterInvoca
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         //所有的权限数据
+        if (map == null) {
+            loadResourceDefine();
+        }
 
-        Map<String, EShopRolePermission> all = rolePermissionService.selectAllActiveRolePermission();// .select(new EShopRolePermission().withDelFlag((byte)0));
+//        Map<String, EShopRolePermission> all = rolePermissionService.selectAllActiveRolePermission();// .select(new EShopRolePermission().withDelFlag((byte)0));
+
 
 
         //匹配的URL对应的角色
         // 获取所有的url权限数据对应的roleUser
-//        if(map == null) loadResourceDefine();
 
         //object 中包含用户请求的request 信息
         HttpServletRequest request = ((FilterInvocation) object).getHttpRequest();
-
-//        String uri = request.getRequestURI();
-        String path = request.getRequestURI().replace(request.getContextPath(), ""); //请求路径
-//        AntPathRequestMatcher matcher;
-//        String resUrl;
-        if (all.containsKey(path)) { ////判断如果url不在数据库中，则默认都有权限访问。
-            //只有在权限里面的, 才做进一步权限判断
-            //获取数据库中所有的url对应ID。
-            int permissionId = all.get(path).getId();
-            roleService.selectUserRoleByPermissionId(permissionId);
-//            return
-
-        }
-
-//        for( String url : map.keySet()) {
-//            if(new AntPathRequestMatcher(url)
-//                    .matches(request)) {
-//                //匹配 返回权限集合
-//                return map.get(url);
+//
+//        //过滤出匹配的权限
+//        for (EShopRolePermission permission : all.values()) {
+//            if (new AntPathRequestMatcher(permission.getUrl()).matches(request)) {
+//                //找到匹配的。
+//                roleService.selectUserRoleByPermissionId(permission.getId());
 //            }
+//
 //        }
+//        Set<EShopRolePermission> s = all.values().stream().filter(e-> new AntPathRequestMatcher(e.getUrl()).matches(request)).collect(Collectors.toSet());
+//
+//        s.forEach(p->{
+//            roleService.selectUserRoleByPermissionId(p.getId());
+//        });
+//
+////        String uri = request.getRequestURI();
+//        String path = request.getRequestURI().replace(request.getContextPath(), ""); //请求路径
+////        AntPathRequestMatcher matcher;
+////        String resUrl;
+//        if (all.containsKey(path)) { ////判断如果url不在数据库中，则默认都有权限访问。
+//            //只有在权限里面的, 才做进一步权限判断
+//            //获取数据库中所有的url对应ID。
+//            int permissionId = all.get(path).getId();
+//            roleService.selectUserRoleByPermissionId(permissionId);
+////            return
+//
+//        }
+
+        for( String url : map.keySet()) {
+            if(new AntPathRequestMatcher(url)
+                    .matches(request)) {
+                //匹配 返回权限集合
+                return map.get(url);
+            }
+        }
 
 //        for(Iterator<String> iter = map.keySet().iterator(); iter.hasNext(); ) {
 //            resUrl = iter.next();

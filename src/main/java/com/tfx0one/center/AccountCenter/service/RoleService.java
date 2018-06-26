@@ -24,7 +24,7 @@ public class RoleService extends BaseService<EShopRole> {
     @Resource
     private EShopRoleMapper eShopRoleMapper;
 
-
+    @Cacheable(cacheNames = CacheConstant.CACHE_USER_ROLE_BY_ID, key = "'permission_ID_'+#p0")
     public List<EShopRole> selectUserRoleByPermissionId(int permissionId) {
        return eShopRoleMapper.selectUserRoleByPermissionId(permissionId);
     }

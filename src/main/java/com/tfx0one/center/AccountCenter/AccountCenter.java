@@ -1,21 +1,16 @@
 package com.tfx0one.center.AccountCenter;
 
-import com.tfx0one.center.AccountCenter.model.EShopRolePermission;
 import com.tfx0one.center.AccountCenter.model.EShopUser;
 import com.tfx0one.center.AccountCenter.service.RolePermissionService;
 import com.tfx0one.center.AccountCenter.service.RoleService;
 import com.tfx0one.center.AccountCenter.service.UserService;
-import com.tfx0one.common.constant.UserConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by 2fx0one on 2018/6/16.
@@ -90,14 +85,14 @@ public class AccountCenter {
 
         //====2 检查超级管理员， 没有就创建一个====
         //数据库，必须包含超级管理员。 id固定为 1
-        EShopUser user = new EShopUser()
-                .withId(1)
-                .withUsername("admin")
-                .withStatus(UserConstant.USER_STATUS_NORMAL)
-                .withRoleId(UserConstant.USER_ROLE_ID_ADMIN);
-        if (userService.selectOne(user) == null) {
-            userService.insertUser(user.withPassword(new BCryptPasswordEncoder().encode("123456")));
-        }
+//        EShopUser user = new EShopUser()
+//                .withId(1)
+//                .withUsername("admin")
+//                .withStatus(UserConstant.USER_STATUS_NORMAL)
+//                .withRoleId(UserConstant.USER_ROLE_ID_ADMIN);
+//        if (userService.selectOne(user) == null) {
+//            userService.insertUser(user.withPassword(new BCryptPasswordEncoder().encode("123456")));
+//        }
 
         //====3 检查数据库菜单 必须包含的菜单 ====
 //        1系统管理:
@@ -105,22 +100,22 @@ public class AccountCenter {
 //        3用户管理
 //            4角色配置
 //            5用户配置
-
-        List<EShopRolePermission> menuList = new ArrayList<>();
-
-        EShopRolePermission a = new EShopRolePermission().withId(1).withParentId(0).withTitle("系统管理").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
-        EShopRolePermission a1 = new EShopRolePermission().withId(2).withParentId(1).withTitle("菜单配置").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
-
-        EShopRolePermission b = new EShopRolePermission().withId(3).withParentId(0).withTitle("用户管理").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
-        EShopRolePermission b1 = new EShopRolePermission().withId(4).withParentId(3).withTitle("角色配置").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
-        EShopRolePermission b2 = new EShopRolePermission().withId(5).withParentId(3).withTitle("用户配置").withIcon("icon").withDescription("desc").withUrl("url").withDelFlag((byte)0);
-        menuList.add(a);
-        menuList.add(a1);
-
-        menuList.add(b);
-        menuList.add(b1);
-        menuList.add(b2);
-        menuList.stream().filter(menu -> rolePermissionService.selectOne(menu) == null).forEach(rolePermissionService::insert);
+//
+//        List<EShopRolePermission> menuList = new ArrayList<>();
+//
+//        EShopRolePermission a = new EShopRolePermission().withId(1).withParentId(0).withTitle("系统管理").withIcon("icon").withDescription("desc").withUrl("").withDelFlag((byte)0);
+//        EShopRolePermission a1 = new EShopRolePermission().withId(2).withParentId(1).withTitle("菜单配置").withIcon("icon").withDescription("desc").withUrl("url2").withDelFlag((byte)0);
+//
+//        EShopRolePermission b = new EShopRolePermission().withId(3).withParentId(0).withTitle("用户管理").withIcon("icon").withDescription("desc").withUrl("").withDelFlag((byte)0);
+//        EShopRolePermission b1 = new EShopRolePermission().withId(4).withParentId(3).withTitle("角色配置").withIcon("icon").withDescription("desc").withUrl("/api/v1/shop/getRoleMenu").withDelFlag((byte)0);
+//        EShopRolePermission b2 = new EShopRolePermission().withId(5).withParentId(3).withTitle("用户配置").withIcon("icon").withDescription("desc").withUrl("url5").withDelFlag((byte)0);
+//        menuList.add(a);
+//        menuList.add(a1);
+//
+//        menuList.add(b);
+//        menuList.add(b1);
+//        menuList.add(b2);
+//        menuList.stream().filter(menu -> rolePermissionService.selectOne(menu) == null).forEach(rolePermissionService::insert);
     }
 
 }

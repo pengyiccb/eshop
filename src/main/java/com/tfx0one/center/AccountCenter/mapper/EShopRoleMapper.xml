@@ -18,7 +18,11 @@
     SELECT
       role.id,
       role.title,
-      role.description
+      role.description,
+      role.create_time,
+      role.update_time,
+      role.create_by,
+      role.update_by
     FROM e_shop_role role
       LEFT JOIN e_shop_role_permission_relation ralation ON role.id = ralation.role_id
     WHERE

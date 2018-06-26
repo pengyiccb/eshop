@@ -1,4 +1,4 @@
-package com.tfx0one.web.model;
+package com.tfx0one.center.StorageCenter.model;
 
 import com.tfx0one.common.util.BaseEntity;
 import javax.persistence.*;

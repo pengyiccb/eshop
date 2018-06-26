@@ -44,7 +44,7 @@ public class AuthAccessDecisionManager implements AccessDecisionManager {
 //            }
 //        }
 
-        //配置的
+        //该URL配置拥有的用户
         List<String> configList = configAttributes.stream().map(ConfigAttribute::getAttribute).map(String::trim).collect(Collectors.toList());
 
         //用户的

@@ -86,19 +86,27 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                     return;
                 }
 
-                //权限已经注入 SecurityContextHolder。接下来需要验证用户可以访问url的权限。
-                //用户数据
-                List<EShopRolePermission> permissions = rolePermissionService.selectRolePermissionByRoleId(userDetails.getRoleId());
-
-                String uri = request.getRequestURI(); //请求路径
+                String uri = request.getRequestURI();
                 String ctx = request.getContextPath();
-                String path = uri.replace(ctx, "");
+                String path = uri.replace(ctx, ""); //请求路径
+                //权限已经注入 SecurityContextHolder。接下来需要验证用户是否可以访问url的权限。
 
-                Set<String> urlSet = permissions.stream().map(EShopRolePermission::getUrl).collect(Collectors.toSet());
-                if (! urlSet.contains(path)) { //不包含。无权限
-                    errorStrWriteToResponse(response, APIConstant.TOKEN_ACCESS_DENIED, "URL Access Denied 无权访问该链接！ path = " + path);
-                    return;
+                //所有的权限数据
+                List<EShopRolePermission> all =  rolePermissionService.select(new EShopRolePermission().withDelFlag((byte)0));
+
+                //判断如果url不在数据库中，则默认都有权限访问。
+                if (all.stream().map(EShopRolePermission::getUrl).collect(Collectors.toSet()).contains(path)) {
+                    //用户权限数据
+                    List<EShopRolePermission> permissions = rolePermissionService.selectRolePermissionByRoleId(userDetails.getRoleId());
+
+                    Set<String> urlSet = permissions.stream().map(EShopRolePermission::getUrl).collect(Collectors.toSet());
+                    if (! urlSet.contains(path)) { //不包含。无权限
+                        errorStrWriteToResponse(response, APIConstant.TOKEN_ACCESS_DENIED, "URL Access Denied 无权访问该链接！ path = " + path);
+                        return;
+                    }
+
                 }
+
 
 
 //                for( String url : permissions.stream().map(EShopRolePermission::getUrl).collect(Collectors.toSet())) {

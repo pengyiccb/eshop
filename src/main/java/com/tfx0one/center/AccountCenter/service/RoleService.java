@@ -1,5 +1,6 @@
 package com.tfx0one.center.AccountCenter.service;
 
+import com.tfx0one.center.AccountCenter.mapper.EShopRoleMapper;
 import com.tfx0one.center.AccountCenter.model.EShopRole;
 import com.tfx0one.common.cache.CacheUtils;
 import com.tfx0one.common.constant.CacheConstant;
@@ -20,6 +21,13 @@ public class RoleService extends BaseService<EShopRole> {
     @Resource
     private CacheUtils cacheUtils;
 
+    @Resource
+    private EShopRoleMapper eShopRoleMapper;
+
+
+    public List<EShopRole> selectUserRoleByPermissionId(int permissionId) {
+       return eShopRoleMapper.selectUserRoleByPermissionId(permissionId);
+    }
 
     @Cacheable(cacheNames = CacheConstant.CACHE_USER_ROLE_BY_ID, key = "#p0")
     public EShopRole selectUserRoleById(int roleId) {

@@ -14,4 +14,16 @@
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="del_flag" jdbcType="TINYINT" property="delFlag" />
   </resultMap>
+  <select id="selectUserRoleByPermissionId" resultMap="BaseResultMap">
+    SELECT
+      role.id,
+      role.title,
+      role.description
+    FROM e_shop_role role
+      LEFT JOIN e_shop_role_permission_relation ralation ON role.id = ralation.role_id
+    WHERE
+      role.del_flag = 0 AND
+      ralation.permission_id = #{permissionId}
+
+  </select>
 </mapper>

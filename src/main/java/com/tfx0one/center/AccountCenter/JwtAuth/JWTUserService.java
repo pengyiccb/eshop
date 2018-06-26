@@ -16,13 +16,13 @@ import java.util.List;
  * Created by 2fx0one on 2018/6/4.
  */
 @Service
-public class JwtUserService implements UserDetailsService {
+public class JWTUserService implements UserDetailsService {
 
     @Resource
     private UserService userService;
 
     @Override
-    public JWTokenUser loadUserByUsername(String username) throws UsernameNotFoundException {
+    public JWTUser loadUserByUsername(String username) throws UsernameNotFoundException {
 
         if (username == null) {
             throw new UsernameNotFoundException("No user found with username 'null' !");
@@ -35,7 +35,7 @@ public class JwtUserService implements UserDetailsService {
         }
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(UserConstant.rolePermission.get(user.getRoleId())));
-        return new JWTokenUser(user,
+        return new JWTUser(user,
                 user.getUsername(),
                 user.getPassword(),
                 authorities);

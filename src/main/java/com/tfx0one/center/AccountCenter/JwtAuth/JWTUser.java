@@ -13,7 +13,7 @@ import java.util.Date;
  */
 
 //包装 JWT 的 User
-public class JWTokenUser implements UserDetails {
+public class JWTUser implements UserDetails {
     private final String username;
     private final String password;
 
@@ -21,7 +21,7 @@ public class JWTokenUser implements UserDetails {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public JWTokenUser(
+    public JWTUser(
             EShopUser user,
             String username,
             String password,

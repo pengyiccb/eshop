@@ -33,7 +33,7 @@ public class RoleMenuController {
 //            return JSONResult.error("微信用户无菜单权限");  PreAuthorize已经配置！
 //        }
 
-        return JSONResult.ok().data(rolePermissionService.selectRolePermissionByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
+        return JSONResult.ok().data(rolePermissionService.selectRolePermissionTreeByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
     }
 
     @ApiOperation("添加菜单")
@@ -42,21 +42,21 @@ public class RoleMenuController {
         rolePermissionService.insertRolePermission(menu);
 
         //把整个数据菜单给管理员
-        return JSONResult.ok().data(rolePermissionService.selectRolePermissionByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
+        return JSONResult.ok().data(rolePermissionService.selectRolePermissionTreeByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
     }
 
     @ApiOperation("删除菜单")
     @RequestMapping(value = "/api/v1/shop/roleMenuDelete", method = RequestMethod.POST)
     public JSONResult roleMenuDelete(@RequestParam int id) {
         EShopRolePermission menu = rolePermissionService.deleteRolePermission(id);
-        return JSONResult.ok("删除成功").data(rolePermissionService.selectRolePermissionByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
+        return JSONResult.ok("删除成功").data(rolePermissionService.selectRolePermissionTreeByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
     }
 
     @ApiOperation("修改菜单")
     @RequestMapping(value = "/api/v1/shop/roleMenuModify", method = RequestMethod.POST)
     public JSONResult roleMenuModify(@RequestBody EShopRolePermission menu) {
         rolePermissionService.updateRolePermission(menu);
-        return JSONResult.ok("修改成功").data(rolePermissionService.selectRolePermissionByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
+        return JSONResult.ok("修改成功").data(rolePermissionService.selectRolePermissionTreeByRoleId(accountCenter.getCacheLoginUser().getRoleId()));
     }
 
 }

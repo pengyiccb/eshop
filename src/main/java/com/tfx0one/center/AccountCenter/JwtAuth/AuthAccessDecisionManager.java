@@ -6,7 +6,6 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
  * Created by 2fx0one on 2018/6/25.
  */
 
-@Component
+//@Component
 public class AuthAccessDecisionManager implements AccessDecisionManager {
 
     // decide() 方法是判定是否拥有权限的决策方法，

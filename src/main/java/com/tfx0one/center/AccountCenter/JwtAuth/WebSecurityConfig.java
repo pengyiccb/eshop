@@ -36,16 +36,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Resource
-    private JwtUserService jwtUserService;
+    private JWTUserService JWTUserService;
 
     @Resource
-    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    private JWTAuthenticationTokenFilter JWTAuthenticationTokenFilter;
 
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
                 // 设置UserDetailsService
-                .userDetailsService(jwtUserService)
+                .userDetailsService(JWTUserService)
                 // 使用BCrypt进行密码的hash
                 .passwordEncoder(passwordEncoder());
     }
@@ -103,6 +103,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 禁用缓存
         httpSecurity.headers().cacheControl();
 
-        httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(JWTAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

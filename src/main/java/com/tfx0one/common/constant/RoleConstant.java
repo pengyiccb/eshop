@@ -1,25 +1,24 @@
 package com.tfx0one.common.constant;
 
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by 2fx0one on 2018/6/4.
  */
-public enum RoleConstant {
+public class RoleConstant {
 
+    public static byte DEL_FLAG_ACTIVE = 0; //未删除
+    public static byte DEL_FLAG_INVALID = 1; //已删除
 
-    ROLE_ADMIN(1, "ROLE_ADMIN"),
-    ROLE_USER(1<<1, "ROLE_USER");
-
-
-    private final int code;
-    private final String desc;
-    RoleConstant(int code, String desc) {
-        this.code = code;
-        this.desc = desc;
-    }
+//    ROLE_ADMIN(1, "ROLE_ADMIN"),
+//    ROLE_USER(1<<1, "ROLE_USER");
+//
+//
+//    private final int code;
+//    private final String desc;
+//    RoleConstant(int code, String desc) {
+//        this.code = code;
+//        this.desc = desc;
+//    }
 
     //用户的权限管理
 

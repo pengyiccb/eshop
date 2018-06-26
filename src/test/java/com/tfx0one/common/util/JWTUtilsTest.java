@@ -1,6 +1,6 @@
 package com.tfx0one.common.util;
 
-import com.tfx0one.center.AccountCenter.JwtAuth.JWTokenUtils;
+import com.tfx0one.center.AccountCenter.JwtAuth.JWTUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,12 +11,12 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class JWTokenUtilsTest {
+public class JWTUtilsTest {
 
 
     @Test
     public void test_token() {
-        JWTokenUtils JWTokenUtils = new JWTokenUtils();
+        JWTUtils JWTUtils = new JWTUtils();
 
 //        String autToken = "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE1MjgwOTY4NTQsInVzZXJuYW1lIjoid2FuZ2t1biJ9.s6vMZNUAbsmZ9TWqFEIXN05OI5IAs3Qg_SVBxR3-eXT21HHDqDCMHSRaBPfgr3TcXE606pwRYna38yH57y1xGQ";
 //        String u = jwtTokenUtils.getUsernameFromToken(autToken);

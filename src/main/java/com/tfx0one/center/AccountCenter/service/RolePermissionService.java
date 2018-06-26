@@ -43,9 +43,9 @@ public class RolePermissionService extends BaseService<EShopRolePermission> {
 
     //用户缓存菜单树
     @Cacheable(cacheNames = CacheConstant.CACHE_ROLE_PERMISSION_BY_ROLE_ID, key = "#p0")
-    public List<EShopRolePermission> selectRolePermissionByRoleId(int roleId) {
+    public List<EShopRolePermission> selectRolePermissionTreeByRoleId(int roleId) {
         if (roleId == UserConstant.USER_ROLE_ID_ADMIN) { //超级管理员获取 整个菜单树 只支持两级 ！！！
-            return selectAllActiveRolePermission();
+            return selectAllActiveTreeRolePermission();
         }
         List<EShopRolePermission> Permissions = eShopRolePermissionMapper.selectRolePermissionByRoleId(roleId);
 
@@ -61,14 +61,17 @@ public class RolePermissionService extends BaseService<EShopRolePermission> {
                 ).collect(Collectors.toList());
     }
 
-    //超级管理员获取 获取权限列表 {url:[roleIdList]}
-    public Map<String, List<String>> selectAllActiveURLRolePermission() {
-         eShopRolePermissionMapper.selectAllActiveURLRolePermission();
-         return null;
-
+    //获取数据库权限列表 {url:[roleIdList]}
+    @Cacheable(cacheNames = CacheConstant.CACHE_ALL_PERMISSION)
+    public Map<String, EShopRolePermission> selectAllActiveRolePermission() {
+//        Map<String, EShopRolePermission> map = new HashMap<>();
+//        eShopRolePermissionMapper.select(new EShopRolePermission().withDelFlag((byte)0)).forEach(e-> map.put(e.getUrl(), e));
+        return eShopRolePermissionMapper.select(new EShopRolePermission().withDelFlag((byte)0))
+                .stream().collect(Collectors.toMap(EShopRolePermission::getUrl, x->x));
+//        return map;
     }
     //超级管理员获取 整个菜单树 只支持两级 ！！！
-    public List<EShopRolePermission> selectAllActiveRolePermission(){
+    public List<EShopRolePermission> selectAllActiveTreeRolePermission(){
         return this.select(new EShopRolePermission().withParentId(0).withDelFlag((byte)0)).parallelStream().map(
            root -> root.withChildren(
                    this.select(new EShopRolePermission().withParentId(root.getId()).withDelFlag((byte)0))

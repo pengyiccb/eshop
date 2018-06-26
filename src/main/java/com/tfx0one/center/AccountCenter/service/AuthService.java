@@ -2,8 +2,8 @@ package com.tfx0one.center.AccountCenter.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tfx0one.center.AccountCenter.AccountCenter;
-import com.tfx0one.center.AccountCenter.JwtAuth.JWTokenUtils;
-import com.tfx0one.center.AccountCenter.JwtAuth.JwtUserService;
+import com.tfx0one.center.AccountCenter.JwtAuth.JWTUtils;
+import com.tfx0one.center.AccountCenter.JwtAuth.JWTUserService;
 import com.tfx0one.center.AccountCenter.model.EShopUser;
 import com.tfx0one.center.AccountCenter.model.WXUserInfo;
 import com.tfx0one.common.constant.UserConstant;
@@ -34,10 +34,10 @@ public class AuthService {
     private UserService userService;
 
     @Autowired
-    private JwtUserService jwtUserService;
+    private JWTUserService JWTUserService;
 
     @Autowired
-    private JWTokenUtils JWTokenUtils;
+    private JWTUtils JWTUtils;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -94,10 +94,10 @@ public class AuthService {
 
         //验证成功后才能继续的逻辑
         EShopUser user = userService.selectByUsername(username);
-//        final JWTokenUser userDetails = jwtUserService.loadUserByUsername(username);
+//        final JWTUser userDetails = jwtUserService.loadUserByUsername(username);
 
         //登录完成。生成token
-        final String token = JWTokenUtils.generateToken(user);
+        final String token = JWTUtils.generateToken(user);
 
         //用户缓存起来。
 //        accountCenter.refreshLoginUser(username);

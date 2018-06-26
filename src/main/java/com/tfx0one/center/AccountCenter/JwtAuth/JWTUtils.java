@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by 2fx0one on 2018/6/4.
  */
 @Component
-public class JWTokenUtils {
+public class JWTUtils {
 
     @Value("${jwt.secret}")
     private String secret;
@@ -75,7 +75,7 @@ public class JWTokenUtils {
     }
 
 
-    public boolean validateToken(String authToken, JWTokenUser userDetails) {
+    public boolean validateToken(String authToken, JWTUser userDetails) {
         if (authToken == null || userDetails == null) {
             return false;
         }
@@ -93,7 +93,7 @@ public class JWTokenUtils {
         return true;
     }
 
-//    public String generateTokenThenCacheUser(JWTokenUser userDetails) {
+//    public String generateTokenThenCacheUser(JWTUser userDetails) {
 //        Map<String, Object> data = new HashMap<>();
 //        data.put(KEY_USERNAME, userDetails.getUsername());
 //        data.put(KEY_ID, userDetails.getId());

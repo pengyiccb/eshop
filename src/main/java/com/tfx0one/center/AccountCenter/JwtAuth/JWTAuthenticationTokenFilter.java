@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,17 +27,17 @@ import java.util.stream.Collectors;
  */
 
 @Component
-public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
 
     //自动装配JwtUserDetailService 把jwt 集成到 security
     @Autowired
-    private JwtUserService jwtUserService;
+    private JWTUserService jwtUserService;
 
     @Resource
     private RolePermissionService rolePermissionService;
 
     @Autowired
-    private JWTokenUtils JWTokenUtils;
+    private JWTUtils JWTUtils;
 
     @Value("${jwt.header}")
     private String tokenHeader;
@@ -55,7 +56,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith(tokenHead) && authHeader.length() > tokenHead.length() + 1) {
 //            logger.info("authentication authHeader = [ " + authHeader + " ]");
             final String authToken = authHeader.substring(tokenHead.length() + 1); // The part after "Bearer " 用空格
-            String username = JWTokenUtils.getUsernameFromToken(authToken);
+            String username = JWTUtils.getUsernameFromToken(authToken);
 
             logger.info("authentication username = " + username);
 //            //TODO 验证失败时。需要返回信息
@@ -68,10 +69,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 logger.info("checking authentication ===== " + username);
 
-                JWTokenUser userDetails = jwtUserService.loadUserByUsername(username);
+                JWTUser userDetails = jwtUserService.loadUserByUsername(username);
 
                 //验证token 和 userDetail 是否一致
-                if (JWTokenUtils.validateToken(authToken, userDetails)) {
+                if (JWTUtils.validateToken(authToken, userDetails)) {
                     logger.info(" ===== SecurityContextHolder.getContext().setAuthentication(authentication); =====" + username);
 
                     //把用户信息放到 SecurityContextHolder
@@ -92,31 +93,21 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 //权限已经注入 SecurityContextHolder。接下来需要验证用户是否可以访问url的权限。
 
                 //所有的权限数据
-                List<EShopRolePermission> all =  rolePermissionService.select(new EShopRolePermission().withDelFlag((byte)0));
+                Map<String, EShopRolePermission> all = rolePermissionService.selectAllActiveRolePermission();// .select(new EShopRolePermission().withDelFlag((byte)0));
 
                 //判断如果url不在数据库中，则默认都有权限访问。
-                if (all.stream().map(EShopRolePermission::getUrl).collect(Collectors.toSet()).contains(path)) {
+                if (all.containsKey(path)) {
+                    //只有在权限里面的, 才做进一步权限判断
+
                     //用户权限数据
-                    List<EShopRolePermission> permissions = rolePermissionService.selectRolePermissionByRoleId(userDetails.getRoleId());
+                    List<EShopRolePermission> permissions = rolePermissionService.selectRolePermissionTreeByRoleId(userDetails.getRoleId());
 
                     Set<String> urlSet = permissions.stream().map(EShopRolePermission::getUrl).collect(Collectors.toSet());
                     if (! urlSet.contains(path)) { //不包含。无权限
-                        errorStrWriteToResponse(response, APIConstant.TOKEN_ACCESS_DENIED, "URL Access Denied 无权访问该链接！ path = " + path);
-                        return;
+                        throw new AccessDeniedException("URL Access Denied 无权访问该链接！ path = " + path);
                     }
 
                 }
-
-
-
-//                for( String url : permissions.stream().map(EShopRolePermission::getUrl).collect(Collectors.toSet())) {
-//                    if(new AntPathRequestMatcher(url)
-//                            .matches(request)) {
-////                        return
-//                        //匹配 返回权限集合
-////                        return map.get(url);
-//                    }
-//                }
 
 
             }

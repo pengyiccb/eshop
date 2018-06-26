@@ -6,7 +6,6 @@ import org.springframework.security.access.intercept.AbstractSecurityInterceptor
 import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.servlet.*;
@@ -15,7 +14,7 @@ import java.io.IOException;
 /**
  * Created by 2fx0one on 2018/6/25.
  */
-@Component
+//@Component
 public class AuthSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
     @Resource
@@ -40,7 +39,6 @@ public class AuthSecurityInterceptor extends AbstractSecurityInterceptor impleme
 
     @Override
     public void destroy() {
-
     }
 
     public void invoke(FilterInvocation filterInvocation) throws IOException, ServletException {

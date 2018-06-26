@@ -95,8 +95,8 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
                     return;
                 }
 
+                //权限已经注入 SecurityContextHolder。接下来需要验证非管理用户是否可以访问url的权限。
                 if (!userDetails.isAdmin()) {
-                    //权限已经注入 SecurityContextHolder。接下来需要验证非管理用户是否可以访问url的权限。
                     String uri = request.getRequestURI();
                     String ctx = request.getContextPath();
                     String path = uri.replace(ctx, ""); //请求路径
@@ -123,36 +123,11 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
                                     //                                throw new AccessDeniedException("URL Access Denied 无权访问该链接！ path = " + path);
                                     return;
                                 }
-
                             }
                         }
                     }
                 }
-
-
-                //判断如果url不在数据库中，则默认都有权限访问。
-//                AntPathRequestMatcher matcher = new AntPathRequestMatcher(path); // /path/to/**
-//                if(matcher.matches(request)) {
-//                    //
-//                }
-//                if (all.containsKey(path)) {
-//                    //只有在权限里面的, 才做进一步权限判断
-//                    System.out.println(" path " + path);
-//
-//                    //用户权限数据
-//                    List<EShopRolePermission> permissions = rolePermissionService.selectRolePermissionTreeByRoleId(userDetails.getRoleId());
-//
-//                    Set<String> urlSet = permissions.stream().map(EShopRolePermission::getUrl).collect(Collectors.toSet());
-//                    if (! urlSet.contains(path)) { //不包含。无权限
-//                        throw new AccessDeniedException("URL Access Denied 无权访问该链接！ path = " + path);
-//                    }
-//
-//                }
-
-
             }
-
-
         }
         filterChain.doFilter(request, response);
     }

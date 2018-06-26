@@ -26,5 +26,6 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="last_reset_password_time" jdbcType="TIMESTAMP" property="lastResetPasswordTime" />
     <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="del_flag" jdbcType="TINYINT" property="delFlag" />
   </resultMap>
 </mapper>

@@ -4,10 +4,13 @@ import com.tfx0one.center.AccountCenter.model.EShopUser;
 import com.tfx0one.center.AccountCenter.service.RolePermissionService;
 import com.tfx0one.center.AccountCenter.service.RoleService;
 import com.tfx0one.center.AccountCenter.service.UserService;
+import com.tfx0one.common.constant.DBConstant;
+import com.tfx0one.common.constant.UserConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -81,14 +84,17 @@ public class AccountCenter {
 
         //====2 检查超级管理员， 没有就创建一个====
         //数据库，必须包含超级管理员。 id固定为 1
-//        EShopUser user = new EShopUser()
-//                .withId(1)
-//                .withUsername("admin")
-//                .withStatus(UserConstant.USER_STATUS_NORMAL)
-//                .withRoleId(UserConstant.USER_ROLE_ID_ADMIN);
-//        if (userService.selectOne(user) == null) {
-//            userService.insertUser(user.withPassword(new BCryptPasswordEncoder().encode("123456")));
-//        }
+        userService.deleteByPrimaryKey(1);
+        EShopUser user = new EShopUser()
+                .withId(1)
+                .withUsername("admin")
+                .withStatus(UserConstant.USER_STATUS_NORMAL)
+                .withRoleId(UserConstant.USER_ROLE_ID_ADMIN)
+                .withDelFlag(DBConstant.DEL_FLAG_ACTIVE)
+                ;
+        if (userService.selectOne(user) == null) {
+            userService.insertUser(user.withPassword(new BCryptPasswordEncoder().encode("123456")));
+        }
 
         //====3 检查数据库菜单 必须包含的菜单 ====
 //        1系统管理:

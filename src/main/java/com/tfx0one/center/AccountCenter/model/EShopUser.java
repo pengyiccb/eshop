@@ -124,6 +124,9 @@ public class EShopUser extends BaseEntity {
      */
     private String email;
 
+    @Column(name = "del_flag")
+    private Byte delFlag;
+
     /**
      * @return id
      */
@@ -603,6 +606,25 @@ public class EShopUser extends BaseEntity {
         this.email = email == null ? null : email.trim();
     }
 
+    /**
+     * @return del_flag
+     */
+    public Byte getDelFlag() {
+        return delFlag;
+    }
+
+    public EShopUser withDelFlag(Byte delFlag) {
+        this.setDelFlag(delFlag);
+        return this;
+    }
+
+    /**
+     * @param delFlag
+     */
+    public void setDelFlag(Byte delFlag) {
+        this.delFlag = delFlag;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -630,6 +652,7 @@ public class EShopUser extends BaseEntity {
         sb.append(", updateTime=").append(updateTime);
         sb.append(", lastResetPasswordTime=").append(lastResetPasswordTime);
         sb.append(", email=").append(email);
+        sb.append(", delFlag=").append(delFlag);
         sb.append("]");
         return sb.toString();
     }

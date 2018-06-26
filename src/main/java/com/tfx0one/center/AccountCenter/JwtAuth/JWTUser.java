@@ -2,6 +2,7 @@ package com.tfx0one.center.AccountCenter.JwtAuth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tfx0one.center.AccountCenter.model.EShopUser;
+import com.tfx0one.common.constant.UserConstant;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -35,6 +36,14 @@ public class JWTUser implements UserDetails {
         this.authorities = authorities;
 //        this.lastPasswordResetDate = lastPasswordResetDate;
     }
+
+    //是否是超级管理员
+    public boolean isAdmin()
+    {
+        return UserConstant.USER_ROLE_ID_ADMIN == this.user.getId();
+    }
+
+
     //返回分配给用户的角色列表
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

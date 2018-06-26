@@ -2,7 +2,6 @@ package com.tfx0one.center.AccountCenter.JwtAuth;
 
 import com.tfx0one.center.AccountCenter.model.EShopUser;
 import com.tfx0one.center.AccountCenter.service.UserService;
-import com.tfx0one.common.constant.UserConstant;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,7 +33,8 @@ public class JWTUserService implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
         }
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(UserConstant.rolePermission.get(user.getRoleId())));
+        authorities.add(new SimpleGrantedAuthority(user.getRoleId().toString()));
+        //TODO： 未来存在多个角色的情况
         return new JWTUser(user,
                 user.getUsername(),
                 user.getPassword(),

@@ -19,7 +19,7 @@ public class RoleManagerController {
     private RoleService roleService;
 
     @ApiOperation("获取角色列表")
-    @RequestMapping(value = "/api/v1/shop/getRoleList", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v1/shop/roleManager/list", method = RequestMethod.GET)
     public JSONResult roleList() {
 
         return JSONResult.ok("获取角色列表成功").data(roleService.selectAllActiveRole());
@@ -27,21 +27,21 @@ public class RoleManagerController {
 
 
     @ApiOperation("添加角色")
-    @RequestMapping(value = "/api/v1/shop/roleAdd", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/v1/shop/roleManager/add", method = RequestMethod.POST)
     public JSONResult roleAdd(@RequestBody EShopRole role) {
         roleService.insertRole(role);
         return JSONResult.ok("添加角色").data(roleService.selectAllActiveRole());
     }
 
     @ApiOperation("删除角色")
-    @RequestMapping(value = "/api/v1/shop/roleDelete", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/v1/shop/roleManager/delete", method = RequestMethod.POST)
     public JSONResult roleDelete(@RequestParam int id) {
         roleService.deleteRole(id);
         return JSONResult.ok("删除角色").data(roleService.selectAllActiveRole());
     }
 
     @ApiOperation("修改角色")
-    @RequestMapping(value = "/api/v1/shop/roleModify", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/v1/shop/roleManager/modify", method = RequestMethod.POST)
     public JSONResult roleModify(@RequestBody EShopRole role) {
         roleService.updateRole(role);
         return JSONResult.ok("修改角色").data(roleService.selectAllActiveRole());

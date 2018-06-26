@@ -62,12 +62,8 @@ public class AccountCenter {
     //检查数据库 role 表是否配置正确
     public void checkDatabaseRole() {
 //        roleService.checkDatabaseRole();
-        //=====1 数据库中 必须包含的三个基本管理员。 id固定=====
+        //=====1 数据库中 必须包含的两个基本角色。 商户和消费者 id固定 =====
 //        List<EShopRole> roleList = new ArrayList<>();
-//        roleList.add(new EShopRole()
-//                .withId(UserConstant.USER_ROLE_ID_ADMIN)
-//                .withPermissionStr(UserConstant.USER_ROLE_PERMISSION_ADMIN)
-//                .withTitle(UserConstant.USER_ROLE_TITLE_ADMIN).withDelFlag((byte)0));
 //
 //        roleList.add(new EShopRole()
 //                .withId(UserConstant.USER_ROLE_ID_VENDOR)

@@ -83,14 +83,13 @@ public class RolePermissionService extends BaseService<EShopRolePermission> {
     public Map<String, EShopRolePermission> selectAllActiveRolePermission() {
         Map<String, EShopRolePermission> map = new HashMap<>();
         List<EShopRolePermission> list = eShopRolePermissionMapper.select(new EShopRolePermission().withDelFlag((byte) 0));
-        list.stream().filter(p->!StringUtils.isEmpty(p.getUrl())).forEach(permission -> map.put(
+        list.stream().filter(p -> !StringUtils.isEmpty(p.getUrl())).forEach(permission -> map.put(
                 StringUtils.isEmpty(permission.getUrl()) ? permission.getId().toString() : permission.getUrl(),
                 permission
         ));
 //                .stream().collect(Collectors.toMap(EShopRolePermission::getUrl, x->x));
         return map;
     }
-
 
 
     //增

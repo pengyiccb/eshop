@@ -95,34 +95,36 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
                     return;
                 }
 
-                //权限已经注入 SecurityContextHolder。接下来需要验证用户是否可以访问url的权限。
-                String uri = request.getRequestURI();
-                String ctx = request.getContextPath();
-                String path = uri.replace(ctx, ""); //请求路径
+                if (!userDetails.isAdmin()) {
+                    //权限已经注入 SecurityContextHolder。接下来需要验证非管理用户是否可以访问url的权限。
+                    String uri = request.getRequestURI();
+                    String ctx = request.getContextPath();
+                    String path = uri.replace(ctx, ""); //请求路径
 
-                //所有的权限数据
-                Map<String, EShopRolePermission> all = rolePermissionService.selectAllActiveRolePermission();// .select(new EShopRolePermission().withDelFlag((byte)0));
+                    //所有的权限数据
+                    Map<String, EShopRolePermission> all = rolePermissionService.selectAllActiveRolePermission();// .select(new EShopRolePermission().withDelFlag((byte)0));
 
-                //过滤出匹配的权限
-                for (EShopRolePermission permission : all.values()) {
-                    if (!StringUtils.isEmpty(permission.getUrl())) {
-                        AntPathRequestMatcher matcher = new AntPathRequestMatcher(permission.getUrl());
+                    //过滤出匹配的权限
+                    for (EShopRolePermission permission : all.values()) {
+                        if (!StringUtils.isEmpty(permission.getUrl())) {
+                            AntPathRequestMatcher matcher = new AntPathRequestMatcher(permission.getUrl());
 
-                        //判断如果url不在数据库中，则默认都有权限访问。
-                        if (matcher.matches(request)) {
-                            //匹配到权限，找到角色
-                            List<EShopRole> roles = roleService.selectUserRoleByPermissionId(permission.getId());
+                            //判断如果url不在数据库中，则默认都有权限访问。
+                            if (matcher.matches(request)) {
+                                //匹配到权限，找到拥有该权限的角色
+                                List<EShopRole> roles = roleService.selectUserRoleByPermissionId(permission.getId());
 
-                            //检查用户是否在这些这个角色中
-                            EShopRole role = roleService.selectUserRoleById(userDetails.getRoleId());
+                                //获取当前访问用户的角色
+                                EShopRole role = roleService.selectUserRoleById(userDetails.getRoleId());
 
-                            //如果用户不在列表。表示无权限。
-                            if (roles.stream().noneMatch(e -> e.getId().equals(role.getId()))) {
-                                errorStrWriteToResponse(response, APIConstant.TOKEN_ACCESS_DENIED, "URL Access Denied 无权访问该链接！ path = " + path);
-//                                throw new AccessDeniedException("URL Access Denied 无权访问该链接！ path = " + path);
-                                return;
+                                //检查该用户的角色， 不在列表中，表示无权限。
+                                if (roles.stream().noneMatch(e -> e.getId().equals(role.getId()))) {
+                                    errorStrWriteToResponse(response, APIConstant.TOKEN_ACCESS_DENIED, "URL Access Denied 无权访问该链接！ path = " + path);
+                                    //                                throw new AccessDeniedException("URL Access Denied 无权访问该链接！ path = " + path);
+                                    return;
+                                }
+
                             }
-
                         }
                     }
                 }

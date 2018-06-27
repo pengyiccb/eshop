@@ -57,13 +57,14 @@ public class RoleService extends BaseService<EShopRole> {
     }
 
     //改
-    @CachePut(cacheNames = CacheConstant.CACHE_USER_ROLE_BY_ID, key = "#p0")
+    @CachePut(cacheNames = CacheConstant.CACHE_USER_ROLE_BY_ID, key = "#p0.id")
     public EShopRole updateRole(EShopRole role) {
         this.updateNotNull(role);
         return role;
     }
 
 
+    @Cacheable(cacheNames = CacheConstant.CACHE_USER_ROLE_BY_ID, key = "'ALL_ACTIVE'+#p0")
     public List<EShopRole> selectAllActiveRole() {
         return this.select(new EShopRole().withDelFlag((byte)0));
     }

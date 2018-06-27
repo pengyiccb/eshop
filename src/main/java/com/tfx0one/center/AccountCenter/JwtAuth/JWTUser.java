@@ -40,7 +40,7 @@ public class JWTUser implements UserDetails {
     //是否是超级管理员
     public boolean isAdmin()
     {
-        return UserConstant.USER_ROLE_ID_ADMIN == this.user.getId();
+        return UserConstant.USER_ROLE_ID_ADMIN == this.user.getRoleId();
     }
 
 

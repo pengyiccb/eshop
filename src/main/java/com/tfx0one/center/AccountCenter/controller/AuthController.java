@@ -32,13 +32,6 @@ public class AuthController {
     }
 
     @ApiOperation("后台网页登录")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(paramType = "body", name = "json", dataType = "string", value = "用户名和密码", example = "{username:admin, passowrd:123456}", defaultValue = "{username:admin, passowrd:123456}"),
-//    })
-//    @ApiModel(value = "json")
-//    private Map<String, String> map;
-////        @ApiModelProperty(name = "json")
-////    )
     @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
     public JSONResult login(@RequestBody FrontEndLoginUser user) {
 //        System.out.println(user);
@@ -50,8 +43,7 @@ public class AuthController {
     }
 
     /**
-     * 根据客户端传过来的code从微信服务器获取appid和session_key，然后生成3rdkey返回给客户端，后续请求客户端传3rdkey来维护客户端登录态
-     *
+     * 根据客户端传过来的code从微信服务器获取appid和session_key，然后生成3rdkey返回给客户端，后续请求客户端传3rdkey来维护客户端登录
      * @param code 小程序登录时获取的code
      * @return
      */

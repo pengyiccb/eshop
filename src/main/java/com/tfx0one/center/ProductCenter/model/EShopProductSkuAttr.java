@@ -1,7 +1,6 @@
 package com.tfx0one.center.ProductCenter.model;
 
 import com.tfx0one.common.util.BaseEntity;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,22 +14,28 @@ public class EShopProductSkuAttr extends BaseEntity {
     private Integer id;
 
     /**
+     * 属性对应的商家ID
+     */
+    @Column(name = "vendor_user_id")
+    private Integer vendorUserId;
+
+    /**
      * 属性的父级ID
      */
     @Column(name = "parent_id")
     private Integer parentId;
 
     /**
-     * 属性对应的用户
+     * 属性的键
      */
-    @Column(name = "user_id")
-    private Integer userId;
+    @Column(name = "attr_key")
+    private String attrKey;
 
     /**
      * 属性的值
      */
-    @Column(name = "attr_name")
-    private String attrName;
+    @Column(name = "attr_value")
+    private String attrValue;
 
     /**
      * 属性的排序
@@ -38,11 +43,6 @@ public class EShopProductSkuAttr extends BaseEntity {
     @Column(name = "sort_order")
     private Integer sortOrder;
 
-    /**
-     * 获取sku属性id
-     *
-     * @return id - sku属性id
-     */
 
     @Transient
     private List<EShopProductSkuAttr> children;
@@ -60,6 +60,12 @@ public class EShopProductSkuAttr extends BaseEntity {
         return this;
     }
 
+
+    /**
+     * 获取sku属性id
+     *
+     * @return id - sku属性id
+     */
     public Integer getId() {
         return id;
     }
@@ -76,6 +82,29 @@ public class EShopProductSkuAttr extends BaseEntity {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * 获取属性对应的商家ID
+     *
+     * @return vendor_user_id - 属性对应的商家ID
+     */
+    public Integer getVendorUserId() {
+        return vendorUserId;
+    }
+
+    public EShopProductSkuAttr withVendorUserId(Integer vendorUserId) {
+        this.setVendorUserId(vendorUserId);
+        return this;
+    }
+
+    /**
+     * 设置属性对应的商家ID
+     *
+     * @param vendorUserId 属性对应的商家ID
+     */
+    public void setVendorUserId(Integer vendorUserId) {
+        this.vendorUserId = vendorUserId;
     }
 
     /**
@@ -102,54 +131,49 @@ public class EShopProductSkuAttr extends BaseEntity {
     }
 
     /**
-     * 获取属性对应的用户
+     * 获取属性的键
      *
-     * @return user_account_id - 属性对应的用户
+     * @return attr_key - 属性的键
      */
-    /**
-     * 获取属性对应的用户
-     *
-     * @return user_id - 属性对应的用户
-     */
-    public Integer getUserId() {
-        return userId;
+    public String getAttrKey() {
+        return attrKey;
     }
 
-    public EShopProductSkuAttr withUserId(Integer userId) {
-        this.setUserId(userId);
+    public EShopProductSkuAttr withAttrKey(String attrKey) {
+        this.setAttrKey(attrKey);
         return this;
     }
 
     /**
-     * 设置属性对应的用户
+     * 设置属性的键
      *
-     * @param userId 属性对应的用户
+     * @param attrKey 属性的键
      */
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setAttrKey(String attrKey) {
+        this.attrKey = attrKey == null ? null : attrKey.trim();
     }
 
     /**
      * 获取属性的值
      *
-     * @return attr_name - 属性的值
+     * @return attr_value - 属性的值
      */
-    public String getAttrName() {
-        return attrName;
+    public String getAttrValue() {
+        return attrValue;
     }
 
-    public EShopProductSkuAttr withAttrName(String attrName) {
-        this.setAttrName(attrName);
+    public EShopProductSkuAttr withAttrValue(String attrValue) {
+        this.setAttrValue(attrValue);
         return this;
     }
 
     /**
      * 设置属性的值
      *
-     * @param attrName 属性的值
+     * @param attrValue 属性的值
      */
-    public void setAttrName(String attrName) {
-        this.attrName = attrName == null ? null : attrName.trim();
+    public void setAttrValue(String attrValue) {
+        this.attrValue = attrValue == null ? null : attrValue.trim();
     }
 
     /**
@@ -182,10 +206,10 @@ public class EShopProductSkuAttr extends BaseEntity {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", vendorUserId=").append(vendorUserId);
         sb.append(", parentId=").append(parentId);
-        sb.append(", children=").append(children);
-        sb.append(", userAccountId=").append(userId);
-        sb.append(", attrName=").append(attrName);
+        sb.append(", attrKey=").append(attrKey);
+        sb.append(", attrValue=").append(attrValue);
         sb.append(", sortOrder=").append(sortOrder);
         sb.append("]");
         return sb.toString();

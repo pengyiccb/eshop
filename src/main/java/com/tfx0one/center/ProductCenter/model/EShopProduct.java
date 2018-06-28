@@ -1,14 +1,33 @@
 package com.tfx0one.center.ProductCenter.model;
 
 import com.tfx0one.common.util.BaseEntity;
-import java.math.BigDecimal;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Table(name = "e_shop_product")
 public class EShopProduct extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    /**
+     * 商品分组id
+     */
+    @Column(name = "group_id")
+    private Integer groupId;
+
+    /**
+     * 产品的类别
+     */
+    @Column(name = "category_id")
+    private Integer categoryId;
+
+    /**
+     * 商家id
+     */
+    @Column(name = "vendor_user_id")
+    private Integer vendorUserId;
 
     /**
      * 标题
@@ -35,12 +54,6 @@ public class EShopProduct extends BaseEntity {
      * 关键字
      */
     private String keyword;
-
-    /**
-     * 产品的类别
-     */
-    @Column(name = "product_category_id")
-    private Integer productCategoryId;
 
     /**
      * 排序
@@ -70,12 +83,6 @@ public class EShopProduct extends BaseEntity {
     private Byte isDelete;
 
     /**
-     * 商家
-     */
-    @Column(name = "vendor_user_id")
-    private Integer vendorUserId;
-
-    /**
      * 详情
      */
     @Column(name = "content_desc")
@@ -98,6 +105,75 @@ public class EShopProduct extends BaseEntity {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * 获取商品分组id
+     *
+     * @return group_id - 商品分组id
+     */
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public EShopProduct withGroupId(Integer groupId) {
+        this.setGroupId(groupId);
+        return this;
+    }
+
+    /**
+     * 设置商品分组id
+     *
+     * @param groupId 商品分组id
+     */
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
+    /**
+     * 获取产品的类别
+     *
+     * @return category_id - 产品的类别
+     */
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public EShopProduct withCategoryId(Integer categoryId) {
+        this.setCategoryId(categoryId);
+        return this;
+    }
+
+    /**
+     * 设置产品的类别
+     *
+     * @param categoryId 产品的类别
+     */
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    /**
+     * 获取商家id
+     *
+     * @return vendor_user_id - 商家id
+     */
+    public Integer getVendorUserId() {
+        return vendorUserId;
+    }
+
+    public EShopProduct withVendorUserId(Integer vendorUserId) {
+        this.setVendorUserId(vendorUserId);
+        return this;
+    }
+
+    /**
+     * 设置商家id
+     *
+     * @param vendorUserId 商家id
+     */
+    public void setVendorUserId(Integer vendorUserId) {
+        this.vendorUserId = vendorUserId;
     }
 
     /**
@@ -216,29 +292,6 @@ public class EShopProduct extends BaseEntity {
     }
 
     /**
-     * 获取产品的类别
-     *
-     * @return product_category_id - 产品的类别
-     */
-    public Integer getProductCategoryId() {
-        return productCategoryId;
-    }
-
-    public EShopProduct withProductCategoryId(Integer productCategoryId) {
-        this.setProductCategoryId(productCategoryId);
-        return this;
-    }
-
-    /**
-     * 设置产品的类别
-     *
-     * @param productCategoryId 产品的类别
-     */
-    public void setProductCategoryId(Integer productCategoryId) {
-        this.productCategoryId = productCategoryId;
-    }
-
-    /**
      * 获取排序
      *
      * @return sort_order - 排序
@@ -350,29 +403,6 @@ public class EShopProduct extends BaseEntity {
     }
 
     /**
-     * 获取商家
-     *
-     * @return vendor_user_id - 商家
-     */
-    public Integer getVendorUserId() {
-        return vendorUserId;
-    }
-
-    public EShopProduct withVendorUserId(Integer vendorUserId) {
-        this.setVendorUserId(vendorUserId);
-        return this;
-    }
-
-    /**
-     * 设置商家
-     *
-     * @param vendorUserId 商家
-     */
-    public void setVendorUserId(Integer vendorUserId) {
-        this.vendorUserId = vendorUserId;
-    }
-
-    /**
      * 获取详情
      *
      * @return content_desc - 详情
@@ -402,18 +432,19 @@ public class EShopProduct extends BaseEntity {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", groupId=").append(groupId);
+        sb.append(", categoryId=").append(categoryId);
+        sb.append(", vendorUserId=").append(vendorUserId);
         sb.append(", title=").append(title);
         sb.append(", subtitle=").append(subtitle);
         sb.append(", brief=").append(brief);
         sb.append(", priceUnderline=").append(priceUnderline);
         sb.append(", keyword=").append(keyword);
-        sb.append(", productCategoryId=").append(productCategoryId);
         sb.append(", sortOrder=").append(sortOrder);
         sb.append(", isOnSale=").append(isOnSale);
         sb.append(", imgPrimaryUrl=").append(imgPrimaryUrl);
         sb.append(", imgListUrl=").append(imgListUrl);
         sb.append(", isDelete=").append(isDelete);
-        sb.append(", vendorUserId=").append(vendorUserId);
         sb.append(", contentDesc=").append(contentDesc);
         sb.append("]");
         return sb.toString();

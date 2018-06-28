@@ -1,11 +1,10 @@
 package com.tfx0one.center.ProductCenter.serivce;
 
-import com.tfx0one.common.constant.CacheConstant;
-import com.tfx0one.common.constant.StringConstant;
-import com.tfx0one.common.util.BaseService;
+import com.tfx0one.center.ProductCenter.ProductCenter;
 import com.tfx0one.center.ProductCenter.model.EShopProduct;
 import com.tfx0one.center.ProductCenter.model.EShopProductSku;
-import com.tfx0one.center.ProductCenter.ProductCenter;
+import com.tfx0one.common.constant.CacheConstant;
+import com.tfx0one.common.util.BaseService;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.List;
 
 
 /**
@@ -53,19 +52,19 @@ public class ProductService extends BaseService<EShopProduct> {
     @CachePut(cacheNames = CacheConstant.CACHE_PRODUCT_SPU_BY_ID, key = "#p0.id")
     public EShopProduct createProduct(EShopProduct product, List<EShopProductSku> skuList) {
 
-        //创建根节点
-        Arrays.asList(skuList.get(0).getAttrOption().split(StringConstant.SPLITTER)).parallelStream()
-                .map(Integer::parseInt).forEach(
-                e -> {
-                    //每个元素的父节点
-                    productSkuAttrService.selectById(productSkuAttrService.selectById(e).getParentId());
-                }
-        );
-
-        skuList.forEach(sku-> {
-            Arrays.asList(sku.getAttrOption().split(StringConstant.SPLITTER));//1|2
-//            String attrs = sku.getAttrOption(); //"1|2"
-        });
+//        //创建根节点
+//        Arrays.asList(skuList.get(0).getAttrOption().split(StringConstant.SPLITTER)).parallelStream()
+//                .map(Integer::parseInt).forEach(
+//                e -> {
+//                    //每个元素的父节点
+//                    productSkuAttrService.selectById(productSkuAttrService.selectById(e).getParentId());
+//                }
+//        );
+//
+//        skuList.forEach(sku-> {
+//            Arrays.asList(sku.getAttrOption().split(StringConstant.SPLITTER));//1|2
+////            String attrs = sku.getAttrOption(); //"1|2"
+//        });
 //        Map<Integer, EShopProductSkuAttr> root = productUtils.combinationRootAttr(skuList.get(0));
 //
 //        skuList.forEach(sku -> { //遍历所有单品

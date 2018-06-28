@@ -36,13 +36,13 @@ public class ProductUtilsTest {
 
     @Test
     public void test2() {
-        List<EShopProductSkuAttr> skuAttrList = productSkuAttrService.select(new EShopProductSkuAttr().withUserId(1).withParentId(0));
+        List<EShopProductSkuAttr> skuAttrList = productSkuAttrService.select(new EShopProductSkuAttr().withVendorUserId(1).withParentId(0));
 
         //遍历所有根节点
         skuAttrList.parallelStream().forEach(e -> {
             //找到每个根的子节点
             e.withChildren(productSkuAttrService.select(new EShopProductSkuAttr()
-                    .withUserId(1)
+                    .withVendorUserId(1)
                     .withParentId(e.getId())));
             System.out.println(e);
         });

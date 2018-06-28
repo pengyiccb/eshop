@@ -99,8 +99,8 @@ public class ProductCenter {
 //    }
 //
 //    //获取商家可选分类中的可选属性 创建商品页面
-//    public List<EShopProductSkuAttr> getProductAttrOptionByUserId(int userAccountId) {
-//        return productSkuAttrService.getProductAttrOptionByUserId(userAccountId);
+//    public List<EShopProductSkuAttr> getProductAttrOptionByVendorUserId(int userAccountId) {
+//        return productSkuAttrService.getProductAttrOptionByVendorUserId(userAccountId);
 //    }
 //
 //    //创建商品

@@ -123,7 +123,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 
 
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_USER_ID, key = "#p0")
-    public List<EShopProductSkuAttr> getProductAttrOptionByUserId(int userId) {
+    public List<EShopProductSkuAttr> getProductAttrOptionByVendorUserId(int vendorUserId) {
 //        //找到所有根节点 0
 //        List<EShopProductSkuAttr> roots = this.select(new EShopProductSkuAttr().withUserAccountId(userId).withParentId(0));
 //        //找到每个根节点下的子节点
@@ -134,7 +134,7 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
 //        );
 //        return roots;
         //找到所有根节点 0 逻辑可以看上面 只有两级！！！
-        return this.select(new EShopProductSkuAttr().withUserId(userId).withParentId(0)).parallelStream().map(
+        return this.select(new EShopProductSkuAttr().withVendorUserId(vendorUserId).withParentId(0)).parallelStream().map(
                 root -> root.withChildren(
                         this.select(new EShopProductSkuAttr().withParentId(root.getId()))
                 )

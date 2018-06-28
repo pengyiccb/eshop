@@ -87,9 +87,10 @@ public class AccountCenter {
         userService.deleteByPrimaryKey(1);
         EShopUser user = new EShopUser()
                 .withId(1)
+                .withRoleId(UserConstant.USER_ROLE_ID_ADMIN)
+                .withVendorId(1)
                 .withUsername("admin")
                 .withStatus(UserConstant.USER_STATUS_NORMAL)
-                .withRoleId(UserConstant.USER_ROLE_ID_ADMIN)
                 .withDelFlag(DBConstant.DEL_FLAG_ACTIVE)
                 ;
         if (userService.selectOne(user) == null) {

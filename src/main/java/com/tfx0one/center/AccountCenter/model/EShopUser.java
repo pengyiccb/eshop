@@ -18,6 +18,12 @@ public class EShopUser extends BaseEntity {
     private Integer roleId;
 
     /**
+     * 商家Id
+     */
+    @Column(name = "vendor_id")
+    private Integer vendorId;
+
+    /**
      * 登录账号
      */
     private String username;
@@ -167,6 +173,29 @@ public class EShopUser extends BaseEntity {
      */
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    /**
+     * 获取商家Id
+     *
+     * @return vendor_id - 商家Id
+     */
+    public Integer getVendorId() {
+        return vendorId;
+    }
+
+    public EShopUser withVendorId(Integer vendorId) {
+        this.setVendorId(vendorId);
+        return this;
+    }
+
+    /**
+     * 设置商家Id
+     *
+     * @param vendorId 商家Id
+     */
+    public void setVendorId(Integer vendorId) {
+        this.vendorId = vendorId;
     }
 
     /**
@@ -633,6 +662,7 @@ public class EShopUser extends BaseEntity {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", roleId=").append(roleId);
+        sb.append(", vendorId=").append(vendorId);
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
         sb.append(", status=").append(status);

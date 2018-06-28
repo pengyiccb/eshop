@@ -36,17 +36,18 @@ public class ProductVendorController {
     private ProductService productService;
 
     @ApiOperation(value = "获取商家可用的商品分类", notes = "需要传递 vendorId 作为参数")
-    @RequestMapping(value = "/api/v1/shop/product/getCategoryOptionByVendorId", method = RequestMethod.GET)
-    public JSONResult getProductCategoryOptionByVendorId(@RequestParam int vendorId) {
+    @RequestMapping(value = "/api/v1/shop/product/getCategoryOption", method = RequestMethod.GET)
+    public JSONResult getProductCategoryOptionByVendorId() {
 //        List<EShopProductCategory> list = productCenter.getCategoryByVendorId(vendorId);
+        int vendorId = accountCenter.getCacheLoginUser().getVendorId();
         return JSONResult.ok().data(productCenter.getCategoryByVendorId(vendorId));
     }
 
     @ApiOperation(value = "获取商家可选分类中的可选属性", notes = "需要传递 productCategroyId 作为参数")
-    @RequestMapping(value = "/api/v1/shop/product/getSkuAttrOptionByUserId", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v1/shop/product/getSkuAttrOption", method = RequestMethod.GET)
     public JSONResult getProductAttrOptionByUserId() {
-        int userId = accountCenter.getCacheLoginUser().getId();
-        List<EShopProductSkuAttr> list = productSkuAttrService.getProductAttrOptionByVendorUserId(userId);
+        int vendorId = accountCenter.getCacheLoginUser().getVendorId();
+        List<EShopProductSkuAttr> list = productSkuAttrService.getProductAttrOptionByVendorUserId(vendorId);
         return JSONResult.ok().data(list);
     }
 

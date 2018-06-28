@@ -110,7 +110,6 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     }
 
     private Map<Integer, EShopProductSkuAttr> combinationRootAttr(EShopProductSku sku) {
-//        {1:red},{2:blue}
         Map<Integer, EShopProductSkuAttr> root = new HashMap<>();
         sku.getAttrs().forEach(attr -> {
 //            EShopProductSkuAttr parent = this.selectOne(new EShopProductSkuAttr().withId(attr.getParentId()).withParentId(0));
@@ -122,17 +121,8 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
     }
 
 
-    @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_USER_ID, key = "#p0")
+    @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SKU_ATTR_BY_VENDOR_USER_ID, key = "#p0")
     public List<EShopProductSkuAttr> getProductAttrOptionByVendorUserId(int vendorUserId) {
-//        //找到所有根节点 0
-//        List<EShopProductSkuAttr> roots = this.select(new EShopProductSkuAttr().withUserAccountId(userId).withParentId(0));
-//        //找到每个根节点下的子节点
-//        roots.stream().forEach(
-//                root -> root.setChildren(
-//                        this.select(new EShopProductSkuAttr().withParentId(root.getId()))
-//                )
-//        );
-//        return roots;
         //找到所有根节点 0 逻辑可以看上面 只有两级！！！
         return this.select(new EShopProductSkuAttr().withVendorUserId(vendorUserId).withParentId(0)).parallelStream().map(
                 root -> root.withChildren(

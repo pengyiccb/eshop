@@ -65,12 +65,14 @@
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true" />-->
         <!--</table>-->
 
+
+        <table tableName="e_shop_product_group" domainObjectName="EShopProductGroup" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
         <!--<table tableName="e_shop_user_address" domainObjectName="EShopUserAddress" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
         <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
-
-
-
 
         <!--<table tableName="e_shop_role" domainObjectName="EShopRole" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->

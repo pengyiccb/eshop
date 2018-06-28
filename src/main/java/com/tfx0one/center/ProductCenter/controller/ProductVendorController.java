@@ -5,12 +5,16 @@ import com.tfx0one.center.ProductCenter.ProductCenter;
 import com.tfx0one.center.ProductCenter.model.EShopProduct;
 import com.tfx0one.center.ProductCenter.model.EShopProductSku;
 import com.tfx0one.center.ProductCenter.model.EShopProductSkuAttr;
+import com.tfx0one.center.ProductCenter.serivce.ProductGroupService;
 import com.tfx0one.center.ProductCenter.serivce.ProductService;
 import com.tfx0one.center.ProductCenter.serivce.ProductSkuAttrService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.frontEndModels.FrontEndProduct;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -35,17 +39,26 @@ public class ProductVendorController {
     @Resource
     private ProductService productService;
 
-    @ApiOperation(value = "获取商家可用的商品分类", notes = "需要传递 vendorId 作为参数")
+    @Resource
+    private ProductGroupService productGroupService;
+
+    @ApiOperation(value = "获取商家可用的商品类目")
     @RequestMapping(value = "/api/v1/shop/product/getCategoryOption", method = RequestMethod.GET)
-    public JSONResult getProductCategoryOptionByVendorId() {
-//        List<EShopProductCategory> list = productCenter.getCategoryByVendorId(vendorId);
+    public JSONResult getProductCategoryOption() {
         int vendorId = accountCenter.getCacheLoginUser().getVendorId();
         return JSONResult.ok().data(productCenter.getCategoryByVendorId(vendorId));
     }
 
+    @ApiOperation(value = "获取商家可用的商品分组")
+    @RequestMapping(value = "/api/v1/shop/product/getGroupOption", method = RequestMethod.GET)
+    public JSONResult getProductGroupOption() {
+        int vendorId = accountCenter.getCacheLoginUser().getVendorId();
+        return JSONResult.ok().data(productGroupService.getCategoryByVendorId(vendorId));
+    }
+
     @ApiOperation(value = "获取商家可选分类中的可选属性", notes = "需要传递 productCategroyId 作为参数")
     @RequestMapping(value = "/api/v1/shop/product/getSkuAttrOption", method = RequestMethod.GET)
-    public JSONResult getProductAttrOptionByUserId() {
+    public JSONResult getProductAttrOption() {
         int vendorId = accountCenter.getCacheLoginUser().getVendorId();
         List<EShopProductSkuAttr> list = productSkuAttrService.getProductAttrOptionByVendorUserId(vendorId);
         return JSONResult.ok().data(list);

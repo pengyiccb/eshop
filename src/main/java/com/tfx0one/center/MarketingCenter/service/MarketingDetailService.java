@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -100,7 +101,7 @@ public class MarketingDetailService extends BaseService<EShopMarketingDetail> {
         if (detail.getStrategy()==STRATEGY_DISCOUNT) {
             //折扣直接做乘法
             sku.setUnitPrice(
-                    sku.getUnitPrice().multiply(new BigDecimal(detail.getParameter()))
+                    sku.getUnitPrice().multiply(new BigDecimal(detail.getParameter())).setScale(2, RoundingMode.HALF_UP)
             );
         } else if (detail.getStrategy()==STRATEGY_REWARD) {
 //            sku.setUnitPrice();

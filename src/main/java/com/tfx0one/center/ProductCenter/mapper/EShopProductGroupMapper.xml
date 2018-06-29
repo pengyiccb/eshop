@@ -6,7 +6,7 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="vendor_user_id" jdbcType="INT" property="vendorUserId" />
+    <result column="vendor_user_id" jdbcType="INTEGER" property="vendorUserId" />
     <result column="name" jdbcType="CHAR" property="name" />
     <result column="group_desc" jdbcType="VARCHAR" property="groupDesc" />
     <result column="sort_order" jdbcType="SMALLINT" property="sortOrder" />

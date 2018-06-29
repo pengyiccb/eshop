@@ -6,10 +6,9 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="vendor_user_id" jdbcType="INTEGER" property="vendorUserId" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
-    <result column="attr_key" jdbcType="VARCHAR" property="attrKey" />
-    <result column="attr_value" jdbcType="VARCHAR" property="attrValue" />
+    <result column="vendor_user_id" jdbcType="INTEGER" property="vendorUserId" />
+    <result column="attr_name" jdbcType="VARCHAR" property="attrName" />
     <result column="sort_order" jdbcType="INTEGER" property="sortOrder" />
   </resultMap>
 </mapper>

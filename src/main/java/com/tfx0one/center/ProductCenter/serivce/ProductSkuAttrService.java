@@ -92,6 +92,10 @@ public class ProductSkuAttrService extends BaseService<EShopProductSkuAttr> {
             return null;
         }
 
+        if (CollectionUtils.isEmpty(list.get(0).getAttrs())) {
+            return null;
+        }
+
         //创建根节点
         Map<Integer, EShopProductSkuAttr> root = this.combinationRootAttr(list.get(0));
 

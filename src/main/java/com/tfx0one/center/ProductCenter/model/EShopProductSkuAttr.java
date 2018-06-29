@@ -14,35 +14,28 @@ public class EShopProductSkuAttr extends BaseEntity {
     private Integer id;
 
     /**
-     * 属性对应的商家ID
-     */
-    @Column(name = "vendor_user_id")
-    private Integer vendorUserId;
-
-    /**
      * 属性的父级ID
      */
     @Column(name = "parent_id")
     private Integer parentId;
 
     /**
-     * 属性的键
+     * 属性对应的商家ID
      */
-    @Column(name = "attr_key")
-    private String attrKey;
+    @Column(name = "vendor_user_id")
+    private Integer vendorUserId;
 
     /**
      * 属性的值
      */
-    @Column(name = "attr_value")
-    private String attrValue;
+    @Column(name = "attr_name")
+    private String attrName;
 
     /**
      * 属性的排序
      */
     @Column(name = "sort_order")
     private Integer sortOrder;
-
 
     @Transient
     private List<EShopProductSkuAttr> children;
@@ -85,29 +78,6 @@ public class EShopProductSkuAttr extends BaseEntity {
     }
 
     /**
-     * 获取属性对应的商家ID
-     *
-     * @return vendor_user_id - 属性对应的商家ID
-     */
-    public Integer getVendorUserId() {
-        return vendorUserId;
-    }
-
-    public EShopProductSkuAttr withVendorUserId(Integer vendorUserId) {
-        this.setVendorUserId(vendorUserId);
-        return this;
-    }
-
-    /**
-     * 设置属性对应的商家ID
-     *
-     * @param vendorUserId 属性对应的商家ID
-     */
-    public void setVendorUserId(Integer vendorUserId) {
-        this.vendorUserId = vendorUserId;
-    }
-
-    /**
      * 获取属性的父级ID
      *
      * @return parent_id - 属性的父级ID
@@ -131,49 +101,49 @@ public class EShopProductSkuAttr extends BaseEntity {
     }
 
     /**
-     * 获取属性的键
+     * 获取属性对应的商家ID
      *
-     * @return attr_key - 属性的键
+     * @return vendor_user_id - 属性对应的商家ID
      */
-    public String getAttrKey() {
-        return attrKey;
+    public Integer getVendorUserId() {
+        return vendorUserId;
     }
 
-    public EShopProductSkuAttr withAttrKey(String attrKey) {
-        this.setAttrKey(attrKey);
+    public EShopProductSkuAttr withVendorUserId(Integer vendorUserId) {
+        this.setVendorUserId(vendorUserId);
         return this;
     }
 
     /**
-     * 设置属性的键
+     * 设置属性对应的商家ID
      *
-     * @param attrKey 属性的键
+     * @param vendorUserId 属性对应的商家ID
      */
-    public void setAttrKey(String attrKey) {
-        this.attrKey = attrKey == null ? null : attrKey.trim();
+    public void setVendorUserId(Integer vendorUserId) {
+        this.vendorUserId = vendorUserId;
     }
 
     /**
      * 获取属性的值
      *
-     * @return attr_value - 属性的值
+     * @return attr_name - 属性的值
      */
-    public String getAttrValue() {
-        return attrValue;
+    public String getAttrName() {
+        return attrName;
     }
 
-    public EShopProductSkuAttr withAttrValue(String attrValue) {
-        this.setAttrValue(attrValue);
+    public EShopProductSkuAttr withAttrName(String attrName) {
+        this.setAttrName(attrName);
         return this;
     }
 
     /**
      * 设置属性的值
      *
-     * @param attrValue 属性的值
+     * @param attrName 属性的值
      */
-    public void setAttrValue(String attrValue) {
-        this.attrValue = attrValue == null ? null : attrValue.trim();
+    public void setAttrName(String attrName) {
+        this.attrName = attrName == null ? null : attrName.trim();
     }
 
     /**
@@ -206,10 +176,9 @@ public class EShopProductSkuAttr extends BaseEntity {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", vendorUserId=").append(vendorUserId);
         sb.append(", parentId=").append(parentId);
-        sb.append(", attrKey=").append(attrKey);
-        sb.append(", attrValue=").append(attrValue);
+        sb.append(", vendorUserId=").append(vendorUserId);
+        sb.append(", attrName=").append(attrName);
         sb.append(", sortOrder=").append(sortOrder);
         sb.append("]");
         return sb.toString();

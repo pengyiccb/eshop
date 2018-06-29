@@ -82,13 +82,13 @@ public class ProductVendorController {
             return JSONResult.error("属性参数错误 sortOrder 不能为空");
         }
 
-        if (attr.getAttrValue() == null) {
+        if (attr.getAttrName() == null) {
             return JSONResult.error("属性参数错误 attrValue 不能为空");
         }
 
         List<EShopProductSkuAttr> list = productSkuAttrService.select(new EShopProductSkuAttr().withParentId(attr.getParentId()));
         for (EShopProductSkuAttr e : list) {
-            if (attr.getAttrValue().equals(e.getAttrValue())) {
+            if (attr.getAttrName().equals(e.getAttrName())) {
                 return JSONResult.error("属性参数错误 attrName 不能相同");
             }
         }

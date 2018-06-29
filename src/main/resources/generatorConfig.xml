@@ -101,13 +101,13 @@
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
 
-        <table tableName="e_shop_product_sku" domainObjectName="EShopProductSku" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-
-        <!--<table tableName="e_shop_product_sku_attr" domainObjectName="EShopProductSkuAttr" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--<table tableName="e_shop_product_sku" domainObjectName="EShopProductSku" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+        <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
+
+        <table tableName="e_shop_product_sku_attr" domainObjectName="EShopProductSkuAttr" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
 
         <!--<table tableName="vendor_category" domainObjectName="VendorCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->

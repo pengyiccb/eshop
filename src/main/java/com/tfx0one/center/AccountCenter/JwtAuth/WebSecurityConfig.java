@@ -81,6 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/wechat/getProductList", //商品和商品详情
                         "/api/v1/wechat/getProductDetail", //商品和商品详情
                         "/api/v1/wechat/getProductDetailPrice", //商品和商品详情
+                        "/api/v1/wechat/getProductSkuStockAmount", //单品的库存
 
                         //swagger2需要的
                         "/v2/api-docs",

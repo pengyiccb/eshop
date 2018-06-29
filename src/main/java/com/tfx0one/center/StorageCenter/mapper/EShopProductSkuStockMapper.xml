@@ -11,4 +11,22 @@
     <result column="sale_amount" jdbcType="INTEGER" property="saleAmount" />
     <result column="stock_barcode" jdbcType="VARCHAR" property="stockBarcode" />
   </resultMap>
+
+  <update id="increaseSkuStockAmount" >
+    UPDATE
+      e_shop_product_sku_stock
+    SET
+      stock_amount = (stock_amount + increaseAmount)
+    WHERE
+	  product_sku_id = #{skuId}
+  </update>
+
+  <update id="decreaseSkuStockAmount" >
+    UPDATE
+      e_shop_product_sku_stock
+    SET
+      stock_amount = (stock_amount - increaseAmount)
+    WHERE
+	  product_sku_id = #{skuId}
+  </update>
 </mapper>

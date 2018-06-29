@@ -1,5 +1,6 @@
 package com.tfx0one.center.OrderCenter.service;
 
+import com.tfx0one.center.StorageCenter.StorageCenter;
 import com.tfx0one.common.util.BaseService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.center.ProductCenter.model.EShopProduct;
@@ -27,6 +28,9 @@ public class UserCartService extends BaseService<UserCart> {
 
 //    @Autowired
 //    private ProductUtils productUtils;
+
+    @Resource
+    private StorageCenter storageCenter;
 
     @Resource
     private ProductCenter productCenter;
@@ -82,7 +86,7 @@ public class UserCartService extends BaseService<UserCart> {
         }
 
 
-        if (count > productsku.getStockAmount()) {
+        if (count > storageCenter.getStockAmountBySkuId(productSkuId).getStockAmount()) {
             return JSONResult.error(500, "产品库存不足");
         }
 

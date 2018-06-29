@@ -9,19 +9,6 @@
     <result column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
     <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
-    <result column="stock_amount" jdbcType="INTEGER" property="stockAmount" />
-    <result column="sale_amount" jdbcType="INTEGER" property="saleAmount" />
-    <result column="stock_barcode" jdbcType="INTEGER" property="stockBarcode" />
     <result column="attr_option" jdbcType="VARCHAR" property="attrOption" />
   </resultMap>
-
-  <!--&lt;insert id="insertEShopSKUAndGetID" useGeneratedKeys="true" keyProperty="id" parameterType="com.tfx0one.center.ProductCenter.model.EShopProductSku"&gt;-->
-    <!--insert into e_shop_product_sku(product_id, unit_price, cost_price, stock_amount, sale_amount, stock_sn, attr_option)-->
-    <!--values(#{productId}, #{unitPrice}, #{costPrice}, #{stockAmount},#{saleAmount},#{stockSn},#{attrOption})-->
-  <!--&lt;/insert&gt;-->
-
-  <!--&lt;update id="updateEShopSKUByID" parameterType="com.tfx0one.center.ProductCenter.model.EShopProductSku"&gt;-->
-   <!--update e_shop_product_sku product_id = #{productId}, unit_price = #{unitPrice}, cost_price = #{costPrice}, stock_amount = #{stockAmount},-->
-   <!--sale_amount = #{saleAmount}, stock_sn = #{stockSn}, attr_option = #{attrOption} where id = #{id}-->
-  <!--&lt;/update&gt;-->
 </mapper>

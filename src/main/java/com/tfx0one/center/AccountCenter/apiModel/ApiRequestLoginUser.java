@@ -1,4 +1,4 @@
-package com.tfx0one.center.AccountCenter.model;
+package com.tfx0one.center.AccountCenter.apiModel;
 
 import io.swagger.annotations.ApiModelProperty;
 

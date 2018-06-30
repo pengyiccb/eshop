@@ -2,8 +2,8 @@ package com.tfx0one.center.AccountCenter.controller;
 
 import com.tfx0one.center.AccountCenter.service.AuthService;
 import com.tfx0one.common.util.JSONResult;
-import com.tfx0one.center.AccountCenter.model.ApiRequestLoginUser;
-import com.tfx0one.center.AccountCenter.model.ApiResponseLoginUser;
+import com.tfx0one.center.AccountCenter.apiModel.ApiRequestLoginUser;
+import com.tfx0one.center.AccountCenter.apiModel.ApiResponseLoginUser;
 import com.tfx0one.ApiModels.R;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,7 @@ import com.tfx0one.center.AccountCenter.service.AuthService;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.center.AccountCenter.apiModel.ApiRequestLoginUser;
 import com.tfx0one.center.AccountCenter.apiModel.ApiResponseLoginUser;
-import com.tfx0one.ApiModels.R;
+import com.tfx0one.common.util.R;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;

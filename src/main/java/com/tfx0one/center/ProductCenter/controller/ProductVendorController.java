@@ -2,7 +2,7 @@ package com.tfx0one.center.ProductCenter.controller;
 
 import com.tfx0one.center.ProductCenter.apiModel.ApiProductSku;
 import com.tfx0one.center.ProductCenter.apiModel.ApiRequestProduct;
-import com.tfx0one.ApiModels.R;
+import com.tfx0one.common.util.R;
 import com.tfx0one.center.AccountCenter.AccountCenter;
 import com.tfx0one.center.ProductCenter.ProductCenter;
 import com.tfx0one.center.ProductCenter.model.EShopProduct;
@@ -109,7 +109,7 @@ public class ProductVendorController {
     @ApiOperation(value = "创建商品", notes = "需要传递 JSON数据包装 {product:EShopProduct, skuList:List<EShopProductSku>} 作为参数")
     @RequestMapping(value = "/api/v1/shop/product/productCreate", method = RequestMethod.POST)
     public R<EShopProduct> productCreate(@RequestBody ApiRequestProduct productCreate) {
-        EShopProduct product = productCreate.getProduct().newEShopProduct();// JSONObject.parseObject(JSON.toJSONString(models.get("product")), EShopProduct.class);
+        EShopProduct product = productCreate.getProduct().newEShopProduct();
 
         if (product.getId() != null) {
             return R.error("参数 商品ID 创建时不需要传递！");
@@ -117,13 +117,6 @@ public class ProductVendorController {
 
         List<ApiProductSku> skuList = productCreate.getSkuList();
 
-//        JSONArray array = JSONObject.parseArray(JSON.toJSONString(models.get("skuList")));
-//        List<EShopProductSku> skuList = array.stream().map(
-//                e -> JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class)
-//        ).collect(Collectors.toList());
-
-//        pproductService.createProduct(product, skuList);
-//        return JSONResult.ok().data(product);
         return R.ok("创建成功！", productService.createProduct(product, skuList));
 
     }
@@ -138,14 +131,7 @@ public class ProductVendorController {
         }
 
         List<ApiProductSku> skuList = productModify.getSkuList();
-//        EShopProduct product = JSONObject.parseObject(JSON.toJSONString(models.get("product")), EShopProduct.class);
-//
-//        JSONArray array = JSONObject.parseArray(JSON.toJSONString(models.get("skuList")));
-//        List<EShopProductSku> skuList = array.stream().map(
-//                e -> JSONObject.parseObject(JSON.toJSONString(e), EShopProductSku.class)
-//        ).collect(Collectors.toList());
 
-//        productService.modifyProduct(product, skuList);
         return R.ok("创建成功！", productService.modifyProduct(product, skuList));
     }
 

@@ -1,4 +1,4 @@
-package com.tfx0one.ApiModels;
+package com.tfx0one.common.util;
 
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.http.HttpStatus;

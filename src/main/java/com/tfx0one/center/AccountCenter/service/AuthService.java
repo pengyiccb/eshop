@@ -9,7 +9,7 @@ import com.tfx0one.center.AccountCenter.model.WXUserInfo;
 import com.tfx0one.common.constant.UserConstant;
 import com.tfx0one.common.util.JSONResult;
 import com.tfx0one.center.AccountCenter.apiModel.ApiResponseLoginUser;
-import com.tfx0one.ApiModels.R;
+import com.tfx0one.common.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

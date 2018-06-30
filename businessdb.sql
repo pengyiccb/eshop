@@ -154,7 +154,7 @@ CREATE TABLE `e_shop_product` (
   `img_list_url` varchar(255) DEFAULT NULL COMMENT '图片列表',
   `is_delete` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='产品表 SPU\r包含了产品的基本属性。不影响价格。\r如：iphone x 产品';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='产品表 SPU\r包含了产品的基本属性。不影响价格。\r如：iphone x 产品';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,7 +181,7 @@ CREATE TABLE `e_shop_product_category` (
   `category_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
   `sort_order` smallint(6) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='产品分类 可以是类 目 或者 品牌';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='产品分类 可以是类 目 或者 品牌';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +190,7 @@ CREATE TABLE `e_shop_product_category` (
 
 LOCK TABLES `e_shop_product_category` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_category` DISABLE KEYS */;
-INSERT INTO `e_shop_product_category` VALUES (1,0,'衣服','衣服',0);
+INSERT INTO `e_shop_product_category` VALUES (1,0,'衣服','衣服',0),(2,0,'汽车','车',1);
 /*!40000 ALTER TABLE `e_shop_product_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +208,7 @@ CREATE TABLE `e_shop_product_group` (
   `group_desc` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '组的描述',
   `sort_order` smallint(6) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='商家的产品分组';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='商家的产品分组';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,6 +217,7 @@ CREATE TABLE `e_shop_product_group` (
 
 LOCK TABLES `e_shop_product_group` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_group` DISABLE KEYS */;
+INSERT INTO `e_shop_product_group` VALUES (1,1,'分组1','商家分组描述1',1),(2,1,'分组2','商家分组描述2',2);
 /*!40000 ALTER TABLE `e_shop_product_group` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,7 +230,7 @@ DROP TABLE IF EXISTS `e_shop_product_sku`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `e_shop_product_sku` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` int(10) unsigned NOT NULL COMMENT '父ID',
+  `product_id` int(10) unsigned NOT NULL COMMENT '产品ID',
   `unit_price` decimal(10,2) DEFAULT NULL COMMENT '单价',
   `cost_price` decimal(10,2) NOT NULL COMMENT '成本价 可为空',
   `attr_option` varchar(255) DEFAULT NULL COMMENT 'sku属性ID串',
@@ -261,7 +262,7 @@ CREATE TABLE `e_shop_product_sku_attr` (
   `attr_name` varchar(255) NOT NULL COMMENT '属性的值',
   `sort_order` int(11) NOT NULL COMMENT '属性的排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='sku 销售属性。影响价格和库存。手机内存容量。颜色。\r多个对应一个商品';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='sku 销售属性。影响价格和库存。手机内存容量。颜色。\r多个对应一个商品';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +289,7 @@ CREATE TABLE `e_shop_product_sku_stock` (
   `sale_amount` int(10) unsigned NOT NULL COMMENT '单品销量',
   `stock_barcode` varchar(64) DEFAULT NULL COMMENT '单品的条码',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='sku 库存';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='sku 库存';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -297,6 +298,7 @@ CREATE TABLE `e_shop_product_sku_stock` (
 
 LOCK TABLES `e_shop_product_sku_stock` WRITE;
 /*!40000 ALTER TABLE `e_shop_product_sku_stock` DISABLE KEYS */;
+INSERT INTO `e_shop_product_sku_stock` VALUES (1,1,1,1,NULL),(2,2,2,1,NULL),(3,3,4,1,NULL),(4,4,8,1,NULL);
 /*!40000 ALTER TABLE `e_shop_product_sku_stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -430,7 +432,7 @@ CREATE TABLE `e_shop_user` (
 
 LOCK TABLES `e_shop_user` WRITE;
 /*!40000 ALTER TABLE `e_shop_user` DISABLE KEYS */;
-INSERT INTO `e_shop_user` VALUES (1,0,1,'admin','$2a$10$Z53Bq.vGQqS1kgrPWagA4u/qeDynM9r7TFEBvzquuRizk35TEOCe6',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0);
+INSERT INTO `e_shop_user` VALUES (1,0,1,'admin','$2a$10$gqTSlAkokIrGlHxJpbzAmuYgGHI9JdDRB2qZCIsTRDaCM1dRKh/9.',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `e_shop_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -647,4 +649,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-29 16:45:28
+-- Dump completed on 2018-06-30 18:00:31

@@ -1,8 +1,10 @@
 package com.tfx0one.center.ProductCenter.serivce;
 
+import com.tfx0one.center.ProductCenter.apiModel.ApiProductSku;
 import com.tfx0one.center.ProductCenter.ProductCenter;
 import com.tfx0one.center.ProductCenter.model.EShopProduct;
 import com.tfx0one.center.ProductCenter.model.EShopProductSku;
+import com.tfx0one.center.StorageCenter.service.StorageService;
 import com.tfx0one.common.constant.CacheConstant;
 import com.tfx0one.common.util.BaseService;
 import org.springframework.cache.annotation.CachePut;
@@ -33,6 +35,9 @@ public class ProductService extends BaseService<EShopProduct> {
     @Resource
     private ProductCenter productCenter;
 
+    @Resource
+    private StorageService storageService;
+
     //缓存查询 按照商家ID 上架新商品时需要刷新
     @Cacheable(cacheNames = CacheConstant.CACHE_PRODUCT_SPU_BY_VENDOR_ID, key = "#p0")
     public List<EShopProduct> selectByVendorId(int vendorId) {
@@ -50,46 +55,45 @@ public class ProductService extends BaseService<EShopProduct> {
     //创建商品
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, timeout = 36000, rollbackFor = Exception.class)
     @CachePut(cacheNames = CacheConstant.CACHE_PRODUCT_SPU_BY_ID, key = "#p0.id")
-    public EShopProduct createProduct(EShopProduct product, List<EShopProductSku> skuList) {
+    public EShopProduct createProduct(EShopProduct product, List<ApiProductSku> skuList) {
 
-//        //创建根节点
-//        Arrays.asList(skuList.get(0).getAttrOption().split(StringConstant.SPLITTER)).parallelStream()
-//                .map(Integer::parseInt).forEach(
-//                e -> {
-//                    //每个元素的父节点
-//                    productSkuAttrService.selectById(productSkuAttrService.selectById(e).getParentId());
-//                }
-//        );
-//
-//        skuList.forEach(sku-> {
-//            Arrays.asList(sku.getAttrOption().split(StringConstant.SPLITTER));//1|2
-////            String attrs = sku.getAttrOption(); //"1|2"
-//        });
-//        Map<Integer, EShopProductSkuAttr> root = productUtils.combinationRootAttr(skuList.get(0));
-//
-//        skuList.forEach(sku -> { //遍历所有单品
-//            sku.getAttrs().forEach(attr -> { //遍历所有单品属性
-//                List<EShopProductSkuAttr> children = root.get(attr.getParentId()).getChildren(); //找到属性的父节点保存位置。
-//                if (!children.contains(attr)) {
-//                    children.add(attr); //不包含就加入节点
-//                }
-//            });
-//        });
-
+        //商品基本信息
         this.insert(product);
 
         //单品信息创建
-        skuList.forEach(e -> productSkuService.insertSku(e.withProductId(product.getId())));
+        skuList.forEach(apiSku -> {
+            //前端模型转换成后端
+            EShopProductSku sku = apiSku.newEShopProductSku();
+
+            productSkuService.insertSku(sku.withProductId(product.getId()));
+
+            //库存信息
+            storageService.insertSkuStock(
+                    apiSku.newEShopProductSkuStock());
+        });
+
+
         return product;
     }
 
     //修改商品
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, timeout = 36000, rollbackFor = Exception.class)
     @CachePut(cacheNames = CacheConstant.CACHE_PRODUCT_SPU_BY_ID, key = "#p0.id")
-    public EShopProduct modifyProduct(EShopProduct product, List<EShopProductSku> skuList) {
+    public EShopProduct modifyProduct(EShopProduct product, List<ApiProductSku> skuList) {
+
+        //商品基本信息
         this.updateNotNull(product);
 
-        //单品信息更新
-        skuList.forEach(e -> productSkuService.updateSku(e));
+        //单品信息更新 只能修改
+        skuList.forEach(apiSku -> {
+            EShopProductSku sku = apiSku.newEShopProductSku();
+
+            productSkuService.updateSku(sku);
+
+            //库存信息
+            storageService.updateSkuStock(
+                    apiSku.newEShopProductSkuStock());
+        });
         return product;
 
     }

@@ -2,7 +2,9 @@ package com.tfx0one.center.AccountCenter.controller;
 
 import com.tfx0one.center.AccountCenter.service.AuthService;
 import com.tfx0one.common.util.JSONResult;
-import com.tfx0one.frontEndModels.FrontEndLoginUser;
+import com.tfx0one.center.AccountCenter.model.ApiRequestLoginUser;
+import com.tfx0one.center.AccountCenter.model.ApiResponseLoginUser;
+import com.tfx0one.ApiModels.R;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
@@ -33,7 +35,7 @@ public class AuthController {
 
     @ApiOperation("后台网页登录")
     @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
-    public JSONResult login(@RequestBody FrontEndLoginUser user) {
+    public R<ApiResponseLoginUser> login(@RequestBody ApiRequestLoginUser user) {
 //        System.out.println(user);
 //        System.out.println(user.getUsername());
 //        System.out.println(user.getPassword());
@@ -49,7 +51,7 @@ public class AuthController {
      */
     @ApiOperation(value = "登录到服务器 获取 获取 token", notes = "用户登录后， 返回一个 token。注意不要频繁的获取！")
     @RequestMapping(value = "/auth/wxlogin", method = RequestMethod.POST)
-    public JSONResult createSession(
+    public R<ApiResponseLoginUser> createSession(
             @RequestParam String code,
             @RequestParam String appId,
             @RequestParam String userInfo

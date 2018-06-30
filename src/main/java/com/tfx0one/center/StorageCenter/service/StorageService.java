@@ -28,6 +28,12 @@ public class StorageService extends BaseService<EShopProductSkuStock> {
         return stock;
     }
 
+    //改
+    public EShopProductSkuStock updateSkuStock(EShopProductSkuStock stock) {
+        this.updateNotNull(stock);
+        return stock;
+    }
+
     //增加库存
     public EShopProductSkuStock increaseSkuStockAmount(EShopProductSkuStock stock, int increaseAmount) {
         Map<String, Object> params = new HashMap<>();

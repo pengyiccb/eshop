@@ -8,6 +8,8 @@ import com.tfx0one.center.AccountCenter.model.EShopUser;
 import com.tfx0one.center.AccountCenter.model.WXUserInfo;
 import com.tfx0one.common.constant.UserConstant;
 import com.tfx0one.common.util.JSONResult;
+import com.tfx0one.center.AccountCenter.model.ApiResponseLoginUser;
+import com.tfx0one.ApiModels.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -83,11 +85,13 @@ public class AuthService {
     }
 
     //网页登录 返回 token
-    public JSONResult login(String username, String password) {
+    public R<ApiResponseLoginUser> login(String username, String password) {
 
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
-            return JSONResult.error(-1, "用户或密码为空！");
+//            return JSONResult.error(-1, "用户或密码为空！");
+            return R.error(-1, "\"用户或密码为空！\"");
         }
+
 
         //账号和密码验证
         authenticateUsernameAndPassword(username, password);
@@ -104,22 +108,28 @@ public class AuthService {
 
         System.out.println("token =  " + token);
 //        System.out.println(JSONObject.toJSONString(user));
-
-        return JSONResult.ok("登录成功").put("token", token).put("userInfo", user);
+        ApiResponseLoginUser data = new ApiResponseLoginUser();
+        data.setToken(token);
+        data.setUsername(user.getUsername());
+        data.setUserId(user.getId());
+//        return JSONResult.ok("登录成功").put("token", token).put("userInfo", user);
+//        R<ApiResponseLoginUser> r = R.ok();
+        return R.ok("登录成功", data);
+//        return new R<ApiResponseLoginUser>().data(data);
     }
 
     //微信
     //微信登录的特殊处理。 由于微信不需要提供注册。所有用户第一个登录时，相当于登录。
-    public JSONResult wxlogin(String code, String appId, String userInfo) {
+    public  R<ApiResponseLoginUser> wxlogin(String code, String appId, String userInfo) {
         WXUserInfo user = JSONObject.parseObject(userInfo, WXUserInfo.class);
         System.out.println(user);
 
         if (StringUtils.isEmpty(user.getAvatarUrl())) {
-            return JSONResult.error(-1, "授权失败！userInfo.avatarUrl 为空");
+            return R.error(-1, "授权失败！userInfo.avatarUrl 为空");
         }
 
         if (StringUtils.isEmpty(user.getNickName())) {
-            return JSONResult.error(-1, "授权失败！userInfo.nickName 为空");
+            return R.error(-1, "授权失败！userInfo.nickName 为空");
         }
 
         System.out.println(" appId=" + appId + " " + code);
@@ -127,12 +137,12 @@ public class AuthService {
         JSONObject wxSession = weChatService.jscode2session(appId, code);
 
         if (StringUtils.isEmpty(wxSession)) {
-            return JSONResult.error("授权失败！wxSession为空");
+            return R.error("授权失败！wxSession为空");
         }
 
         //获取异常
         if (wxSession.containsKey("errcode")) {
-            return JSONResult.error("授权失败！wxSession获取错误！");
+            return R.error("授权失败！wxSession 获取错误！");
         }
 
         String wxOpenId = (String) wxSession.get("openid");

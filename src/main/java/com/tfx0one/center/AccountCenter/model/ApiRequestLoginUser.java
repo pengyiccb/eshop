@@ -1,10 +1,15 @@
-package com.tfx0one.frontEndModels;
+package com.tfx0one.center.AccountCenter.model;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Created by 2fx0one on 2018/6/23.
+ * Created by 2fx0one on 2018/6/30.
  */
-public class FrontEndLoginUser {
+public class ApiRequestLoginUser {
+    @ApiModelProperty(value = "用户名", required = true, position = 1) //required = false 前台显示为可选 optional
     private String username;
+
+    @ApiModelProperty(value = "密码", required = true, position = 2)
     private String password;
 
     public String getUsername() {
@@ -21,13 +26,5 @@ public class FrontEndLoginUser {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "FrontEndLoginUser{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 }

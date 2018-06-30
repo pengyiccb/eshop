@@ -13,7 +13,7 @@ import java.util.List;
 public class ProductGroupService extends BaseService<EShopProductGroup> {
 
 
-    public List<EShopProductGroup> getCategoryByVendorId(int vendorId){
+    public List<EShopProductGroup> getGroupByVendorId(int vendorId){
         return this.select(new EShopProductGroup().withVendorUserId(vendorId));
     }
 

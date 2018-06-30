@@ -21,7 +21,7 @@ public class StorageController {
 
     @ApiOperation(value = "商品详情页需要的数据，单品库存", notes = "传递单品的Id即可")
     @RequestMapping(value = "/api/v1/wechat/getProductSkuStockAmount", method = RequestMethod.GET)
-    public JSONResult productDetail(@RequestParam Integer skuId) {
+    public JSONResult productSkuStockAmount(@RequestParam Integer skuId) {
         return JSONResult.ok().data(storageService.selectStockAmountBySkuId(skuId));
     }
 }

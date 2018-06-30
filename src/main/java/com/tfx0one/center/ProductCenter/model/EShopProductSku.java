@@ -13,7 +13,7 @@ public class EShopProductSku extends BaseEntity {
     private Integer id;
 
     /**
-     * 父ID
+     * 产品ID
      */
     @Column(name = "product_id")
     private Integer productId;

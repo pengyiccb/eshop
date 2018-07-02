@@ -48,9 +48,9 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
     private JWTUtils JWTUtils;
 
     @Value("${jwt.header}")
-    private String tokenHeader;
+    private String tokenHeader; //Authorization
 
-    @Value("${jwt.tokenHead}")
+    @Value("${jwt.tokenHead}") //Bearer
     private String tokenHead;
 
     @Override

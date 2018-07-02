@@ -67,6 +67,7 @@ public class JWTUtils {
     }
 
     public String getUsernameFromToken(String token) {
+
         return getValueFromToken(token, KEY_USERNAME);
     }
 

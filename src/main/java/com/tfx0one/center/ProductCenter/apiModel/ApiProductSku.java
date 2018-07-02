@@ -2,6 +2,7 @@ package com.tfx0one.center.ProductCenter.apiModel;
 
 import com.tfx0one.center.ProductCenter.model.EShopProductSku;
 import com.tfx0one.center.StorageCenter.model.EShopProductSkuStock;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
  * Created by 2fx0one on 2018/6/30.
  */
 //前端约定格式
+@ApiModel(value = "单品信息")
 public class ApiProductSku {
 
     public EShopProductSku newEShopProductSku() {

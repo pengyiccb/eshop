@@ -28,7 +28,7 @@ public class Swagger2Configuration {
     public Docket createRestApi() {
         ParameterBuilder tokenPar = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<Parameter>();
-        tokenPar.name("Authorization").description("请把token拼接在 Bearer 后!").modelRef(new ModelRef("string")).parameterType("header").required(false).defaultValue("Bearer ").build();
+        tokenPar.name("Authorization").description("token需要拼接在 Bearer 后!").modelRef(new ModelRef("string")).parameterType("header").required(false).defaultValue("Bearer ").build();
         pars.add(tokenPar.build());
 
         return new Docket(DocumentationType.SWAGGER_2)
@@ -43,8 +43,8 @@ public class Swagger2Configuration {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Spring Boot中使用Swagger2构建RESTful APIs")
-                .description("kelvin")
+                .title("Swagger2 RESTful APIs")
+                .description("restful APIs， 根据代码自动生成的api文档和接口！")
                 .termsOfServiceUrl("2fx0one")
 //                .contact("2fx0one")
                 .version("1.0")

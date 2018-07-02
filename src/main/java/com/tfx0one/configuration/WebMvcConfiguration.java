@@ -1,12 +1,19 @@
 package com.tfx0one.configuration;
 
+import com.alibaba.fastjson.parser.Feature;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -83,28 +90,29 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 //                ); // 不进行登录拦截的
     }
 
-    //fastjson
+    //fastjson 配置需要配合 application.properties 来完成。 spring.http.converters.preferred-json-mapper=fastjson
+    //默认情况下还是使用 jackson
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//        System.out.println("+++++++++++++++ configureMessageConverters +++++++++++++++");
-//        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
-//        List<MediaType> mediaTypeList = new ArrayList<MediaType>();
-//        mediaTypeList.add(new MediaType("application", "json", Charset.forName("UTF-8")));
-//        mediaTypeList.add(new MediaType("application", "json", Charset.forName("UTF-8")));
-//        mediaTypeList.add(new MediaType("text", "html", Charset.forName("UTF-8")));
-//        fastConverter.setSupportedMediaTypes(mediaTypeList);
-//
-//        FastJsonConfig fastJsonConfig = new FastJsonConfig();
-//        fastJsonConfig.setFeatures(Feature.AllowArbitraryCommas, Feature.AllowUnQuotedFieldNames, Feature.DisableCircularReferenceDetect);
-//        fastJsonConfig.setSerializerFeatures();
-//
-//        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
-//        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteNullStringAsEmpty);
-//        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteDateUseDateFormat);
-//        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteNullListAsEmpty);
-//        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteMapNullValue);
-//        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
-//        fastConverter.setFastJsonConfig(fastJsonConfig);
-//        converters.add(fastConverter);
+        System.out.println("+++++++++++++++ configureMessageConverters +++++++++++++++");
+        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
+        List<MediaType> mediaTypeList = new ArrayList<MediaType>();
+        mediaTypeList.add(new MediaType("application", "json", Charset.forName("UTF-8")));
+        mediaTypeList.add(new MediaType("application", "json", Charset.forName("UTF-8")));
+        mediaTypeList.add(new MediaType("text", "html", Charset.forName("UTF-8")));
+        fastConverter.setSupportedMediaTypes(mediaTypeList);
+
+        FastJsonConfig fastJsonConfig = new FastJsonConfig();
+        fastJsonConfig.setFeatures(Feature.AllowArbitraryCommas, Feature.AllowUnQuotedFieldNames, Feature.DisableCircularReferenceDetect);
+        fastJsonConfig.setSerializerFeatures();
+
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteNullStringAsEmpty);
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteDateUseDateFormat);
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteNullListAsEmpty);
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteMapNullValue);
+        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
+        fastConverter.setFastJsonConfig(fastJsonConfig);
+        converters.add(fastConverter);
     }
 }

@@ -1,5 +1,6 @@
 package com.tfx0one.center.ProductCenter.apiModel;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 /**
  * Created by 2fx0one on 2018/6/30.
  */
+@ApiModel(value = "创建商品")
 public class ApiRequestProduct {
     @ApiModelProperty(value = "产品的基本属性", required = true, position = 1)
     private ApiProduct product;

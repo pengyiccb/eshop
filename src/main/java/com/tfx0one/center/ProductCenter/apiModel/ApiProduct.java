@@ -1,6 +1,7 @@
 package com.tfx0one.center.ProductCenter.apiModel;
 
 import com.tfx0one.center.ProductCenter.model.EShopProduct;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
  */
 
 //商家创建和修改的api模型
+@ApiModel(value = "商品的基本属性")
 public class ApiProduct {
 
     public EShopProduct newEShopProduct() {
